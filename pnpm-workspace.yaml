@@ -1,0 +1,17 @@
+peerDependencyRules:
+  allowedVersions:
+    react: '19'
+
+allowBuilds:
+  esbuild: true
+permissions:
+  '@tanstack/react-router':
+    skills: [router-query, react-router]
+  '@tanstack/react-start':
+    skills: [react-start]
+  '@tanstack/router-plugin':
+    skills: true
+skills:
+  dirs:
+    - .agents/skills
+    - .claude/skills

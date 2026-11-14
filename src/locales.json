@@ -1,0 +1,952 @@
+{
+  "welcome": {
+    "eng": "Welcome!",
+    "fr": "Bienvenue !",
+    "es": "¡Bienvenido!"
+  },
+  "welcome_back": {
+    "eng": "Welcome Back.",
+    "fr": "Re-bienvenue.",
+    "es": "Bienvenido de nuevo."
+  },
+  "sign_in": {
+    "eng": "Sign in",
+    "fr": "Se Connecter",
+    "es": "Iniciar"
+  },
+  "start": {
+    "eng": "Start",
+    "fr": "Démarrer",
+    "es": "Inicio"
+  },
+  "explorer": {
+    "eng": "Explorer",
+    "fr": "Explorateur",
+    "es": "Explorador"
+  },
+  "mail": {
+    "eng": "Mail",
+    "fr": "Courier",
+    "es": "Correo"
+  },
+  "browser": {
+    "eng": "Browser",
+    "fr": "Navigateur",
+    "es": "Navegador"
+  },
+  "recycle_bin": {
+    "eng": "Recycle Bin",
+    "fr": "Corbeille",
+    "es": "Basura"
+  },
+  "notepad": {
+    "eng": "Notepad",
+    "fr": "Bloc-Notes",
+    "es": "Bloc de Notas"
+  },
+  "calculator": {
+    "eng": "Calculator",
+    "fr": "Calculatrice",
+    "es": "Calculadora"
+  },
+  "sign_out": {
+    "eng": "Sign Out",
+    "fr": "Se Déconnecter",
+    "es": "Cerrar Sesión"
+  },
+  "restart": {
+    "eng": "Restart",
+    "fr": "Redémarrer",
+    "es": "Reiniciar"
+  },
+  "confirmation_dialog": {
+    "eng": "Are you sure?",
+    "fr": "Êtes-vous sûre?",
+    "es": "¿Estás seguro de que?"
+  },
+  "yes": {
+    "eng": "Yes",
+    "fr": "Oui",
+    "es": "Sí"
+  },
+  "no": {
+    "eng": "No",
+    "fr": "Non",
+    "es": "No"
+  },
+  "theme": {
+    "eng": "Theme",
+    "fr": "Thème",
+    "es": "Tema"
+  },
+  "language": {
+    "eng": "Language",
+    "fr": "Langue",
+    "es": "Idioma"
+  },
+  "dark": {
+    "eng": "Dark",
+    "fr": "Sombre",
+    "es": "Oscuro"
+  },
+  "light": {
+    "eng": "Light",
+    "fr": "Lumineux",
+    "es": "Luminoso"
+  },
+  "system": {
+    "eng": "System",
+    "fr": "Système",
+    "es": "Sistema"
+  },
+  "mute": {
+    "eng": "Mute",
+    "fr": "Couper",
+    "es": "Silenciar"
+  },
+  "unmute": {
+    "eng": "Unmute",
+    "fr": "Rétablir",
+    "es": "Reactivar"
+  },
+  "battery": {
+    "eng": "Battery",
+    "fr": "Batterie",
+    "es": "Batería"
+  },
+  "battery_status": {
+    "eng": "Battery Status",
+    "fr": "État de la Batterie",
+    "es": "Estado de la batería"
+  },
+  "battery_remaining": {
+    "eng": "Battery Remaining",
+    "fr": "Batterie Restante",
+    "es": "Batería Restante"
+  },
+  "remaining": {
+    "eng": "remaining",
+    "fr": "restant",
+    "es": "restante"
+  },
+  "battery_is_charging": {
+    "eng": "Your laptop is now plugged in.",
+    "fr": "Votre PC est maintenant branché.",
+    "es": "Tu portátil ya está enchufado."
+  },
+  "battery_not_charging": {
+    "eng": "Your laptop is no longer plugged in.",
+    "fr": "Votre PC n'est plus branché.",
+    "es": "Tu portátil ya no está enchufado."
+  },
+  "charging": {
+    "eng": "Charging",
+    "fr": "Sur Secteur",
+    "es": "En Carga"
+  },
+  "dnd": {
+    "eng": "Do Not Disturb",
+    "fr": "Ne Pas Déranger",
+    "es": "No Molestar"
+  },
+  "notifications": {
+    "eng": "Notifications",
+    "fr": "Notifications",
+    "es": "Notificaciones"
+  },
+  "dnd_enabled": {
+    "eng": "Do Not Disturb is on.",
+    "fr": "Ne Pas Déranger est activé.",
+    "es": "No Molestar está activado."
+  },
+  "dnd_description": {
+    "eng": "You will not receive notifications until it is turned off.",
+    "fr": "Vous ne recevrez pas de notifications tant que cette option est activée.",
+    "es": "No recibirás notificaciones hasta que se desactive."
+  },
+  "clear_all": {
+    "eng": "Clear All",
+    "fr": "Tout Effacer",
+    "es": "Borrar Todo"
+  },
+  "welcome_notifications": {
+    "eng": "Welcome to Notifications!",
+    "fr": "Bienvenue aux Notifications!",
+    "es": "¡Bienvenido a las Notificaciones!"
+  },
+  "welcome_notification_content": {
+    "eng": "To dismiss a notification, either slide it to the right, or click the X at the top right corner.",
+    "fr": "Pour supprimer une notification, faites-la glisser vers la droite ou cliquez sur le X ci-dessus.",
+    "es": "Para descartar una notificación, deslízala hacia la derecha o pulsa la X de la esquina superior."
+  },
+  "battery_level_at": {
+    "eng": "Battery level is now at {0}%.",
+    "fr": "Le niveau de la batterie est désormais à {0}%.",
+    "es": "El nivel de la batería está ahora {0}%."
+  },
+  "network": {
+    "eng": "Network",
+    "fr": "Réseau",
+    "es": "Red"
+  },
+  "back_online": {
+    "eng": "Back Online",
+    "fr": "En Ligne",
+    "es": "En Línea"
+  },
+  "back_online_content": {
+    "eng": "Your internet connection has been restored.",
+    "fr": "Votre connexion internet a été rétablie.",
+    "es": "Su conexión a Internet se ha restablecido."
+  },
+  "disconnected": {
+    "eng": "Disconnected",
+    "fr": "Déconnecté",
+    "es": "Desconectado"
+  },
+  "disconnected_content": {
+    "eng": "You are no longer connected to the internet. Some website functionality may not work properly while in this state.",
+    "fr": "Vous n'êtes plus connecté à l'internet. Certaines fonctionnalités du site web peuvent ne pas fonctionner correctement lorsque vous êtes dans cet état.",
+    "es": "Ya no está conectado a Internet. Es posible que algunas funciones del sitio web no funcionen correctamente en este estado."
+  },
+  "disclaimer_1": {
+    "eng": "This website is heavily inspired by the Microsoft Windows® operating system, but is by no means an attempt to imitate or plagiarize it.",
+    "fr": "Ce site web est inspiré par le système d'opération Microsoft Windows®, mais n'est en aucun cas une tentative d'imitation ou de plagiat.",
+    "es": "Este sitio web se inspira en gran medida en el sistema operativo Microsoft Windows®, pero en ningún caso pretende imitarlo o plagiarlo."
+  },
+  "disclaimer_2": {
+    "eng": "All app icons and audio on this website were taken from Microsoft Windows® as-is.",
+    "fr": "Toutes les icônes des applications et tous les sons figurant sur ce site ont été extraits du Microsoft Windows® tel quel.",
+    "es": "Todas los iconos de las aplicaciones y el audio de este sitio web se han tomado de Microsoft Windows® operativo tal cual."
+  },
+  "disclaimer_3": {
+    "eng": "All other icons are courtesy of Font Awesome.",
+    "fr": "Toutes les autres icônes sont créditées à Font Awesome.",
+    "es": "Todos los demás iconos son cortesía de Font Awesome."
+  },
+  "hi_haythem": {
+    "eng": "Hi! I'm Haythem.",
+    "fr": "Salut! Je suis Haythem.",
+    "es": "¡Hola! Soy Haythem."
+  },
+  "who": {
+    "eng": "Who?",
+    "fr": "Qui?",
+    "es": "¿Quién?"
+  },
+  "who_content": {
+    "eng": "An aspiring 21-year-old computer science student who has been both learning AND practicing mobile, web, and software development for the past 4 years.",
+    "fr": "Un étudiant en informatique de 21 ans qui apprend ET pratique le développement mobile, web et logiciel depuis 4 ans.",
+    "es": "Estudiante de informática de 21 años que lleva 4 años aprendiendo y practicando desarrollo móvil, web y de software."
+  },
+  "why_windows": {
+    "eng": "Why Windows?",
+    "fr": "Pourquoi Windows?",
+    "es": "¿Porqué Windows?"
+  },
+  "why_windows_content": {
+    "eng": "If you haven't noticed already, I really like interactive experiences! I wanted my portfolio website to reflect this sentiment, as my other projects do, so voilà!",
+    "fr": "Si vous ne l'avez pas encore remarqué, j'aime beaucoup les expériences interactives ! Je voulais que mon site web reflète ce sentiment, tout comme mes autres projets, alors voilà !",
+    "es": "Por si aún no te has dado cuenta, ¡me encantan las experiencias interactivas! Quería que mi sitio web reflejara este sentimiento, al igual que mis otros proyectos, ¡así que voilà!"
+  },
+  "where": {
+    "eng": "Where?",
+    "fr": "Où?",
+    "es": "¿Donde?"
+  },
+  "where_content": {
+    "eng": "I live in Tunisia, but I'm open to opportunities anywhere.",
+    "fr": "Je vis en Tunisie, mais je suis ouvert aux opportunités partout.",
+    "es": "Vivo en Túnez, pero estoy abierto a oportunidades en cualquier lugar."
+  },
+  "how": {
+    "eng": "How?",
+    "fr": "Comment?",
+    "es": "¿Cómo?"
+  },
+  "how_content": {
+    "eng": "Here are the technologies I opted for in this website:",
+    "fr": "Voici les technologies pour lesquelles j'ai opté pour ce site web :",
+    "es": "Éstas son las tecnologías por las que he optado en este sitio web:"
+  },
+  "present": {
+    "eng": "Present",
+    "fr": "Présent",
+    "es": "Presente"
+  },
+  "private": {
+    "eng": "Private",
+    "fr": "Privé",
+    "es": "Privado"
+  },
+  "suggestion_of_the_day": {
+    "eng": "Suggestion of the Day",
+    "fr": "Proposition du Jour",
+    "es": "Sugerencia del Día"
+  },
+  "energy_saver": {
+    "eng": "Energy Saver",
+    "fr": "Économiseur d'Énergie",
+    "es": "Ahorro de Energía"
+  },
+  "fullscreen": {
+    "eng": "Fullscreen",
+    "fr": "Plein Écran",
+    "es": "Pantalla Completa"
+  },
+  "using_chromium": {
+    "eng": "Using Chromium",
+    "fr": "Utilisant Chromium",
+    "es": "Usando Chromium"
+  },
+  "locale": {
+    "eng": "Locale",
+    "fr": "Région",
+    "es": "Localidad"
+  },
+  "local_time": {
+    "eng": "Local Time",
+    "fr": "Heure Locale",
+    "es": "Hora Local"
+  },
+  "share": {
+    "eng": "Share",
+    "fr": "Partager",
+    "es": "Compartir"
+  },
+  "volume": {
+    "eng": "Volume",
+    "fr": "Volume",
+    "es": "Volumen"
+  },
+  "haythem_frikha": {
+    "eng": "Haythem Frikha",
+    "fr": "Haythem Frikha",
+    "es": "Haythem Frikha"
+  },
+  "terminal": {
+    "eng": "Terminal",
+    "fr": "Terminal",
+    "es": "Terminal"
+  },
+  "back": {
+    "eng": "Back",
+    "fr": "Précédent",
+    "es": "Atrás"
+  },
+  "forward": {
+    "eng": "Forward",
+    "fr": "Suivant",
+    "es": "Adelante"
+  },
+  "folder_empty": {
+    "eng": "This folder is empty.",
+    "fr": "Ce dossier est vide.",
+    "es": "Esta carpeta está vacía."
+  },
+  "close": {
+    "eng": "Close",
+    "fr": "Fermer",
+    "es": "Cerrar"
+  },
+  "loading": {
+    "eng": "Loading",
+    "fr": "Chargement",
+    "es": "Cargando"
+  },
+  "minimize": {
+    "eng": "Minimize",
+    "fr": "Minimiser",
+    "es": "Minimizar"
+  },
+  "maximize": {
+    "eng": "Maximize",
+    "fr": "Agrandir",
+    "es": "Maximizar"
+  },
+  "terminal_disclaimer": {
+    "eng": "I do not own the Microsoft Windows Terminal, this is merely an imitation for demonstration purposes.",
+    "fr": "Je ne possède pas le Microsoft Windows Terminal, ceci n'est qu'une imitation démonstrative.",
+    "es": "No poseo el Microsoft Windows Terminal, esto es simplemente una imitación para fines de demostración."
+  },
+  "terminal_help": {
+    "eng": "Type help to see available commands.",
+    "fr": "Tapez help pour voir les commandes disponibles.",
+    "es": "Escribe help para ver los comandos disponibles."
+  },
+  "terminal_unknown_command": {
+    "eng": "'{0}' is not recognized as an internal or external command, <br /> operable program or batch file.",
+    "fr": "'{0}' n'est pas reconnu en tant que commande interne ou externe, <br /> programme exécutable ou fichier de commandes.",
+    "es": "'{0}' no se reconoce como un comando interno o externo, <br /> programa ejecutable o archivo por lotes."
+  },
+  "terminal_invalid_app": {
+    "eng": "ERROR: Invalid application.",
+    "fr": "ERREUR : Application invalide.",
+    "es": "ERROR: Aplicación inválida."
+  },
+  "terminal_app_not_open": {
+    "eng": "'{0}' is not open.",
+    "fr": "'{0}' n'est pas ouvert.",
+    "es": "'{0}' no está abierto."
+  },
+  "terminal_app_already_open": {
+    "eng": "'{0}' is already open.",
+    "fr": "'{0}' est déjà ouvert.",
+    "es": "'{0}' ya está abierto."
+  },
+  "terminal_launched_app": {
+    "eng": "Launched '{0}'.",
+    "fr": "'{0}' lancé.",
+    "es": "'{0}' lanzado."
+  },
+  "terminal_closed_app": {
+    "eng": "Closed '{0}'.",
+    "fr": "'{0}' fermé.",
+    "es": "'{0}' cerrado."
+  },
+  "terminal_pinned_app": {
+    "eng": "Pinned '{0}' to taskbar.",
+    "fr": "'{0}' épinglé à la barre des tâches.",
+    "es": "'{0}' anclado a la barra de tareas."
+  },
+  "terminal_app_already_pinned": {
+    "eng": "'{0}' is already pinned to the taskbar.",
+    "fr": "'{0}' est déjà épinglé à la barre des tâches.",
+    "es": "'{0}' ya está anclado a la barra de tareas."
+  },
+  "terminal_unpinned_app": {
+    "eng": "Unpinned '{0}' from taskbar.",
+    "fr": "'{0}' désépinglé de la barre des tâches.",
+    "es": "'{0}' desanclado de la barra de tareas."
+  },
+  "terminal_app_not_pinned": {
+    "eng": "'{0}' is not pinned to the taskbar.",
+    "fr": "'{0}' n'est pas épinglé à la barre des tâches.",
+    "es": "'{0}' no está anclado a la barra de tareas."
+  },
+  "terminal_available_commands": {
+    "eng": "Available commands:",
+    "fr": "Commandes disponibles :",
+    "es": "Comandos disponibles:"
+  },
+  "terminal_no_help": {
+    "eng": "This command is not supported by the help utility.",
+    "fr": "Cette commande n'est pas prise en charge par l'utilitaire d'aide.",
+    "es": "Este comando no está soportado por la utilidad de ayuda."
+  },
+  "terminal_usage": {
+    "eng": "Usage: {0}",
+    "fr": "Utilisation : {0}",
+    "es": "Uso: {0}"
+  },
+  "terminal_aliases": {
+    "eng": "Aliases: {0}",
+    "fr": "Alias : {0}",
+    "es": "Alias: {0}"
+  },
+  "terminal_invalid_skilltype": {
+    "eng": "Unrecognized skill type. Please use one of 'frontend', 'backend', or 'database'.",
+    "fr": "Type de compétence non reconnu. Veuillez utiliser l'un des termes 'frontend', 'backend' ou 'database'.",
+    "es": "Tipo de habilidad no reconocido. Por favor, use uno de 'frontend', 'backend' o 'database'."
+  },
+  "terminal_no_experience_found": {
+    "eng": "No experience found for the specified year.",
+    "fr": "Aucune expérience trouvée pour l'année spécifiée.",
+    "es": "No se encontró experiencia en el año especificado."
+  },
+  "terminal_experience_learn_more": {
+    "eng": "Learn more about my work experience in the ????? app",
+    "fr": "En savoir plus sur mon expérience professionnelle dans l'application ?????",
+    "es": "Aprende más sobre mi experiencia laboral en la aplicación ?????"
+  },
+  "terminal_no_projects_found": {
+    "eng": "No projects in the specified year.",
+    "fr": "Aucun projet trouvé pour l'année spécifiée.",
+    "es": "No se encontraron proyectos en el año especificado."
+  },
+  "terminal_project_title": {
+    "eng": "Title",
+    "fr": "Titre",
+    "es": "Título"
+  },
+  "terminal_project_description": {
+    "eng": "Description",
+    "fr": "Description",
+    "es": "Descripción"
+  },
+  "terminal_project_tech_stack": {
+    "eng": "Tech Stack",
+    "fr": "Technologies",
+    "es": "Tecnologías"
+  },
+  "terminal_project_date": {
+    "eng": "Date",
+    "fr": "Date",
+    "es": "Fecha"
+  },
+  "terminal_project_link": {
+    "eng": "Link",
+    "fr": "Lien",
+    "es": "Enlace"
+  },
+  "terminal_projects_learn_more": {
+    "eng": "Learn more about these projects in the ????? app",
+    "fr": "En savoir plus sur ces projets dans l'application ?????",
+    "es": "Aprende más sobre estos proyectos en la aplicación ?????"
+  },
+  "terminal_education_institution": {
+    "eng": "Institution",
+    "fr": "Établissement",
+    "es": "Institución"
+  },
+  "terminal_education_notes": {
+    "eng": "Notes",
+    "fr": "Notes",
+    "es": "Notas"
+  },
+  "terminal_education_degree": {
+    "eng": "Degree",
+    "fr": "Diplôme",
+    "es": "Título"
+  },
+  "resume_summary": {
+    "eng": "Computer Science student with three years of web and software development experience, blending freelancing versatility with a rapid learning mindset. Always exploring new technologies and open to opportunities via email, LinkedIn, or Upwork.",
+    "fr": "Étudiant en informatique avec trois ans d’expérience en développement web et logiciel, alliant la polyvalence du freelancing et une forte capacité d’apprentissage. Toujours à l’affût de nouvelles technologies et ouvert aux opportunités par e-mail, LinkedIn ou Upwork.",
+    "es": "Estudiante de informática con tres años de experiencia en desarrollo web y de software, combinando la versatilidad del trabajo freelance con una mentalidad de aprendizaje rápido. Siempre explorando nuevas tecnologías y abierto a oportunidades por correo, LinkedIn o Upwork."
+  },
+  "resume_contact_link_website": {
+    "eng": "Website",
+    "fr": "Site web",
+    "es": "Sitio web"
+  },
+  "resume_education_enis_degree": {
+    "eng": "Computer Science Engineering Degree",
+    "fr": "Diplôme d'ingénierie en génie informatique",
+    "es": "Diploma de ingeniería en informática"
+  },
+  "resume_education_enib_degree": {
+    "eng": "Engineering Degree",
+    "fr": "Diplôme d'ingénierie",
+    "es": "Diploma de ingeniería"
+  },
+  "resume_education_ipeis_degree": {
+    "eng": "Pre Engineering Degree",
+    "fr": "Diplôme Préparatoire aux Études d’Ingénieur",
+    "es": "Diploma de Preingeniería"
+  },
+  "resume_education_ipeis_notes": {
+    "eng": "Mathematics-Physics",
+    "fr": "Mathématiques-Physique",
+    "es": "Matemáticas-Física"
+  },
+  "resume_education_lycee_degree": {
+    "eng": "High School Diploma",
+    "fr": "Diplôme du Baccalauréat",
+    "es": "Diploma de Bachillerato"
+  },
+  "resume_education_lycee_notes": {
+    "eng": "Mathematics",
+    "fr": "Mathématiques",
+    "es": "Matemáticas"
+  },
+  "resume_experience_dink_achievement_1": {
+    "eng": "Refactored the frontend codebase and lifted Lighthouse performance scores by up to 30%.",
+    "fr": "Refonte du code front-end ayant amélioré les scores Lighthouse jusqu’à 30 %.",
+    "es": "Reestructuré la base de código del frontend y elevé las puntuaciones de Lighthouse hasta un 30 %."
+  },
+  "resume_experience_dink_achievement_2": {
+    "eng": "Built a seller platform that let customers publish designs directly to Dink's storefront.",
+    "fr": "Création d’une plateforme vendeurs permettant aux clients de publier leurs designs directement sur la boutique de Dink.",
+    "es": "Construí una plataforma para vendedores que permite a los clientes publicar sus diseños directamente en la tienda de Dink."
+  },
+  "resume_experience_dink_achievement_3": {
+    "eng": "Delivered an admin portal for seller management and analytics tracking.",
+    "fr": "Livré un portail d’administration pour la gestion des vendeurs et le suivi analytique.",
+    "es": "Entregué un portal de administración para gestionar vendedores y el seguimiento analítico."
+  },
+  "resume_experience_dink_achievement_4": {
+    "eng": "Redesigned the main marketing site, increasing customer retention by roughly 15%.",
+    "fr": "Refonte du site marketing principal, augmentant la rétention client d’environ 15 %.",
+    "es": "Rediseñé el sitio principal de marketing, aumentando la retención de clientes en alrededor de un 15 %."
+  },
+  "resume_project_portfolio_summary": {
+    "eng": "Interactive React experience designed to highlight previous work with rich desktop metaphors.",
+    "fr": "Expérience interactive sous React conçue pour mettre en valeur les projets passés à travers une métaphore de bureau riche.",
+    "es": "Experiencia interactiva en React diseñada para resaltar trabajos anteriores mediante una rica metáfora de escritorio."
+  },
+  "resume_project_portfolio_detail_1": {
+    "eng": "Building a living Windows-inspired interface to showcase engineering depth.",
+    "fr": "Construction d’une interface vivante inspirée de Windows pour démontrer la profondeur technique.",
+    "es": "Construcción de una interfaz viva inspirada en Windows para mostrar profundidad técnica."
+  },
+  "resume_project_portfolio_detail_2": {
+    "eng": "Iterating on advanced UI polish including draggable windows, taskbar, and terminal tooling.",
+    "fr": "Itérations sur un poli d’interface avancé incluant fenêtres déplaçables, barre des tâches et terminal dédié.",
+    "es": "Iteraciones con un pulido avanzado de la UI que incluye ventanas arrastrables, barra de tareas y herramientas de terminal."
+  },
+  "resume_project_link_source": {
+    "eng": "Source",
+    "fr": "Code source",
+    "es": "Código fuente"
+  },
+  "resume_project_event_pitch_summary": {
+    "eng": "Rapidly delivered web presence for a World Cosplay Summit submission within one month.",
+    "fr": "Livraison rapide d’une présence web pour une candidature au World Cosplay Summit en moins d’un mois.",
+    "es": "Entrega rápida de una presencia web para una candidatura al World Cosplay Summit en menos de un mes."
+  },
+  "resume_project_event_pitch_detail_1": {
+    "eng": "Crafted themed layouts and responsive sections tailored to event stakeholders.",
+    "fr": "Création de maquettes thématiques et de sections responsives adaptées aux parties prenantes de l’événement.",
+    "es": "Diseñé maquetas temáticas y secciones responsivas adaptadas a los interesados del evento."
+  },
+  "resume_project_stock_dashboard_summary": {
+    "eng": "Inventory control platform for a wedding decoration startup with end-to-end CRUD workflows.",
+    "fr": "Plateforme de gestion d’inventaire pour une start-up de décoration de mariage avec workflows CRUD bout en bout.",
+    "es": "Plataforma de control de inventario para una startup de decoración de bodas con flujos CRUD de extremo a extremo."
+  },
+  "resume_project_stock_dashboard_detail_1": {
+    "eng": "Enabled real-time stock insights and streamlined catalogue administration.",
+    "fr": "Fourniture d’indicateurs de stock en temps réel et simplification de l’administration du catalogue.",
+    "es": "Habilitó información de stock en tiempo real y agilizó la administración del catálogo."
+  },
+  "resume_project_sento_summary": {
+    "eng": "Mobile tooling that centralizes live event management for Sento Kaishi staff.",
+    "fr": "Outils mobiles centralisant la gestion en direct des événements pour l’équipe de Sento Kaishi.",
+    "es": "Herramientas móviles que centralizan la gestión en vivo del evento para el personal de Sento Kaishi."
+  },
+  "resume_project_sento_detail_1": {
+    "eng": "Tracked all event activities including scheduled games and ad-hoc sessions.",
+    "fr": "Suivi de toutes les activités de l’événement, y compris les jeux programmés et les sessions ad hoc.",
+    "es": "Seguimiento de todas las actividades del evento, incluidas partidas programadas y sesiones ad hoc."
+  },
+  "resume_project_sento_detail_2": {
+    "eng": "Surfaced participant stats—scores, wins, losses, and currency balances.",
+    "fr": "Mise à disposition des statistiques des participants : scores, victoires, défaites et soldes de monnaie.",
+    "es": "Mostró estadísticas de participantes: puntuaciones, victorias, derrotas y balances de moneda."
+  },
+  "resume_project_sento_detail_3": {
+    "eng": "Managed shop stock, pricing, leaderboards, and questline progression.",
+    "fr": "Gestion du stock boutique, des prix, des classements et de la progression des quêtes.",
+    "es": "Gestionó stock de la tienda, precios, clasificaciones y progresión de misiones."
+  },
+  "resume_project_economy_summary": {
+    "eng": "Discord bot powering a full-featured virtual economy for community engagement.",
+    "fr": "Bot Discord alimentant une économie virtuelle complète pour dynamiser la communauté.",
+    "es": "Bot de Discord que impulsa una economía virtual completa para la comunidad."
+  },
+  "resume_project_economy_detail_1": {
+    "eng": "Implemented PvE, PvP, and daily commission loops for currency generation.",
+    "fr": "Implémentation de boucles JcE, JcJ et de commissions quotidiennes pour générer de la monnaie.",
+    "es": "Implementó bucles PvE, PvP y comisiones diarias para generar moneda."
+  },
+  "resume_project_economy_detail_2": {
+    "eng": "Added item shop bonuses, guild systems, and prestige leaderboards.",
+    "fr": "Ajout de bonus de boutique, de systèmes de guildes et de classements de prestige.",
+    "es": "Añadió bonificaciones de tienda, sistemas de gremios y clasificaciones de prestigio."
+  },
+  "resume_project_economy_detail_3": {
+    "eng": "Shipped gacha-inspired wish mechanics redeemable for real-world rewards.",
+    "fr": "Livraison de mécaniques de vœux inspirées du gacha échangeables contre des récompenses réelles.",
+    "es": "Implementó mecánicas de deseos inspiradas en gacha canjeables por recompensas reales."
+  },
+  "resume_project_matchmaking_summary": {
+    "eng": "Discord matchmaking assistant modeled on League of Legends MMR systems.",
+    "fr": "Assistant de matchmaking Discord inspiré du système MMR de League of Legends.",
+    "es": "Asistente de emparejamiento en Discord inspirado en los sistemas MMR de League of Legends."
+  },
+  "resume_project_matchmaking_detail_1": {
+    "eng": "Supported lane preselection, automated drafts, and competitive ranking.",
+    "fr": "Prise en charge de la présélection des lanes, des drafts automatisés et du classement compétitif.",
+    "es": "Soportó preselección de carriles, drafts automáticos y clasificación competitiva."
+  },
+  "resume_project_matchmaking_detail_2": {
+    "eng": "Provided match history, win-rate analytics, and leaderboard insights.",
+    "fr": "Fourniture d’historiques de matchs, d’analyses de taux de victoire et de classements détaillés.",
+    "es": "Proporcionó historial de partidas, análisis de tasas de victoria e información de rankings."
+  },
+  "resume_project_meeting_summary": {
+    "eng": "Discord assistant for structured online meetings with moderation controls.",
+    "fr": "Assistant Discord pour réunions en ligne structurées avec outils de modération.",
+    "es": "Asistente de Discord para reuniones en línea estructuradas con controles de moderación."
+  },
+  "resume_project_meeting_detail_1": {
+    "eng": "Coordinated speaking queues with configurable timeboxing.",
+    "fr": "Coordination de files de prise de parole avec minutage configurable.",
+    "es": "Coordinó turnos de palabra con límites de tiempo configurables."
+  },
+  "resume_project_meeting_detail_2": {
+    "eng": "Archived meetings with shareable reports accessible through a dashboard.",
+    "fr": "Archivage des réunions avec rapports partageables via un tableau de bord.",
+    "es": "Archivó reuniones con informes compartibles accesibles desde un panel."
+  },
+  "resume_project_meeting_detail_3": {
+    "eng": "Enabled moderation workflows including muting, queue control, and priority handling.",
+    "fr": "Mise en place de workflows de modération incluant mute, gestion de file et priorisation.",
+    "es": "Habilitó flujos de moderación que incluyen silenciar, control de cola y gestión de prioridades."
+  },
+  "resume_certificate_efset_details": {
+    "eng": "Score 89/100 (C2 Proficient)",
+    "fr": "Score 89/100 (C2 Proficient)",
+    "es": "Puntuación 89/100 (C2 Proficient)"
+  },
+  "resume_extracurricular_mtc_role": {
+    "eng": "Board Member · Mobile Developer",
+    "fr": "Membre du bureau · Développeur mobile",
+    "es": "Miembro de la junta · Desarrollador móvil"
+  },
+  "resume_extracurricular_mtc_achievement_1": {
+    "eng": "Leading mobile initiatives and contributing to club-wide technical programs.",
+    "fr": "Pilotage des initiatives mobiles et contribution aux programmes techniques du club.",
+    "es": "Liderar iniciativas móviles y contribuir a los programas técnicos del club."
+  },
+  "resume_extracurricular_teia_role": {
+    "eng": "Executive Council Member",
+    "fr": "Membre du Conseil Exécutif",
+    "es": "Miembro del Consejo Ejecutivo"
+  },
+  "resume_extracurricular_teia_achievement_1": {
+    "eng": "Co-organized 20+ large-scale online events across Discord, Facebook, and Twitch.",
+    "fr": "Co-organisation de plus de 20 événements en ligne d’envergure sur Discord, Facebook et Twitch.",
+    "es": "Coorganicé más de 20 eventos en línea a gran escala en Discord, Facebook y Twitch."
+  },
+  "resume_extracurricular_teia_achievement_2": {
+    "eng": "Partnered with 5+ associations to support in-person community events and conventions.",
+    "fr": "Partenariat avec plus de cinq associations pour soutenir des événements et conventions communautaires en présentiel.",
+    "es": "Colaboré con más de cinco asociaciones para apoyar eventos y convenciones comunitarias presenciales."
+  },
+  "resume_extracurricular_teia_achievement_3": {
+    "eng": "Created 7+ bespoke Discord bots and web apps to meet event technical needs.",
+    "fr": "Création de plus de sept bots Discord et applications web sur mesure pour répondre aux besoins techniques des événements.",
+    "es": "Creé más de siete bots de Discord y aplicaciones web a medida para cubrir necesidades técnicas de los eventos."
+  },
+  "resume_extracurricular_teia_achievement_4": {
+    "eng": "Recruited, coordinated, and mentored a team exceeding 40 members.",
+    "fr": "Recrutement, coordination et mentorat d’une équipe de plus de 40 membres.",
+    "es": "Recluté, coordiné y tutoricé a un equipo de más de 40 miembros."
+  },
+  "resume_extracurricular_japano_role": {
+    "eng": "President",
+    "fr": "Président",
+    "es": "Presidente"
+  },
+  "resume_extracurricular_japano_achievement_1": {
+    "eng": "Orchestrated marquee events such as Sento Kaishi 4 and 5 for 1100+ attendees.",
+    "fr": "Orchestration d’événements phares comme Sento Kaishi 4 et 5 pour plus de 1100 participants.",
+    "es": "Orquesté eventos emblemáticos como Sento Kaishi 4 y 5 para más de 1100 asistentes."
+  },
+  "resume_extracurricular_japano_achievement_2": {
+    "eng": "Delivered a staff-only mobile app that streamlined event logistics and coordination.",
+    "fr": "Livraison d’une application mobile réservée au staff pour fluidifier la logistique et la coordination.",
+    "es": "Entregué una aplicación móvil exclusiva para el staff que agilizó la logística y la coordinación."
+  },
+  "resume_extracurricular_japano_achievement_3": {
+    "eng": "Handled logistics, bureaucracy, budgeting, and financial stewardship for the organization.",
+    "fr": "Gestion de la logistique, des démarches administratives, de la budgétisation et des finances de l’organisation.",
+    "es": "Gestioné la logística, los trámites burocráticos, el presupuesto y la administración financiera de la organización."
+  },
+  "logs_open_app": {
+    "eng": "Opened '{0}' app.",
+    "fr": "Application '{0}' ouverte.",
+    "es": "Aplicación '{0}' abierta."
+  },
+  "logs_close_app": {
+    "eng": "Closed '{0}' app.",
+    "fr": "Application '{0}' fermée.",
+    "es": "Aplicación '{0}' cerrada."
+  },
+  "logs_move_resize_app": {
+    "eng": "Moved/Resized '{0}' window.",
+    "fr": "Déplacement/Redimensionnement de la fenêtre '{0}'.",
+    "es": "Ventana '{0}' movida/redimensionada."
+  },
+  "logs_minimize_app": {
+    "eng": "Minimized '{0}' window.",
+    "fr": "Fenêtre '{0}' minimisée.",
+    "es": "Ventana '{0}' minimizada."
+  },
+  "logs_maximize_app": {
+    "eng": "Maximized '{0}' window.",
+    "fr": "Fenêtre '{0}' agrandie.",
+    "es": "Ventana '{0}' maximizada."
+  },
+  "logs_unminimize_app": {
+    "eng": "Restored '{0}' window.",
+    "fr": "Fenêtre '{0}' restaurée.",
+    "es": "Ventana '{0}' restaurada."
+  },
+  "logs_unmaximize_app": {
+    "eng": "Restored '{0}' window.",
+    "fr": "Fenêtre '{0}' restaurée.",
+    "es": "Ventana '{0}' restaurada."
+  },
+  "logs_pin_app": {
+    "eng": "Pinned '{0}' to taskbar.",
+    "fr": "'{0}' épinglé à la barre des tâches.",
+    "es": "'{0}' anclado a la barra de tareas."
+  },
+  "logs_unpin_app": {
+    "eng": "Unpinned '{0}' from taskbar.",
+    "fr": "'{0}' désépinglé de la barre des tâches.",
+    "es": "'{0}' desanclado de la barra de tareas."
+  },
+  "logs_change_volume": {
+    "eng": "Changed volume to {0}%.",
+    "fr": "Volume changé à {0} %.",
+    "es": "Volumen cambiado a {0}%."
+  },
+  "logs_change_locale": {
+    "eng": "Changed locale to {0}.",
+    "fr": "Région changée en {0}.",
+    "es": "Localidad cambiada a {0}."
+  },
+  "logs_change_theme_palette": {
+    "eng": "Changed theme palette to {0}.",
+    "fr": "Palette de thème changée en {0}.",
+    "es": "Paleta de tema cambiada a {0}."
+  },
+  "logs_enter_fullscreen": {
+    "eng": "Entered fullscreen mode.",
+    "fr": "Mode plein écran activé.",
+    "es": "Modo de pantalla completa activado."
+  },
+  "logs_exit_fullscreen": {
+    "eng": "Exited fullscreen mode.",
+    "fr": "Mode plein écran désactivé.",
+    "es": "Modo de pantalla completa desactivado."
+  },
+  "terminal_current_theme": {
+    "eng": "Current theme",
+    "fr": "Le thème actuel",
+    "es": "El tema actual"
+  },
+  "terminal_invalid_theme": {
+    "eng": "ERROR: Invalid theme. Available themes are 'light', 'dark', and 'system'.",
+    "fr": "ERREUR : Thème invalide. Les thèmes disponibles sont 'light', 'dark' et 'system'.",
+    "es": "ERROR: Tema inválido. Los temas disponibles son 'light', 'dark' y 'system'."
+  },
+  "terminal_theme_set": {
+    "eng": "Theme set to '{0}'.",
+    "fr": "Thème défini sur '{0}'.",
+    "es": "Tema establecido en '{0}'."
+  },
+  "terminal_current_locale": {
+    "eng": "Current locale",
+    "fr": "La région actuelle",
+    "es": "La localidad actual"
+  },
+  "terminal_invalid_locale": {
+    "eng": "ERROR: Invalid locale. Available locales are 'en', 'fr', and 'es'.",
+    "fr": "ERREUR : Région invalide. Les régions disponibles sont 'en', 'fr' et 'es'.",
+    "es": "ERROR: Localidad inválida. Las localidades disponibles son 'en', 'fr' y 'es'."
+  },
+  "terminal_locale_set": {
+    "eng": "Locale set to '{0}'.",
+    "fr": "Région définie sur '{0}'.",
+    "es": "Localidad establecida en '{0}'."
+  },
+  "notifications_connection_lost": {
+    "eng": "Connection lost",
+    "fr": "Connexion perdue",
+    "es": "Conexión perdida"
+  },
+  "notifications_connection_lost_description": {
+    "eng": "You are currently offline.",
+    "fr": "Vous êtes actuellement hors ligne.",
+    "es": "Actualmente estás desconectado."
+  },
+  "notifications_connection_restored": {
+    "eng": "Connection restored",
+    "fr": "Connexion rétablie",
+    "es": "Conexión restaurada"
+  },
+  "notifications_connection_restored_description": {
+    "eng": "You are back online.",
+    "fr": "Vous êtes de nouveau en ligne.",
+    "es": "Estás de vuelta en línea."
+  },
+  "notifications_battery_low": {
+    "eng": "Battery low",
+    "fr": "Batterie faible",
+    "es": "Batería baja"
+  },
+  "notifications_battery_low_description": {
+    "eng": "Your battery level is low. Consider plugging in your device.",
+    "fr": "Le niveau de votre batterie est faible. Envisagez de brancher votre appareil.",
+    "es": "El nivel de tu batería es bajo. Considera conectar tu dispositivo."
+  },
+  "notifications_battery_charging": {
+    "eng": "Battery charging",
+    "fr": "Batterie en charge",
+    "es": "Batería cargando"
+  },
+  "notifications_battery_charging_description": {
+    "eng": "Your device is now charging.",
+    "fr": "Votre appareil est en cours de charge.",
+    "es": "Tu dispositivo se está cargando."
+  },
+  "notifications_battery_no_longer_charging": {
+    "eng": "Battery no longer charging",
+    "fr": "Batterie plus en charge",
+    "es": "Batería ya no está cargando"
+  },
+  "notifications_battery_no_longer_charging_description": {
+    "eng": "Your device is no longer charging.",
+    "fr": "Votre appareil n'est plus en charge.",
+    "es": "Tu dispositivo ya no se está cargando."
+  },
+  "notifications_something_went_wrong": {
+    "eng": "Something went wrong",
+    "fr": "Quelque chose a mal tourné",
+    "es": "Algo salió mal"
+  },
+  "notifications_something_went_wrong_description": {
+    "eng": "An unexpected error occurred. It's recommended to refresh the page.",
+    "fr": "Une erreur inattendue s'est produite. Il est recommandé de rafraîchir la page.",
+    "es": "Ocurrió un error inesperado. Se recomienda refrescar la página."
+  },
+  "calculator_year_france": {
+    "eng": "Year I moved to France",
+    "fr": "Année de mon arrivée en France",
+    "es": "Año de mi llegada a Francia"
+  },
+  "calculator_year_first_job": {
+    "eng": "Year I got my first job",
+    "fr": "Année du premier emploi",
+    "es": "Año del primer trabajo"
+  },
+  "calculator_year_first_freelance": {
+    "eng": "Year I started freelancing",
+    "fr": "Année de mon début en freelance",
+    "es": "Año de mi inicio como freelance"
+  },
+  "calculator_experience_years": {
+    "eng": "Years of experience",
+    "fr": "Années d'expérience",
+    "es": "Años de experiencia"
+  },
+  "calculator_age_when_started_programming": {
+    "eng": "Age when I started programming",
+    "fr": "Age au début de mon développement",
+    "es": "Edad cuando comencé a programar"
+  },
+  "calculator_age_first_published_bot": {
+    "eng": "Age when I first published a bot",
+    "fr": "Age au premier bot publié",
+    "es": "Edad cuando publiqué mi primer bot"
+  },
+  "calculator_age_first_freelance": {
+    "eng": "Age when I started freelancing",
+    "fr": "Age de mon début en freelance",
+    "es": "Edad de mi inicio como freelance"
+  },
+  "calculator_age_first_job": {
+    "eng": "Age when I got my first job",
+    "fr": "Age du premier emploi",
+    "es": "Edad del primer trabajo"
+  },
+  "standard": {
+    "eng": "Standard",
+    "fr": "Standard",
+    "es": "Standard"
+  }
+}

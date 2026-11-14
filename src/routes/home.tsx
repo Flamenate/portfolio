@@ -1,0 +1,102 @@
+import { createFileRoute, useNavigate } from '@tanstack/react-router'
+import { AnimatePresence } from 'motion/react'
+import { Activity, Suspense, useEffect, useRef } from 'react'
+import { useShallow } from 'zustand/react/shallow'
+import { AppShortcut, FolderShortcut } from '@/components/desktop/shortcut'
+import Taskbar from '@/components/taskbar'
+import { Toaster } from '@/components/ui/sonner'
+import { AppWindow } from '@/components/ui/window'
+import { WindowLoading } from '@/components/ui/window-loading'
+import { appContent } from '@/data/apps'
+import useLocalStorage from '@/hooks/useLocalStorage'
+import { desktopFolderPaths, pathKey } from '@/lib/directories'
+import useAppStore from '@/stores/app.store'
+import useExplorerStore from '@/stores/explorer.store'
+
+export const Route = createFileRoute('/home')({ component: Home })
+
+function Home() {
+  const [isFirstVisit] = useLocalStorage('isFirstVisit', true)
+  const navigate = useNavigate()
+  useEffect(() => {
+    if (isFirstVisit) {
+      navigate({ to: '/' })
+    }
+  }, [isFirstVisit, navigate])
+
+  const { apps, openAppLabels, clearSelectedApps, selectedAppLabels } =
+    useAppStore(
+      useShallow((state) => ({
+        apps: state.apps,
+        openAppLabels: state.openAppLabels,
+        clearSelectedApps: state.clearSelectedApps,
+        selectedAppLabels: state.selectedAppLabels,
+      })),
+    )
+  const openApps = openAppLabels
+    .map((label) => apps[label])
+    .filter((app) => app.state !== 'closed')
+
+  const desktopShortcutContainer = useRef<HTMLDivElement | null>(null)
+
+  const handleMultipleAppOpen = (e: React.KeyboardEvent) => {
+    if (e.key !== 'Enter' || selectedAppLabels.length === 0) return
+    e.preventDefault()
+    for (const id of selectedAppLabels) {
+      const folderPath = desktopFolderPaths.find((path) => pathKey(path) === id)
+      if (folderPath) useExplorerStore.getState().openFolder(folderPath)
+      else useAppStore.getState().openApp(id)
+    }
+    clearSelectedApps()
+  }
+  return (
+    <main
+      className="flex h-screen flex-col"
+      onClick={clearSelectedApps}
+      onKeyUp={handleMultipleAppOpen}
+      onKeyDown={(e) => {
+        if (e.key === 'Enter') e.preventDefault()
+      }}
+    >
+      <Toaster offset={{ bottom: 80, right: 10 }} position="bottom-right" />
+      <AnimatePresence>
+        {openApps.map((app) => {
+          const Content = appContent[app.label]
+          return (
+            <Activity
+              key={app.label}
+              mode={app.state === 'minimized' ? 'hidden' : 'visible'}
+            >
+              <AppWindow appLabel={app.label}>
+                <Suspense fallback={<WindowLoading />}>
+                  <Content />
+                </Suspense>
+              </AppWindow>
+            </Activity>
+          )
+        })}
+      </AnimatePresence>
+      <div
+        ref={desktopShortcutContainer}
+        className="grid grow grid-flow-col grid-cols-[repeat(auto-fill,minmax(100px,1fr))] grid-rows-[repeat(auto-fill,minmax(80px,1fr))] gap-5 p-2"
+      >
+        {Object.values(apps).map((app) => (
+          <AppShortcut
+            key={app.label}
+            appLabel={app.label}
+            containerRef={desktopShortcutContainer}
+          />
+        ))}
+        {desktopFolderPaths.map((path) => (
+          <FolderShortcut
+            key={pathKey(path)}
+            path={path}
+            containerRef={desktopShortcutContainer}
+          />
+        ))}
+      </div>
+
+      <Taskbar />
+    </main>
+  )
+}
