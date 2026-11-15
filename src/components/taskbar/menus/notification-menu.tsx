@@ -1,4 +1,4 @@
-import { AlertRegular } from '@fluentui/react-icons/headless/svg/alert'
+import { AlertFilled } from '@fluentui/react-icons/headless/svg/alert'
 import { AlertOffRegular } from '@fluentui/react-icons/headless/svg/alert-off'
 import { ChevronDownRegular } from '@fluentui/react-icons/headless/svg/chevron-down'
 import { ChevronUpRegular } from '@fluentui/react-icons/headless/svg/chevron-up'
@@ -250,7 +250,7 @@ export function NotificationMenu() {
               {doNotDisturb ? (
                 <AlertOffRegular className="size-4.5" />
               ) : notificationCount > 0 ? (
-                <AlertRegular className="size-4.5" />
+                <AlertFilled className="size-4.5" />
               ) : null}
               <div
                 className="flex flex-col items-end justify-center px-2 py-1 text-sm"

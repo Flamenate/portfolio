@@ -1,7 +1,7 @@
 import { formatDuration } from 'date-fns'
 import { useState } from 'react'
+import type { Command } from '@/lib/terminal-commands'
 import { datefnsLocales } from '@/stores/theme.store'
-import type { Command } from './index'
 
 export const Uptime: Command = ({ snapshot }) => {
   const [uptime] = useState(() => performance.now())

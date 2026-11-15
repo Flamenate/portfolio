@@ -25,6 +25,7 @@ interface CommandMetadata {
 export interface CommandSnapshot {
   locale: string
   random: number
+  volume: number
 }
 
 export interface CommandProps {

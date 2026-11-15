@@ -78,6 +78,7 @@ export function Terminal() {
     const snapshot: CommandSnapshot = {
       locale: themeStore.locale,
       random: Math.random(),
+      volume: themeStore.volume,
     }
 
     const execution: CommandExecution = {
