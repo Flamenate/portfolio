@@ -1,5 +1,6 @@
 import { FolderFilled } from '@fluentui/react-icons/headless/svg/folder'
 import { FolderOpenFilled } from '@fluentui/react-icons/headless/svg/folder-open'
+import useLocalize from '@/hooks/useLocalize'
 import { isSamePath, root } from '@/lib/directories'
 import type { FolderNode, FolderPath } from '@/lib/directories'
 import { cn } from '@/lib/utils'
@@ -17,6 +18,7 @@ function FolderRow({
   currentPath: FolderPath
 }) {
   const navigate = useExplorerStore((state) => state.navigate)
+  const localize = useLocalize()
   const isCurrent = isSamePath(path, currentPath)
   const Icon = isCurrent ? FolderOpenFilled : FolderFilled
   const subfolders = folder.children.filter(
@@ -33,8 +35,18 @@ function FolderRow({
         style={{ paddingLeft: `${depth * 0.75 + 0.25}rem` }}
         onClick={() => navigate(path)}
       >
-        <Icon className="size-4 shrink-0 text-amber-400" />
-        <span className="truncate">{folder.name}</span>
+        {folder.iconSrc ? (
+          <img
+            src={folder.iconSrc}
+            alt=""
+            width={16}
+            height={16}
+            className="size-4 shrink-0 object-contain"
+          />
+        ) : (
+          <Icon className="size-4 shrink-0 text-amber-400" />
+        )}
+        <span className="truncate">{localize(folder.name)}</span>
       </button>
       {subfolders.length > 0 && (
         <ul>

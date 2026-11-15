@@ -85,7 +85,7 @@ export function NavigationBar({ path }: { path: FolderPath }) {
                   !isLast && 'cursor-pointer hover-shade',
                 )}
               >
-                {name}
+                {localize(name)}
               </button>
             </Fragment>
           )

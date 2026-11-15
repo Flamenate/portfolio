@@ -19,6 +19,8 @@ import type { ResizeDirection } from '@/hooks/useResizable'
 import { cn } from '@/lib/utils'
 import { MinimumSize } from '@/models/application'
 import { useAppStore } from '@/stores/app.store'
+import { useThemeStore } from '@/stores/theme.store'
+import { localizeOrKeep } from '@/utils/localize'
 import { Tooltip, TooltipContent, TooltipTrigger } from './tooltip'
 
 const WindowButton = forwardRef(function WindowButton(
@@ -102,6 +104,7 @@ export function AppWindow({
   appLabel: string
 }) {
   const localize = useLocalize()
+  const language = useThemeStore((state) => state.locale)
   const windowRef = useRef<HTMLDivElement>(null)
   const gesturing = useRef(false)
   const [isCompact, setIsCompact] = useState(false)
@@ -292,7 +295,7 @@ export function AppWindow({
           draggable={false}
         />
         <span className="ml-15 font-light @xs:ml-0">
-          {app.title ?? localize(appLabel)}
+          {app.title ? localizeOrKeep(app.title, language) : localize(appLabel)}
         </span>
         <div className="absolute right-0 flex h-full flex-row-reverse items-stretch">
           <Tooltip>

@@ -9,7 +9,7 @@ function ItemIcon({ node }: { node: FsNode }) {
   const iconSrc = useAppStore((state) =>
     node.type === 'file'
       ? state.apps[node.appLabel]?.iconSrc
-      : '/images/folder.webp',
+      : (node.iconSrc ?? '/images/folder.webp'),
   )
   return (
     <img
@@ -65,7 +65,7 @@ export function FolderView({
             <ItemIcon node={node} />
             <span className="w-full text-center wrap-break-word">
               {node.type === 'folder'
-                ? node.name
+                ? localize(node.name)
                 : (node.name ?? localize(node.appLabel))}
             </span>
           </button>

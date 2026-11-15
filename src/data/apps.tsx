@@ -21,11 +21,6 @@ export const appContent: Record<string, AppContent> = {
       default: module.Terminal,
     })),
   ),
-  recycle_bin: lazy(() =>
-    import('@/components/apps/placeholder').then((module) => ({
-      default: module.Placeholder,
-    })),
-  ),
   mail: lazy(() =>
     import('@/components/apps/placeholder').then((module) => ({
       default: module.Placeholder,
@@ -43,7 +38,7 @@ export const appContent: Record<string, AppContent> = {
   ),
 }
 
-const definitions: Array<{
+const appDefinitions: Array<{
   label: string
   iconSrc: string
   pinned: boolean
@@ -55,19 +50,20 @@ const definitions: Array<{
   },
   { label: 'browser', iconSrc: '/images/browser.webp', pinned: true },
   { label: 'terminal', iconSrc: '/images/terminal.png', pinned: false },
-  {
-    label: 'recycle_bin',
-    iconSrc: '/images/recycle_bin_full.png',
-    pinned: false,
-  },
   { label: 'mail', iconSrc: '/images/mail.png', pinned: false },
   { label: 'calculator', iconSrc: '/images/calculator.png', pinned: false },
   { label: 'notepad', iconSrc: '/images/notepad.png', pinned: false },
+  { label: 'photos', iconSrc: '/images/placeholder.webp', pinned: false },
+  {
+    label: 'abobe_gymnast_pro',
+    iconSrc: '/images/placeholder.webp',
+    pinned: false,
+  },
 ]
 
 export function createApps(): Record<string, AppRecord> {
   return Object.fromEntries(
-    definitions.map((definition) => [
+    appDefinitions.map((definition) => [
       definition.label,
       {
         label: definition.label,

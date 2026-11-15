@@ -4,6 +4,7 @@ export type FolderNode = {
   type: 'folder'
   name: string
   desktopShortcut?: boolean
+  iconSrc?: string
   children: FsNode[]
 }
 
@@ -13,12 +14,42 @@ export type FolderPath = string[]
 
 export const root: FolderNode = {
   type: 'folder',
-  name: 'This PC',
+  name: 'this_pc',
   children: [
     {
       type: 'folder',
-      name: 'My Regrets',
-      desktopShortcut: false,
+      name: 'downloads',
+      iconSrc: '/images/placeholder.webp',
+      children: [],
+    },
+    {
+      type: 'folder',
+      name: 'documents',
+      iconSrc: '/images/placeholder.webp',
+      children: [],
+    },
+    {
+      type: 'folder',
+      name: 'pictures',
+      iconSrc: '/images/placeholder.webp',
+      children: [],
+    },
+    {
+      type: 'folder',
+      name: 'music',
+      iconSrc: '/images/placeholder.webp',
+      children: [],
+    },
+    {
+      type: 'folder',
+      name: 'recycle_bin',
+      desktopShortcut: true,
+      iconSrc: '/images/recycle_bin_full.png',
+      children: [],
+    },
+    {
+      type: 'folder',
+      name: 'my_regrets',
       children: [],
     },
   ],

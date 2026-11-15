@@ -39,6 +39,16 @@
     "fr": "Corbeille",
     "es": "Basura"
   },
+  "this_pc": {
+    "eng": "This PC",
+    "fr": "Ce PC",
+    "es": "Este equipo"
+  },
+  "my_regrets": {
+    "eng": "My Regrets",
+    "fr": "Mes regrets",
+    "es": "Mis arrepentimientos"
+  },
   "notepad": {
     "eng": "Notepad",
     "fr": "Bloc-Notes",

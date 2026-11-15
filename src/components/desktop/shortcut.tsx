@@ -4,7 +4,7 @@ import { useCallback } from 'react'
 import type { MouseEvent, ReactNode } from 'react'
 import { useShallow } from 'zustand/react/shallow'
 import useLocalize from '@/hooks/useLocalize'
-import { pathKey, root } from '@/lib/directories'
+import { getFolder, pathKey, root } from '@/lib/directories'
 import type { FolderPath } from '@/lib/directories'
 import useAppStore from '@/stores/app.store'
 import { useExplorerStore } from '@/stores/explorer.store'
@@ -123,14 +123,16 @@ export function FolderShortcut({
   containerRef: ContainerRef
 }) {
   const openFolder = useExplorerStore((state) => state.openFolder)
+  const localize = useLocalize()
   const open = useCallback(() => openFolder(path), [path, openFolder])
+  const name = path.at(-1) ?? root.name
   return (
     <DesktopShortcut
       id={pathKey(path)}
-      label={path.at(-1) ?? root.name}
+      label={localize(name)}
       icon={
         <Image
-          src="/images/folder.webp"
+          src={getFolder(path)?.iconSrc ?? '/images/folder.webp'}
           alt=""
           width={48}
           height={48}

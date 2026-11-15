@@ -27,3 +27,13 @@ export default function localize(
   localized = format(localized, ...variables)
   return localized
 }
+
+export function localizeOrKeep(
+  str: string,
+  language: string = defaultTheme.locale,
+  ...variables: string[] | number[]
+) {
+  // oxlint-disable-next-line typescript/no-unnecessary-condition
+  if (!strings[str as keyof typeof strings]) return str
+  return localize(str, language, ...variables)
+}
