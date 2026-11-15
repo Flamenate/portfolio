@@ -10,7 +10,7 @@ export const toast = (notification: Omit<Notification, 'id' | 'timestamp'>) => {
     (id) => {
       const locale = useThemeStore.getState().locale // this is not reactive on purpose (design choice)
       return (
-        <div className="relative min-w-80 rounded-sm border bg-popover px-5 py-4 font-noto text-sm leading-snug backdrop-blur-sm select-none dark:bg-accent-foreground/85">
+        <div className="relative min-w-80 rounded-sm border border-muted bg-popover px-5 py-4 font-noto text-sm leading-snug shadow-sm backdrop-blur-sm select-none dark:border-border dark:bg-accent-foreground/85">
           <div className="absolute top-1 right-2 flex flex-row-reverse gap-1">
             <button
               type="button"

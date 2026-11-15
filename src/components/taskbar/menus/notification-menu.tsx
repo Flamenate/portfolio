@@ -53,13 +53,13 @@ const Notification = forwardRef(function (
           removeNotification(notification.id)
         }
       }}
-      className="group relative rounded-sm bg-accent-foreground/30 px-2 pt-2 pb-3 leading-relaxed shadow-sm"
+      className="group relative rounded-sm bg-(--white) px-2 pt-2 pb-3 leading-relaxed shadow-sm dark:bg-accent-foreground/30"
       exit={{ x: 350 }}
     >
       <button
         type="button"
         aria-label={localize('close')}
-        className="hover-shade absolute top-0 right-1 hidden cursor-pointer rounded-sm p-2 text-muted-foreground group-hover:inline-block"
+        className="absolute top-0 right-1 hidden cursor-pointer rounded-sm px-2 py-1 text-primary group-hover:inline-block dark:text-muted-foreground"
         onClick={() => removeNotification(notification.id)}
       >
         {' '}
@@ -72,7 +72,7 @@ const Notification = forwardRef(function (
         })}
       </p>
       <div className="flex items-center gap-3">
-        <div className="rounded-full border bg-accent-foreground p-1">
+        <div className="rounded-full border bg-accent/25 p-1 dark:bg-accent-foreground">
           {typeof notification.source.iconSrc === 'string' ? (
             <img
               src={notification.source.iconSrc}
@@ -122,14 +122,14 @@ const NotificationPanelContent = ({
           <button
             type="button"
             aria-label={localize('dnd')}
-            className={`${notificationStore.doNotDisturb ? 'bg-accent/75 text-accent' : 'bg-accent-foreground/30'} hover-shade rounded-sm border px-2 py-1 text-xs`}
+            className={`${notificationStore.doNotDisturb ? 'bg-accent/75 text-accent' : 'dark:bg-accent-foreground/30'} rounded-sm border bg-(--white) hover-shade px-2 py-1 text-xs`}
             onClick={notificationStore.toggleDoNotDisturb}
           >
             <AlertOffRegular className="size-3.5" />
           </button>
           {notificationStore.notifications.length > 0 && (
             <button
-              className="hover-shade rounded-sm border bg-accent-foreground/30 px-2 py-1 text-xs"
+              className="rounded-sm border bg-(--white) hover-shade px-2 py-1 text-xs dark:bg-accent-foreground/30"
               onClick={notificationStore.clearNotifications}
             >
               {localize('clear_all')}
@@ -197,13 +197,14 @@ const NotificationPanelContent = ({
                 </h2>
                 <button
                   type="button"
-                  aria-label={localize('clear_all')}
-                  className="hover-shade absolute top-0.75 right-2 hidden cursor-pointer text-xs group-hover:inline-block"
-                  onClick={() => {
+                  aria-label={localize('close')}
+                  className="absolute top-0 right-1 hidden cursor-pointer rounded-sm text-primary group-hover:inline-block dark:text-muted-foreground"
+                  onClick={() =>
                     notificationStore.clearNotificationsBySource(sourceLabel)
-                  }}
+                  }
                 >
-                  X
+                  {' '}
+                  <DismissRegular className="size-3.5" />
                 </button>
               </div>
 
@@ -299,7 +300,7 @@ export function NotificationMenu() {
                 type="button"
                 aria-expanded={showCalendar}
                 aria-label={localize('notifications')}
-                className="hover-shade rounded-sm bg-popover p-1"
+                className="rounded-sm bg-popover hover-shade p-1"
                 onClick={() => setShowCalendar((prev) => !prev)}
               >
                 {showCalendar ? (

@@ -1,8 +1,7 @@
 @import 'tailwindcss';
-
 @import 'tw-animate-css';
-
 @import '@fluentui/react-icons/headless/styles.css';
+@import 'shadcn/tailwind.css';
 
 @custom-variant dark (&:is(.dark *));
 
@@ -90,8 +89,8 @@ code {
   --primary-foreground: oklch(0.985 0 0);
   --secondary: var(--white);
   --secondary-foreground: oklch(0.21 0.006 285.885);
-  --muted: oklch(87.936% 0.01509 285.995);
-  --muted-foreground: #9a9a9a;
+  --muted: oklch(82.052% 0.01535 285.975);
+  --muted-foreground: oklch(52.081% 0.00006 271.152);
   --accent: oklch(68.464% 0.06791 247.508);
   --accent-foreground: oklch(51.817% 0.07561 248.291 / 0.74);
   --accent-highlight: oklch(51.817% 0.07561 248.291 / 0.1);
@@ -101,11 +100,11 @@ code {
   --border: oklch(93.739% 0.02593 278.707 / 0.5);
   --input: oklch(0.92 0.004 286.32);
   --ring: oklch(0.871 0.006 286.286);
-  --chart-1: oklch(0.646 0.222 41.116);
-  --chart-2: oklch(0.6 0.118 184.704);
-  --chart-3: oklch(0.398 0.07 227.392);
-  --chart-4: oklch(0.828 0.189 84.429);
-  --chart-5: oklch(0.769 0.188 70.08);
+  --chart-1: oklch(0.865 0.127 207.078);
+  --chart-2: oklch(0.715 0.143 215.221);
+  --chart-3: oklch(0.609 0.126 221.723);
+  --chart-4: oklch(0.52 0.105 223.128);
+  --chart-5: oklch(0.45 0.085 224.283);
   --radius: 0.625rem;
   --sidebar: oklch(0.985 0 0);
   --sidebar-foreground: var(--foreground);
@@ -137,11 +136,11 @@ code {
   --border: oklch(100% 0.00011 271.152 / 0.05);
   --input: oklch(0.274 0.006 286.033);
   --ring: oklch(0.442 0.017 285.786);
-  --chart-1: oklch(0.488 0.243 264.376);
-  --chart-2: oklch(0.696 0.17 162.48);
-  --chart-3: oklch(0.769 0.188 70.08);
-  --chart-4: oklch(0.627 0.265 303.9);
-  --chart-5: oklch(0.645 0.246 16.439);
+  --chart-1: oklch(0.865 0.127 207.078);
+  --chart-2: oklch(0.715 0.143 215.221);
+  --chart-3: oklch(0.609 0.126 221.723);
+  --chart-4: oklch(0.52 0.105 223.128);
+  --chart-5: oklch(0.45 0.085 224.283);
   --sidebar: oklch(0.21 0.006 285.885);
   --sidebar-foreground: var(--foreground);
   --sidebar-primary: oklch(0.488 0.243 264.376);
@@ -205,7 +204,7 @@ code {
   }
 }
 
-@utility hover-highlight {
+@utility hover-taskbar-effect {
   @layer components {
     @apply transition-all duration-150 hover:bg-linear-to-t hover:from-highlight/50 hover:via-highlight hover:to-highlight hover:inset-shadow-2xs hover:inset-shadow-accent/25;
   }
