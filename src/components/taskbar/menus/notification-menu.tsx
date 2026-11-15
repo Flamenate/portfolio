@@ -292,7 +292,7 @@ export function NotificationMenu() {
           </div>
 
           <div className="flex min-h-min flex-col rounded-md border bg-popover/70">
-            <div className="flex items-center justify-between border-b bg-popover/40 px-5 py-4 text-sm">
+            <div className="flex items-center justify-between border-b bg-popover py-4 pr-3 pl-5 text-sm">
               <p>
                 {format(datetime, 'PPPP', { locale: datefnsLocales[locale] })}
               </p>
@@ -300,13 +300,13 @@ export function NotificationMenu() {
                 type="button"
                 aria-expanded={showCalendar}
                 aria-label={localize('notifications')}
-                className="rounded-sm bg-popover hover-shade p-1"
+                className="inline-flex items-center justify-center rounded-sm border bg-accent/20 hover-shade p-1"
                 onClick={() => setShowCalendar((prev) => !prev)}
               >
                 {showCalendar ? (
-                  <ChevronDownRegular className="size-3.5" />
+                  <ChevronDownRegular className="size-4" />
                 ) : (
-                  <ChevronUpRegular className="size-3.5" />
+                  <ChevronUpRegular className="size-4" />
                 )}
               </button>
             </div>

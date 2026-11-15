@@ -6,7 +6,7 @@ import { useEffect, useRef } from 'react'
 import type { ComponentProps } from 'react'
 import { DayPicker, getDefaultClassNames } from 'react-day-picker'
 import type { DayButton } from 'react-day-picker'
-import { Button, buttonVariants } from '@/components/ui/button'
+import { Button } from '@/components/ui/button'
 import { cn } from '@/lib/utils'
 
 function Calendar({
@@ -46,14 +46,14 @@ function Calendar({
           defaultClassNames.nav,
         ),
         button_previous: cn(
-          buttonVariants({ variant: buttonVariant }),
-          'size-(--cell-size) p-0 select-none aria-disabled:opacity-50',
+          // buttonVariants({ variant: buttonVariant }),
           defaultClassNames.button_previous,
+          'inline-flex size-(--cell-size) shrink-0 items-center justify-center rounded-sm hover-shade p-0 outline-none select-none aria-disabled:opacity-50',
         ),
         button_next: cn(
-          buttonVariants({ variant: buttonVariant }),
-          'size-(--cell-size) p-0 select-none aria-disabled:opacity-50',
+          // buttonVariants({ variant: buttonVariant }),
           defaultClassNames.button_next,
+          'inline-flex size-(--cell-size) shrink-0 items-center justify-center rounded-sm hover-shade p-0 outline-none select-none aria-disabled:opacity-50',
         ),
         month_caption: cn(
           'flex h-(--cell-size) w-full items-center justify-center px-(--cell-size)',
@@ -63,7 +63,7 @@ function Calendar({
           'text-sm font-medium select-none',
           defaultClassNames.caption_label,
         ),
-        table: 'w-full border-collapse',
+        // table: 'w-full border-collapse',
         weekdays: cn('flex', defaultClassNames.weekdays),
         weekday: cn(
           'flex-1 rounded-md text-[0.8rem] font-normal text-muted-foreground select-none',
@@ -147,7 +147,7 @@ function CalendarDayButton({
       data-day={day.date.toLocaleDateString()}
       data-selected-single={modifiers.selected}
       className={cn(
-        'flex aspect-square h-auto w-full min-w-(--cell-size) rounded-full leading-none font-normal hover:bg-accent-highlight hover:text-primary-foreground data-[selected-single=true]:bg-accent-foreground data-[selected-single=true]:text-primary-foreground dark:hover:text-accent-foreground',
+        'flex aspect-square h-auto w-full min-w-(--cell-size) rounded-full leading-none font-normal hover:bg-accent/25 hover:text-primary data-[selected-single=true]:bg-accent-foreground data-[selected-single=true]:text-primary-foreground',
         defaultClassNames.day,
         className,
       )}
