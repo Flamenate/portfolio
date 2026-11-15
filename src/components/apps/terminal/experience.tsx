@@ -1,5 +1,5 @@
 import { format } from 'date-fns'
-import { resume } from '@/data/personal'
+import { resume } from '@/lib/personal'
 import type { Command } from '@/lib/terminal-commands'
 import { datefnsLocales } from '@/stores/theme.store'
 import localize from '@/utils/localize'

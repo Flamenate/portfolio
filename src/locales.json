@@ -44,10 +44,30 @@
     "fr": "Ce PC",
     "es": "Este equipo"
   },
-  "my_regrets": {
-    "eng": "My Regrets",
-    "fr": "Mes regrets",
-    "es": "Mis arrepentimientos"
+  "regrets": {
+    "eng": "Regrets",
+    "fr": "Regrets",
+    "es": "Arrepentimientos"
+  },
+  "downloads": {
+    "eng": "Downloads",
+    "fr": "Téléchargements",
+    "es": "Descargas"
+  },
+  "documents": {
+    "eng": "Documents",
+    "fr": "Documents",
+    "es": "Documentos"
+  },
+  "pictures": {
+    "eng": "Pictures",
+    "fr": "Images",
+    "es": "Imágenes"
+  },
+  "music": {
+    "eng": "Music",
+    "fr": "Musique",
+    "es": "Música"
   },
   "notepad": {
     "eng": "Notepad",
@@ -339,6 +359,16 @@
     "fr": "Terminal",
     "es": "Terminal"
   },
+  "photos": {
+    "eng": "Photos",
+    "fr": "Photos",
+    "es": "Fotos"
+  },
+  "adoobie_gymnast": {
+    "eng": "Adoobie Gymnast",
+    "fr": "Adoobie Gymnast",
+    "es": "Adoobie Gymnast"
+  },
   "back": {
     "eng": "Back",
     "fr": "Précédent",
@@ -459,6 +489,11 @@
     "fr": "Agrandir",
     "es": "Maximizar"
   },
+  "unmaximize": {
+    "eng": "Restore",
+    "fr": "Restaurer",
+    "es": "Restaurar"
+  },
   "terminal_disclaimer": {
     "eng": "I do not own the Microsoft Windows Terminal, this is merely an imitation for demonstration purposes.",
     "fr": "Je ne possède pas le Microsoft Windows Terminal, ceci n'est qu'une imitation démonstrative.",
@@ -485,6 +520,11 @@
     "es": "'{0}' no está abierto."
   },
   "terminal_app_already_open": {
+    "eng": "'{0}' is already open.",
+    "fr": "'{0}' est déjà ouvert.",
+    "es": "'{0}' ya está abierto."
+  },
+  "terminal_app_already_opened": {
     "eng": "'{0}' is already open.",
     "fr": "'{0}' est déjà ouvert.",
     "es": "'{0}' ya está abierto."
@@ -603,6 +643,11 @@
     "eng": "Degree",
     "fr": "Diplôme",
     "es": "Título"
+  },
+  "terminal_education_caption": {
+    "eng": "Learn more about my education in the ????? app",
+    "fr": "En savoir plus sur ma formation dans l'application ?????",
+    "es": "Aprende más sobre mi formación en la aplicación ?????"
   },
   "resume_summary": {
     "eng": "Computer Science student with three years of web and software development experience, blending freelancing versatility with a rapid learning mindset. Always exploring new technologies and open to opportunities via email, LinkedIn, or Upwork.",
@@ -908,6 +953,31 @@
     "eng": "Exited fullscreen mode.",
     "fr": "Mode plein écran désactivé.",
     "es": "Modo de pantalla completa desactivado."
+  },
+  "logs_clear_notifications": {
+    "eng": "Cleared all notifications.",
+    "fr": "Toutes les notifications effacées.",
+    "es": "Todas las notificaciones borradas."
+  },
+  "logs_clear_notifications_by_source": {
+    "eng": "Cleared notifications from '{0}'.",
+    "fr": "Notifications de '{0}' effacées.",
+    "es": "Notificaciones de '{0}' borradas."
+  },
+  "logs_remove_notification": {
+    "eng": "Removed a notification.",
+    "fr": "Notification supprimée.",
+    "es": "Notificación eliminada."
+  },
+  "logs_enable_dnd": {
+    "eng": "Enabled Do Not Disturb.",
+    "fr": "Ne Pas Déranger activé.",
+    "es": "No Molestar activado."
+  },
+  "logs_disable_dnd": {
+    "eng": "Disabled Do Not Disturb.",
+    "fr": "Ne Pas Déranger désactivé.",
+    "es": "No Molestar desactivado."
   },
   "terminal_current_theme": {
     "eng": "Current theme",

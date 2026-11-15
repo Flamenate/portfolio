@@ -19,25 +19,25 @@ export const root: FolderNode = {
     {
       type: 'folder',
       name: 'downloads',
-      iconSrc: '/images/placeholder.webp',
+      iconSrc: '/images/downloads.webp',
       children: [],
     },
     {
       type: 'folder',
       name: 'documents',
-      iconSrc: '/images/placeholder.webp',
+      iconSrc: '/images/documents.webp',
       children: [],
     },
     {
       type: 'folder',
       name: 'pictures',
-      iconSrc: '/images/placeholder.webp',
+      iconSrc: '/images/pictures.webp',
       children: [],
     },
     {
       type: 'folder',
       name: 'music',
-      iconSrc: '/images/placeholder.webp',
+      iconSrc: '/images/music.webp',
       children: [],
     },
     {
@@ -49,7 +49,7 @@ export const root: FolderNode = {
     },
     {
       type: 'folder',
-      name: 'my_regrets',
+      name: 'regrets',
       children: [],
     },
   ],

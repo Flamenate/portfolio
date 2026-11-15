@@ -1,5 +1,5 @@
 import { format } from 'date-fns'
-import { resume } from '@/data/personal'
+import { resume } from '@/lib/personal'
 import type { Command } from '@/lib/terminal-commands'
 import { datefnsLocales } from '@/stores/theme.store'
 import localize from '@/utils/localize'
@@ -10,7 +10,6 @@ export const Education: Command = ({ snapshot }) => {
     <table>
       <caption className="mt-1 caption-bottom">
         <span className="border p-1">
-          {/* TODO: Add this key */}
           {localize('terminal_education_caption', snapshot.locale)}
         </span>
       </caption>

@@ -1,4 +1,4 @@
-import { skills } from '@/data/personal'
+import { skills } from '@/lib/personal'
 import type { Command } from '@/lib/terminal-commands'
 import localize from '@/utils/localize'
 

@@ -1,5 +1,5 @@
 import { create } from 'zustand'
-import { createApps } from '@/data/apps'
+import { createApps } from '@/lib/apps'
 import {
   MinimumSize,
   closeRecord,

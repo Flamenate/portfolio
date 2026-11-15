@@ -36,6 +36,16 @@ export const appContent: Record<string, AppContent> = {
       default: module.Notepad,
     })),
   ),
+  photos: lazy(() =>
+    import('@/components/apps/notepad').then((module) => ({
+      default: module.Notepad,
+    })),
+  ),
+  adoobie_gymnast: lazy(() =>
+    import('@/components/apps/notepad').then((module) => ({
+      default: module.Notepad,
+    })),
+  ),
 }
 
 const appDefinitions: Array<{
@@ -53,10 +63,10 @@ const appDefinitions: Array<{
   { label: 'mail', iconSrc: '/images/mail.png', pinned: false },
   { label: 'calculator', iconSrc: '/images/calculator.png', pinned: false },
   { label: 'notepad', iconSrc: '/images/notepad.png', pinned: false },
-  { label: 'photos', iconSrc: '/images/placeholder.webp', pinned: false },
+  { label: 'photos', iconSrc: '/images/photos.png', pinned: false },
   {
-    label: 'abobe_gymnast_pro',
-    iconSrc: '/images/placeholder.webp',
+    label: 'adoobie_gymnast',
+    iconSrc: '/images/adoobie_gymnast.webp',
     pinned: false,
   },
 ]
