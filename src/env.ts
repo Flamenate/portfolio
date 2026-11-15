@@ -11,6 +11,7 @@ export const env = createEnv({
       'development',
     ),
     VITE_DOMAIN: z.url(),
+    VITE_PROXY_ORIGIN: z.url(),
     VITE_APP_VERSION: z._default(z.string(), version),
     VITE_LAST_UPDATE: z._default(z.date(), new Date()),
   },

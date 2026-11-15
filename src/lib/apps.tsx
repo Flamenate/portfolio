@@ -46,6 +46,11 @@ export const appContent: Record<string, AppContent> = {
       default: module.Notepad,
     })),
   ),
+  spotiwhy: lazy(() =>
+    import('@/components/apps/notepad').then((module) => ({
+      default: module.Notepad,
+    })),
+  ),
 }
 
 const appDefinitions: Array<{
@@ -67,6 +72,11 @@ const appDefinitions: Array<{
   {
     label: 'adoobie_gymnast',
     iconSrc: '/images/adoobie_gymnast.webp',
+    pinned: false,
+  },
+  {
+    label: 'spotiwhy',
+    iconSrc: '/images/spotiwhy.webp',
     pinned: false,
   },
 ]

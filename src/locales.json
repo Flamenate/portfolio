@@ -1243,5 +1243,10 @@
     "eng": "You've reached the limit of 5 emails for this session.",
     "fr": "Vous avez atteint la limite de 5 e-mails pour cette session.",
     "es": "Has alcanzado el límite de 5 correos para esta sesión."
+  },
+  "spotiwhy": {
+    "eng": "Spotiwhy",
+    "fr": "Spotiwhy",
+    "es": "Spotiwhy"
   }
 }

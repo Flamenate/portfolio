@@ -3,7 +3,6 @@ import { ArrowLeftRegular } from '@fluentui/react-icons/headless/svg/arrow-left'
 import { ArrowRightRegular } from '@fluentui/react-icons/headless/svg/arrow-right'
 import { HomeRegular } from '@fluentui/react-icons/headless/svg/home'
 import { InfoRegular } from '@fluentui/react-icons/headless/svg/info'
-import type { Frame } from '@mercuryworkshop/scramjet-controller'
 import { getRouteApi } from '@tanstack/react-router'
 import { useEffect, useRef, useState } from 'react'
 import {
@@ -17,13 +16,16 @@ import {
 import { Input } from '@/components/ui/input'
 import { NavButton } from '@/components/ui/nav-button'
 import { WindowLoading } from '@/components/ui/window-loading'
+import { env } from '@/env'
 import useLocalize from '@/hooks/useLocalize'
-import { createProxyFrame, getFrameUrl } from '@/lib/scramjet'
 import { cn } from '@/lib/utils'
-import { renderUnsupportedPage } from '../../../lib/unsupported-page'
+import { useThemeStore } from '@/stores/theme.store'
 
 const HOME_URL = 'https://github.com/Flamenate'
 const SEARCH_URL = 'https://www.bing.com/search?q='
+const PROXY_ORIGIN = new URL(env.VITE_PROXY_ORIGIN).origin
+
+const colorSchemes = { light: 'light', dark: 'dark', system: 'light dark' } as const
 
 function toNavigableUrl(input: string) {
   const value = input.trim()
@@ -32,16 +34,36 @@ function toNavigableUrl(input: string) {
   return SEARCH_URL + encodeURIComponent(value)
 }
 
-function escapedTabLocation(url: string) {
-  return `/home?browse=${encodeURIComponent(url)}`
-}
-
 type History = { entries: string[]; index: number }
+
+type ShellMessage =
+  | { type: 'hello' }
+  | { type: 'ready' }
+  | { type: 'error' }
+  | { type: 'url'; url: string }
+  | { type: 'load'; url: string }
+
+function readShellMessage(data: unknown): ShellMessage | null {
+  if (typeof data !== 'object' || data === null || !('type' in data)) return null
+  if (data.type === 'hello' || data.type === 'ready' || data.type === 'error') {
+    return { type: data.type }
+  }
+  if (
+    (data.type === 'url' || data.type === 'load') &&
+    'url' in data &&
+    typeof data.url === 'string'
+  ) {
+    return { type: data.type, url: data.url }
+  }
+  return null
+}
 
 const homeRoute = getRouteApi('/home')
 
 export function Browser() {
   const localize = useLocalize()
+  const palette = useThemeStore((state) => state.palette)
+  const locale = useThemeStore((state) => state.locale)
   const { browse } = homeRoute.useSearch()
   const navigateRoute = homeRoute.useNavigate()
   const [initialUrl] = useState(() =>
@@ -49,7 +71,6 @@ export function Browser() {
   )
   const iframeRef = useRef<HTMLIFrameElement>(null)
   const inputRef = useRef<HTMLInputElement>(null)
-  const frameRef = useRef<Frame>(null)
   // The iframe shares session history with the desktop, so back/forward replay
   // our own entries instead of calling history.back() on the frame.
   const pendingUrlRef = useRef<string>(null)
@@ -61,63 +82,93 @@ export function Browser() {
   const canGoBack = isReady && history.index > 0
   const canGoForward = isReady && history.index < history.entries.length - 1
 
-  function showUrl(url: string) {
-    if (document.activeElement !== inputRef.current) setAddress(url)
-  }
+  const shellInitRef = useRef({
+    url: initialUrl,
+    ui: {
+      title: localize('browser_unsupported_title'),
+      description: localize('browser_unsupported_description', '{0}'),
+      openInNewTab: localize('browser_open_in_new_tab'),
+      lang: locale === 'eng' ? 'en' : locale,
+      colorScheme: colorSchemes[palette],
+    },
+  })
+  useEffect(() => {
+    shellInitRef.current = {
+      url: initialUrl,
+      ui: {
+        title: localize('browser_unsupported_title'),
+        description: localize('browser_unsupported_description', '{0}'),
+        openInNewTab: localize('browser_open_in_new_tab'),
+        lang: locale === 'eng' ? 'en' : locale,
+        colorScheme: colorSchemes[palette],
+      },
+    }
+  }, [initialUrl, localize, locale, palette])
 
   useEffect(() => {
     const iframe = iframeRef.current
     if (!iframe) return
-    const abortController = new AbortController()
-    const { signal } = abortController
+    const shell = iframe
 
-    createProxyFrame(iframe, {
-      onUrlChange: (url) => {
-        if (!signal.aborted) showUrl(url)
-      },
-      renderUnsupportedPage,
-      escapedTabLocation,
-    }).then(
-      (frame) => {
-        if (signal.aborted) return
-        frameRef.current = frame
-        frame.go(initialUrl)
+    function showUrl(url: string) {
+      if (document.activeElement !== inputRef.current) setAddress(url)
+    }
+
+    function onMessage(event: MessageEvent) {
+      if (event.origin !== PROXY_ORIGIN) return
+      if (event.source !== shell.contentWindow) return
+      const message = readShellMessage(event.data)
+      if (!message) return
+
+      if (message.type === 'hello') {
+        shell.contentWindow?.postMessage(
+          { type: 'init', ...shellInitRef.current },
+          PROXY_ORIGIN,
+        )
+        return
+      }
+      if (message.type === 'ready') {
         setStatus('ready')
-      },
-      (error: unknown) => {
-        console.error(error)
-        if (!signal.aborted) setStatus('error')
-      },
-    )
+        return
+      }
+      if (message.type === 'error') {
+        setStatus('error')
+        return
+      }
+      if (message.type === 'url') {
+        showUrl(message.url)
+        return
+      }
+      showUrl(message.url)
+      if (pendingUrlRef.current === message.url) {
+        pendingUrlRef.current = null
+        return
+      }
+      pendingUrlRef.current = null
+      setHistory(({ entries, index }) =>
+        entries[index] === message.url
+          ? { entries, index }
+          : {
+              entries: [...entries.slice(0, index + 1), message.url],
+              index: index + 1,
+            },
+      )
+    }
 
-    return () => abortController.abort()
-  }, [initialUrl])
+    window.addEventListener('message', onMessage)
+    return () => window.removeEventListener('message', onMessage)
+  }, [])
 
   useEffect(() => {
     if (browse) navigateRoute({ search: {}, replace: true })
   }, [browse, navigateRoute])
 
-  function navigate(url: string) {
-    frameRef.current?.go(url)
+  function post(message: { type: 'go'; url: string } | { type: 'reload' }) {
+    iframeRef.current?.contentWindow?.postMessage(message, PROXY_ORIGIN)
   }
 
-  // History is built from document loads only: the URL watcher also fires on
-  // replaceState, which would otherwise trap Back on pages that rewrite their URL.
-  function handleLoad() {
-    const url = frameRef.current && getFrameUrl(frameRef.current)
-    if (!url) return
-
-    showUrl(url)
-    if (pendingUrlRef.current === url) {
-      pendingUrlRef.current = null
-      return
-    }
-    pendingUrlRef.current = null
-    setHistory(({ entries, index }) =>
-      entries[index] === url
-        ? { entries, index }
-        : { entries: [...entries.slice(0, index + 1), url], index: index + 1 },
-    )
+  function navigate(url: string) {
+    post({ type: 'go', url })
   }
 
   function goToEntry(index: number) {
@@ -165,7 +216,7 @@ export function Browser() {
         <NavButton
           label={localize('reload')}
           disabled={!isReady}
-          onClick={() => frameRef.current?.reload()}
+          onClick={() => post({ type: 'reload' })}
         >
           <ArrowClockwiseRegular
             className={cn(
@@ -224,9 +275,10 @@ export function Browser() {
       <div className="relative min-h-0 grow">
         <iframe
           ref={iframeRef}
-          onLoad={handleLoad}
+          src={`${PROXY_ORIGIN}/`}
           className="h-full w-full border-0 bg-white"
           title={localize('browser')}
+          sandbox="allow-scripts allow-same-origin allow-forms allow-popups allow-popups-to-escape-sandbox"
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
           referrerPolicy="strict-origin-when-cross-origin"
           allowFullScreen
