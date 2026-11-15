@@ -23,7 +23,7 @@ function Welcome() {
       <div className="relative z-10 row-start-3 flex flex-col items-center justify-center gap-10">
         <div className="flex flex-col items-center gap-5">
           <Image
-            className="w-42 rounded-full border border-white/40 md:w-56"
+            className="aspect-square w-42 rounded-full border border-white/40 object-cover md:w-56"
             src="/images/ena.jpg"
             alt="Picture of Haythem Frikha"
             sizes="(max-width: 768px) 10.5rem, 14rem"

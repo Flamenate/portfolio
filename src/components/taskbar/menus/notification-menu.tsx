@@ -72,14 +72,14 @@ const Notification = forwardRef(function (
         })}
       </p>
       <div className="flex items-center gap-3">
-        <div className="rounded-full border bg-accent/25 p-1 dark:bg-accent-foreground">
+        <div className="flex aspect-square size-11 items-center justify-center rounded-full border bg-accent/25 p-1 dark:bg-accent-foreground">
           {typeof notification.source.iconSrc === 'string' ? (
             <img
               src={notification.source.iconSrc}
               alt=""
-              className="size-8 object-cover"
-              width="40"
-              height="40"
+              className="aspect-square size-7 object-contain"
+              width="32"
+              height="32"
             />
           ) : (
             <notification.source.iconSrc className="size-8" />

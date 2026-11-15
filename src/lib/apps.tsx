@@ -22,8 +22,8 @@ export const appContent: Record<string, AppContent> = {
     })),
   ),
   mail: lazy(() =>
-    import('@/components/apps/placeholder').then((module) => ({
-      default: module.Placeholder,
+    import('@/components/apps/mail').then((module) => ({
+      default: module.Mail,
     })),
   ),
   calculator: lazy(() =>

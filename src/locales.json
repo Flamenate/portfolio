@@ -1113,5 +1113,135 @@
     "eng": "Standard",
     "fr": "Standard",
     "es": "Standard"
+  },
+  "inbox": {
+    "eng": "Inbox",
+    "fr": "Boîte de réception",
+    "es": "Bandeja de entrada"
+  },
+  "junk": {
+    "eng": "Junk Email",
+    "fr": "Courrier indésirable",
+    "es": "Correo no deseado"
+  },
+  "drafts": {
+    "eng": "Drafts",
+    "fr": "Brouillons",
+    "es": "Borradores"
+  },
+  "sent_items": {
+    "eng": "Sent Items",
+    "fr": "Éléments envoyés",
+    "es": "Elementos enviados"
+  },
+  "archive": {
+    "eng": "Archive",
+    "fr": "Archives",
+    "es": "Archivo"
+  },
+  "mail_select_item": {
+    "eng": "Select an item to read",
+    "fr": "Sélectionnez un élément à lire",
+    "es": "Selecciona un elemento para leerlo"
+  },
+  "mail_empty_folder": {
+    "eng": "Nothing in this folder",
+    "fr": "Rien dans ce dossier",
+    "es": "No hay nada en esta carpeta"
+  },
+  "mail_new": {
+    "eng": "New mail",
+    "fr": "Nouveau message",
+    "es": "Nuevo correo"
+  },
+  "mail_to": {
+    "eng": "To",
+    "fr": "À",
+    "es": "Para"
+  },
+  "mail_name": {
+    "eng": "Name",
+    "fr": "Nom",
+    "es": "Nombre"
+  },
+  "mail_from": {
+    "eng": "Email",
+    "fr": "Email",
+    "es": "Correo"
+  },
+  "mail_subject": {
+    "eng": "Add a subject...",
+    "fr": "Ajouter un objet...",
+    "es": "Agregar un asunto..."
+  },
+  "mail_content": {
+    "eng": "Write your message...",
+    "fr": "Écrivez votre message...",
+    "es": "Escribe tu mensaje..."
+  },
+  "mail_name_required": {
+    "eng": "Enter your name.",
+    "fr": "Entrez votre nom.",
+    "es": "Escribe tu nombre."
+  },
+  "mail_email_invalid": {
+    "eng": "Enter a valid email address.",
+    "fr": "Entrez une adresse e-mail valide.",
+    "es": "Escribe un correo válido."
+  },
+  "mail_subject_required": {
+    "eng": "Enter a subject.",
+    "fr": "Entrez un objet.",
+    "es": "Escribe un asunto."
+  },
+  "mail_content_required": {
+    "eng": "Write a message.",
+    "fr": "Écrivez un message.",
+    "es": "Escribe un mensaje."
+  },
+  "mail_send": {
+    "eng": "Send",
+    "fr": "Envoyer",
+    "es": "Enviar"
+  },
+  "mail_sending": {
+    "eng": "Sending...",
+    "fr": "Envoi...",
+    "es": "Enviando..."
+  },
+  "mail_discard": {
+    "eng": "Discard",
+    "fr": "Abandonner",
+    "es": "Descartar"
+  },
+  "notifications_mail_sent": {
+    "eng": "Message sent",
+    "fr": "Message envoyé",
+    "es": "Mensaje enviado"
+  },
+  "notifications_mail_sent_description": {
+    "eng": "Thanks for reaching out! I'll get back to you soon.",
+    "fr": "Merci pour votre message ! Je vous répondrai bientôt.",
+    "es": "¡Gracias por escribirme! Te responderé pronto."
+  },
+  "notifications_mail_failed": {
+    "eng": "Message not sent",
+    "fr": "Message non envoyé",
+    "es": "Mensaje no enviado"
+  },
+  "notifications_mail_failed_description": {
+    "eng": "Something went wrong while sending. Please try again.",
+    "fr": "Une erreur s'est produite lors de l'envoi. Veuillez réessayer.",
+    "es": "Algo salió mal al enviar. Inténtalo de nuevo."
+  },
+  "notifications_mail_limit": {
+    "eng": "Message not sent",
+    "fr": "Message non envoyé",
+    "es": "Mensaje no enviado"
+  },
+  "notifications_mail_limit_description": {
+    "eng": "You've reached the limit of 5 emails for this session.",
+    "fr": "Vous avez atteint la limite de 5 e-mails pour cette session.",
+    "es": "Has alcanzado el límite de 5 correos para esta sesión."
   }
 }

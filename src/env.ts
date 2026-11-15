@@ -3,7 +3,7 @@ import * as z from 'zod/mini'
 import { version } from '../package.json'
 
 export const env = createEnv({
-  runtimeEnv: import.meta.env,
+  runtimeEnv: { ...import.meta.env, ...process.env },
   clientPrefix: 'VITE_',
   client: {
     VITE_NODE_ENV: z._default(
@@ -14,6 +14,11 @@ export const env = createEnv({
     VITE_APP_VERSION: z._default(z.string(), version),
     VITE_LAST_UPDATE: z._default(z.date(), new Date()),
   },
-  server: {},
+  server: {
+    RESEND_API_KEY: z.string(),
+    SESSION_SECRET: z.string(),
+    MAIL_FROM: z.string(),
+    PORT: z._default(z.number(), 3000),
+  },
   emptyStringAsUndefined: true,
 })
