@@ -2,37 +2,13 @@ import { ArrowLeftRegular } from '@fluentui/react-icons/headless/svg/arrow-left'
 import { ArrowRightRegular } from '@fluentui/react-icons/headless/svg/arrow-right'
 import { ChevronRightRegular } from '@fluentui/react-icons/headless/svg/chevron-right'
 import { Fragment } from 'react'
-import type { ComponentProps } from 'react'
 import { useShallow } from 'zustand/react/shallow'
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipTrigger,
-} from '@/components/ui/tooltip'
+import { NavButton } from '@/components/ui/nav-button'
 import useLocalize from '@/hooks/useLocalize'
 import { root } from '@/lib/directories'
 import type { FolderPath } from '@/lib/directories'
 import { cn } from '@/lib/utils'
 import { useExplorerStore } from '@/stores/explorer.store'
-
-function NavButton({
-  label,
-  ...props
-}: ComponentProps<'button'> & { label: string }) {
-  return (
-    <Tooltip>
-      <TooltipTrigger asChild>
-        <button
-          type="button"
-          aria-label={label}
-          className="flex size-10.5 cursor-pointer items-center justify-center rounded-sm hover-shade disabled:cursor-default disabled:opacity-40"
-          {...props}
-        />
-      </TooltipTrigger>
-      <TooltipContent sideOffset={4}>{label}</TooltipContent>
-    </Tooltip>
-  )
-}
 
 export function NavigationBar({ path }: { path: FolderPath }) {
   const localize = useLocalize()

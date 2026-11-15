@@ -13,16 +13,26 @@ import { desktopFolderPaths, pathKey } from '@/lib/directories'
 import useAppStore from '@/stores/app.store'
 import useExplorerStore from '@/stores/explorer.store'
 
-export const Route = createFileRoute('/home')({ component: Home })
+export const Route = createFileRoute('/home')({
+  validateSearch: (search: Record<string, unknown>): { browse?: string } =>
+    typeof search.browse === 'string' ? { browse: search.browse } : {},
+  component: Home,
+})
 
 function Home() {
   const [isFirstVisit] = useLocalStorage('isFirstVisit', true)
   const navigate = useNavigate()
+  const { browse } = Route.useSearch()
   useEffect(() => {
-    if (isFirstVisit) {
+    // Tabs redirected from the Browser app come from a visitor already inside.
+    if (isFirstVisit && !browse) {
       navigate({ to: '/' })
     }
-  }, [isFirstVisit, navigate])
+  }, [isFirstVisit, browse, navigate])
+
+  useEffect(() => {
+    if (browse) useAppStore.getState().openApp('browser')
+  }, [browse])
 
   const { apps, openAppLabels, clearSelectedApps, selectedAppLabels } =
     useAppStore(

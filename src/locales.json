@@ -349,6 +349,56 @@
     "fr": "Suivant",
     "es": "Adelante"
   },
+  "reload": {
+    "eng": "Reload",
+    "fr": "Actualiser",
+    "es": "Recargar"
+  },
+  "home": {
+    "eng": "Home",
+    "fr": "Accueil",
+    "es": "Inicio"
+  },
+  "search_or_enter_address": {
+    "eng": "Search or enter address",
+    "fr": "Rechercher ou saisir une adresse",
+    "es": "Buscar o introducir una dirección"
+  },
+  "browser_unsupported_title": {
+    "eng": "This site isn't supported",
+    "fr": "Ce site n'est pas pris en charge",
+    "es": "Este sitio no es compatible"
+  },
+  "browser_unsupported_description": {
+    "eng": "{0} doesn't work in this browser. Please browse it elsewhere, like in your own browser.",
+    "fr": "{0} ne fonctionne pas dans ce navigateur. Veuillez le consulter ailleurs, par exemple dans votre propre navigateur.",
+    "es": "{0} no funciona en este navegador. Visítalo en otro lugar, por ejemplo en tu propio navegador."
+  },
+  "browser_open_in_new_tab": {
+    "eng": "Open in a new tab",
+    "fr": "Ouvrir dans un nouvel onglet",
+    "es": "Abrir en una nueva pestaña"
+  },
+  "browser_failed_to_start": {
+    "eng": "The browser failed to start. Try reopening the app.",
+    "fr": "Le navigateur n'a pas pu démarrer. Essayez de rouvrir l'application.",
+    "es": "El navegador no pudo iniciarse. Intenta volver a abrir la aplicación."
+  },
+  "browser_info": {
+    "eng": "Info",
+    "fr": "Infos",
+    "es": "Información"
+  },
+  "browser_info_title": {
+    "eng": "Info",
+    "fr": "Infos",
+    "es": "Información"
+  },
+  "browser_info_description": {
+    "eng": "This browser is a sandbox, please don't use it to access any sensitive information. Not all websites are supported. Use the bug reporting app if you encounter any issues.",
+    "fr": "Ce navigateur est un sandbox, veuillez ne pas l'utiliser pour accéder à des informations sensibles. Tous les sites web ne sont pas pris en charge. Utilisez l'application de signalement de bugs si vous rencontrez des problèmes.",
+    "es": "Este navegador es un sandbox, por favor, no lo utilices para acceder a información sensible. Todos los sitios web no son compatibles. Utiliza la aplicación de informes de errores si encuentras algún problema."
+  },
   "folder_empty": {
     "eng": "This folder is empty.",
     "fr": "Ce dossier est vide.",
