@@ -7,8 +7,8 @@ import Taskbar from '@/components/taskbar'
 import { Toaster } from '@/components/ui/sonner'
 import { AppWindow } from '@/components/ui/window'
 import { WindowLoading } from '@/components/ui/window-loading'
-import { appContent } from '@/data/apps'
 import useLocalStorage from '@/hooks/useLocalStorage'
+import { appContent } from '@/lib/apps'
 import { desktopFolderPaths, pathKey } from '@/lib/directories'
 import useAppStore from '@/stores/app.store'
 import useExplorerStore from '@/stores/explorer.store'
@@ -65,7 +65,14 @@ function Home() {
       onClick={clearSelectedApps}
       onKeyUp={handleMultipleAppOpen}
       onKeyDown={(e) => {
-        if (e.key === 'Enter') e.preventDefault()
+        const { target, key } = e
+        if (
+          key !== 'Enter' ||
+          target instanceof HTMLInputElement ||
+          target instanceof HTMLTextAreaElement
+        )
+          return
+        e.preventDefault()
       }}
     >
       <Toaster offset={{ bottom: 80, right: 10 }} position="bottom-right" />
