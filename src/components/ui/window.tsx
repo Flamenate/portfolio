@@ -262,7 +262,7 @@ export function AppWindow({
         }
       }}
       className={cn(
-        '@container absolute flex max-h-[calc(100dvh-4rem)] max-w-full flex-col overflow-hidden rounded-sm border border-white/0! bg-popover/50 backdrop-blur-sm select-none',
+        '@container absolute flex max-h-[calc(100dvh-4rem)] max-w-full flex-col overflow-hidden rounded-sm border bg-popover/50 backdrop-blur-sm select-none',
         isCompact && 'inset-0 h-[calc(100dvh-4rem)] max-h-none w-full',
       )}
       tabIndex={0}

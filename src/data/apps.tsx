@@ -60,7 +60,7 @@ const definitions: Array<{
     iconSrc: '/images/recycle_bin_full.png',
     pinned: false,
   },
-  { label: 'mail', iconSrc: '/images/mail.webp', pinned: false },
+  { label: 'mail', iconSrc: '/images/mail.png', pinned: false },
   { label: 'calculator', iconSrc: '/images/calculator.png', pinned: false },
   { label: 'notepad', iconSrc: '/images/notepad.png', pinned: false },
 ]
