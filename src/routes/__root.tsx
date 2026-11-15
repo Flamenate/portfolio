@@ -106,9 +106,21 @@ function RootDocument({ children }: { children: React.ReactNode }) {
     })
   })
   useEffect(() => {
+    const handleContextMenu = (event: MouseEvent) => {
+      if (
+        event.target instanceof Element &&
+        event.target.closest(
+          'input, textarea, [contenteditable]:not([contenteditable="false"])',
+        )
+      )
+        return
+      event.preventDefault()
+    }
     window.addEventListener('error', handleGlobalError)
+    document.addEventListener('contextmenu', handleContextMenu)
     return () => {
       window.removeEventListener('error', handleGlobalError)
+      document.removeEventListener('contextmenu', handleContextMenu)
     }
   }, [])
 

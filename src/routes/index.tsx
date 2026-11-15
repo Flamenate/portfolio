@@ -12,12 +12,7 @@ function Welcome() {
   const [isFirstVisit, setIsFirstVisit] = useLocalStorage('isFirstVisit', true)
   const localize = useLocalize()
   return (
-    <main
-      className="relative grid h-screen grid-flow-row grid-rows-6 place-items-center overflow-hidden"
-      onContextMenu={(event) => {
-        event.preventDefault()
-      }}
-    >
+    <main className="relative grid h-screen grid-flow-row grid-rows-6 place-items-center overflow-hidden">
       <div
         aria-hidden
         className="absolute -inset-8 bg-slate-950 bg-[url('/images/login_bg.jpg')] bg-cover bg-center blur-lg"

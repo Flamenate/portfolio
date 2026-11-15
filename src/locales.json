@@ -349,6 +349,41 @@
     "fr": "Fermer",
     "es": "Cerrar"
   },
+  "close_app": {
+    "eng": "Close app",
+    "fr": "Fermer l'application",
+    "es": "Cerrar la aplicación"
+  },
+  "pin_to_taskbar": {
+    "eng": "Pin to taskbar",
+    "fr": "Épingler à la barre des tâches",
+    "es": "Anclar a la barra de tareas"
+  },
+  "unpin_from_taskbar": {
+    "eng": "Unpin from taskbar",
+    "fr": "Désépingler de la barre des tâches",
+    "es": "Desanclar de la barra de tareas"
+  },
+  "open": {
+    "eng": "Open",
+    "fr": "Ouvrir",
+    "es": "Abrir"
+  },
+  "run_as_administrator": {
+    "eng": "Run as administrator",
+    "fr": "Exécuter en tant qu'administrateur",
+    "es": "Ejecutar como administrador"
+  },
+  "delete": {
+    "eng": "Delete",
+    "fr": "Supprimer",
+    "es": "Eliminar"
+  },
+  "properties": {
+    "eng": "Properties",
+    "fr": "Propriétés",
+    "es": "Propiedades"
+  },
   "loading": {
     "eng": "Loading",
     "fr": "Chargement",

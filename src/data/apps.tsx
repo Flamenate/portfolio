@@ -57,7 +57,7 @@ const definitions: Array<{
   { label: 'terminal', iconSrc: '/images/terminal.png', pinned: false },
   {
     label: 'recycle_bin',
-    iconSrc: '/images/recycle_bin_empty.webp',
+    iconSrc: '/images/recycle_bin_full.png',
     pinned: false,
   },
   { label: 'mail', iconSrc: '/images/mail.webp', pinned: false },
