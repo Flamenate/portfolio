@@ -117,7 +117,7 @@ export function StartMenu() {
               type="button"
             >
               <Image
-                src="/images/ena.jpg"
+                src="/images/pictures/ena.jpg"
                 width={40}
                 height={40}
                 className="rounded-full"

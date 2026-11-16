@@ -132,7 +132,7 @@ export function FolderShortcut({
       label={localize(name)}
       icon={
         <Image
-          src={getFolder(path)?.iconSrc ?? '/images/folder.webp'}
+          src={getFolder(path)?.iconSrc ?? '/images/icons/folder.webp'}
           alt=""
           width={48}
           height={48}

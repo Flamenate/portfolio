@@ -29,7 +29,7 @@ export const Route = createRootRoute({
       },
       {
         property: 'og:image',
-        content: '/images/ena.jpg',
+        content: '/images/pictures/ena.jpg',
       },
       {
         property: 'og:url',
@@ -46,7 +46,7 @@ export const Route = createRootRoute({
       },
       {
         name: 'twitter:image',
-        content: '/images/ena.jpg',
+        content: '/images/pictures/ena.jpg',
       },
       {
         name: 'twitter:url',
@@ -60,7 +60,7 @@ export const Route = createRootRoute({
       },
       {
         rel: 'icon',
-        href: '/images/windows.png',
+        href: '/images/icons/windows.png',
         type: 'image/png',
       },
     ],
@@ -133,7 +133,7 @@ function RootDocument({ children }: { children: React.ReactNode }) {
       </head>
       <body>
         <TooltipProvider>
-          <main className='h-screen w-screen overscroll-none bg-[url("/images/desktop_bg.webp")] bg-cover bg-center bg-no-repeat dark:bg-[url("/images/desktop_dark_bg.png")]'>
+          <main className='h-screen w-screen overscroll-none bg-[url("/images/pictures/desktop_bg.webp")] bg-cover bg-center bg-no-repeat dark:bg-[url("/images/pictures/desktop_dark_bg.png")]'>
             {children}
           </main>
         </TooltipProvider>

@@ -37,8 +37,8 @@ export const appContent: Record<string, AppContent> = {
     })),
   ),
   photos: lazy(() =>
-    import('@/components/apps/notepad').then((module) => ({
-      default: module.Notepad,
+    import('@/components/apps/photos').then((module) => ({
+      default: module.Photos,
     })),
   ),
   adoobie_gymnast: lazy(() =>
@@ -60,23 +60,27 @@ const appDefinitions: Array<{
 }> = [
   {
     label: 'haythem_frikha',
-    iconSrc: '/images/explorer.png',
+    iconSrc: '/images/icons/explorer.png',
     pinned: true,
   },
-  { label: 'browser', iconSrc: '/images/browser.webp', pinned: true },
-  { label: 'terminal', iconSrc: '/images/terminal.png', pinned: false },
-  { label: 'mail', iconSrc: '/images/mail.png', pinned: false },
-  { label: 'calculator', iconSrc: '/images/calculator.png', pinned: false },
-  { label: 'notepad', iconSrc: '/images/notepad.png', pinned: false },
-  { label: 'photos', iconSrc: '/images/photos.png', pinned: false },
+  { label: 'browser', iconSrc: '/images/icons/browser.webp', pinned: true },
+  { label: 'terminal', iconSrc: '/images/icons/terminal.png', pinned: false },
+  { label: 'mail', iconSrc: '/images/icons/mail.png', pinned: false },
+  {
+    label: 'calculator',
+    iconSrc: '/images/icons/calculator.png',
+    pinned: false,
+  },
+  { label: 'notepad', iconSrc: '/images/icons/notepad.png', pinned: false },
+  { label: 'photos', iconSrc: '/images/icons/photos.png', pinned: false },
   {
     label: 'adoobie_gymnast',
-    iconSrc: '/images/adoobie_gymnast.webp',
+    iconSrc: '/images/icons/adoobie_gymnast.webp',
     pinned: false,
   },
   {
     label: 'spotiwhy',
-    iconSrc: '/images/spotiwhy.webp',
+    iconSrc: '/images/icons/spotiwhy.webp',
     pinned: false,
   },
 ]

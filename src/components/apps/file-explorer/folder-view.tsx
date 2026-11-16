@@ -1,6 +1,8 @@
 import { useState } from 'react'
 import useLocalize from '@/hooks/useLocalize'
+import { fileLabel } from '@/lib/directories'
 import type { FolderNode, FolderPath, FsNode } from '@/lib/directories'
+import { appForExtension } from '@/lib/photos'
 import { cn } from '@/lib/utils'
 import useAppStore from '@/stores/app.store'
 import { useExplorerStore } from '@/stores/explorer.store'
@@ -8,15 +10,20 @@ import { useExplorerStore } from '@/stores/explorer.store'
 function nodeKey(node: FsNode) {
   return node.type === 'folder'
     ? `folder:${node.name}`
-    : `file:${node.appLabel}:${node.name ?? ''}`
+    : `file:${fileLabel(node)}`
 }
 
 function ItemIcon({ node }: { node: FsNode }) {
-  const iconSrc = useAppStore((state) =>
-    node.type === 'file'
-      ? state.apps[node.appLabel]?.iconSrc
-      : (node.iconSrc ?? '/images/folder.webp'),
-  )
+  const extension = node.type === 'file' ? node.extension : null
+  const appIcon = useAppStore((state) => {
+    if (!extension) return undefined
+    const label = appForExtension(extension)
+    return label ? state.apps[label]?.iconSrc : undefined
+  })
+  const iconSrc =
+    node.type === 'folder'
+      ? (node.iconSrc ?? '/images/icons/folder.webp')
+      : (node.src ?? appIcon ?? '/images/icons/placeholder.webp')
   return (
     <img
       src={iconSrc}
@@ -48,8 +55,13 @@ export function FolderView({
   }
 
   const open = (node: FsNode) => {
-    if (node.type === 'folder') navigate([...path, node.name])
-    else openApp(node.appLabel, { title: node.name })
+    if (node.type === 'folder') {
+      navigate([...path, node.name])
+      return
+    }
+    const label = appForExtension(node.extension)
+    if (!label) return
+    openApp(label, { title: fileLabel(node) })
   }
 
   return (
@@ -70,9 +82,7 @@ export function FolderView({
           >
             <ItemIcon node={node} />
             <span className="w-full text-center wrap-break-word">
-              {node.type === 'folder'
-                ? localize(node.name)
-                : (node.name ?? localize(node.appLabel))}
+              {node.type === 'folder' ? localize(node.name) : fileLabel(node)}
             </span>
           </button>
         </li>

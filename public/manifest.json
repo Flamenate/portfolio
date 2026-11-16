@@ -3,18 +3,18 @@
   "name": "Haythem Frikha's Portfolio",
   "icons": [
     {
-      "src": "/images/windows.png",
+      "src": "/images/icons/windows.png",
       "sizes": "64x64 32x32 24x24 16x16",
       "type": "image/png"
     },
     {
-      "src": "/images/ena.jpg",
+      "src": "/images/pictures/ena.jpg",
       "type": "image/jpeg",
       "sizes": "192x192"
     },
     {
-      "src": "/images/desktop_bg.jpg",
-      "type": "image/jpeg",
+      "src": "/images/pictures/desktop_bg.webp",
+      "type": "image/webp",
       "sizes": "512x512"
     }
   ],

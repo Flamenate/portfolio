@@ -17,7 +17,7 @@ const inputClassName =
 
 function notify(content: 'mail_sent' | 'mail_failed' | 'mail_limit') {
   useNotificationStore.getState().addNotification({
-    source: { label: 'mail', iconSrc: '/images/mail.png' },
+    source: { label: 'mail', iconSrc: '/images/icons/mail.png' },
     content,
     subcontent: `${content}_description`,
   })

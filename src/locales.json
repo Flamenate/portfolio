@@ -364,6 +364,21 @@
     "fr": "Photos",
     "es": "Fotos"
   },
+  "all_photos": {
+    "eng": "All photos",
+    "fr": "Toutes les photos",
+    "es": "Todas las fotos"
+  },
+  "photo_count_one": {
+    "eng": "1 photo",
+    "fr": "1 photo",
+    "es": "1 foto"
+  },
+  "photo_count": {
+    "eng": "{0} photos",
+    "fr": "{0} photos",
+    "es": "{0} fotos"
+  },
   "adoobie_gymnast": {
     "eng": "Adoobie Gymnast",
     "fr": "Adoobie Gymnast",
