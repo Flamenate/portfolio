@@ -1,3 +1,6 @@
+overrides:
+  '@mercuryworkshop/wisp-js': 0.5.3
+
 peerDependencyRules:
   allowedVersions:
     react: '19'
@@ -5,12 +8,16 @@ peerDependencyRules:
 allowBuilds:
   esbuild: true
 permissions:
+  '@mercuryworkshop/scramjet':
+    build: true
   '@tanstack/react-router':
     skills: [router-query, react-router]
   '@tanstack/react-start':
     skills: [react-start]
   '@tanstack/router-plugin':
     skills: true
+  bufferutil:
+    build: true
 skills:
   dirs:
     - .agents/skills

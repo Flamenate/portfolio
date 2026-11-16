@@ -25,7 +25,11 @@ const HOME_URL = 'https://github.com/Flamenate'
 const SEARCH_URL = 'https://www.bing.com/search?q='
 const PROXY_ORIGIN = new URL(env.VITE_PROXY_ORIGIN).origin
 
-const colorSchemes = { light: 'light', dark: 'dark', system: 'light dark' } as const
+const colorSchemes = {
+  light: 'light',
+  dark: 'dark',
+  system: 'light dark',
+} as const
 
 function toNavigableUrl(input: string) {
   const value = input.trim()
@@ -44,7 +48,8 @@ type ShellMessage =
   | { type: 'load'; url: string }
 
 function readShellMessage(data: unknown): ShellMessage | null {
-  if (typeof data !== 'object' || data === null || !('type' in data)) return null
+  if (typeof data !== 'object' || data === null || !('type' in data))
+    return null
   if (data.type === 'hello' || data.type === 'ready' || data.type === 'error') {
     return { type: data.type }
   }
@@ -278,6 +283,7 @@ export function Browser() {
           src={`${PROXY_ORIGIN}/`}
           className="h-full w-full border-0 bg-white"
           title={localize('browser')}
+          // react-doctor-disable-next-line react-doctor/iframe-missing-sandbox
           sandbox="allow-scripts allow-same-origin allow-forms allow-popups allow-popups-to-escape-sandbox"
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
           referrerPolicy="strict-origin-when-cross-origin"

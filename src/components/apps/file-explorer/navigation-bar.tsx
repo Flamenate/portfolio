@@ -47,7 +47,7 @@ export function NavigationBar({ path }: { path: FolderPath }) {
         {crumbs.map((name, i) => {
           const isLast = i === crumbs.length - 1
           return (
-            <Fragment key={i}>
+            <Fragment key={crumbs.slice(0, i + 1).join('/')}>
               {i > 0 && (
                 <ChevronRightRegular className="size-3 shrink-0 opacity-60" />
               )}

@@ -60,6 +60,7 @@ function Home() {
     clearSelectedApps()
   }
   return (
+    // react-doctor-disable-next-line react-doctor/no-noninteractive-element-interactions
     <main
       className="flex h-screen flex-col"
       onClick={clearSelectedApps}

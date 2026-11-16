@@ -12,9 +12,6 @@ import { useAppStore } from '@/stores/app.store'
 import { Tooltip, TooltipContent, TooltipTrigger } from '../ui/tooltip'
 import ShortcutContextMenu from './menus/shortcut-context-menu'
 
-const fullWidthUnderline = 16
-const halfWidthUnderline = 6
-
 export function TaskbarShortcut({
   appLabel,
   shortcutTrackRef,
@@ -109,9 +106,9 @@ export function TaskbarShortcut({
               scale.set(1)
             }}
             key={app.iconSrc}
-            className="group hover-taskbar-effect relative box-border flex h-12.5 w-12 items-center justify-center rounded-sm p-2 transition-colors duration-150 select-none"
+            className="group relative box-border flex h-12.5 w-12 items-center justify-center rounded-sm hover-taskbar-effect p-2 transition-colors duration-150 select-none"
             onMouseUp={(event) => {
-              if (event.button === 0) void handleAppTransition()
+              if (event.button === 0) handleAppTransition()
             }}
             initial={{ opacity: 0, scale: 0.5 }}
             animate={{ opacity: 1, scale: isBeingDragged ? 1.25 : 1 }}
@@ -130,16 +127,13 @@ export function TaskbarShortcut({
                 <motion.div
                   key="underline"
                   initial={{
-                    width: 0,
+                    scaleX: 0,
                   }}
                   animate={{
-                    width:
-                      appState === 'minimized'
-                        ? halfWidthUnderline
-                        : fullWidthUnderline,
+                    scaleX: appState === 'minimized' ? 0.5 : 1,
                   }}
-                  exit={{ width: 0 }}
-                  className={`${appState === 'minimized' ? 'bg-muted-foreground' : 'bg-accent'} absolute bottom-0 left-1/2 h-0.75 -translate-x-1/2 rounded-full`}
+                  exit={{ scaleX: 0 }}
+                  className={`${appState === 'minimized' ? 'bg-muted-foreground' : 'bg-accent'} absolute bottom-0 left-1/2 h-0.75 w-4 -translate-x-1/2 rounded-full`}
                 />
               )}
             </AnimatePresence>

@@ -8,8 +8,8 @@ export const Logs: Command = ({ snapshot }) => {
   const logs = useLogStore((state) => state.actions)
   return (
     <div>
-      {logs.map((log, index) => (
-        <div key={index}>
+      {logs.map((log) => (
+        <div key={log.when.getTime()}>
           <span>
             {formatDistanceToNow(log.when, {
               addSuffix: true,

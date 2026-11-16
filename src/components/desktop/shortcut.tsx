@@ -1,5 +1,5 @@
 import { Image } from '@unpic/react'
-import { motion } from 'motion/react'
+import { m } from 'motion/react'
 import { useCallback } from 'react'
 import type { MouseEvent, ReactNode } from 'react'
 import { useShallow } from 'zustand/react/shallow'
@@ -56,7 +56,7 @@ export function DesktopShortcut({
   }, [onOpen, clearSelectedApps])
   return (
     <DesktopShortcutContextMenu appLabel={appLabel} onOpen={open}>
-      <motion.button
+      <m.button
         drag
         draggable={false}
         dragMomentum={false}
@@ -78,7 +78,7 @@ export function DesktopShortcut({
         <span className="text-center text-sm text-(--white) mix-blend-hard-light text-shadow-lg/55">
           {label}
         </span>
-      </motion.button>
+      </m.button>
     </DesktopShortcutContextMenu>
   )
 }

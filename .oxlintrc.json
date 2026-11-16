@@ -23,6 +23,9 @@
     "**/vite.config.*.timestamp-*.*",
     "**/routeTree.gen.ts"
   ],
+  "jsPlugins": [
+    { "name": "react-doctor", "specifier": "oxlint-plugin-react-doctor" }
+  ],
   "rules": {
     "for-direction": "error",
     "no-async-promise-executor": "error",
@@ -114,6 +117,8 @@
     "react/error-boundaries": "error",
     "react/purity": "error",
     "react/set-state-in-render": "error",
-    "react/unsupported-syntax": "warn"
+    "react/unsupported-syntax": "warn",
+    "react-doctor/no-fetch-in-effect": "warn",
+    "react-doctor/no-derived-state": "warn"
   }
 }

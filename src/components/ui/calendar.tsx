@@ -144,6 +144,7 @@ function CalendarDayButton({
       ref={ref}
       variant="ghost"
       size="icon"
+      //react-doctor-disable-next-line react-doctor/no-locale-format-in-render
       data-day={day.date.toLocaleDateString()}
       data-selected-single={modifiers.selected}
       className={cn(

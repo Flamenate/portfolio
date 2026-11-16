@@ -151,7 +151,7 @@ function HistoryMenu({
   return (
     <ul className={cn('overflow-y-auto', className)}>
       {entries.map((entry, index) => (
-        <li key={`${entry.expression}-${entry.result}-${index}`}>
+        <li key={entry.id}>
           <button
             type="button"
             className={`w-full px-3 py-2 text-right hover:bg-popover-foreground/10 ${index === 0 ? 'rounded-t-md' : index === entries.length - 1 ? 'rounded-b-md' : ''}`}

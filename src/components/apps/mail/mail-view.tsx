@@ -24,8 +24,8 @@ export function MailView({ mail }: { mail: Mail }) {
         </div>
       </header>
       <div className="flex flex-col gap-3 text-justify leading-relaxed whitespace-pre-line">
-        {mail.body.map((paragraph, i) => (
-          <p key={i}>{paragraph}</p>
+        {mail.body.map((paragraph) => (
+          <p key={paragraph}>{paragraph}</p>
         ))}
       </div>
     </article>

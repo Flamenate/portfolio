@@ -16,14 +16,18 @@ export function Taskbar() {
   const [orderedAppLabels, setOrderedAppLabels] = useState<string[]>([])
 
   const orderedTaskbarAppLabels = useMemo(() => {
-    const orderedLabels = orderedAppLabels.filter((label) =>
-      taskbarAppLabels.includes(label),
-    )
-
-    const newLabels = taskbarAppLabels.filter(
-      (label) => !orderedLabels.includes(label),
-    )
-
+    const taskbarSet = new Set(taskbarAppLabels)
+    const seen = new Set<string>()
+    const orderedLabels = orderedAppLabels.filter((label) => {
+      if (!taskbarSet.has(label) || seen.has(label)) return false
+      seen.add(label)
+      return true
+    })
+    const newLabels = taskbarAppLabels.filter((label) => {
+      if (seen.has(label)) return false
+      seen.add(label)
+      return true
+    })
     return [...orderedLabels, ...newLabels]
   }, [taskbarAppLabels, orderedAppLabels])
 

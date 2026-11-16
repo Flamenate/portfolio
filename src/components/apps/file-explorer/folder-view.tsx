@@ -5,6 +5,12 @@ import { cn } from '@/lib/utils'
 import useAppStore from '@/stores/app.store'
 import { useExplorerStore } from '@/stores/explorer.store'
 
+function nodeKey(node: FsNode) {
+  return node.type === 'folder'
+    ? `folder:${node.name}`
+    : `file:${node.appLabel}:${node.name ?? ''}`
+}
+
 function ItemIcon({ node }: { node: FsNode }) {
   const iconSrc = useAppStore((state) =>
     node.type === 'file'
@@ -49,7 +55,7 @@ export function FolderView({
   return (
     <ul className="grid grid-cols-[repeat(auto-fill,minmax(5.5rem,1fr))] gap-2">
       {folder.children.map((node, i) => (
-        <li key={i}>
+        <li key={nodeKey(node)}>
           <button
             type="button"
             className={cn(

@@ -30,7 +30,8 @@ function loadBootstrapScript() {
     const script = document.createElement('script')
     script.src = '/bootstrap-init.js'
     script.onload = () => resolve()
-    script.onerror = () => reject(new Error('Failed to load /bootstrap-init.js'))
+    script.onerror = () =>
+      reject(new Error('Failed to load /bootstrap-init.js'))
     document.head.append(script)
   })
 }
@@ -170,7 +171,9 @@ function decodeUrl(frame, href) {
   try {
     const base = location.origin + frame.prefix
     if (!href.startsWith(base)) return null
-    const decoded = frame.controller.config.codec.decode(href.slice(base.length))
+    const decoded = frame.controller.config.codec.decode(
+      href.slice(base.length),
+    )
     const url = new URL(decoded)
     if (!INTERNAL_PARAMS.some((param) => url.searchParams.has(param))) {
       return decoded
@@ -282,7 +285,7 @@ function onMessage(event) {
   if (data.type === 'reload') frame.reload()
 }
 
-window.addEventListener('message', onMessage)
+if (typeof window !== 'undefined') window.addEventListener('message', onMessage)
 post({ type: 'hello' })
 setInterval(() => {
   if (!starting) post({ type: 'hello' })

@@ -18,8 +18,16 @@ export function specialValue(display: string) {
 export type Operator = '+' | '−' | '×' | '÷'
 
 export type HistoryEntry = {
+  id: number
   expression: string
   result: string
+}
+
+let nextHistoryId = 0
+
+function historyEntry(expression: string, result: string): HistoryEntry {
+  nextHistoryId += 1
+  return { id: nextHistoryId, expression, result }
 }
 
 export type CalculatorState = {
@@ -94,7 +102,7 @@ function withResult(
   if (!Number.isFinite(value))
     return { ...state, error: 'Overflow', expression }
   const display = formatNumber(value)
-  const entry = { expression, result: display }
+  const entry = historyEntry(expression, display)
   return {
     ...state,
     display,
@@ -252,7 +260,7 @@ export function calculatorReducer(
           fresh: true,
           left: parseDisplay(state.display),
           lastRight: null,
-          history: [{ expression, result: state.display }, ...state.history],
+          history: [historyEntry(expression, state.display), ...state.history],
         }
       }
       const right = state.fresh

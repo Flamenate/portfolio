@@ -98,7 +98,7 @@ export function Compose({ onDone }: { onDone: () => void }) {
             dontRunListeners: true,
           },
         )
-        void form.handleSubmit()
+        form.handleSubmit()
       }}
       className="flex min-h-0 grow flex-col overflow-y-auto"
     >
