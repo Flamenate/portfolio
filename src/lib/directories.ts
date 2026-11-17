@@ -36,7 +36,20 @@ export const root: FolderNode = {
       type: 'folder',
       name: 'documents',
       iconSrc: '/images/icons/documents.webp',
-      children: [],
+      children: [
+        {
+          type: 'file',
+          name: 'Haythem_FRIKHA_ENG',
+          extension: 'pdf',
+          src: '/documents/Haythem_FRIKHA_ENG.pdf',
+        },
+        {
+          type: 'file',
+          name: 'Haythem_FRIKHA_FR',
+          extension: 'pdf',
+          src: '/documents/Haythem_FRIKHA_FR.pdf',
+        },
+      ],
     },
     {
       type: 'folder',
@@ -61,7 +74,7 @@ export const root: FolderNode = {
           type: 'file',
           name: 'desktop_bg',
           extension: 'webp',
-          src: '/images/pictures/desktop_bg.webp',
+          src: '/images/pictures/desktop_bg.jpg',
           date: '2026-10-14',
         },
         {

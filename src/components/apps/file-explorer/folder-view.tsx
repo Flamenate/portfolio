@@ -2,7 +2,7 @@ import { useState } from 'react'
 import useLocalize from '@/hooks/useLocalize'
 import { fileLabel } from '@/lib/directories'
 import type { FolderNode, FolderPath, FsNode } from '@/lib/directories'
-import { appForExtension } from '@/lib/photos'
+import { appForExtension, isImageFile } from '@/lib/photos'
 import { cn } from '@/lib/utils'
 import useAppStore from '@/stores/app.store'
 import { useExplorerStore } from '@/stores/explorer.store'
@@ -23,7 +23,9 @@ function ItemIcon({ node }: { node: FsNode }) {
   const iconSrc =
     node.type === 'folder'
       ? (node.iconSrc ?? '/images/icons/folder.webp')
-      : (node.src ?? appIcon ?? '/images/icons/placeholder.webp')
+      : isImageFile(node)
+        ? node.src
+        : (appIcon ?? '/images/icons/placeholder.webp')
   return (
     <img
       src={iconSrc}

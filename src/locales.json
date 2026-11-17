@@ -379,10 +379,65 @@
     "fr": "{0} photos",
     "es": "{0} fotos"
   },
-  "adoobie_gymnast": {
-    "eng": "Adoobie Gymnast",
-    "fr": "Adoobie Gymnast",
-    "es": "Adoobie Gymnast"
+  "gymnast_pdf": {
+    "eng": "Gymnast PDF",
+    "fr": "Gymnast PDF",
+    "es": "Gymnast PDF"
+  },
+  "upload": {
+    "eng": "Upload",
+    "fr": "Téléverser",
+    "es": "Subir"
+  },
+  "recent": {
+    "eng": "Recent",
+    "fr": "Récents",
+    "es": "Recientes"
+  },
+  "cloud_storage": {
+    "eng": "Cloud Storage",
+    "fr": "Stockage cloud",
+    "es": "Almacenamiento en la nube"
+  },
+  "your_files": {
+    "eng": "Your files",
+    "fr": "Vos fichiers",
+    "es": "Tus archivos"
+  },
+  "scans": {
+    "eng": "Scans",
+    "fr": "Numérisations",
+    "es": "Escaneos"
+  },
+  "shared_by_you": {
+    "eng": "Shared by you",
+    "fr": "Partagés par vous",
+    "es": "Compartidos por ti"
+  },
+  "shared_by_others": {
+    "eng": "Shared by others",
+    "fr": "Partagés par d'autres",
+    "es": "Compartidos por otros"
+  },
+  "name": {
+    "eng": "Name",
+    "fr": "Nom",
+    "es": "Nombre"
+  },
+  "opened": {
+    "eng": "Opened",
+    "fr": "Ouvert",
+    "es": "Abierto"
+  },
+  "size": {
+    "eng": "Size",
+    "fr": "Taille",
+    "es": "Tamaño"
+  },
+  "uploaded": {
+    "eng": "Uploaded",
+    "fr": "Téléversé",
+    "es": "Subido"
   },
   "back": {
     "eng": "Back",

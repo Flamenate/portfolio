@@ -41,9 +41,9 @@ export const appContent: Record<string, AppContent> = {
       default: module.Photos,
     })),
   ),
-  adoobie_gymnast: lazy(() =>
-    import('@/components/apps/notepad').then((module) => ({
-      default: module.Notepad,
+  gymnast_pdf: lazy(() =>
+    import('@/components/apps/gymnast').then((module) => ({
+      default: module.Gymnast,
     })),
   ),
   spotiwhy: lazy(() =>
@@ -74,8 +74,8 @@ const appDefinitions: Array<{
   { label: 'notepad', iconSrc: '/images/icons/notepad.png', pinned: false },
   { label: 'photos', iconSrc: '/images/icons/photos.png', pinned: false },
   {
-    label: 'adoobie_gymnast',
-    iconSrc: '/images/icons/adoobie_gymnast.webp',
+    label: 'gymnast_pdf',
+    iconSrc: '/images/icons/gymnast_pdf.webp',
     pinned: false,
   },
   {

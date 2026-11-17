@@ -4,15 +4,11 @@ import { FolderOpenRegular } from '@fluentui/react-icons/headless/svg/folder-ope
 import { ImageMultipleRegular } from '@fluentui/react-icons/headless/svg/image-multiple'
 import { format, parseISO } from 'date-fns'
 import { useState } from 'react'
+import { FolderTree } from '@/components/ui/folder-tree'
+import type { FolderTreeNode } from '@/components/ui/folder-tree'
 import { NavButton } from '@/components/ui/nav-button'
 import useLocalize from '@/hooks/useLocalize'
-import {
-  fileLabel,
-  getFolder,
-  isSamePath,
-  pathKey,
-  root,
-} from '@/lib/directories'
+import { fileLabel, getFolder, pathKey, root } from '@/lib/directories'
 import type { FolderPath } from '@/lib/directories'
 import { photoFolders, photosByMonth, photosUnder } from '@/lib/photos'
 import type { Photo, PhotoFolder } from '@/lib/photos'
@@ -28,50 +24,17 @@ function selectedLabel(path: FolderPath | null) {
   return (getFolder(path) ?? root).name
 }
 
-function PhotoFolderRow({
-  node,
-  depth,
-  currentPath,
-  onSelect,
-}: {
-  node: PhotoFolder
-  depth: number
-  currentPath: FolderPath | null
-  onSelect: (path: FolderPath) => void
-}) {
-  const localize = useLocalize()
-  const isCurrent = currentPath !== null && isSamePath(node.path, currentPath)
+function photoTreeNode(node: PhotoFolder): FolderTreeNode {
+  return {
+    name: node.folder.name,
+    path: node.path,
+    children: node.children.map(photoTreeNode),
+  }
+}
+
+function photoFolderIcon(_node: FolderTreeNode, isCurrent: boolean) {
   const Icon = isCurrent ? FolderOpenRegular : FolderRegular
-  return (
-    <li>
-      <button
-        type="button"
-        aria-current={isCurrent ? 'page' : undefined}
-        className={cn(
-          'flex w-full cursor-pointer items-center gap-2 rounded-sm px-3 py-2.5 text-left whitespace-nowrap',
-          isCurrent ? 'bg-accent/30' : 'hover:bg-accent/20',
-        )}
-        style={{ paddingLeft: `${depth * 0.75 + 0.75}rem` }}
-        onClick={() => onSelect(node.path)}
-      >
-        <Icon className="size-5 shrink-0" />
-        <span className="truncate">{localize(node.folder.name)}</span>
-      </button>
-      {node.children.length > 0 && (
-        <ul>
-          {node.children.map((child) => (
-            <PhotoFolderRow
-              key={pathKey(child.path)}
-              node={child}
-              depth={depth + 1}
-              currentPath={currentPath}
-              onSelect={onSelect}
-            />
-          ))}
-        </ul>
-      )}
-    </li>
-  )
+  return <Icon className="size-5 shrink-0" />
 }
 
 function PhotoMasonry({
@@ -176,7 +139,14 @@ export function Photos() {
           browsing && 'hidden @md:block',
         )}
       >
-        <ul>
+        <FolderTree
+          nodes={tree ? [photoTreeNode(tree)] : []}
+          currentPath={path}
+          onSelect={selectFolder}
+          renderIcon={photoFolderIcon}
+          rowClassName="gap-2 px-3 py-2.5"
+          indentBase={0.75}
+        >
           <li>
             <button
               type="button"
@@ -191,15 +161,7 @@ export function Photos() {
               <span className="truncate">{localize('all_photos')}</span>
             </button>
           </li>
-          {tree && (
-            <PhotoFolderRow
-              node={tree}
-              depth={0}
-              currentPath={path}
-              onSelect={selectFolder}
-            />
-          )}
-        </ul>
+        </FolderTree>
       </aside>
 
       <section
