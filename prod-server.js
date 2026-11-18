@@ -1,6 +1,6 @@
 import http from 'node:http'
-import { createProxyRouter } from './proxy/server.js'
 import { middleware } from './.output/server/index.mjs'
+import { createProxyRouter } from './proxy/server.js'
 
 const proxyOrigin = process.env.VITE_PROXY_ORIGIN
 const portfolioOrigin = process.env.VITE_DOMAIN

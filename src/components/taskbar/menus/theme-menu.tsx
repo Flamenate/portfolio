@@ -43,7 +43,7 @@ function LocaleItem({
 }) {
   return (
     <button
-      className={`hover-shade flex items-center gap-2 px-3 py-1 ${selected ? 'bg-accent/15' : ''} relative w-full rounded-sm text-left select-none`}
+      className={`flex items-center gap-2 hover-shade px-3 py-1 ${selected ? 'bg-accent/15' : ''} relative w-full rounded-sm text-left select-none`}
       onClick={onClick}
       type="button"
     >
@@ -74,7 +74,7 @@ function PalettePill({
   const localize = useLocalize()
   return (
     <button
-      className={`hover-shade flex items-center gap-2 px-3 py-1 ${selected ? 'bg-accent/15' : ''} relative rounded-sm text-left capitalize select-none`}
+      className={`flex items-center gap-2 hover-shade px-3 py-1 ${selected ? 'bg-accent/15' : ''} relative rounded-sm text-left capitalize select-none`}
       onClick={onClick}
       type="button"
     >

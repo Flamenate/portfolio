@@ -39,7 +39,7 @@ function SocialMediaButton({
           href={url}
           target="_blank"
           rel="noopener noreferrer"
-          className="hover-shade rounded-sm p-3"
+          className="rounded-sm hover-shade p-3"
           onPointerEnter={changeName}
           onPointerLeave={() => setDisplayedName('Haythem Frikha')}
         >
@@ -110,7 +110,7 @@ export function StartMenu() {
           <div className="grow"></div>
           <footer className="flex h-15 items-center justify-around rounded-b-sm bg-popover/30 select-none">
             <button
-              className="hover-shade flex w-46 items-center gap-3 rounded-sm px-3 py-1.5"
+              className="flex w-46 items-center gap-3 rounded-sm hover-shade px-3 py-1.5"
               onPointerEnter={toggleName}
               onPointerLeave={() => setName('Haythem Frikha')}
               onClick={toggleName}

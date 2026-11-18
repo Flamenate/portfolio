@@ -236,7 +236,7 @@ export function UtilityMenu() {
             </div>
             <div className="flex justify-start">
               <button
-                className="hover-shade mr-1 flex items-center justify-center rounded-sm p-2"
+                className="mr-1 flex items-center justify-center rounded-sm hover-shade p-2"
                 aria-label={localize(volume === 0 ? 'volume' : 'mute')}
                 onClick={() => {
                   if (volume === 0) {
@@ -265,7 +265,7 @@ export function UtilityMenu() {
             </div>
           </div>
           <div className="rounded-b-md border-t py-1 backdrop-blur-xs select-none">
-            <div className="hover-shade flex w-fit justify-baseline gap-1.5 rounded-sm p-2 text-xs">
+            <div className="flex w-fit justify-baseline gap-1.5 rounded-sm hover-shade p-2 text-xs">
               <Battery
                 batteryLevel={battery.level}
                 isCharging={battery.isCharging}

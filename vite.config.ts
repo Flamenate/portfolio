@@ -1,11 +1,11 @@
-import tailwindcss from '@tailwindcss/vite';
-import { tanstackStart } from '@tanstack/react-start/plugin/vite';
-import react, { reactCompilerPreset } from '@vitejs/plugin-react';
-import { nitro } from 'nitro/vite';
-import { defineConfig, loadEnv } from 'vite';
-import type { Plugin } from 'vite';
-import babel from '@rolldown/plugin-babel';
-import { createProxyRouter } from './proxy/server.js';
+import babel from '@rolldown/plugin-babel'
+import tailwindcss from '@tailwindcss/vite'
+import { tanstackStart } from '@tanstack/react-start/plugin/vite'
+import react, { reactCompilerPreset } from '@vitejs/plugin-react'
+import { nitro } from 'nitro/vite'
+import { defineConfig, loadEnv } from 'vite'
+import type { Plugin } from 'vite'
+import { createProxyRouter } from './proxy/server.js'
 
 function scramjetProxy(): Plugin {
   return {
@@ -38,13 +38,13 @@ const config = defineConfig({
     host: '127.0.0.1',
   },
   resolve: {
-    tsconfigPaths: true
+    tsconfigPaths: true,
   },
   plugins: [
     scramjetProxy(),
     tanstackStart(),
     react(),
-    babel({presets: [reactCompilerPreset()]}),
+    babel({ presets: [reactCompilerPreset()] }),
     tailwindcss(),
     nitro({
       preset: 'node-middleware',
@@ -60,7 +60,7 @@ const config = defineConfig({
         brotli: true,
         gzip: true,
       },
-      buildDir: 'dist'
+      buildDir: 'dist',
     }),
   ],
 })

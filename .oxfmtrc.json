@@ -5,6 +5,13 @@
   "trailingComma": "all",
   "printWidth": 80,
   "sortPackageJson": false,
+  "ignorePatterns": [
+    ".agents/**",
+    ".claude/**",
+    ".output/**",
+    "dist/**",
+    ".tanstack/**"
+  ],
   "sortImports": {
     "newlinesBetween": false,
     "groups": [

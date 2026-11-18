@@ -67,7 +67,9 @@ export async function createProxyRouter({ proxyOrigin, portfolioOrigin }) {
   const proxy = originOf(proxyOrigin, 'VITE_PROXY_ORIGIN')
   const portfolio = originOf(portfolioOrigin, 'portfolio origin')
   if (proxy === portfolio) {
-    throw new Error('VITE_PROXY_ORIGIN must be a different origin from the portfolio')
+    throw new Error(
+      'VITE_PROXY_ORIGIN must be a different origin from the portfolio',
+    )
   }
   const proxyHost = new URL(proxy).host
 

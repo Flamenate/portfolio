@@ -1,4 +1,4 @@
-import { defineConfig } from 'react-doctor/api';
+import { defineConfig } from 'react-doctor/api'
 
 export default defineConfig({
   ignore: {

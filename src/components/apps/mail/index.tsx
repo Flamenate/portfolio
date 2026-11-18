@@ -12,7 +12,10 @@ import { FolderList } from './folder-list'
 import { MailList } from './mail-list'
 import { MailView } from './mail-view'
 
-type View = { type: 'empty' } | { type: 'read'; id: string } | { type: 'compose' }
+type View =
+  | { type: 'empty' }
+  | { type: 'read'; id: string }
+  | { type: 'compose' }
 
 export function Mail() {
   const localize = useLocalize()

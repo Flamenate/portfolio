@@ -12,7 +12,7 @@ export const WindowsShortcut = forwardRef<
       type="button"
       {...props}
       className={cn(
-        'group hover-taskbar-effect relative flex h-full w-12 items-center justify-center rounded-sm p-2 transition-colors duration-150 select-none',
+        'group relative flex h-full w-12 items-center justify-center rounded-sm hover-taskbar-effect p-2 transition-colors duration-150 select-none',
         className,
       )}
     >
