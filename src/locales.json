@@ -1314,9 +1314,24 @@
     "fr": "Vous avez atteint la limite de 5 e-mails pour cette session.",
     "es": "Has alcanzado el límite de 5 correos para esta sesión."
   },
+  "notifications_vapor_unavailable": {
+    "eng": "Game details unavailable",
+    "fr": "Détails des jeux indisponibles",
+    "es": "Detalles de los juegos no disponibles"
+  },
+  "notifications_vapor_unavailable_description": {
+    "eng": "Vapor failed to retrieve game details, please try again later.",
+    "fr": "Vapor n'a pas réussi à récupérer les détails du jeu, veuillez réessayer plus tard.",
+    "es": "Vapor no ha podido recuperar los detalles del juego, por favor inténtalo de nuevo más tarde."
+  },
   "spotiwhy": {
     "eng": "Spotiwhy",
     "fr": "Spotiwhy",
     "es": "Spotiwhy"
+  },
+  "vapor": {
+    "eng": "Vapor",
+    "fr": "Vapor",
+    "es": "Vapor"
   }
 }

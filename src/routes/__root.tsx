@@ -1,11 +1,18 @@
-import { HeadContent, Scripts, createRootRoute } from '@tanstack/react-router'
+import type { QueryClient } from '@tanstack/react-query'
+import {
+  HeadContent,
+  Scripts,
+  createRootRouteWithContext,
+} from '@tanstack/react-router'
 import { useEffect, useEffectEvent } from 'react'
 import { TooltipProvider } from '@/components/ui/tooltip'
 import { useApplyTheme } from '@/hooks/useApplyTheme'
 import { useNotificationStore } from '@/stores/notification.store'
 import appCss from '../styles.css?url'
 
-export const Route = createRootRoute({
+export const Route = createRootRouteWithContext<{
+  queryClient: QueryClient
+}>()({
   head: () => ({
     meta: [
       {

@@ -51,6 +51,11 @@ export const appContent: Record<string, AppContent> = {
       default: module.Notepad,
     })),
   ),
+  vapor: lazy(() =>
+    import('@/components/apps/vapor').then((module) => ({
+      default: module.Vapor,
+    })),
+  ),
 }
 
 const appDefinitions: Array<{
@@ -83,6 +88,7 @@ const appDefinitions: Array<{
     iconSrc: '/images/icons/spotiwhy.webp',
     pinned: false,
   },
+  { label: 'vapor', iconSrc: '/images/icons/vapor.webp', pinned: false },
 ]
 
 export function createApps(): Record<string, AppRecord> {
