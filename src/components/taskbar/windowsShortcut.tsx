@@ -17,7 +17,7 @@ export const WindowsShortcut = forwardRef<
       )}
     >
       <img
-        src="/images/icons/windows.png"
+        src="/images/icons/flame_os.webp"
         alt=""
         className="mt-0.5 object-cover transition-[scale_filter] group-active:scale-80 group-active:contrast-150 group-active:saturate-200"
         draggable="false"

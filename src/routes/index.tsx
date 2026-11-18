@@ -15,7 +15,7 @@ function Welcome() {
     <main className="relative grid h-screen grid-flow-row grid-rows-6 place-items-center overflow-hidden">
       <div
         aria-hidden
-        className="absolute -inset-8 bg-slate-950 bg-[url('/images/pictures/login_bg.jpg')] bg-cover bg-center blur-lg"
+        className="absolute -inset-8 bg-slate-950 bg-[url('/images/pictures/login_bg.webp')] bg-cover bg-center blur-lg"
       />
       <h1 className="relative z-10 text-3xl font-bold text-gray-200 drop-shadow-sm drop-shadow-black md:text-5xl">
         {localize(isFirstVisit ? 'welcome' : 'welcome_back')}

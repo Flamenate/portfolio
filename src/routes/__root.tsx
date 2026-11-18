@@ -67,7 +67,7 @@ export const Route = createRootRouteWithContext<{
       },
       {
         rel: 'icon',
-        href: '/images/icons/windows.png',
+        href: '/images/icons/flame_os.webp',
         type: 'image/png',
       },
     ],
@@ -140,7 +140,7 @@ function RootDocument({ children }: { children: React.ReactNode }) {
       </head>
       <body>
         <TooltipProvider>
-          <main className='h-screen w-screen overscroll-none bg-[url("/images/pictures/desktop_bg.jpg")] bg-cover bg-center bg-no-repeat dark:bg-[url("/images/pictures/desktop_dark_bg.png")]'>
+          <main className='h-screen w-screen overscroll-none bg-[url("/images/pictures/desktop_bg.webp")] bg-cover bg-center bg-no-repeat dark:bg-[url("/images/pictures/desktop_dark_bg.webp")]'>
             {children}
           </main>
         </TooltipProvider>

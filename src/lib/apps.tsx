@@ -65,19 +65,19 @@ const appDefinitions: Array<{
 }> = [
   {
     label: 'haythem_frikha',
-    iconSrc: '/images/icons/explorer.png',
+    iconSrc: '/images/icons/explorer.webp',
     pinned: true,
   },
   { label: 'browser', iconSrc: '/images/icons/browser.webp', pinned: true },
   { label: 'terminal', iconSrc: '/images/icons/terminal.png', pinned: false },
-  { label: 'mail', iconSrc: '/images/icons/mail.png', pinned: false },
+  { label: 'mail', iconSrc: '/images/icons/mail.webp', pinned: false },
   {
     label: 'calculator',
     iconSrc: '/images/icons/calculator.png',
     pinned: false,
   },
   { label: 'notepad', iconSrc: '/images/icons/notepad.png', pinned: false },
-  { label: 'photos', iconSrc: '/images/icons/photos.png', pinned: false },
+  { label: 'photos', iconSrc: '/images/icons/photos.webp', pinned: false },
   {
     label: 'gymnast_pdf',
     iconSrc: '/images/icons/gymnast_pdf.webp',
