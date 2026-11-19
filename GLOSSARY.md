@@ -37,3 +37,7 @@ _Avoid_: Icon, shortcut (when the kind is ambiguous)
 
 **Selection**:
 The Desktop shortcuts currently highlighted, which open together.
+
+**Sign-in**:
+The click on the welcome screen that lets a visitor onto the Desktop; remembered for a week.
+_Avoid_: Login, auth

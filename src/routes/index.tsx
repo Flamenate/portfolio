@@ -3,13 +3,16 @@ import { Image } from '@unpic/react'
 import { useState } from 'react'
 import { WindowLoading } from '@/components/ui/window-loading'
 import useLocalize from '@/hooks/useLocalize'
-import useLocalStorage from '@/hooks/useLocalStorage'
+import { isSignedIn, markSignedIn } from '@/lib/sign-in'
 
-export const Route = createFileRoute('/')({ component: Welcome })
+export const Route = createFileRoute('/')({
+  loader: () => ({ signedIn: isSignedIn() }),
+  component: Welcome,
+})
 
 function Welcome() {
   const [loading, setLoading] = useState<boolean>(false)
-  const [isFirstVisit, setIsFirstVisit] = useLocalStorage('isFirstVisit', true)
+  const { signedIn } = Route.useLoaderData()
   const localize = useLocalize()
   return (
     <main className="relative grid h-screen grid-flow-row grid-rows-6 place-items-center overflow-hidden">
@@ -18,7 +21,7 @@ function Welcome() {
         className="absolute -inset-8 bg-slate-950 bg-[url('/images/pictures/login_bg.webp')] bg-cover bg-center blur-lg"
       />
       <h1 className="relative z-10 text-3xl font-bold text-gray-200 drop-shadow-sm drop-shadow-black md:text-5xl">
-        {localize(isFirstVisit ? 'welcome' : 'welcome_back')}
+        {localize(signedIn ? 'welcome_back' : 'welcome')}
       </h1>
       <div className="relative z-10 row-start-3 flex flex-col items-center justify-center gap-10">
         <div className="flex flex-col items-center gap-5">
@@ -43,7 +46,7 @@ function Welcome() {
               draggable="false"
               onClick={() => {
                 setLoading(true)
-                if (isFirstVisit) setIsFirstVisit(false)
+                markSignedIn()
               }}
             >
               {localize('sign_in')}

@@ -1,4 +1,4 @@
-import { createFileRoute, useNavigate } from '@tanstack/react-router'
+import { createFileRoute, redirect } from '@tanstack/react-router'
 import { AnimatePresence } from 'motion/react'
 import { Activity, Suspense, useEffect, useRef } from 'react'
 import { useShallow } from 'zustand/react/shallow'
@@ -7,29 +7,24 @@ import Taskbar from '@/components/taskbar'
 import { Toaster } from '@/components/ui/sonner'
 import { AppWindow } from '@/components/ui/window'
 import { WindowLoading } from '@/components/ui/window-loading'
-import useLocalStorage from '@/hooks/useLocalStorage'
 import { appDefinitions } from '@/lib/apps'
 import { desktopFolderPaths, pathKey } from '@/lib/directories'
+import { isSignedIn } from '@/lib/sign-in'
 import useAppStore from '@/stores/app.store'
 import { useDesktopSelectionStore } from '@/stores/desktop-selection.store'
 
 export const Route = createFileRoute('/home')({
   validateSearch: (search: Record<string, unknown>): { browse?: string } =>
     typeof search.browse === 'string' ? { browse: search.browse } : {},
+  beforeLoad: ({ search }) => {
+    // Tabs redirected from the Browser app come from a visitor already inside.
+    if (!search.browse && !isSignedIn()) throw redirect({ to: '/' })
+  },
   component: Home,
 })
 
 function Home() {
-  const [isFirstVisit] = useLocalStorage('isFirstVisit', true)
-  const navigate = useNavigate()
   const { browse } = Route.useSearch()
-  useEffect(() => {
-    // Tabs redirected from the Browser app come from a visitor already inside.
-    if (isFirstVisit && !browse) {
-      navigate({ to: '/' })
-    }
-  }, [isFirstVisit, browse, navigate])
-
   useEffect(() => {
     if (browse) useAppStore.getState().openApp('browser')
   }, [browse])
@@ -45,7 +40,12 @@ function Home() {
     .filter((app) => app.state !== 'closed')
 
   const desktopShortcutContainer = useRef<HTMLDivElement | null>(null)
-  const { clear, openSelected } = useDesktopSelectionStore.getState()
+  const { clear, openSelected } = useDesktopSelectionStore(
+    useShallow((state) => ({
+      clear: state.clear,
+      openSelected: state.openSelected,
+    })),
+  )
 
   const handleMultipleAppOpen = (e: React.KeyboardEvent) => {
     if (e.key !== 'Enter') return
