@@ -8,10 +8,10 @@ import { Toaster } from '@/components/ui/sonner'
 import { AppWindow } from '@/components/ui/window'
 import { WindowLoading } from '@/components/ui/window-loading'
 import useLocalStorage from '@/hooks/useLocalStorage'
-import { appDefinitions, isAppLabel } from '@/lib/apps'
+import { appDefinitions } from '@/lib/apps'
 import { desktopFolderPaths, pathKey } from '@/lib/directories'
 import useAppStore from '@/stores/app.store'
-import useExplorerStore from '@/stores/explorer.store'
+import { useDesktopSelectionStore } from '@/stores/desktop-selection.store'
 
 export const Route = createFileRoute('/home')({
   validateSearch: (search: Record<string, unknown>): { browse?: string } =>
@@ -34,36 +34,30 @@ function Home() {
     if (browse) useAppStore.getState().openApp('browser')
   }, [browse])
 
-  const { apps, openAppLabels, clearSelectedShortcuts, selectedShortcutIds } =
-    useAppStore(
-      useShallow((state) => ({
-        apps: state.apps,
-        openAppLabels: state.openAppLabels,
-        clearSelectedShortcuts: state.clearSelectedShortcuts,
-        selectedShortcutIds: state.selectedShortcutIds,
-      })),
-    )
+  const { apps, openAppLabels } = useAppStore(
+    useShallow((state) => ({
+      apps: state.apps,
+      openAppLabels: state.openAppLabels,
+    })),
+  )
   const openApps = openAppLabels
     .map((label) => apps[label])
     .filter((app) => app.state !== 'closed')
 
   const desktopShortcutContainer = useRef<HTMLDivElement | null>(null)
+  const { clear, openSelected } = useDesktopSelectionStore.getState()
 
   const handleMultipleAppOpen = (e: React.KeyboardEvent) => {
-    if (e.key !== 'Enter' || selectedShortcutIds.length === 0) return
+    if (e.key !== 'Enter') return
+    if (useDesktopSelectionStore.getState().selected.length === 0) return
     e.preventDefault()
-    for (const id of selectedShortcutIds) {
-      const folderPath = desktopFolderPaths.find((path) => pathKey(path) === id)
-      if (folderPath) useExplorerStore.getState().openFolder(folderPath)
-      else if (isAppLabel(id)) useAppStore.getState().openApp(id)
-    }
-    clearSelectedShortcuts()
+    openSelected()
   }
   return (
     // react-doctor-disable-next-line react-doctor/no-noninteractive-element-interactions
     <main
       className="flex h-screen flex-col"
-      onClick={clearSelectedShortcuts}
+      onClick={clear}
       onKeyUp={handleMultipleAppOpen}
       onKeyDown={(e) => {
         const { target, key } = e

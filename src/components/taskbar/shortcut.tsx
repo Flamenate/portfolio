@@ -8,8 +8,8 @@ import {
 import { useState } from 'react'
 import { useShallow } from 'zustand/react/shallow'
 import useLocalize from '@/hooks/useLocalize'
+import type { AppLabel } from '@/lib/apps'
 import { cn } from '@/lib/utils'
-import type { AppRecord } from '@/models/application'
 import { useAppStore } from '@/stores/app.store'
 import { Tooltip, TooltipContent, TooltipTrigger } from '../ui/tooltip'
 import ShortcutContextMenu from './menus/shortcut-context-menu'
@@ -18,26 +18,14 @@ export function TaskbarShortcut({
   appLabel,
   shortcutTrackRef,
 }: {
-  appLabel: AppRecord['label']
+  appLabel: AppLabel
   shortcutTrackRef: React.RefObject<HTMLDivElement | null>
 }) {
-  const {
-    app,
-    appState,
-    focused,
-    openApp,
-    unminimizeApp,
-    minimizeApp,
-    focusApp,
-  } = useAppStore(
+  const { app, appState, activateApp } = useAppStore(
     useShallow((state) => ({
       app: state.apps[appLabel],
       appState: state.apps[appLabel].state,
-      focused: state.focusedAppLabel === appLabel,
-      unminimizeApp: state.unminimizeApp,
-      minimizeApp: state.minimizeApp,
-      openApp: state.openApp,
-      focusApp: state.focusApp,
+      activateApp: state.activateApp,
     })),
   )
 
@@ -46,28 +34,11 @@ export function TaskbarShortcut({
   const handleAppTransition = async () => {
     if (isBeingDragged) return
 
-    const animationState = appState
-    switch (appState) {
-      case 'closed':
-        openApp(appLabel)
-        break
-      case 'minimized':
-      case 'unminimizing':
-        unminimizeApp(appLabel)
-        break
-      case 'open':
-      case 'maximized':
-        if (focused) minimizeApp(appLabel)
-        else focusApp(appLabel)
-        break
-    }
+    const activation = activateApp(appLabel)
     await animate(
       scope.current,
       {
-        y:
-          animationState === 'minimized' || animationState === 'closed'
-            ? -5
-            : 3,
+        y: activation === 'opened' || activation === 'restored' ? -5 : 3,
       },
       {
         type: 'spring',

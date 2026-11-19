@@ -15,10 +15,14 @@ import { useShallow } from 'zustand/react/shallow'
 import useLocalize from '@/hooks/useLocalize'
 import { useResizable } from '@/hooks/useResizable'
 import type { ResizeDirection } from '@/hooks/useResizable'
+import type { AppLabel } from '@/lib/apps'
+import {
+  MINIMUM_WINDOW_SIZE,
+  RESTORE_ORIGIN_GAP,
+  TASKBAR_HEIGHT,
+} from '@/lib/constants'
 import { localizeOrKeep } from '@/lib/localize'
 import { cn } from '@/lib/utils'
-import { MinimumSize } from '@/models/application'
-import type { AppRecord } from '@/models/application'
 import { useAppStore } from '@/stores/app.store'
 import { useThemeStore } from '@/stores/theme.store'
 import { Tooltip, TooltipContent, TooltipTrigger } from './tooltip'
@@ -97,7 +101,7 @@ export function AppWindow({
   appLabel,
 }: {
   children: React.ReactNode
-  appLabel: AppRecord['label']
+  appLabel: AppLabel
 }) {
   const localize = useLocalize()
   const language = useThemeStore((state) => state.locale)
@@ -111,30 +115,34 @@ export function AppWindow({
 
   const {
     app,
-    maximizeApp,
-    unmaximizeApp,
+    toggleMaximizeApp,
     closeApp,
     minimizeApp,
     focusApp,
     focusedAppLabel,
     updateAppCoordinates,
-    finishUnminimize,
   } = useAppStore(
     useShallow((state) => ({
       app: state.apps[appLabel],
-      maximizeApp: state.maximizeApp,
-      unmaximizeApp: state.unmaximizeApp,
+      toggleMaximizeApp: state.toggleMaximizeApp,
       closeApp: state.closeApp,
       minimizeApp: state.minimizeApp,
       focusApp: state.focusApp,
       focusedAppLabel: state.focusedAppLabel,
       updateAppCoordinates: state.updateAppCoordinates,
-      finishUnminimize: state.finishUnminimize,
     })),
   )
 
   const coordinates = app.coordinates
   const appState = app.state
+  // A Window coming back from minimized grows out of the taskbar; that is
+  // presentation only, so it is tracked here rather than as a Window state.
+  const [previousAppState, setPreviousAppState] = useState(appState)
+  const [restoring, setRestoring] = useState(false)
+  if (previousAppState !== appState) {
+    setPreviousAppState(appState)
+    setRestoring(previousAppState === 'minimized' && appState !== 'closed')
+  }
   const x = useMotionValue(coordinates.x)
   const y = useMotionValue(coordinates.y)
   const width = useMotionValue(coordinates.width)
@@ -145,7 +153,7 @@ export function AppWindow({
     if (!rect) return
     setDragConstraints({
       right: Math.max(0, window.innerWidth - rect.width),
-      bottom: Math.max(0, window.innerHeight - 64 - rect.height),
+      bottom: Math.max(0, window.innerHeight - TASKBAR_HEIGHT - rect.height),
     })
   }, [])
 
@@ -160,11 +168,13 @@ export function AppWindow({
   }, [updateConstraints])
 
   useLayoutEffect(() => {
-    if (appState !== 'unminimizing') return
+    if (!restoring) return
     const current = useAppStore.getState().apps[appLabel].coordinates
     x.set(window.innerWidth / 2 - current.width / 2)
-    y.set(window.innerHeight - current.height - 80)
-  }, [appLabel, appState, x, y])
+    y.set(
+      window.innerHeight - current.height - TASKBAR_HEIGHT - RESTORE_ORIGIN_GAP,
+    )
+  }, [appLabel, restoring, x, y])
 
   useEffect(() => {
     if (gesturing.current || isCompact) return
@@ -197,8 +207,7 @@ export function AppWindow({
   const dragControls = useDragControls()
 
   const focused = appLabel === focusedAppLabel
-  const canDrag =
-    !isCompact && appState !== 'maximized' && appState !== 'unminimizing'
+  const canDrag = !isCompact && appState !== 'maximized' && !restoring
 
   return (
     <motion.div
@@ -226,7 +235,7 @@ export function AppWindow({
         const maxY = Math.max(
           0,
           window.innerHeight -
-            64 -
+            TASKBAR_HEIGHT -
             (windowRef.current?.offsetHeight ?? coordinates.height),
         )
         updateAppCoordinates(appLabel, {
@@ -243,23 +252,19 @@ export function AppWindow({
               y,
               width,
               height,
-              minWidth: MinimumSize.width,
-              minHeight: MinimumSize.height,
+              minWidth: MINIMUM_WINDOW_SIZE.width,
+              minHeight: MINIMUM_WINDOW_SIZE.height,
               zIndex: focused ? 100 : 90,
             }
       }
       initial={
-        appState === 'unminimizing'
+        restoring
           ? { scale: 0.3, opacity: 0, filter: 'blur(8px)' }
           : { scale: 0.6, opacity: 0, filter: 'blur(8px)' }
       }
       animate={{ scale: 1, opacity: 1, filter: 'none' }}
       exit={{ scale: 0.6, opacity: 0, filter: 'blur(8px)' }}
-      onAnimationComplete={() => {
-        if (useAppStore.getState().apps[appLabel].state === 'unminimizing') {
-          finishUnminimize(appLabel)
-        }
-      }}
+      onAnimationComplete={() => setRestoring(false)}
       className={cn(
         '@container absolute flex max-h-[calc(100dvh-4rem)] max-w-full flex-col overflow-hidden rounded-sm border bg-popover/50 backdrop-blur-sm select-none',
         isCompact && 'inset-0 h-[calc(100dvh-4rem)] max-h-none w-full',
@@ -277,9 +282,7 @@ export function AppWindow({
           dragControls.start(event)
         }}
         onDoubleClick={() => {
-          if (isCompact) return
-          if (appState === 'maximized') unmaximizeApp(appLabel)
-          else maximizeApp(appLabel)
+          if (!isCompact) toggleMaximizeApp(appLabel)
         }}
       >
         <img
@@ -311,7 +314,7 @@ export function AppWindow({
             <Tooltip>
               <TooltipTrigger asChild>
                 <WindowButton
-                  onClick={() => unmaximizeApp(appLabel)}
+                  onClick={() => toggleMaximizeApp(appLabel)}
                   aria-label={localize('unmaximize')}
                   className="hover-shade"
                 >
@@ -326,7 +329,7 @@ export function AppWindow({
             <Tooltip>
               <TooltipTrigger asChild>
                 <WindowButton
-                  onClick={() => maximizeApp(appLabel)}
+                  onClick={() => toggleMaximizeApp(appLabel)}
                   aria-label={localize('maximize')}
                   className="hover-shade"
                   disabled={isCompact}

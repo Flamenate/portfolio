@@ -1,8 +1,8 @@
 import { lazy } from 'react'
 import type { ComponentType, LazyExoticComponent } from 'react'
+import { DEFAULT_WINDOW_COORDINATES } from '@/lib/constants'
 import type { TranslationKey } from '@/lib/localize'
-import { defaultCoordinates } from '@/models/application'
-import type { AppRecord } from '@/models/application'
+import type { AppRecord } from '@/stores/app.store'
 
 type AppDefinition = {
   iconSrc: string
@@ -130,7 +130,7 @@ export function createApps() {
         pinned: appDefinitions[label].pinned,
         title: null,
         state: 'closed',
-        coordinates: { ...defaultCoordinates },
+        coordinates: { ...DEFAULT_WINDOW_COORDINATES },
         restoredCoordinates: null,
       } satisfies AppRecord,
     ]),

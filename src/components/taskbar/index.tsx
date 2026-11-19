@@ -1,6 +1,7 @@
 import { Reorder } from 'motion/react'
 import { useMemo, useRef, useState } from 'react'
-import type { AppRecord } from '@/models/application'
+import type { AppLabel } from '@/lib/apps'
+import { TASKBAR_HEIGHT } from '@/lib/constants'
 import useAppStore from '@/stores/app.store'
 import { StartMenu } from './menus/start-menu'
 import TaskbarShortcut from './shortcut'
@@ -14,9 +15,7 @@ export function Taskbar() {
     .filter((app) => app.pinned || app.state !== 'closed')
     .map((app) => app.label)
 
-  const [orderedAppLabels, setOrderedAppLabels] = useState<
-    AppRecord['label'][]
-  >([])
+  const [orderedAppLabels, setOrderedAppLabels] = useState<AppLabel[]>([])
 
   const orderedTaskbarAppLabels = useMemo(() => {
     const taskbarSet = new Set(taskbarAppLabels)
@@ -35,7 +34,10 @@ export function Taskbar() {
   }, [taskbarAppLabels, orderedAppLabels])
 
   return (
-    <footer className="z-110 flex h-16 w-screen items-center justify-center border-t border-white/15 bg-linear-to-r from-transparent via-black/25 to-transparent p-1.5 backdrop-blur-xl">
+    <footer
+      style={{ height: TASKBAR_HEIGHT }}
+      className="z-110 flex w-screen items-center justify-center border-t border-white/15 bg-linear-to-r from-transparent via-black/25 to-transparent p-1.5 backdrop-blur-xl"
+    >
       <StartMenu />
       <div ref={shortcutTrackRef} className="pr-10">
         <Reorder.Group

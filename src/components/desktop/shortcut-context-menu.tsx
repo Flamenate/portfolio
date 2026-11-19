@@ -13,18 +13,18 @@ import {
   ContextMenuTrigger,
 } from '@/components/ui/context-menu'
 import useLocalize from '@/hooks/useLocalize'
-import type { AppRecord } from '@/models/application'
 import { useAppStore } from '@/stores/app.store'
+import { useDesktopSelectionStore } from '@/stores/desktop-selection.store'
+import type { DesktopShortcut } from '@/stores/desktop-selection.store'
 
 export function DesktopShortcutContextMenu({
-  appLabel,
-  onOpen,
+  shortcut,
   children,
   ...props
 }: React.ComponentProps<typeof ContextMenuTrigger> & {
-  appLabel?: AppRecord['label']
-  onOpen: () => void
+  shortcut: DesktopShortcut
 }) {
+  const appLabel = shortcut.kind === 'app' ? shortcut.label : undefined
   const { pinned, pinApp, unpinApp } = useAppStore(
     useShallow((state) => ({
       pinned: appLabel ? state.apps[appLabel].pinned : false,
@@ -46,7 +46,11 @@ export function DesktopShortcutContextMenu({
         onClick={(event) => event.stopPropagation()}
         onKeyUp={(event) => event.stopPropagation()}
       >
-        <ContextMenuItem onSelect={onOpen}>
+        <ContextMenuItem
+          onSelect={() =>
+            useDesktopSelectionStore.getState().openShortcut(shortcut)
+          }
+        >
           <OpenRegular />
           {localize('open')}
         </ContextMenuItem>

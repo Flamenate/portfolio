@@ -9,7 +9,7 @@ const apps = () => useAppStore.getState()
 describe('Explorer navigation', () => {
   beforeEach(() => {
     explorer().reset()
-    apps().closeApp(EXPLORER_APP_LABEL)
+    useAppStore.setState(useAppStore.getInitialState(), true)
   })
 
   it('starts at the root folder', () => {

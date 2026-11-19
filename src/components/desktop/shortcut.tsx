@@ -1,68 +1,39 @@
 import { Image } from '@unpic/react'
 import { m } from 'motion/react'
-import { useCallback } from 'react'
+import { useMemo } from 'react'
 import type { MouseEvent, ReactNode } from 'react'
-import { useShallow } from 'zustand/react/shallow'
 import { root } from '@/data/directories'
 import useLocalize from '@/hooks/useLocalize'
-import { getFolder, pathKey } from '@/lib/directories'
+import type { AppLabel } from '@/lib/apps'
+import { getFolder } from '@/lib/directories'
 import type { FolderPath } from '@/lib/directories'
 import { cn } from '@/lib/utils'
-import type { AppRecord } from '@/models/application'
 import useAppStore from '@/stores/app.store'
-import { useExplorerStore } from '@/stores/explorer.store'
+import {
+  useDesktopSelectionStore,
+  useIsSelected,
+} from '@/stores/desktop-selection.store'
+import type { DesktopShortcut } from '@/stores/desktop-selection.store'
 import DesktopShortcutContextMenu from './shortcut-context-menu'
 
 type ContainerRef = React.RefObject<HTMLDivElement | null>
 
-export function DesktopShortcut({
-  id,
-  appLabel,
+export function DesktopShortcutButton({
+  shortcut,
   label,
   icon,
-  onOpen,
   containerRef,
 }: {
-  id: string
-  appLabel?: AppRecord['label']
+  shortcut: DesktopShortcut
   label: string
   icon: ReactNode
-  onOpen: () => void
   containerRef: ContainerRef
 }) {
-  const {
-    selectedShortcutIds,
-    selectShortcut,
-    unselectShortcut,
-    clearSelectedShortcuts,
-  } = useAppStore(
-    useShallow((state) => ({
-      selectedShortcutIds: state.selectedShortcutIds,
-      selectShortcut: state.selectShortcut,
-      unselectShortcut: state.unselectShortcut,
-      clearSelectedShortcuts: state.clearSelectedShortcuts,
-    })),
-  )
-  const isSelected = selectedShortcutIds.includes(id)
-  const handleSelection = useCallback(
-    (e: MouseEvent) => {
-      e.stopPropagation()
-      const withCtrlKey = e.ctrlKey
-      if (
-        (selectedShortcutIds.length > 1 && isSelected && !withCtrlKey) ||
-        !isSelected
-      )
-        selectShortcut(id, withCtrlKey)
-      else if (withCtrlKey) unselectShortcut(id)
-    },
-    [id, selectedShortcutIds, isSelected, selectShortcut, unselectShortcut],
-  )
-  const open = useCallback(() => {
-    onOpen()
-    clearSelectedShortcuts()
-  }, [onOpen, clearSelectedShortcuts])
+  const isSelected = useIsSelected(shortcut)
+  const { click, contextClick, openShortcut } =
+    useDesktopSelectionStore.getState()
   return (
-    <DesktopShortcutContextMenu appLabel={appLabel} onOpen={open}>
+    <DesktopShortcutContextMenu shortcut={shortcut}>
       <m.button
         drag
         draggable={false}
@@ -77,11 +48,12 @@ export function DesktopShortcut({
           'flex h-fit w-20 flex-col items-center justify-center gap-1 rounded-sm px-2 py-1 outline-accent-foreground hover:bg-white/25 focus-visible:bg-white/40 focus-visible:outline-1',
           isSelected && 'bg-white/40',
         )}
-        onClick={handleSelection}
-        onDoubleClick={open}
-        onContextMenu={() => {
-          if (!isSelected) selectShortcut(id)
+        onClick={(e: MouseEvent) => {
+          e.stopPropagation()
+          click(shortcut, { ctrl: e.ctrlKey })
         }}
+        onDoubleClick={() => openShortcut(shortcut)}
+        onContextMenu={() => contextClick(shortcut)}
         onKeyUp={(e) => e.preventDefault()}
       >
         {icon}
@@ -97,17 +69,18 @@ export function AppShortcut({
   appLabel,
   containerRef,
 }: {
-  appLabel: AppRecord['label']
+  appLabel: AppLabel
   containerRef: ContainerRef
 }) {
   const iconSrc = useAppStore((state) => state.apps[appLabel].iconSrc)
-  const openApp = useAppStore((state) => state.openApp)
   const localize = useLocalize()
-  const open = useCallback(() => openApp(appLabel), [appLabel, openApp])
+  const shortcut = useMemo<DesktopShortcut>(
+    () => ({ kind: 'app', label: appLabel }),
+    [appLabel],
+  )
   return (
-    <DesktopShortcut
-      id={appLabel}
-      appLabel={appLabel}
+    <DesktopShortcutButton
+      shortcut={shortcut}
       label={localize(appLabel)}
       icon={
         <Image
@@ -119,7 +92,6 @@ export function AppShortcut({
           className="aspect-square object-contain"
         />
       }
-      onOpen={open}
       containerRef={containerRef}
     />
   )
@@ -132,13 +104,15 @@ export function FolderShortcut({
   path: FolderPath
   containerRef: ContainerRef
 }) {
-  const openFolder = useExplorerStore((state) => state.openFolder)
   const localize = useLocalize()
-  const open = useCallback(() => openFolder(path), [path, openFolder])
+  const shortcut = useMemo<DesktopShortcut>(
+    () => ({ kind: 'folder', path }),
+    [path],
+  )
   const name = path.at(-1) ?? root.name
   return (
-    <DesktopShortcut
-      id={pathKey(path)}
+    <DesktopShortcutButton
+      shortcut={shortcut}
       label={localize(name)}
       icon={
         <Image
@@ -150,7 +124,6 @@ export function FolderShortcut({
           className="aspect-square object-contain"
         />
       }
-      onOpen={open}
       containerRef={containerRef}
     />
   )

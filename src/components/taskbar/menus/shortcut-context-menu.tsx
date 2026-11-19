@@ -10,7 +10,7 @@ import {
   ContextMenuTrigger,
 } from '@/components/ui/context-menu'
 import useLocalize from '@/hooks/useLocalize'
-import type { AppRecord } from '@/models/application'
+import type { AppLabel } from '@/lib/apps'
 import { useAppStore } from '@/stores/app.store'
 
 // Radix anchors the menu to the contextmenu event's coordinates, so they are
@@ -30,7 +30,7 @@ export function ShortcutContextMenu({
   onContextMenu,
   ...props
 }: React.ComponentProps<typeof ContextMenuTrigger> & {
-  appLabel: AppRecord['label']
+  appLabel: AppLabel
 }) {
   const { app, openApp, pinApp, unpinApp, closeApp } = useAppStore(
     useShallow((state) => ({

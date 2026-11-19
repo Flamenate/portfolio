@@ -1,8 +1,8 @@
 import type { MotionValue } from 'motion/react'
 import { useEffect, useEffectEvent, useRef } from 'react'
 import type { PointerEvent as ReactPointerEvent, RefObject } from 'react'
-import { MinimumSize } from '@/models/application'
-import type { AppRecord } from '@/models/application'
+import type { AppLabel } from '@/lib/apps'
+import { MINIMUM_WINDOW_SIZE, TASKBAR_HEIGHT } from '@/lib/constants'
 import { useAppStore } from '@/stores/app.store'
 
 export type ResizeDirection =
@@ -21,7 +21,7 @@ interface UseResizeOptions {
   y: MotionValue<number>
   width: MotionValue<number>
   height: MotionValue<number>
-  appLabel: AppRecord['label']
+  appLabel: AppLabel
   onGestureStart: () => void
   onGestureEnd: () => void
   updateConstraints: () => void
@@ -86,14 +86,20 @@ export function useResizable({
     let nextY = drag.startWindowY
     let nextWidth = drag.startWidth
     let nextHeight = drag.startHeight
-    const maxBottom = window.innerHeight - 64
+    const maxBottom = window.innerHeight - TASKBAR_HEIGHT
 
     if (east) {
-      const resized = Math.max(MinimumSize.width, drag.startWidth + deltaX)
+      const resized = Math.max(
+        MINIMUM_WINDOW_SIZE.width,
+        drag.startWidth + deltaX,
+      )
       if (drag.startWindowX + resized <= window.innerWidth) nextWidth = resized
     }
     if (west) {
-      const resized = Math.max(MinimumSize.width, drag.startWidth - deltaX)
+      const resized = Math.max(
+        MINIMUM_WINDOW_SIZE.width,
+        drag.startWidth - deltaX,
+      )
       const candidateX = drag.startWindowX - (resized - drag.startWidth)
       if (candidateX >= 0) {
         nextWidth = resized
@@ -101,11 +107,17 @@ export function useResizable({
       }
     }
     if (south) {
-      const resized = Math.max(MinimumSize.height, drag.startHeight + deltaY)
+      const resized = Math.max(
+        MINIMUM_WINDOW_SIZE.height,
+        drag.startHeight + deltaY,
+      )
       if (drag.startWindowY + resized <= maxBottom) nextHeight = resized
     }
     if (north) {
-      const resized = Math.max(MinimumSize.height, drag.startHeight - deltaY)
+      const resized = Math.max(
+        MINIMUM_WINDOW_SIZE.height,
+        drag.startHeight - deltaY,
+      )
       const candidateY = drag.startWindowY - (resized - drag.startHeight)
       if (candidateY >= 0) {
         nextHeight = resized
@@ -148,11 +160,7 @@ export function useResizable({
     const element = windowRef.current
     if (!element) return
 
-    const store = useAppStore.getState()
-    if (store.apps[appLabel].state === 'maximized') {
-      store.releaseMaximize(appLabel)
-    }
-    store.focusApp(appLabel)
+    useAppStore.getState().beginResizeApp(appLabel)
     onGestureStart()
 
     const rect = element.getBoundingClientRect()
