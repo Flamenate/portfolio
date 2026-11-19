@@ -81,8 +81,7 @@ async function fetchWithRetry(input: string, init: RequestInit, label: string) {
   for (let attempt = 0; ; attempt++) {
     const response = await fetch(input, init)
     if (
-      response.status === 429 ||
-      response.status >= 500 ||
+      (response.status !== 429 && response.status < 500) ||
       attempt >= MAX_RETRIES
     )
       return response
