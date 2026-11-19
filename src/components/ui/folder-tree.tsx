@@ -6,6 +6,7 @@ import { isSamePath, pathKey } from '@/lib/directories'
 import type { FolderNode, FolderPath } from '@/lib/directories'
 import { cn } from '@/lib/utils'
 
+// react-doctor-disable-next-line react/only-export-components
 export type FolderTreeNode = {
   name: FolderNode['name']
   path: FolderPath

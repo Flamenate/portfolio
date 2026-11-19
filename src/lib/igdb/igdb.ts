@@ -61,10 +61,6 @@ function imageUrl(image: IgdbImage | undefined, size: string) {
     : undefined
 }
 
-function isRetryable(status: number) {
-  return status === 429 || status >= 500
-}
-
 function retryDelay(response: Response, attempt: number) {
   const fallback = 1000 * 2 ** attempt
   const header = response.headers.get('retry-after')
@@ -84,7 +80,12 @@ function wait(ms: number) {
 async function fetchWithRetry(input: string, init: RequestInit, label: string) {
   for (let attempt = 0; ; attempt++) {
     const response = await fetch(input, init)
-    if (!isRetryable(response.status) || attempt >= MAX_RETRIES) return response
+    if (
+      response.status === 429 ||
+      response.status >= 500 ||
+      attempt >= MAX_RETRIES
+    )
+      return response
     const delay = retryDelay(response, attempt)
     console.error(
       `[igdb] ${label} responded ${response.status}, retrying in ${delay}ms (${attempt + 1}/${MAX_RETRIES})`,

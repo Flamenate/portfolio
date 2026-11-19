@@ -205,6 +205,7 @@ export function Gymnast() {
                 key={viewing.id}
                 title={fileLabel(viewing)}
                 src={viewing.src}
+                sandbox=""
                 className="absolute inset-0 h-full w-full border-0"
               />
             </div>

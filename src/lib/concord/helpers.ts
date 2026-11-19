@@ -60,7 +60,9 @@ export function conversationKey(conversation: Conversation) {
 export function memberRoles(server: Server, userId: string): Role[] {
   const member = server.members.find((item) => item.userId === userId)
   if (!member) return []
-  return server.roles.filter((role) => member.roleIds.includes(role.id))
+
+  const roleIds = new Set(member.roleIds)
+  return server.roles.filter((role) => roleIds.has(role.id))
 }
 
 export function nameColor(server: Server | undefined, userId: string) {
