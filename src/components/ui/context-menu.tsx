@@ -1,8 +1,8 @@
 import { CheckRegular } from '@fluentui/react-icons/headless/svg/check'
 import { ChevronRightRegular } from '@fluentui/react-icons/headless/svg/chevron-right'
-import { cn } from 'cn'
 import { ContextMenu as ContextMenuPrimitive } from 'radix-ui'
 import * as React from 'react'
+import { cn } from '@/lib/utils'
 
 function ContextMenu({
   ...props

@@ -8,7 +8,7 @@ import { Toaster } from '@/components/ui/sonner'
 import { AppWindow } from '@/components/ui/window'
 import { WindowLoading } from '@/components/ui/window-loading'
 import useLocalStorage from '@/hooks/useLocalStorage'
-import { appContent } from '@/lib/apps'
+import { appDefinitions, isAppLabel } from '@/lib/apps'
 import { desktopFolderPaths, pathKey } from '@/lib/directories'
 import useAppStore from '@/stores/app.store'
 import useExplorerStore from '@/stores/explorer.store'
@@ -34,13 +34,13 @@ function Home() {
     if (browse) useAppStore.getState().openApp('browser')
   }, [browse])
 
-  const { apps, openAppLabels, clearSelectedApps, selectedAppLabels } =
+  const { apps, openAppLabels, clearSelectedShortcuts, selectedShortcutIds } =
     useAppStore(
       useShallow((state) => ({
         apps: state.apps,
         openAppLabels: state.openAppLabels,
-        clearSelectedApps: state.clearSelectedApps,
-        selectedAppLabels: state.selectedAppLabels,
+        clearSelectedShortcuts: state.clearSelectedShortcuts,
+        selectedShortcutIds: state.selectedShortcutIds,
       })),
     )
   const openApps = openAppLabels
@@ -50,20 +50,20 @@ function Home() {
   const desktopShortcutContainer = useRef<HTMLDivElement | null>(null)
 
   const handleMultipleAppOpen = (e: React.KeyboardEvent) => {
-    if (e.key !== 'Enter' || selectedAppLabels.length === 0) return
+    if (e.key !== 'Enter' || selectedShortcutIds.length === 0) return
     e.preventDefault()
-    for (const id of selectedAppLabels) {
+    for (const id of selectedShortcutIds) {
       const folderPath = desktopFolderPaths.find((path) => pathKey(path) === id)
       if (folderPath) useExplorerStore.getState().openFolder(folderPath)
-      else useAppStore.getState().openApp(id)
+      else if (isAppLabel(id)) useAppStore.getState().openApp(id)
     }
-    clearSelectedApps()
+    clearSelectedShortcuts()
   }
   return (
     // react-doctor-disable-next-line react-doctor/no-noninteractive-element-interactions
     <main
       className="flex h-screen flex-col"
-      onClick={clearSelectedApps}
+      onClick={clearSelectedShortcuts}
       onKeyUp={handleMultipleAppOpen}
       onKeyDown={(e) => {
         const { target, key } = e
@@ -79,7 +79,7 @@ function Home() {
       <Toaster offset={{ bottom: 80, right: 10 }} position="bottom-right" />
       <AnimatePresence>
         {openApps.map((app) => {
-          const Content = appContent[app.label]
+          const Content = appDefinitions[app.label].content
           return (
             <Activity
               key={app.label}

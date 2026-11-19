@@ -78,4 +78,4 @@ export const useNotificationStore = create<NotificationStore>()((set, get) => ({
   },
 }))
 
-export default NotificationStore
+export default useNotificationStore

@@ -2,24 +2,24 @@ import { useEffect } from 'react'
 import type { Command } from '@/lib/terminal-commands'
 import useAppStore from '@/stores/app.store'
 import localize from '@/utils/localize'
+import { parseAppLabel } from '../../../utils/app-label'
 
 export const Pin: Command = ({ args, snapshot }) => {
-  const appLabel = args[0]?.toLowerCase()
-  const apps = useAppStore((state) => state.apps)
+  const appLabel = parseAppLabel(args[0])
   const pinApp = useAppStore((state) => state.pinApp)
-  const appToPin = apps[appLabel]
+  const pinned = useAppStore((state) =>
+    appLabel ? state.apps[appLabel].pinned : false,
+  )
 
   useEffect(() => {
-    // oxlint-disable-next-line typescript/no-unnecessary-condition
-    if (appToPin && !appToPin.pinned) {
+    if (appLabel && !pinned) {
       pinApp(appLabel)
     }
-  }, [appToPin, pinApp, appLabel])
+  }, [pinned, pinApp, appLabel])
 
-  // oxlint-disable-next-line typescript/no-unnecessary-condition
-  if (!appToPin)
+  if (!appLabel)
     return <p>{localize('terminal_invalid_app', snapshot.locale)}</p>
-  if (appToPin.pinned)
+  if (pinned)
     return (
       <p>
         {localize('terminal_app_already_pinned', snapshot.locale, appLabel)}

@@ -32,7 +32,7 @@ export const Route = createRootRouteWithContext<{
       {
         property: 'og:description',
         content:
-          'Haythem Frikha — Front-end developer portfolio showcasing responsive web apps, TypeScript/React projects, design case studies, and ways to connect.',
+          'Haythem Frikha — Software Engineer portfolio showcasing responsive web apps, TypeScript/React projects, design case studies, and ways to connect.',
       },
       {
         property: 'og:image',
@@ -49,7 +49,7 @@ export const Route = createRootRouteWithContext<{
       {
         name: 'twitter:description',
         content:
-          'Haythem Frikha — Full-stack developer portfolio showcasing career projects and ways to connect in a fun, engaging, and interactive way.',
+          'Haythem Frikha — Software Engineer portfolio showcasing career projects and ways to connect in a fun, engaging, and interactive way.',
       },
       {
         name: 'twitter:image',

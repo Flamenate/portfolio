@@ -166,7 +166,7 @@ export function AppWindow({
 
   useLayoutEffect(() => {
     if (appState !== 'unminimizing') return
-    const current = useAppStore.getState().apps[appLabel]?.coordinates
+    const current = useAppStore.getState().apps[appLabel].coordinates
     x.set(window.innerWidth / 2 - current.width / 2)
     y.set(window.innerHeight - current.height - 80)
   }, [appLabel, appState, x, y])
@@ -261,7 +261,7 @@ export function AppWindow({
       animate={{ scale: 1, opacity: 1, filter: 'none' }}
       exit={{ scale: 0.6, opacity: 0, filter: 'blur(8px)' }}
       onAnimationComplete={() => {
-        if (useAppStore.getState().apps[appLabel]?.state === 'unminimizing') {
+        if (useAppStore.getState().apps[appLabel].state === 'unminimizing') {
           finishUnminimize(appLabel)
         }
       }}

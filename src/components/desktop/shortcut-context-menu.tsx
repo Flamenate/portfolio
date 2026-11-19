@@ -13,6 +13,7 @@ import {
   ContextMenuTrigger,
 } from '@/components/ui/context-menu'
 import useLocalize from '@/hooks/useLocalize'
+import type { AppRecord } from '@/models/application'
 import { useAppStore } from '@/stores/app.store'
 
 export function DesktopShortcutContextMenu({
@@ -21,7 +22,7 @@ export function DesktopShortcutContextMenu({
   children,
   ...props
 }: React.ComponentProps<typeof ContextMenuTrigger> & {
-  appLabel?: string
+  appLabel?: AppRecord['label']
   onOpen: () => void
 }) {
   const { pinned, pinApp, unpinApp } = useAppStore(

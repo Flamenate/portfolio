@@ -18,7 +18,7 @@ function ItemIcon({ node }: { node: FsNode }) {
   const appIcon = useAppStore((state) => {
     if (!extension) return undefined
     const label = appForExtension(extension)
-    return label ? state.apps[label]?.iconSrc : undefined
+    return label ? state.apps[label].iconSrc : undefined
   })
   const iconSrc =
     node.type === 'folder'

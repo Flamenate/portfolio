@@ -2,6 +2,7 @@ import type { MotionValue } from 'motion/react'
 import { useEffect, useEffectEvent, useRef } from 'react'
 import type { PointerEvent as ReactPointerEvent, RefObject } from 'react'
 import { MinimumSize } from '@/models/application'
+import type { AppRecord } from '@/models/application'
 import { useAppStore } from '@/stores/app.store'
 
 export type ResizeDirection =
@@ -20,7 +21,7 @@ interface UseResizeOptions {
   y: MotionValue<number>
   width: MotionValue<number>
   height: MotionValue<number>
-  appLabel: string
+  appLabel: AppRecord['label']
   onGestureStart: () => void
   onGestureEnd: () => void
   updateConstraints: () => void
@@ -148,7 +149,7 @@ export function useResizable({
     if (!element) return
 
     const store = useAppStore.getState()
-    if (store.apps[appLabel]?.state === 'maximized') {
+    if (store.apps[appLabel].state === 'maximized') {
       store.releaseMaximize(appLabel)
     }
     store.focusApp(appLabel)

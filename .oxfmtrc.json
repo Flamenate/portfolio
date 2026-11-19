@@ -10,7 +10,8 @@
     ".claude/**",
     ".output/**",
     "dist/**",
-    ".tanstack/**"
+    ".tanstack/**",
+    "*.gen.ts"
   ],
   "sortImports": {
     "newlinesBetween": false,

@@ -1,4 +1,4 @@
-import type { TranslationKey } from '@/utils/localize'
+import type { AppLabel } from '@/lib/apps'
 
 export type AppState =
   | 'closed'
@@ -27,7 +27,7 @@ export const defaultCoordinates: WindowCoordinates = {
 }
 
 export type AppRecord = {
-  label: TranslationKey
+  label: AppLabel
   iconSrc: string
   title: string | null
   state: AppState

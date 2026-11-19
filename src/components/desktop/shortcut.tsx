@@ -22,39 +22,43 @@ export function DesktopShortcut({
   containerRef,
 }: {
   id: string
-  appLabel?: string
+  appLabel?: AppRecord['label']
   label: string
   icon: ReactNode
   onOpen: () => void
   containerRef: ContainerRef
 }) {
-  const { selectedAppLabels, selectApp, unselectApp, clearSelectedApps } =
-    useAppStore(
-      useShallow((state) => ({
-        selectedAppLabels: state.selectedAppLabels,
-        selectApp: state.selectApp,
-        unselectApp: state.unselectApp,
-        clearSelectedApps: state.clearSelectedApps,
-      })),
-    )
-  const isSelected = selectedAppLabels.includes(id)
+  const {
+    selectedShortcutIds,
+    selectShortcut,
+    unselectShortcut,
+    clearSelectedShortcuts,
+  } = useAppStore(
+    useShallow((state) => ({
+      selectedShortcutIds: state.selectedShortcutIds,
+      selectShortcut: state.selectShortcut,
+      unselectShortcut: state.unselectShortcut,
+      clearSelectedShortcuts: state.clearSelectedShortcuts,
+    })),
+  )
+  const isSelected = selectedShortcutIds.includes(id)
   const handleSelection = useCallback(
     (e: MouseEvent) => {
       e.stopPropagation()
       const withCtrlKey = e.ctrlKey
       if (
-        (selectedAppLabels.length > 1 && isSelected && !withCtrlKey) ||
+        (selectedShortcutIds.length > 1 && isSelected && !withCtrlKey) ||
         !isSelected
       )
-        selectApp(id, withCtrlKey)
-      else if (withCtrlKey) unselectApp(id)
+        selectShortcut(id, withCtrlKey)
+      else if (withCtrlKey) unselectShortcut(id)
     },
-    [id, selectedAppLabels, isSelected, selectApp, unselectApp],
+    [id, selectedShortcutIds, isSelected, selectShortcut, unselectShortcut],
   )
   const open = useCallback(() => {
     onOpen()
-    clearSelectedApps()
-  }, [onOpen, clearSelectedApps])
+    clearSelectedShortcuts()
+  }, [onOpen, clearSelectedShortcuts])
   return (
     <DesktopShortcutContextMenu appLabel={appLabel} onOpen={open}>
       <m.button
@@ -71,7 +75,7 @@ export function DesktopShortcut({
         onClick={handleSelection}
         onDoubleClick={open}
         onContextMenu={() => {
-          if (!isSelected) selectApp(id)
+          if (!isSelected) selectShortcut(id)
         }}
         onKeyUp={(e) => e.preventDefault()}
       >

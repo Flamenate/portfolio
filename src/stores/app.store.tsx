@@ -1,5 +1,6 @@
 import { create } from 'zustand'
 import { createApps } from '@/lib/apps'
+import type { AppLabel } from '@/lib/apps'
 import {
   MinimumSize,
   closeRecord,
@@ -18,29 +19,30 @@ import type { AppRecord, WindowCoordinates } from '@/models/application'
 import { useLogStore } from './log.store'
 
 interface ApplicationStore {
-  apps: Record<string, AppRecord>
-  openAppLabels: string[]
-  openApp: (label: string, options?: { title?: string }) => void
-  setAppTitle: (label: string, title: string | null) => void
-  closeApp: (label: string) => void
-  minimizeApp: (label: string) => void
-  unminimizeApp: (label: string) => void
-  finishUnminimize: (label: string) => void
-  maximizeApp: (label: string) => void
-  unmaximizeApp: (label: string) => void
-  releaseMaximize: (label: string) => void
-  focusedAppLabel: string | null
-  focusApp: (label: string) => void
+  apps: Record<AppLabel, AppRecord>
+  openAppLabels: AppLabel[]
+  openApp: (label: AppLabel, options?: { title?: string }) => void
+  setAppTitle: (label: AppLabel, title: string | null) => void
+  closeApp: (label: AppLabel) => void
+  minimizeApp: (label: AppLabel) => void
+  unminimizeApp: (label: AppLabel) => void
+  finishUnminimize: (label: AppLabel) => void
+  maximizeApp: (label: AppLabel) => void
+  unmaximizeApp: (label: AppLabel) => void
+  releaseMaximize: (label: AppLabel) => void
+  focusedAppLabel: AppLabel | null
+  focusApp: (label: AppLabel) => void
   updateAppCoordinates: (
-    label: string,
+    label: AppLabel,
     coordinates: Partial<WindowCoordinates>,
   ) => void
-  selectedAppLabels: string[]
-  selectApp: (label: string, additive?: boolean) => void
-  unselectApp: (label: string) => void
-  clearSelectedApps: () => void
-  pinApp: (label: string) => void
-  unpinApp: (label: string) => void
+  // Desktop shortcut ids: app labels and folder path keys.
+  selectedShortcutIds: string[]
+  selectShortcut: (id: string, additive?: boolean) => void
+  unselectShortcut: (id: string) => void
+  clearSelectedShortcuts: () => void
+  pinApp: (label: AppLabel) => void
+  unpinApp: (label: AppLabel) => void
 }
 
 function sizeForFirstOpen(coordinates: WindowCoordinates): WindowCoordinates {
@@ -187,23 +189,23 @@ export const useAppStore = create<ApplicationStore>()((set) => ({
       useLogStore.getState().logAction('move_resize_app', label)
       return { apps: { ...state.apps, [label]: next } }
     }),
-  selectedAppLabels: [],
-  selectApp: (label, additive = false) => {
+  selectedShortcutIds: [],
+  selectShortcut: (id, additive = false) => {
     set((state) => {
-      if (!additive) return { selectedAppLabels: [label] }
-      if (state.selectedAppLabels.includes(label)) return state
-      return { selectedAppLabels: [...state.selectedAppLabels, label] }
+      if (!additive) return { selectedShortcutIds: [id] }
+      if (state.selectedShortcutIds.includes(id)) return state
+      return { selectedShortcutIds: [...state.selectedShortcutIds, id] }
     })
   },
-  unselectApp: (label) => {
+  unselectShortcut: (id) => {
     set((state) => ({
-      selectedAppLabels: state.selectedAppLabels.filter(
-        (selected) => selected !== label,
+      selectedShortcutIds: state.selectedShortcutIds.filter(
+        (selected) => selected !== id,
       ),
     }))
   },
-  clearSelectedApps: () => {
-    set({ selectedAppLabels: [] })
+  clearSelectedShortcuts: () => {
+    set({ selectedShortcutIds: [] })
   },
   pinApp: (label) =>
     set((state) => {

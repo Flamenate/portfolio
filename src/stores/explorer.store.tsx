@@ -1,9 +1,10 @@
 import { create } from 'zustand'
+import type { AppLabel } from '@/lib/apps'
 import { getFolder, isSamePath, root } from '@/lib/directories'
 import type { FolderPath } from '@/lib/directories'
 import { useAppStore } from './app.store'
 
-export const EXPLORER_APP_LABEL = 'haythem_frikha'
+export const EXPLORER_APP_LABEL = 'haythem_frikha' satisfies AppLabel
 
 interface ExplorerStore {
   entries: FolderPath[]
@@ -51,8 +52,8 @@ syncTitle(useExplorerStore.getState())
 useExplorerStore.subscribe(syncTitle)
 
 useAppStore.subscribe((state, prev) => {
-  const current = state.apps[EXPLORER_APP_LABEL]?.state
-  const previous = prev.apps[EXPLORER_APP_LABEL]?.state
+  const current = state.apps[EXPLORER_APP_LABEL].state
+  const previous = prev.apps[EXPLORER_APP_LABEL].state
   if (current === 'closed' && previous !== 'closed') {
     useExplorerStore.getState().reset()
   }
