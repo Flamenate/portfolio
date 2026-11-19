@@ -25,7 +25,7 @@ export function Vapor() {
     <Tabs
       value={tab}
       onValueChange={(value) => setTab(value as VaporTab)}
-      className="h-full gap-0 bg-[#171a21] text-sm text-[#dcdedf] select-none"
+      className="h-full gap-0 bg-[#171a21] text-sm text-[#dcdedf] scrollbar-dark select-none"
     >
       <TopBar />
       <TabsContent

@@ -61,35 +61,35 @@ function ResizeHandles({
   return (
     <>
       <div
-        className={cn(edgeClass, 'top-0 right-0 h-full w-2 cursor-e-resize')}
+        className={cn(edgeClass, 'top-0 -right-2 h-full w-2 cursor-e-resize')}
         onPointerDown={start('east')}
       />
       <div
-        className={cn(edgeClass, 'top-0 left-0 h-full w-2 cursor-w-resize')}
+        className={cn(edgeClass, 'top-0 -left-2 h-full w-2 cursor-w-resize')}
         onPointerDown={start('west')}
       />
       <div
-        className={cn(edgeClass, 'bottom-0 left-0 h-2 w-full cursor-s-resize')}
+        className={cn(edgeClass, '-bottom-2 left-0 h-2 w-full cursor-s-resize')}
         onPointerDown={start('south')}
       />
       <div
-        className={cn(edgeClass, 'top-0 left-0 h-2 w-full cursor-n-resize')}
+        className={cn(edgeClass, '-top-2 left-0 h-2 w-full cursor-n-resize')}
         onPointerDown={start('north')}
       />
       <div
-        className="absolute top-0 right-0 z-999 size-3 cursor-ne-resize"
+        className="absolute -top-3 -right-3 z-999 size-3 cursor-ne-resize"
         onPointerDown={start('northeast')}
       />
       <div
-        className="absolute top-0 left-0 z-999 size-3 cursor-nw-resize"
+        className="absolute -top-3 -left-3 z-999 size-3 cursor-nw-resize"
         onPointerDown={start('northwest')}
       />
       <div
-        className="absolute right-0 bottom-0 z-999 size-3 cursor-se-resize"
+        className="absolute -right-3 -bottom-3 z-999 size-3 cursor-se-resize"
         onPointerDown={start('southeast')}
       />
       <div
-        className="absolute bottom-0 left-0 z-999 size-3 cursor-sw-resize"
+        className="absolute -bottom-3 -left-3 z-999 size-3 cursor-sw-resize"
         onPointerDown={start('southwest')}
       />
     </>
@@ -266,100 +266,108 @@ export function AppWindow({
       exit={{ scale: 0.6, opacity: 0, filter: 'blur(8px)' }}
       onAnimationComplete={() => setRestoring(false)}
       className={cn(
-        '@container absolute flex max-h-[calc(100dvh-4rem)] max-w-full flex-col overflow-hidden rounded-sm border bg-popover/50 backdrop-blur-sm select-none',
+        '@container absolute flex max-h-[calc(100dvh-4rem)] max-w-full flex-col rounded-sm border bg-popover/50 backdrop-blur-sm select-none',
         isCompact && 'inset-0 h-[calc(100dvh-4rem)] max-h-none w-full',
       )}
       tabIndex={0}
       onPointerDown={() => focusApp(appLabel)}
     >
       {!isCompact && <ResizeHandles onResize={startResize} />}
-      <header
-        className="relative flex h-10 w-full shrink-0 cursor-grab items-center justify-baseline border-b bg-linear-to-r from-background/15 via-background/25 to-background/15 text-center @xs:justify-center dark:text-(--white)"
-        onPointerDown={(event) => {
-          if (!canDrag) return
-          gesturing.current = true
-          updateConstraints()
-          dragControls.start(event)
-        }}
-        onDoubleClick={() => {
-          if (!isCompact) toggleMaximizeApp(appLabel)
-        }}
-      >
-        <img
-          src={app.iconSrc}
-          alt=""
-          width={20}
-          height={20}
-          className="mr-0 ml-1 @xs:mr-2"
-          draggable={false}
-        />
-        <span className="ml-15 font-light @xs:ml-0">
-          {app.title ? localizeOrKeep(app.title, language) : localize(appLabel)}
-        </span>
-        <div className="absolute right-0 flex h-full flex-row-reverse items-stretch">
-          <Tooltip>
-            <TooltipTrigger asChild>
-              <WindowButton
-                onClick={() => closeApp(appLabel)}
-                className="hover:bg-red-600/75"
-                aria-label={localize('close')}
-              >
-                <DismissRegular className="size-3.5" />
-              </WindowButton>
-            </TooltipTrigger>
-            <TooltipContent sideOffset={4}>{localize('close')}</TooltipContent>
-          </Tooltip>
-
-          {appState === 'maximized' ? (
+      {/* Clips content here instead of on the window so the resize handles
+          can sit outside its edge. */}
+      <div className="flex min-h-0 flex-1 flex-col overflow-hidden rounded-[inherit]">
+        <header
+          className="relative flex h-10 w-full shrink-0 cursor-grab items-center justify-baseline border-b bg-linear-to-r from-background/15 via-background/25 to-background/15 text-center @xs:justify-center dark:text-(--white)"
+          onPointerDown={(event) => {
+            if (!canDrag) return
+            gesturing.current = true
+            updateConstraints()
+            dragControls.start(event)
+          }}
+          onDoubleClick={() => {
+            if (!isCompact) toggleMaximizeApp(appLabel)
+          }}
+        >
+          <img
+            src={app.iconSrc}
+            alt=""
+            width={20}
+            height={20}
+            className="mr-0 ml-1 @xs:mr-2"
+            draggable={false}
+          />
+          <span className="ml-15 font-light @xs:ml-0">
+            {app.title
+              ? localizeOrKeep(app.title, language)
+              : localize(appLabel)}
+          </span>
+          <div className="absolute right-0 flex h-full flex-row-reverse items-stretch">
             <Tooltip>
               <TooltipTrigger asChild>
                 <WindowButton
-                  onClick={() => toggleMaximizeApp(appLabel)}
-                  aria-label={localize('unmaximize')}
-                  className="hover-shade"
+                  onClick={() => closeApp(appLabel)}
+                  className="hover:bg-red-600/75"
+                  aria-label={localize('close')}
                 >
-                  <SquareMultipleRegular className="size-3.5" />
+                  <DismissRegular className="size-3.5" />
                 </WindowButton>
               </TooltipTrigger>
               <TooltipContent sideOffset={4}>
-                {localize('unmaximize')}
+                {localize('close')}
               </TooltipContent>
             </Tooltip>
-          ) : (
+
+            {appState === 'maximized' ? (
+              <Tooltip>
+                <TooltipTrigger asChild>
+                  <WindowButton
+                    onClick={() => toggleMaximizeApp(appLabel)}
+                    aria-label={localize('unmaximize')}
+                    className="hover-shade"
+                  >
+                    <SquareMultipleRegular className="size-3.5" />
+                  </WindowButton>
+                </TooltipTrigger>
+                <TooltipContent sideOffset={4}>
+                  {localize('unmaximize')}
+                </TooltipContent>
+              </Tooltip>
+            ) : (
+              <Tooltip>
+                <TooltipTrigger asChild>
+                  <WindowButton
+                    onClick={() => toggleMaximizeApp(appLabel)}
+                    aria-label={localize('maximize')}
+                    className="hover-shade"
+                    disabled={isCompact}
+                  >
+                    <MaximizeRegular className="size-3.5" />
+                  </WindowButton>
+                </TooltipTrigger>
+                <TooltipContent sideOffset={4}>
+                  {localize('maximize')}
+                </TooltipContent>
+              </Tooltip>
+            )}
+
             <Tooltip>
               <TooltipTrigger asChild>
                 <WindowButton
-                  onClick={() => toggleMaximizeApp(appLabel)}
-                  aria-label={localize('maximize')}
+                  onClick={() => minimizeApp(appLabel)}
+                  aria-label={localize('minimize')}
                   className="hover-shade"
-                  disabled={isCompact}
                 >
-                  <MaximizeRegular className="size-3.5" />
+                  <SubtractRegular className="size-3.5" />
                 </WindowButton>
               </TooltipTrigger>
               <TooltipContent sideOffset={4}>
-                {localize('maximize')}
+                {localize('minimize')}
               </TooltipContent>
             </Tooltip>
-          )}
-
-          <Tooltip>
-            <TooltipTrigger asChild>
-              <WindowButton
-                onClick={() => minimizeApp(appLabel)}
-                aria-label={localize('minimize')}
-                className="hover-shade"
-              >
-                <SubtractRegular className="size-3.5" />
-              </WindowButton>
-            </TooltipTrigger>
-            <TooltipContent sideOffset={4}>
-              {localize('minimize')}
-            </TooltipContent>
-          </Tooltip>
-        </div>
-      </header>
-      <main className="min-h-0 w-full grow overflow-y-auto">{children}</main>
+          </div>
+        </header>
+        <main className="min-h-0 w-full grow overflow-y-auto">{children}</main>
+      </div>
     </motion.div>
   )
 }
