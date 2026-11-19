@@ -164,7 +164,12 @@ function HistoryMenu({
             <span className="block truncate text-xs text-muted-foreground">
               {entry.expression}
             </span>
-            <span className="text-lg dark:text-(--white)">{entry.result}</span>
+            <span
+              className="block truncate text-lg dark:text-(--white)"
+              title={entry.result}
+            >
+              {entry.result}
+            </span>
           </button>
         </li>
       ))}
@@ -223,7 +228,7 @@ export function Calculator() {
       ref={rootRef}
       className="flex h-full min-h-0 bg-popover/80 dark:bg-popover/50"
     >
-      <section className="flex h-full w-full flex-col text-popover-foreground">
+      <section className="flex h-full w-full min-w-0 flex-col text-popover-foreground">
         <header className="flex items-center justify-between px-4 pt-3 pb-1">
           <h1 className="truncate text-lg font-semibold">{localize(title)}</h1>
           <Popover open={historyOpen} onOpenChange={setHistoryOpen}>
