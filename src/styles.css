@@ -226,19 +226,18 @@ code {
   ::-webkit-scrollbar {
     width: var(--scrollbar-size);
     height: var(--scrollbar-size);
-  }
-  ::-webkit-scrollbar,
-  ::-webkit-scrollbar-track,
-  ::-webkit-scrollbar-thumb,
-  ::-webkit-scrollbar-button {
-    --scrollbar-hover: inherit;
-  }
-  ::-webkit-scrollbar-track {
+    /* the tint covers the arrow buttons too, so it's set here, not on the track */
     background-color: color-mix(
       in srgb,
       var(--scrollbar-track) calc(var(--scrollbar-hover) * 100%),
       transparent
     );
+    border-radius: 9999px;
+  }
+  ::-webkit-scrollbar,
+  ::-webkit-scrollbar-thumb,
+  ::-webkit-scrollbar-button {
+    --scrollbar-hover: inherit;
   }
   ::-webkit-scrollbar-corner {
     background: transparent;
