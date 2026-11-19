@@ -19,11 +19,28 @@ function colorFor(name: string) {
 
 export function Avatar({
   name,
+  src,
   className,
 }: {
   name: string
+  src?: string
   className?: string
 }) {
+  if (src) {
+    return (
+      <img
+        src={src}
+        alt=""
+        aria-hidden
+        draggable={false}
+        className={cn(
+          'size-9 shrink-0 rounded-full object-cover select-none',
+          className,
+        )}
+      />
+    )
+  }
+
   return (
     <span
       aria-hidden

@@ -1333,5 +1333,75 @@
     "eng": "Vapor",
     "fr": "Vapor",
     "es": "Vapor"
+  },
+  "concord": {
+    "eng": "Concord",
+    "fr": "Concord",
+    "es": "Concord"
+  },
+  "concord_direct_messages": {
+    "eng": "Direct Messages",
+    "fr": "Messages privés",
+    "es": "Mensajes directos"
+  },
+  "concord_message_placeholder": {
+    "eng": "Message {0}",
+    "fr": "Envoyer un message à {0}",
+    "es": "Enviar mensaje a {0}"
+  },
+  "concord_welcome": {
+    "eng": "Welcome to {0}!",
+    "fr": "Bienvenue dans {0} !",
+    "es": "¡Bienvenido a {0}!"
+  },
+  "concord_channel_start": {
+    "eng": "This is the start of the {0} channel.",
+    "fr": "C'est le début du salon {0}.",
+    "es": "Este es el comienzo del canal {0}."
+  },
+  "concord_dm_start": {
+    "eng": "This is the beginning of your direct message history with {0}.",
+    "fr": "C'est le début de votre historique de messages privés avec {0}.",
+    "es": "Este es el comienzo de tu historial de mensajes directos con {0}."
+  },
+  "concord_members": {
+    "eng": "Members",
+    "fr": "Membres",
+    "es": "Miembros"
+  },
+  "concord_online": {
+    "eng": "Online",
+    "fr": "En ligne",
+    "es": "En línea"
+  },
+  "concord_offline": {
+    "eng": "Offline",
+    "fr": "Hors ligne",
+    "es": "Desconectado"
+  },
+  "concord_roles": {
+    "eng": "Roles",
+    "fr": "Rôles",
+    "es": "Roles"
+  },
+  "concord_about_me": {
+    "eng": "About Me",
+    "fr": "À propos de moi",
+    "es": "Acerca de mí"
+  },
+  "concord_idle": {
+    "eng": "Idle",
+    "fr": "Inactif",
+    "es": "Ausente"
+  },
+  "concord_dnd": {
+    "eng": "Do Not Disturb",
+    "fr": "Ne pas déranger",
+    "es": "No molestar"
+  },
+  "concord_voice_unavailable": {
+    "eng": "No friends to hang out with...",
+    "fr": "Pas d'amis avec qui traîner...",
+    "es": "No hay amigos con quien pasar el rato..."
   }
 }

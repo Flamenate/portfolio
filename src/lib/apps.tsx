@@ -56,6 +56,11 @@ export const appContent: Record<string, AppContent> = {
       default: module.Vapor,
     })),
   ),
+  concord: lazy(() =>
+    import('@/components/apps/concord').then((module) => ({
+      default: module.Concord,
+    })),
+  ),
 }
 
 const appDefinitions: Array<{
@@ -89,6 +94,7 @@ const appDefinitions: Array<{
     pinned: false,
   },
   { label: 'vapor', iconSrc: '/images/icons/vapor.webp', pinned: false },
+  { label: 'concord', iconSrc: '/images/icons/concord.webp', pinned: false },
 ]
 
 export function createApps(): Record<string, AppRecord> {

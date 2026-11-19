@@ -1,7 +1,7 @@
 import { format } from 'date-fns'
+import { Avatar } from '@/components/ui/avatar'
 import type { Mail } from '@/lib/mails'
 import { datefnsLocales, useThemeStore } from '@/stores/theme.store'
-import { Avatar } from './avatar'
 
 export function MailView({ mail }: { mail: Mail }) {
   const locale = useThemeStore((state) => state.locale)
