@@ -137,6 +137,11 @@ function RootDocument({ children }: { children: React.ReactNode }) {
         <HeadContent />
         {/* <script src="https://unpkg.com/react-scan/dist/auto.global.js" /> */}
         <link rel="preconnect" href="https://fonts.gstatic.com" />
+        {/* react scan */}
+        {/* <script
+          crossOrigin="anonymous"
+          src="//unpkg.com/react-scan/dist/auto.global.js"
+        ></script> */}
       </head>
       <body>
         <TooltipProvider>

@@ -2,14 +2,22 @@ import { create } from 'zustand/react'
 import { root } from '@/data/directories'
 import type { AppLabel } from '@/lib/apps'
 import { getFolder, isSamePath } from '@/lib/directories'
-import type { FolderPath } from '@/lib/directories'
+import type { FolderNode, FolderPath } from '@/lib/directories'
 import { useAppStore } from './app.store'
 
 export const EXPLORER_APP_LABEL = 'haythem_frikha' satisfies AppLabel
 
-interface ExplorerStore {
-  entries: FolderPath[]
+type ExplorerLocation = { path: FolderPath; folder: FolderNode }
+
+interface NavigationHistory {
+  entries: ExplorerLocation[]
   index: number
+}
+
+interface ExplorerStore extends NavigationHistory {
+  location: ExplorerLocation
+  canGoBack: boolean
+  canGoForward: boolean
   navigate: (path: FolderPath) => void
   back: () => void
   forward: () => void
@@ -17,54 +25,48 @@ interface ExplorerStore {
   reset: () => void
 }
 
-const initialState: Pick<ExplorerStore, 'entries' | 'index'> = {
-  entries: [[]],
-  index: 0,
+// Derived fields are stored so selectors return stable references.
+function navigationState(entries: ExplorerLocation[], index: number) {
+  const clamped = Math.min(Math.max(index, 0), entries.length - 1)
+  return {
+    entries,
+    index: clamped,
+    location: entries[clamped],
+    canGoBack: clamped > 0,
+    canGoForward: clamped < entries.length - 1,
+  }
 }
 
+const initialState = () => navigationState([{ path: [], folder: root }], 0)
+
 export const useExplorerStore = create<ExplorerStore>()((set, get) => ({
-  ...initialState,
+  ...initialState(),
   navigate: (path) =>
     set((state) => {
-      if (isSamePath(state.entries[state.index], path)) return state
-      return {
-        entries: [...state.entries.slice(0, state.index + 1), path],
-        index: state.index + 1,
-      }
+      const folder = getFolder(path)
+      if (!folder || isSamePath(state.location.path, path)) return state
+      const kept = state.entries.slice(0, state.index + 1)
+      return navigationState([...kept, { path, folder }], kept.length)
     }),
-  back: () => set((state) => ({ index: Math.max(0, state.index - 1) })),
+  back: () => set((state) => navigationState(state.entries, state.index - 1)),
   forward: () =>
-    set((state) => ({
-      index: Math.min(state.entries.length - 1, state.index + 1),
-    })),
+    set((state) => navigationState(state.entries, state.index + 1)),
   openFolder: (path) => {
     get().navigate(path)
     useAppStore.getState().openApp(EXPLORER_APP_LABEL)
   },
-  reset: () => set(initialState),
+  reset: () => set(initialState()),
 }))
 
-function syncTitle(state: ExplorerStore) {
-  const title = getFolder(state.entries[state.index])?.name ?? root.name
-  useAppStore.getState().setAppTitle(EXPLORER_APP_LABEL, title)
-}
-
-// Keeps the explorer window title in sync with the current folder, and resets
-// navigation when the window closes. Returns a cleanup function.
-export function connectExplorerToApps() {
-  syncTitle(useExplorerStore.getState())
-  const unsubscribeTitle = useExplorerStore.subscribe(syncTitle)
-  const unsubscribeReset = useAppStore.subscribe((state, prev) => {
-    const current = state.apps[EXPLORER_APP_LABEL].state
-    const previous = prev.apps[EXPLORER_APP_LABEL].state
-    if (current === 'closed' && previous !== 'closed') {
-      useExplorerStore.getState().reset()
-    }
-  })
-  return () => {
-    unsubscribeTitle()
-    unsubscribeReset()
+// Closing the explorer window, from any state, starts the next session at the root.
+// This can't live in the window's unmount: minimized windows run effect cleanups
+// when hidden by <Activity>, not when closed.
+useAppStore.subscribe((state, prev) => {
+  const current = state.apps[EXPLORER_APP_LABEL].state
+  const previous = prev.apps[EXPLORER_APP_LABEL].state
+  if (current === 'closed' && previous !== 'closed') {
+    useExplorerStore.getState().reset()
   }
-}
+})
 
 export default useExplorerStore

@@ -14,8 +14,8 @@ export function NavigationBar({ path }: { path: FolderPath }) {
   const localize = useLocalize()
   const { canGoBack, canGoForward, back, forward, navigate } = useExplorerStore(
     useShallow((state) => ({
-      canGoBack: state.index > 0,
-      canGoForward: state.index < state.entries.length - 1,
+      canGoBack: state.canGoBack,
+      canGoForward: state.canGoForward,
       back: state.back,
       forward: state.forward,
       navigate: state.navigate,
