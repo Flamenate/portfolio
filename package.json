@@ -6,8 +6,9 @@
   "scripts": {
     "dev": "vite dev --port 3000",
     "build": "vite build",
-    "serve": "node prod-server.js",
-    "start": "node prod-server.js",
+    "preview": "vite build && pnpm start",
+    "serve": "node --env-file-if-exists=.env prod-server.js",
+    "start": "node --env-file-if-exists=.env prod-server.js",
     "lint": "oxlint",
     "typecheck": "tsc --noEmit",
     "test": "vitest run",

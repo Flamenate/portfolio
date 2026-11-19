@@ -19,7 +19,7 @@ export const env = createEnv({
     RESEND_API_KEY: z.string(),
     SESSION_SECRET: z.string(),
     MAIL_FROM: z.string(),
-    PORT: z._default(z.number(), 3000),
+    PORT: z._default(z.coerce.number(), 3000),
     TWITCH_IGDB_SECRET: z.string(),
     TWITCH_IGDB_CLIENT_ID: z.string(),
     STEAM_API_KEY: z.string(),
