@@ -13,6 +13,7 @@ import {
   TooltipTrigger,
 } from '@/components/ui/tooltip'
 import useLocalize from '@/hooks/useLocalize'
+import { cn } from '@/lib/utils'
 import useThemeStore, {
   paletteDescriptions,
   localeDescriptions,
@@ -43,7 +44,10 @@ function LocaleItem({
 }) {
   return (
     <button
-      className={`flex items-center gap-2 hover-shade px-3 py-1 ${selected ? 'bg-accent/15' : ''} relative w-full rounded-sm text-left select-none`}
+      className={cn(
+        'relative flex w-full items-center gap-2 rounded-sm hover-shade px-3 py-1 text-left select-none',
+        selected && 'bg-accent/15',
+      )}
       onClick={onClick}
       type="button"
     >
@@ -74,7 +78,10 @@ function PalettePill({
   const localize = useLocalize()
   return (
     <button
-      className={`flex items-center gap-2 hover-shade px-3 py-1 ${selected ? 'bg-accent/15' : ''} relative rounded-sm text-left capitalize select-none`}
+      className={cn(
+        'relative flex items-center gap-2 rounded-sm hover-shade px-3 py-1 text-left capitalize select-none',
+        selected && 'bg-accent/15',
+      )}
       onClick={onClick}
       type="button"
     >

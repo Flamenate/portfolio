@@ -4,7 +4,7 @@ import type { AppRecord } from '@/models/application'
 import useAppStore from '@/stores/app.store'
 import { StartMenu } from './menus/start-menu'
 import TaskbarShortcut from './shortcut'
-import SystemTray from './systemTray'
+import SystemTray from './system-tray'
 
 export function Taskbar() {
   const shortcutTrackRef = useRef<HTMLDivElement | null>(null)

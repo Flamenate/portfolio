@@ -1,4 +1,4 @@
-import { create } from 'zustand'
+import { create } from 'zustand/react'
 import { createApps } from '@/lib/apps'
 import type { AppLabel } from '@/lib/apps'
 import {

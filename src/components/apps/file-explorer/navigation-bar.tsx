@@ -28,7 +28,10 @@ export function NavigationBar({ path }: { path: FolderPath }) {
     <header className="flex h-14 shrink-0 items-center gap-1 border-b border-muted-foreground/50 p-1">
       <NavButton label={localize('back')} disabled={!canGoBack} onClick={back}>
         <ArrowLeftRegular
-          className={`size-4 ${canGoBack && 'text-foreground dark:text-(--white)'}`}
+          className={cn(
+            'size-4',
+            canGoBack && 'text-foreground dark:text-(--white)',
+          )}
         />
       </NavButton>
       <NavButton
@@ -37,7 +40,10 @@ export function NavigationBar({ path }: { path: FolderPath }) {
         onClick={forward}
       >
         <ArrowRightRegular
-          className={`size-4 ${canGoForward && 'text-foreground dark:text-(--white)'}`}
+          className={cn(
+            'size-4',
+            canGoForward && 'text-foreground dark:text-(--white)',
+          )}
         />
       </NavButton>
       <nav

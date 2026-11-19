@@ -1,6 +1,6 @@
 import { enUS, es, fr } from 'date-fns/locale'
-import { create } from 'zustand'
 import { persist } from 'zustand/middleware'
+import { create } from 'zustand/react'
 import { useLogStore } from './log.store'
 
 export const datefnsLocales = {

@@ -6,6 +6,7 @@ import { useShallow } from 'zustand/react/shallow'
 import useLocalize from '@/hooks/useLocalize'
 import { getFolder, pathKey, root } from '@/lib/directories'
 import type { FolderPath } from '@/lib/directories'
+import { cn } from '@/lib/utils'
 import type { AppRecord } from '@/models/application'
 import useAppStore from '@/stores/app.store'
 import { useExplorerStore } from '@/stores/explorer.store'
@@ -71,7 +72,10 @@ export function DesktopShortcut({
           scale: 1.1,
           rotateZ: 3,
         }}
-        className={`flex h-fit w-20 flex-col items-center justify-center gap-1 rounded-sm px-2 py-1 outline-accent-foreground hover:bg-white/25 focus-visible:bg-white/40 focus-visible:outline-1 ${isSelected ? 'bg-white/40' : ''}`}
+        className={cn(
+          'flex h-fit w-20 flex-col items-center justify-center gap-1 rounded-sm px-2 py-1 outline-accent-foreground hover:bg-white/25 focus-visible:bg-white/40 focus-visible:outline-1',
+          isSelected && 'bg-white/40',
+        )}
         onClick={handleSelection}
         onDoubleClick={open}
         onContextMenu={() => {

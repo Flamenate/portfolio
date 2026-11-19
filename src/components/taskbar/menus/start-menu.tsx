@@ -14,7 +14,7 @@ import {
   TooltipTrigger,
 } from '@/components/ui/tooltip'
 import useLocalize from '@/hooks/useLocalize'
-import WindowsShortcut from '../windowsShortcut'
+import WindowsShortcut from '../windows-shortcut'
 
 function SocialMediaButton({
   platform,

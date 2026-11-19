@@ -1,14 +1,12 @@
-import { forwardRef } from 'react'
 import type { ComponentProps } from 'react'
 import { cn } from '@/lib/utils'
 
-export const WindowsShortcut = forwardRef<
-  HTMLButtonElement,
-  ComponentProps<'button'>
->(function WindowsShortcut({ className, ...props }, ref) {
+export function WindowsShortcut({
+  className,
+  ...props
+}: ComponentProps<'button'>) {
   return (
     <button
-      ref={ref}
       type="button"
       {...props}
       className={cn(
@@ -24,6 +22,6 @@ export const WindowsShortcut = forwardRef<
       />
     </button>
   )
-})
+}
 
 export default WindowsShortcut

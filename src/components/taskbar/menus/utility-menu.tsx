@@ -78,7 +78,8 @@ function UtilityPill({
   return (
     <button
       className={cn(
-        `flex w-24 flex-col gap-1.5 ${disabled ? 'opacity-50' : ''}`,
+        'flex w-24 flex-col gap-1.5',
+        disabled && 'opacity-50',
         className,
       )}
       onClick={onClick}
@@ -86,10 +87,16 @@ function UtilityPill({
       disabled={disabled}
     >
       <div
-        className={`${activated ? 'dark:text- bg-accent text-accent dark:bg-accent-foreground' : 'bg-popover text-(--white)'} ${!disabled ? 'hover-shade active:bg-accent-foreground/40' : ''} flex h-12 items-center justify-center rounded-sm border shadow`}
+        className={cn(
+          'flex h-12 items-center justify-center rounded-sm border shadow',
+          activated
+            ? 'bg-accent text-accent dark:bg-accent-foreground'
+            : 'bg-popover text-(--white)',
+          !disabled && 'hover-shade active:bg-accent-foreground/40',
+        )}
       >
         <span
-          className={`${activated ? 'text-(--white)' : 'text-accent-foreground'}`}
+          className={activated ? 'text-(--white)' : 'text-accent-foreground'}
         >
           {icon}
         </span>

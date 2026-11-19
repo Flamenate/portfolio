@@ -6,7 +6,7 @@ import { DismissRegular } from '@fluentui/react-icons/headless/svg/dismiss'
 import { format, formatDistanceToNow } from 'date-fns'
 import type { Locale } from 'date-fns'
 import { AnimatePresence, motion } from 'motion/react'
-import { forwardRef, useState } from 'react'
+import { useState } from 'react'
 import { useShallow } from 'zustand/react/shallow'
 import { Calendar } from '@/components/ui/calendar'
 import {
@@ -21,22 +21,22 @@ import {
 } from '@/components/ui/tooltip'
 import useDatetime from '@/hooks/useDatetime'
 import useLocalize from '@/hooks/useLocalize'
+import { cn } from '@/lib/utils'
 import type { Notification as Notif } from '@/stores/notification.store'
 import { useNotificationStore } from '@/stores/notification.store'
 import useThemeStore, { datefnsLocales } from '@/stores/theme.store'
 
-const Notification = forwardRef(function (
-  {
-    notification,
-    locale,
-    removeNotification,
-  }: {
-    notification: Notif
-    locale: Locale
-    removeNotification: (id: number) => void
-  },
-  ref: React.ForwardedRef<HTMLElement>,
-) {
+function Notification({
+  notification,
+  locale,
+  removeNotification,
+  ref,
+}: {
+  notification: Notif
+  locale: Locale
+  removeNotification: (id: number) => void
+  ref?: React.Ref<HTMLElement>
+}) {
   const localize = useLocalize()
   return (
     <motion.article
@@ -99,7 +99,7 @@ const Notification = forwardRef(function (
       </div>
     </motion.article>
   )
-})
+}
 
 const NotificationPanelContent = ({
   locale,
@@ -121,7 +121,12 @@ const NotificationPanelContent = ({
           <button
             type="button"
             aria-label={localize('dnd')}
-            className={`${notificationStore.doNotDisturb ? 'bg-accent/75 text-accent' : 'dark:bg-accent-foreground/30'} rounded-sm border bg-(--white) hover-shade px-2 py-1 text-xs`}
+            className={cn(
+              'rounded-sm border bg-(--white) hover-shade px-2 py-1 text-xs dark:bg-accent-foreground/30',
+              notificationStore.doNotDisturb
+                ? 'bg-accent/75 text-foreground dark:bg-accent-foreground dark:text-(--white)'
+                : '',
+            )}
             onClick={notificationStore.toggleDoNotDisturb}
           >
             <AlertOffRegular className="size-3.5" />
@@ -272,7 +277,7 @@ export function NotificationMenu() {
       </Tooltip>
       <PopoverContent
         sideOffset={12}
-        className={`mr-1.5 max-h-[calc(100dvh-80px)] w-[320px] max-w-[320px] overflow-hidden border-none bg-transparent`}
+        className="mr-1.5 max-h-[calc(100dvh-80px)] w-[320px] max-w-[320px] overflow-hidden border-none bg-transparent"
         asChild
       >
         {/* This could be achieved without motion.div, using interpolate-size, but firefox. */}

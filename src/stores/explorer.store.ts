@@ -1,4 +1,4 @@
-import { create } from 'zustand'
+import { create } from 'zustand/react'
 import type { AppLabel } from '@/lib/apps'
 import { getFolder, isSamePath, root } from '@/lib/directories'
 import type { FolderPath } from '@/lib/directories'

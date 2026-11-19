@@ -8,6 +8,7 @@ import {
 import { useState } from 'react'
 import { useShallow } from 'zustand/react/shallow'
 import useLocalize from '@/hooks/useLocalize'
+import { cn } from '@/lib/utils'
 import type { AppRecord } from '@/models/application'
 import { useAppStore } from '@/stores/app.store'
 import { Tooltip, TooltipContent, TooltipTrigger } from '../ui/tooltip'
@@ -120,7 +121,10 @@ export function TaskbarShortcut({
               alt={app.label}
               width="32"
               height="32"
-              className={`mt-0.5 h-full max-h-8 object-contain transition-[scale] ${isBeingDragged ? '' : 'group-active:scale-80'}`}
+              className={cn(
+                'mt-0.5 h-full max-h-8 object-contain transition-[scale]',
+                !isBeingDragged && 'group-active:scale-80',
+              )}
               draggable="false"
             />
             <AnimatePresence>
@@ -134,7 +138,12 @@ export function TaskbarShortcut({
                     scaleX: appState === 'minimized' ? 0.5 : 1,
                   }}
                   exit={{ scaleX: 0 }}
-                  className={`${appState === 'minimized' ? 'bg-muted-foreground' : 'bg-accent'} absolute bottom-0 left-1/2 h-0.75 w-4 -translate-x-1/2 rounded-full`}
+                  className={cn(
+                    'absolute bottom-0 left-1/2 h-0.75 w-4 -translate-x-1/2 rounded-full',
+                    appState === 'minimized'
+                      ? 'bg-muted-foreground'
+                      : 'bg-accent',
+                  )}
                 />
               )}
             </AnimatePresence>

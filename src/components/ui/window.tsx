@@ -4,7 +4,6 @@ import { SquareMultipleRegular } from '@fluentui/react-icons/headless/svg/square
 import { SubtractRegular } from '@fluentui/react-icons/headless/svg/subtract'
 import { animate, motion, useDragControls, useMotionValue } from 'motion/react'
 import React, {
-  forwardRef,
   useCallback,
   useEffect,
   useLayoutEffect,
@@ -24,13 +23,9 @@ import { useThemeStore } from '@/stores/theme.store'
 import { localizeOrKeep } from '@/utils/localize'
 import { Tooltip, TooltipContent, TooltipTrigger } from './tooltip'
 
-const WindowButton = forwardRef(function WindowButton(
-  props: React.ComponentProps<'button'>,
-  ref: React.Ref<HTMLButtonElement>,
-) {
+function WindowButton(props: React.ComponentProps<'button'>) {
   return (
     <button
-      ref={ref}
       type="button"
       {...props}
       className={cn(
@@ -45,7 +40,7 @@ const WindowButton = forwardRef(function WindowButton(
       {props.children}
     </button>
   )
-})
+}
 
 const edgeClass =
   'absolute z-998 bg-transparent select-none before:absolute before:top-1/2 before:left-1/2 before:z-999 before:block before:-translate-1/2 before:content-[""]'
