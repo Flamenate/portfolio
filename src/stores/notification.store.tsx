@@ -2,16 +2,15 @@ import type { FluentIcon } from '@fluentui/react-icons/headless'
 import { LaptopSettingsRegular } from '@fluentui/react-icons/headless/svg/laptop-settings'
 import { create } from 'zustand/react'
 import { toast } from '@/lib/toast'
-import localize from '@/utils/localize'
+import type { TranslationKey, TranslationSuffix } from '@/utils/localize'
 import { useLogStore } from './log.store'
-import useThemeStore from './theme.store'
 
 export type Notification = {
   id: number
   timestamp: Date
-  content: string
-  subcontent?: string
-  source: { iconSrc: string | FluentIcon; label: string }
+  content: TranslationSuffix<'notifications'>
+  subcontent?: TranslationSuffix<'notifications'>
+  source: { iconSrc: string | FluentIcon; label: TranslationKey }
 }
 
 type NotificationStore = {
@@ -34,24 +33,7 @@ let lastId = 0
 export const useNotificationStore = create<NotificationStore>()((set, get) => ({
   notifications: [],
   addNotification: (notification: Omit<Notification, 'timestamp' | 'id'>) => {
-    if (!get().doNotDisturb) {
-      const locale = useThemeStore.getState().locale
-      toast({
-        source: {
-          label: localize(notification.source.label, locale),
-          iconSrc: notification.source.iconSrc,
-        },
-        content: localize(`notifications_${notification.content}`, locale),
-        ...(notification.subcontent
-          ? {
-              subcontent: localize(
-                `notifications_${notification.subcontent}`,
-                locale,
-              ),
-            }
-          : {}),
-      })
-    }
+    if (!get().doNotDisturb) toast(notification)
     set((state) => ({
       notifications: [
         ...state.notifications,

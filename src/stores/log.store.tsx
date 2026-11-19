@@ -1,19 +1,20 @@
 import { create } from 'zustand'
+import type { TranslationSuffix } from '@/utils/localize'
 
 interface LogAction {
   when: Date
-  title: string
+  title: TranslationSuffix<'logs'>
   target?: string
 }
 
 interface LogStore {
   actions: LogAction[]
-  logAction: (title: string, target?: string) => void
+  logAction: (title: LogAction['title'], target?: string) => void
 }
 
 export const useLogStore = create<LogStore>((set) => ({
   actions: [],
-  logAction: (title: string, target?: string) => {
+  logAction: (title, target) => {
     set((state) => ({
       actions: [{ when: new Date(), title, target }, ...state.actions].slice(
         0,

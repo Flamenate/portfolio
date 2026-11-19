@@ -1,4 +1,6 @@
-export const specialValues: Record<number, string> = {
+import type { TranslationKey } from '@/utils/localize'
+
+export const specialValues: Partial<Record<number, TranslationKey>> = {
   2026: 'calculator_year_france',
   2024: 'calculator_year_first_job',
   2022: 'calculator_year_first_freelance',

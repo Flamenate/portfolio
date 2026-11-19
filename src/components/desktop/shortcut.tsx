@@ -6,6 +6,7 @@ import { useShallow } from 'zustand/react/shallow'
 import useLocalize from '@/hooks/useLocalize'
 import { getFolder, pathKey, root } from '@/lib/directories'
 import type { FolderPath } from '@/lib/directories'
+import type { AppRecord } from '@/models/application'
 import useAppStore from '@/stores/app.store'
 import { useExplorerStore } from '@/stores/explorer.store'
 import DesktopShortcutContextMenu from './shortcut-context-menu'
@@ -87,7 +88,7 @@ export function AppShortcut({
   appLabel,
   containerRef,
 }: {
-  appLabel: string
+  appLabel: AppRecord['label']
   containerRef: ContainerRef
 }) {
   const iconSrc = useAppStore((state) => state.apps[appLabel].iconSrc)

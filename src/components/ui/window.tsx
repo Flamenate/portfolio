@@ -18,6 +18,7 @@ import { useResizable } from '@/hooks/useResizable'
 import type { ResizeDirection } from '@/hooks/useResizable'
 import { cn } from '@/lib/utils'
 import { MinimumSize } from '@/models/application'
+import type { AppRecord } from '@/models/application'
 import { useAppStore } from '@/stores/app.store'
 import { useThemeStore } from '@/stores/theme.store'
 import { localizeOrKeep } from '@/utils/localize'
@@ -101,7 +102,7 @@ export function AppWindow({
   appLabel,
 }: {
   children: React.ReactNode
-  appLabel: string
+  appLabel: AppRecord['label']
 }) {
   const localize = useLocalize()
   const language = useThemeStore((state) => state.locale)

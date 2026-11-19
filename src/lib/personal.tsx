@@ -1,3 +1,5 @@
+import type { TranslationKey } from '@/utils/localize'
+
 export type Link = {
   label: string
   url: string
@@ -17,11 +19,11 @@ export type TechnologyStack = {
 }
 
 export type EducationEntry = {
-  degree: string
+  degree: TranslationKey
   institution: string
   start: Date
   end: Date
-  notes?: string
+  notes?: TranslationKey
 }
 
 export type WorkExperience = {

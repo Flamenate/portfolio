@@ -1,3 +1,5 @@
+import type { TranslationKey } from '@/utils/localize'
+
 export type FileNode = {
   type: 'file'
   name: string
@@ -12,7 +14,7 @@ export function fileLabel(file: Pick<FileNode, 'name' | 'extension'>) {
 
 export type FolderNode = {
   type: 'folder'
-  name: string
+  name: TranslationKey
   desktopShortcut?: boolean
   iconSrc?: string
   children: FsNode[]
@@ -20,7 +22,7 @@ export type FolderNode = {
 
 export type FsNode = FileNode | FolderNode
 
-export type FolderPath = string[]
+export type FolderPath = FolderNode['name'][]
 
 export const root: FolderNode = {
   type: 'folder',

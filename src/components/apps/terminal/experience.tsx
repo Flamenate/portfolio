@@ -47,18 +47,12 @@ export const Experience: Command = ({ args, snapshot }) => {
           <tr key={exp.role} className="align-top">
             <td className="px-2 py-2">
               {format(exp.start, 'MMM yyyy', {
-                locale:
-                  datefnsLocales[
-                    snapshot.locale as keyof typeof datefnsLocales
-                  ],
+                locale: datefnsLocales[snapshot.locale],
               })}{' '}
               -{' '}
               {exp.end
                 ? format(exp.end, 'MMM yyyy', {
-                    locale:
-                      datefnsLocales[
-                        snapshot.locale as keyof typeof datefnsLocales
-                      ],
+                    locale: datefnsLocales[snapshot.locale],
                   })
                 : localize('present', snapshot.locale)}
             </td>

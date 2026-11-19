@@ -7,7 +7,7 @@ import type { FolderNode, FolderPath } from '@/lib/directories'
 import { cn } from '@/lib/utils'
 
 export type FolderTreeNode = {
-  name: string
+  name: FolderNode['name']
   path: FolderPath
   iconSrc?: string
   children: FolderTreeNode[]

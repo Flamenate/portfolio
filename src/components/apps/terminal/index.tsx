@@ -2,7 +2,7 @@ import { useCallback, useEffect, useRef, useState } from 'react'
 import { Input } from '@/components/ui/input'
 import useLocalize from '@/hooks/useLocalize'
 import type { CommandSnapshot } from '@/lib/terminal-commands'
-import { commandLookup } from '@/lib/terminal-commands'
+import { findCommand } from '@/lib/terminal-commands'
 import useThemeStore from '@/stores/theme.store'
 
 interface CommandExecution {
@@ -20,7 +20,7 @@ function CommandOutput({
   execution: CommandExecution
   clearHistory: () => void
 }) {
-  const CommandComponent = commandLookup[execution.commandName]
+  const CommandComponent = findCommand(execution.commandName)?.component
   const localize = useLocalize()
   if (!CommandComponent) {
     return (

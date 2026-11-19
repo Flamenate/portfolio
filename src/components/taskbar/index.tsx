@@ -1,5 +1,6 @@
 import { Reorder } from 'motion/react'
 import { useMemo, useRef, useState } from 'react'
+import type { AppRecord } from '@/models/application'
 import useAppStore from '@/stores/app.store'
 import { StartMenu } from './menus/start-menu'
 import TaskbarShortcut from './shortcut'
@@ -13,7 +14,9 @@ export function Taskbar() {
     .filter((app) => app.pinned || app.state !== 'closed')
     .map((app) => app.label)
 
-  const [orderedAppLabels, setOrderedAppLabels] = useState<string[]>([])
+  const [orderedAppLabels, setOrderedAppLabels] = useState<
+    AppRecord['label'][]
+  >([])
 
   const orderedTaskbarAppLabels = useMemo(() => {
     const taskbarSet = new Set(taskbarAppLabels)

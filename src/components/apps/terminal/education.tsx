@@ -30,17 +30,11 @@ export const Education: Command = ({ snapshot }) => {
             <td>{entry.institution}</td>
             <td>
               {format(entry.start, 'MMM yyyy', {
-                locale:
-                  datefnsLocales[
-                    snapshot.locale as keyof typeof datefnsLocales
-                  ],
+                locale: datefnsLocales[snapshot.locale],
               })}{' '}
               -{' '}
               {format(entry.end, 'MMM yyyy', {
-                locale:
-                  datefnsLocales[
-                    snapshot.locale as keyof typeof datefnsLocales
-                  ],
+                locale: datefnsLocales[snapshot.locale],
               })}
             </td>
             <td>{entry.notes && localize(entry.notes, snapshot.locale)}</td>

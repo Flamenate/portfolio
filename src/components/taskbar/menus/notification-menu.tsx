@@ -106,14 +106,13 @@ const NotificationPanelContent = ({
   localize,
 }: {
   locale: keyof typeof datefnsLocales
-  localize: (key: string) => string
+  localize: ReturnType<typeof useLocalize>
 }) => {
   const notificationStore = useNotificationStore()
-  const notificationsBySource = Object.groupBy(
+  const notificationsBySource = Map.groupBy(
     notificationStore.notifications,
     (n) => n.source.label,
   )
-  const notificationSources = Object.keys(notificationsBySource)
   return (
     <>
       <header className="flex justify-between">
@@ -158,7 +157,7 @@ const NotificationPanelContent = ({
 
       <div className="max-h-full grow space-y-5 overflow-x-clip overflow-y-auto">
         <AnimatePresence propagate mode="popLayout">
-          {notificationSources.map((sourceLabel) => (
+          {Array.from(notificationsBySource, ([sourceLabel, notifications]) => (
             <motion.section
               layout
               key={sourceLabel}
@@ -169,19 +168,15 @@ const NotificationPanelContent = ({
             >
               <div className="group relative flex max-h-min items-start gap-2">
                 <div className="relative size-4.5 shrink-0">
-                  {typeof notificationsBySource[sourceLabel]![0].source
-                    .iconSrc === 'string' ? (
+                  {typeof notifications[0].source.iconSrc === 'string' ? (
                     <img
-                      src={
-                        notificationsBySource[sourceLabel]![0].source.iconSrc
-                      }
+                      src={notifications[0].source.iconSrc}
                       alt=""
                       className="absolute inset-0 size-full object-contain"
                     />
                   ) : (
                     (() => {
-                      const IconComponent =
-                        notificationsBySource[sourceLabel]![0].source.iconSrc
+                      const IconComponent = notifications[0].source.iconSrc
                       return (
                         <IconComponent
                           className="absolute inset-0 size-full"
@@ -209,7 +204,7 @@ const NotificationPanelContent = ({
               </div>
 
               <AnimatePresence mode="popLayout">
-                {notificationsBySource[sourceLabel]!.map((notification) => (
+                {notifications.map((notification) => (
                   <Notification
                     key={notification.id}
                     notification={notification}

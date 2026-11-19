@@ -64,7 +64,7 @@ export const appContent: Record<string, AppContent> = {
 }
 
 const appDefinitions: Array<{
-  label: string
+  label: AppRecord['label']
   iconSrc: string
   pinned: boolean
 }> = [

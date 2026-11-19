@@ -8,6 +8,7 @@ import {
 import { useState } from 'react'
 import { useShallow } from 'zustand/react/shallow'
 import useLocalize from '@/hooks/useLocalize'
+import type { AppRecord } from '@/models/application'
 import { useAppStore } from '@/stores/app.store'
 import { Tooltip, TooltipContent, TooltipTrigger } from '../ui/tooltip'
 import ShortcutContextMenu from './menus/shortcut-context-menu'
@@ -16,7 +17,7 @@ export function TaskbarShortcut({
   appLabel,
   shortcutTrackRef,
 }: {
-  appLabel: string
+  appLabel: AppRecord['label']
   shortcutTrackRef: React.RefObject<HTMLDivElement | null>
 }) {
   const {

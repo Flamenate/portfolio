@@ -51,18 +51,12 @@ export const Projects: Command = ({ args, snapshot }) => {
           <tr key={project.title} className="align-top">
             <td className="px-2 py-2">
               {format(project.period.start, 'MMM yyyy', {
-                locale:
-                  datefnsLocales[
-                    snapshot.locale as keyof typeof datefnsLocales
-                  ],
+                locale: datefnsLocales[snapshot.locale],
               })}{' '}
               -{' '}
               {project.period.end
                 ? format(project.period.end, 'MMM yyyy', {
-                    locale:
-                      datefnsLocales[
-                        snapshot.locale as keyof typeof datefnsLocales
-                      ],
+                    locale: datefnsLocales[snapshot.locale],
                   })
                 : localize('present', snapshot.locale)}
             </td>

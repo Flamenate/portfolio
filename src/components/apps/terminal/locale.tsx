@@ -1,14 +1,19 @@
 import { useEffect } from 'react'
 import type { Command } from '@/lib/terminal-commands'
 import useThemeStore, { locales } from '@/stores/theme.store'
+import type { Locale as LocaleCode } from '@/stores/theme.store'
 import localize from '@/utils/localize'
+
+function isLocale(value: string | undefined): value is LocaleCode {
+  return value !== undefined && Object.hasOwn(locales, value)
+}
 
 export const Locale: Command = ({ args, snapshot }) => {
   const isModifying = args[0]?.toLowerCase() === 'set'
-  const newLocale = args[1]?.toLowerCase()
+  const newLocale = args.at(1)?.toLowerCase()
   useEffect(() => {
-    if (isModifying && newLocale && Object.keys(locales).includes(newLocale)) {
-      useThemeStore.getState().setLocale(newLocale as keyof typeof locales)
+    if (isModifying && isLocale(newLocale)) {
+      useThemeStore.getState().setLocale(newLocale)
     }
   }, [isModifying, newLocale])
 
@@ -16,21 +21,13 @@ export const Locale: Command = ({ args, snapshot }) => {
     return (
       <p>
         {localize('terminal_current_locale', snapshot.locale)}:{' '}
-        <strong>{locales[snapshot.locale as keyof typeof locales]}</strong>
+        <strong>{locales[snapshot.locale]}</strong>
       </p>
     )
   }
 
-  if (!newLocale || !Object.keys(locales).includes(newLocale)) {
+  if (!isLocale(newLocale)) {
     return <p>{localize('terminal_invalid_locale', snapshot.locale)}</p>
   }
-  return (
-    <p>
-      {localize(
-        'terminal_locale_set',
-        newLocale,
-        locales[newLocale as keyof typeof locales],
-      )}
-    </p>
-  )
+  return <p>{localize('terminal_locale_set', newLocale, locales[newLocale])}</p>
 }

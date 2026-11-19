@@ -6,9 +6,9 @@ import useThemeStore from '@/stores/theme.store'
 import localize from '@/utils/localize'
 
 export const toast = (notification: Omit<Notification, 'id' | 'timestamp'>) => {
+  const locale = useThemeStore.getState().locale
   sonnerToast.custom(
     (id) => {
-      const locale = useThemeStore.getState().locale // this is not reactive on purpose (design choice)
       return (
         <div className="relative min-w-80 rounded-sm border border-muted bg-popover px-5 py-4 font-noto text-sm leading-snug shadow-sm backdrop-blur-sm select-none dark:border-border dark:bg-accent-foreground/85">
           <div className="absolute top-1 right-2 flex flex-row-reverse gap-1">
@@ -42,14 +42,14 @@ export const toast = (notification: Omit<Notification, 'id' | 'timestamp'>) => {
             ) : (
               <notification.source.iconSrc className="size-4" />
             )}
-            {notification.source.label}
+            {localize(notification.source.label, locale)}
           </header>
           <p className="font-medium dark:text-(--white)">
-            {notification.content}
+            {localize(`notifications_${notification.content}`, locale)}
           </p>
           {notification.subcontent && (
             <p className="text-muted-foreground dark:text-muted-foreground">
-              {notification.subcontent}
+              {localize(`notifications_${notification.subcontent}`, locale)}
             </p>
           )}
         </div>

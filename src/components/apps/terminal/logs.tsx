@@ -13,8 +13,7 @@ export const Logs: Command = ({ snapshot }) => {
           <span>
             {formatDistanceToNow(log.when, {
               addSuffix: true,
-              locale:
-                datefnsLocales[snapshot.locale as keyof typeof datefnsLocales],
+              locale: datefnsLocales[snapshot.locale],
             })}
           </span>
           :{' '}

@@ -18,7 +18,7 @@ export const Uptime: Command = ({ snapshot }) => {
   return (
     <p>
       {formatDuration(duration, {
-        locale: datefnsLocales[snapshot.locale as keyof typeof datefnsLocales],
+        locale: datefnsLocales[snapshot.locale],
       })}
     </p>
   )
