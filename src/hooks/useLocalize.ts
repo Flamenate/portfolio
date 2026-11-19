@@ -1,6 +1,6 @@
+import localize from '@/lib/localize'
+import type { TranslationKey } from '@/lib/localize'
 import { useThemeStore } from '@/stores/theme.store'
-import localize from '@/utils/localize'
-import type { TranslationKey } from '@/utils/localize'
 
 export function useLocalize() {
   const language = useThemeStore((state) => state.locale)

@@ -1,4 +1,4 @@
-import type { TranslationKey } from '@/utils/localize'
+import type { TranslationKey } from '@/lib/localize'
 
 export type Link = {
   label: string
@@ -26,22 +26,23 @@ export type EducationEntry = {
   notes?: TranslationKey
 }
 
+export type Period = {
+  start: Date
+  end: Date | null
+}
+
 export type WorkExperience = {
   role: string
   company: string
   location: string
-  start: Date
-  end: Date | null
-  technologies: TechnologyStack
+  period: Period
+  tech: TechnologyStack
   achievements: string[]
 }
 
 export type Project = {
   title: string
-  period: {
-    start: Date
-    end: Date | null
-  }
+  period: Period
   summary: string
   tech: TechnologyStack
   details?: string[]
@@ -131,9 +132,11 @@ export const resume: Resume = {
       role: 'Lead Software Engineer',
       company: 'Dink USA',
       location: 'Remote',
-      start: new Date('2024-10-01'),
-      end: new Date('2025-05-01'),
-      technologies: {
+      period: {
+        start: new Date('2024-10-01'),
+        end: new Date('2025-05-01'),
+      },
+      tech: {
         frontend: ['Vue.js', 'Nuxt.js', 'TailwindCSS'],
         backend: ['tRPC', 'Shopify', 'GraphQL', 'Express', 'Prisma'],
         databases: ['PostgreSQL'],
@@ -331,14 +334,14 @@ export const resume: Resume = {
 }
 
 export const projects: Project[] = resume.projects
-export const skills = projects.reduce<{
+export const skills = [...projects, ...resume.experience].reduce<{
   frontend: Set<string>
   backend: Set<string>
   databases: Set<string>
 }>(
-  (acc, project) => {
+  (acc, entry) => {
     for (const category of ['frontend', 'backend', 'databases'] as const) {
-      for (const tech of project.tech[category]) {
+      for (const tech of entry.tech[category]) {
         acc[category].add(tech)
       }
     }
@@ -346,10 +349,3 @@ export const skills = projects.reduce<{
   },
   { frontend: new Set(), backend: new Set(), databases: new Set() },
 )
-for (const exp of resume.experience) {
-  for (const category of ['frontend', 'backend', 'databases'] as const) {
-    for (const tech of exp.technologies[category]) {
-      skills[category].add(tech)
-    }
-  }
-}

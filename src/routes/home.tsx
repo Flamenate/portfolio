@@ -11,7 +11,9 @@ import useLocalStorage from '@/hooks/useLocalStorage'
 import { appDefinitions, isAppLabel } from '@/lib/apps'
 import { desktopFolderPaths, pathKey } from '@/lib/directories'
 import useAppStore from '@/stores/app.store'
-import useExplorerStore from '@/stores/explorer.store'
+import useExplorerStore, {
+  connectExplorerToApps,
+} from '@/stores/explorer.store'
 
 export const Route = createFileRoute('/home')({
   validateSearch: (search: Record<string, unknown>): { browse?: string } =>
@@ -33,6 +35,8 @@ function Home() {
   useEffect(() => {
     if (browse) useAppStore.getState().openApp('browser')
   }, [browse])
+
+  useEffect(() => connectExplorerToApps(), [])
 
   const { apps, openAppLabels, clearSelectedShortcuts, selectedShortcutIds } =
     useAppStore(

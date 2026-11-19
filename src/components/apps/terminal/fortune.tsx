@@ -48,7 +48,7 @@ const fortunes = [
   'This website is ridden with details for the keen observer.',
 ]
 
-export const Fortune: Command = ({ snapshot }) => {
-  const randomIndex = Math.floor(snapshot.random * fortunes.length)
+export const fortuneCommand: Command = () => {
+  const randomIndex = Math.floor(Math.random() * fortunes.length)
   return <p>{fortunes[randomIndex]}</p>
 }

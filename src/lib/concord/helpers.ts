@@ -1,5 +1,6 @@
 import { isSameDay } from 'date-fns'
-import { servers } from './servers'
+import { servers } from '@/data/concord/servers'
+import { users } from '@/data/concord/users'
 import type {
   Conversation,
   Message,
@@ -9,7 +10,6 @@ import type {
   TextChannel,
   User,
 } from './types'
-import { users } from './users'
 
 const groupWindow = 7 * 60 * 1000
 

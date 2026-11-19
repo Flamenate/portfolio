@@ -1,8 +1,8 @@
 import type { Command } from '@/lib/terminal-commands'
 import useAppStore from '@/stores/app.store'
 
-export const TaskManager: Command = () => {
-  const openAppLabels = useAppStore((state) => state.openAppLabels)
+export const taskmanagerCommand: Command = () => {
+  const { openAppLabels } = useAppStore.getState()
   return (
     <table className="w-full table-auto text-left">
       <thead className="bg-green-900">

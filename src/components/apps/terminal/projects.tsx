@@ -1,75 +1,49 @@
-import { format } from 'date-fns'
-import { projects } from '@/lib/personal'
+import { projects } from '@/data/personal'
+import localize from '@/lib/localize'
 import type { Command } from '@/lib/terminal-commands'
-import { datefnsLocales } from '@/stores/theme.store'
-import localize from '@/utils/localize'
+import {
+  formatPeriod,
+  joinTechStack,
+  overlapsYear,
+  parseYearArg,
+} from './timeline'
 
-export const Projects: Command = ({ args, snapshot }) => {
-  const yearInput = parseInt(args[0])
-  const year =
-    isNaN(yearInput) || yearInput < 2020 || yearInput > new Date().getFullYear()
-      ? null
-      : yearInput
+export const projectsCommand: Command = ({ args, locale }) => {
+  const year = parseYearArg(args[0])
   const filteredProjects = year
-    ? projects.filter(
-        (project) =>
-          project.period.start.getFullYear() <= year &&
-          (project.period.end
-            ? project.period.end.getFullYear() >= year
-            : true),
-      )
+    ? projects.filter((project) => overlapsYear(project.period, year))
     : projects
 
   if (filteredProjects.length === 0) {
-    return <p>{localize('terminal_no_projects_found', snapshot.locale)}</p>
+    return <p>{localize('terminal_no_projects_found', locale)}</p>
   }
   return (
     <table className="w-full table-auto border-collapse">
       <caption className="caption-bottom">
         <span className="border p-0.5">
-          {localize('terminal_projects_learn_more', snapshot.locale)}
+          {localize('terminal_projects_learn_more', locale)}
         </span>
       </caption>
       <thead>
         <tr>
+          <th className="px-2">{localize('terminal_project_date', locale)}</th>
+          <th className="px-2">{localize('terminal_project_title', locale)}</th>
           <th className="px-2">
-            {localize('terminal_project_date', snapshot.locale)}
+            {localize('terminal_project_tech_stack', locale)}
           </th>
-          <th className="px-2">
-            {localize('terminal_project_title', snapshot.locale)}
-          </th>{' '}
-          <th className="px-2">
-            {localize('terminal_project_tech_stack', snapshot.locale)}
-          </th>
-          <th className="px-2">
-            {localize('terminal_project_link', snapshot.locale)}
-          </th>
+          <th className="px-2">{localize('terminal_project_link', locale)}</th>
         </tr>
       </thead>
       <tbody>
         {filteredProjects.map((project) => (
           <tr key={project.title} className="align-top">
             <td className="px-2 py-2">
-              {format(project.period.start, 'MMM yyyy', {
-                locale: datefnsLocales[snapshot.locale],
-              })}{' '}
-              -{' '}
-              {project.period.end
-                ? format(project.period.end, 'MMM yyyy', {
-                    locale: datefnsLocales[snapshot.locale],
-                  })
-                : localize('present', snapshot.locale)}
+              {formatPeriod(project.period, locale)}
             </td>
             <td className="px-2 py-2">{project.title}</td>
+            <td className="px-2 py-2">{joinTechStack(project.tech)}</td>
             <td className="px-2 py-2">
-              {[
-                ...project.tech.frontend,
-                ...project.tech.backend,
-                ...project.tech.databases,
-              ].join(', ')}
-            </td>
-            <td className="px-2 py-2">
-              {project.links?.[0].url ?? localize('private', snapshot.locale)}
+              {project.links?.[0].url ?? localize('private', locale)}
             </td>
           </tr>
         ))}

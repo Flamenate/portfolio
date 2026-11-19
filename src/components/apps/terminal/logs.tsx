@@ -1,11 +1,11 @@
 import { formatDistanceToNow } from 'date-fns'
+import localize from '@/lib/localize'
 import type { Command } from '@/lib/terminal-commands'
 import { useLogStore } from '@/stores/log.store'
 import { datefnsLocales } from '@/stores/theme.store'
-import localize from '@/utils/localize'
 
-export const Logs: Command = ({ snapshot }) => {
-  const logs = useLogStore((state) => state.actions)
+export const logsCommand: Command = ({ locale }) => {
+  const logs = useLogStore.getState().actions
   return (
     <div>
       {logs.map((log) => (
@@ -13,13 +13,11 @@ export const Logs: Command = ({ snapshot }) => {
           <span>
             {formatDistanceToNow(log.when, {
               addSuffix: true,
-              locale: datefnsLocales[snapshot.locale],
+              locale: datefnsLocales[locale],
             })}
           </span>
           :{' '}
-          <span>
-            {localize(`logs_${log.title}`, snapshot.locale, log.target ?? '')}
-          </span>
+          <span>{localize(`logs_${log.title}`, locale, log.target ?? '')}</span>
         </div>
       ))}
     </div>

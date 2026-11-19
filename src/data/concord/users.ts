@@ -1,4 +1,4 @@
-import type { User } from './types'
+import type { User } from '@/lib/concord/types'
 
 export const me = 'flamenate'
 

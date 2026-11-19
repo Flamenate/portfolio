@@ -1,5 +1,5 @@
 import { create } from 'zustand/react'
-import type { Mail } from '@/lib/mails'
+import type { Mail } from '@/data/mails'
 
 type MailStore = {
   sent: Mail[]

@@ -1,6 +1,7 @@
 import { create } from 'zustand/react'
+import { root } from '@/data/directories'
 import type { AppLabel } from '@/lib/apps'
-import { getFolder, isSamePath, root } from '@/lib/directories'
+import { getFolder, isSamePath } from '@/lib/directories'
 import type { FolderPath } from '@/lib/directories'
 import { useAppStore } from './app.store'
 
@@ -48,15 +49,22 @@ function syncTitle(state: ExplorerStore) {
   useAppStore.getState().setAppTitle(EXPLORER_APP_LABEL, title)
 }
 
-syncTitle(useExplorerStore.getState())
-useExplorerStore.subscribe(syncTitle)
-
-useAppStore.subscribe((state, prev) => {
-  const current = state.apps[EXPLORER_APP_LABEL].state
-  const previous = prev.apps[EXPLORER_APP_LABEL].state
-  if (current === 'closed' && previous !== 'closed') {
-    useExplorerStore.getState().reset()
+// Keeps the explorer window title in sync with the current folder, and resets
+// navigation when the window closes. Returns a cleanup function.
+export function connectExplorerToApps() {
+  syncTitle(useExplorerStore.getState())
+  const unsubscribeTitle = useExplorerStore.subscribe(syncTitle)
+  const unsubscribeReset = useAppStore.subscribe((state, prev) => {
+    const current = state.apps[EXPLORER_APP_LABEL].state
+    const previous = prev.apps[EXPLORER_APP_LABEL].state
+    if (current === 'closed' && previous !== 'closed') {
+      useExplorerStore.getState().reset()
+    }
+  })
+  return () => {
+    unsubscribeTitle()
+    unsubscribeReset()
   }
-})
+}
 
 export default useExplorerStore

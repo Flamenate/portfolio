@@ -1,6 +1,6 @@
 import { format } from 'date-fns'
 import { Avatar } from '@/components/ui/avatar'
-import type { Mail } from '@/lib/mails'
+import type { Mail } from '@/data/mails'
 import { datefnsLocales, useThemeStore } from '@/stores/theme.store'
 
 export function MailView({ mail }: { mail: Mail }) {

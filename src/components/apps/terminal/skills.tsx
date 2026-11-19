@@ -1,8 +1,8 @@
-import { skills } from '@/lib/personal'
+import { skills } from '@/data/personal'
+import localize from '@/lib/localize'
 import type { Command } from '@/lib/terminal-commands'
-import localize from '@/utils/localize'
 
-export const Skills: Command = ({ args, snapshot }) => {
+export const skillsCommand: Command = ({ args, locale }) => {
   const skillType = args[0]?.toLowerCase()
   const frontendSkills = Array.from(skills.frontend)
   const backendSkills = Array.from(skills.backend)
@@ -35,7 +35,7 @@ export const Skills: Command = ({ args, snapshot }) => {
       </table>
     )
   } else if (!['frontend', 'backend', 'database'].includes(skillType)) {
-    return <p>{localize('terminal_invalid_skilltype', snapshot.locale)}</p>
+    return <p>{localize('terminal_invalid_skilltype', locale)}</p>
   }
 
   return (

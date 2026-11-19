@@ -1,7 +1,7 @@
 import { enUS, es, fr } from 'date-fns/locale'
 import { persist } from 'zustand/middleware'
 import { create } from 'zustand/react'
-import { useLogStore } from './log.store'
+import { logAction } from './log.store'
 
 export const datefnsLocales = {
   eng: enUS,
@@ -52,16 +52,16 @@ export const useThemeStore = create<ThemeData & ThemeActions>()(
     (set) => ({
       ...defaultTheme,
       setPalette: (palette: Palette) => {
-        useLogStore.getState().logAction('change_theme_palette', palette)
         set({ palette })
+        logAction('change_theme_palette', palette)
       },
       setLocale: (locale: Locale) => {
-        useLogStore.getState().logAction('change_locale', locale)
         set({ locale })
+        logAction('change_locale', locale)
       },
       setVolume: (volume: number) => {
-        useLogStore.getState().logAction('change_volume', volume.toString())
         set({ volume })
+        logAction('change_volume', volume.toString())
       },
     }),
     {

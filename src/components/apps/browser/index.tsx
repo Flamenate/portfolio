@@ -4,7 +4,7 @@ import { ArrowRightRegular } from '@fluentui/react-icons/headless/svg/arrow-righ
 import { HomeRegular } from '@fluentui/react-icons/headless/svg/home'
 import { InfoRegular } from '@fluentui/react-icons/headless/svg/info'
 import { getRouteApi } from '@tanstack/react-router'
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useEffectEvent, useRef, useState } from 'react'
 import {
   Dialog,
   DialogContent,
@@ -87,28 +87,22 @@ export function Browser() {
   const canGoBack = isReady && history.index > 0
   const canGoForward = isReady && history.index < history.entries.length - 1
 
-  const shellInitRef = useRef({
-    url: initialUrl,
-    ui: {
-      title: localize('browser_unsupported_title'),
-      description: localize('browser_unsupported_description', '{0}'),
-      openInNewTab: localize('browser_open_in_new_tab'),
-      lang: locale === 'eng' ? 'en' : locale,
-      colorScheme: colorSchemes[palette],
-    },
-  })
-  useEffect(() => {
-    shellInitRef.current = {
-      url: initialUrl,
-      ui: {
-        title: localize('browser_unsupported_title'),
-        description: localize('browser_unsupported_description', '{0}'),
-        openInNewTab: localize('browser_open_in_new_tab'),
-        lang: locale === 'eng' ? 'en' : locale,
-        colorScheme: colorSchemes[palette],
+  const sendShellInit = useEffectEvent((shell: HTMLIFrameElement) => {
+    shell.contentWindow?.postMessage(
+      {
+        type: 'init',
+        url: initialUrl,
+        ui: {
+          title: localize('browser_unsupported_title'),
+          description: localize('browser_unsupported_description', '{0}'),
+          openInNewTab: localize('browser_open_in_new_tab'),
+          lang: locale === 'eng' ? 'en' : locale,
+          colorScheme: colorSchemes[palette],
+        },
       },
-    }
-  }, [initialUrl, localize, locale, palette])
+      PROXY_ORIGIN,
+    )
+  })
 
   useEffect(() => {
     const iframe = iframeRef.current
@@ -126,10 +120,7 @@ export function Browser() {
       if (!message) return
 
       if (message.type === 'hello') {
-        shell.contentWindow?.postMessage(
-          { type: 'init', ...shellInitRef.current },
-          PROXY_ORIGIN,
-        )
+        sendShellInit(shell)
         return
       }
       if (message.type === 'ready') {

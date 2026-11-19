@@ -1,6 +1,7 @@
 import { useState } from 'react'
+import { dms } from '@/data/concord/dms'
+import { servers } from '@/data/concord/servers'
 import useLocalize from '@/hooks/useLocalize'
-import { dms } from '@/lib/concord/dms'
 import {
   conversationKey,
   firstTextChannel,
@@ -8,7 +9,6 @@ import {
   getTextChannel,
   getUser,
 } from '@/lib/concord/helpers'
-import { servers } from '@/lib/concord/servers'
 import type { Conversation, Server } from '@/lib/concord/types'
 import { cn } from '@/lib/utils'
 import { ChannelSidebar } from './channel-sidebar'

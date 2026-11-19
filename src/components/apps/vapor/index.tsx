@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { Tabs, TabsContent } from '@/components/ui/tabs'
-import { games } from '@/lib/igdb/games'
+import { games } from '@/data/games'
 import { cn } from '@/lib/utils'
 import { GameList } from './game-list'
 import { GamePage } from './game-page'

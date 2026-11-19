@@ -2,7 +2,7 @@ import { format } from 'date-fns'
 import { env } from '@/env'
 import type { Command } from '@/lib/terminal-commands'
 
-export const Sysinfo: Command = () => {
+export const sysinfoCommand: Command = () => {
   return (
     <table className="w-full table-auto [&>tr]:align-top">
       <tr>

@@ -5,8 +5,8 @@ import {
   TooltipContent,
   TooltipTrigger,
 } from '@/components/ui/tooltip'
+import { servers } from '@/data/concord/servers'
 import useLocalize from '@/hooks/useLocalize'
-import { servers } from '@/lib/concord/servers'
 import { cn } from '@/lib/utils'
 
 function RailItem({

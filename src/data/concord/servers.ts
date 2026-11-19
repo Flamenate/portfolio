@@ -1,4 +1,4 @@
-import type { Server } from './types'
+import type { Server } from '@/lib/concord/types'
 
 export const servers: Server[] = [
   {

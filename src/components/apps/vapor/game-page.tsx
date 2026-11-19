@@ -9,7 +9,7 @@ import {
   TooltipContent,
   TooltipTrigger,
 } from '@/components/ui/tooltip'
-import type { OwnedGame } from '@/lib/igdb/games'
+import type { OwnedGame } from '@/data/games'
 import type { GameDetails } from '@/lib/igdb/igdb'
 import { cn } from '@/lib/utils'
 import { useGameDetails } from '../../../lib/igdb/details'

@@ -1,5 +1,5 @@
 import type { Command } from '@/lib/terminal-commands'
 
-export const WhoAmI: Command = () => {
+export const whoamiCommand: Command = () => {
   return <p>&gt;flamenate/home</p>
 }

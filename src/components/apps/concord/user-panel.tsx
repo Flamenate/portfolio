@@ -1,7 +1,7 @@
+import { me } from '@/data/concord/users'
 import useLocalize from '@/hooks/useLocalize'
 import { getUser } from '@/lib/concord/helpers'
 import type { Server } from '@/lib/concord/types'
-import { me } from '@/lib/concord/users'
 import { ProfilePopover } from './profile-popover'
 import { PresenceAvatar } from './status-dot'
 

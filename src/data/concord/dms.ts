@@ -1,4 +1,4 @@
-import type { Dm } from './types'
+import type { Dm } from '@/lib/concord/types'
 
 export const dms: Dm[] = [
   {

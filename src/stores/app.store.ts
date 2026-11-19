@@ -16,7 +16,7 @@ import {
   withCoordinates,
 } from '@/models/application'
 import type { AppRecord, WindowCoordinates } from '@/models/application'
-import { useLogStore } from './log.store'
+import { logAction } from './log.store'
 
 interface ApplicationStore {
   apps: Record<AppLabel, AppRecord>
@@ -65,82 +65,82 @@ function maximizedFrame(): WindowCoordinates {
   }
 }
 
-export const useAppStore = create<ApplicationStore>()((set) => ({
+export const useAppStore = create<ApplicationStore>()((set, get) => ({
   apps: createApps(),
   openAppLabels: [],
-  openApp: (label, options) =>
-    set((state) => {
-      const current = state.apps[label]
-      const app =
-        options?.title === undefined
-          ? current
-          : { ...current, title: options.title }
-      if (app.state === 'minimized' || app.state === 'unminimizing') {
-        return {
-          apps: { ...state.apps, [label]: unminimizeRecord(app) },
-          focusedAppLabel: label,
-        }
-      }
-      if (app.state === 'open' || app.state === 'maximized') {
-        return {
-          apps: app === current ? state.apps : { ...state.apps, [label]: app },
-          focusedAppLabel: label,
-        }
-      }
-      useLogStore.getState().logAction('open_app', label)
-      return {
-        apps: {
-          ...state.apps,
-          [label]: openRecord(app, sizeForFirstOpen(app.coordinates)),
-        },
-        openAppLabels: state.openAppLabels.includes(label)
-          ? state.openAppLabels
-          : state.openAppLabels.concat(label),
+  openApp: (label, options) => {
+    const state = get()
+    const current = state.apps[label]
+    const app =
+      options?.title === undefined
+        ? current
+        : { ...current, title: options.title }
+    if (app.state === 'minimized' || app.state === 'unminimizing') {
+      set({
+        apps: { ...state.apps, [label]: unminimizeRecord(app) },
         focusedAppLabel: label,
-      }
-    }),
+      })
+      return
+    }
+    if (app.state === 'open' || app.state === 'maximized') {
+      set({
+        apps: app === current ? state.apps : { ...state.apps, [label]: app },
+        focusedAppLabel: label,
+      })
+      return
+    }
+    set({
+      apps: {
+        ...state.apps,
+        [label]: openRecord(app, sizeForFirstOpen(app.coordinates)),
+      },
+      openAppLabels: state.openAppLabels.includes(label)
+        ? state.openAppLabels
+        : state.openAppLabels.concat(label),
+      focusedAppLabel: label,
+    })
+    logAction('open_app', label)
+  },
   setAppTitle: (label, title) =>
     set((state) => {
       const app = state.apps[label]
       if (app.title === title) return state
       return { apps: { ...state.apps, [label]: { ...app, title } } }
     }),
-  closeApp: (label) =>
-    set((state) => {
-      const app = state.apps[label]
-      if (app.state === 'closed') return state
-      useLogStore.getState().logAction('close_app', label)
-      const openAppLabels = state.openAppLabels.filter(
-        (openLabel) => openLabel !== label,
-      )
-      return {
-        apps: { ...state.apps, [label]: closeRecord(app) },
-        openAppLabels,
-        focusedAppLabel:
-          state.focusedAppLabel === label
-            ? (openAppLabels.at(-1) ?? null)
-            : state.focusedAppLabel,
-      }
-    }),
-  minimizeApp: (label) =>
-    set((state) => {
-      const app = state.apps[label]
-      if (app.state === 'minimized' || app.state === 'closed') return state
-      useLogStore.getState().logAction('minimize_app', label)
-      return {
-        apps: { ...state.apps, [label]: minimizeRecord(app) },
-      }
-    }),
-  unminimizeApp: (label) =>
-    set((state) => {
-      const app = state.apps[label]
-      if (app.state === 'open' || app.state === 'closed') return state
-      useLogStore.getState().logAction('unminimize_app', label)
-      return {
-        apps: { ...state.apps, [label]: unminimizeRecord(app) },
-        focusedAppLabel: label,
-      }
-    }),
+  closeApp: (label) => {
+    const state = get()
+    const app = state.apps[label]
+    if (app.state === 'closed') return
+    const openAppLabels = state.openAppLabels.filter(
+      (openLabel) => openLabel !== label,
+    )
+    set({
+      apps: { ...state.apps, [label]: closeRecord(app) },
+      openAppLabels,
+      focusedAppLabel:
+        state.focusedAppLabel === label
+          ? (openAppLabels.at(-1) ?? null)
+          : state.focusedAppLabel,
+    })
+    logAction('close_app', label)
+  },
+  minimizeApp: (label) => {
+    const { apps } = get()
+    const app = apps[label]
+    if (app.state === 'minimized' || app.state === 'closed') return
+    set({ apps: { ...apps, [label]: minimizeRecord(app) } })
+    logAction('minimize_app', label)
+  },
+  unminimizeApp: (label) => {
+    const { apps } = get()
+    const app = apps[label]
+    if (app.state === 'open' || app.state === 'closed') return
+    set({
+      apps: { ...apps, [label]: unminimizeRecord(app) },
+      focusedAppLabel: label,
+    })
+    logAction('unminimize_app', label)
+  },
   finishUnminimize: (label) =>
     set((state) => {
       const app = state.apps[label]
@@ -148,28 +148,20 @@ export const useAppStore = create<ApplicationStore>()((set) => ({
       if (next === app) return state
       return { apps: { ...state.apps, [label]: next } }
     }),
-  maximizeApp: (label) =>
-    set((state) => {
-      const app = state.apps[label]
-      if (app.state === 'maximized' || typeof window === 'undefined')
-        return state
-      useLogStore.getState().logAction('maximize_app', label)
-      return {
-        apps: {
-          ...state.apps,
-          [label]: maximizeRecord(app, maximizedFrame()),
-        },
-      }
-    }),
-  unmaximizeApp: (label) =>
-    set((state) => {
-      const app = state.apps[label]
-      if (app.state !== 'maximized') return state
-      useLogStore.getState().logAction('unmaximize_app', label)
-      return {
-        apps: { ...state.apps, [label]: unmaximizeRecord(app) },
-      }
-    }),
+  maximizeApp: (label) => {
+    const { apps } = get()
+    const app = apps[label]
+    if (app.state === 'maximized' || typeof window === 'undefined') return
+    set({ apps: { ...apps, [label]: maximizeRecord(app, maximizedFrame()) } })
+    logAction('maximize_app', label)
+  },
+  unmaximizeApp: (label) => {
+    const { apps } = get()
+    const app = apps[label]
+    if (app.state !== 'maximized') return
+    set({ apps: { ...apps, [label]: unmaximizeRecord(app) } })
+    logAction('unmaximize_app', label)
+  },
   releaseMaximize: (label) =>
     set((state) => {
       const app = state.apps[label]
@@ -181,14 +173,14 @@ export const useAppStore = create<ApplicationStore>()((set) => ({
   focusApp: (label) => {
     set({ focusedAppLabel: label })
   },
-  updateAppCoordinates: (label, partial) =>
-    set((state) => {
-      const app = state.apps[label]
-      const next = withCoordinates(app, partial)
-      if (sameCoordinates(app.coordinates, next.coordinates)) return state
-      useLogStore.getState().logAction('move_resize_app', label)
-      return { apps: { ...state.apps, [label]: next } }
-    }),
+  updateAppCoordinates: (label, partial) => {
+    const { apps } = get()
+    const app = apps[label]
+    const next = withCoordinates(app, partial)
+    if (sameCoordinates(app.coordinates, next.coordinates)) return
+    set({ apps: { ...apps, [label]: next } })
+    logAction('move_resize_app', label)
+  },
   selectedShortcutIds: [],
   selectShortcut: (id, additive = false) => {
     set((state) => {
@@ -207,24 +199,20 @@ export const useAppStore = create<ApplicationStore>()((set) => ({
   clearSelectedShortcuts: () => {
     set({ selectedShortcutIds: [] })
   },
-  pinApp: (label) =>
-    set((state) => {
-      const app = state.apps[label]
-      if (app.pinned) return state
-      useLogStore.getState().logAction('pin_app', label)
-      return {
-        apps: { ...state.apps, [label]: { ...app, pinned: true } },
-      }
-    }),
-  unpinApp: (label) =>
-    set((state) => {
-      const app = state.apps[label]
-      if (!app.pinned) return state
-      useLogStore.getState().logAction('unpin_app', label)
-      return {
-        apps: { ...state.apps, [label]: { ...app, pinned: false } },
-      }
-    }),
+  pinApp: (label) => {
+    const { apps } = get()
+    const app = apps[label]
+    if (app.pinned) return
+    set({ apps: { ...apps, [label]: { ...app, pinned: true } } })
+    logAction('pin_app', label)
+  },
+  unpinApp: (label) => {
+    const { apps } = get()
+    const app = apps[label]
+    if (!app.pinned) return
+    set({ apps: { ...apps, [label]: { ...app, pinned: false } } })
+    logAction('unpin_app', label)
+  },
 }))
 
 export default useAppStore

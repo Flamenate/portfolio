@@ -1,6 +1,6 @@
 import { createServerFn } from '@tanstack/react-start'
+import { games } from '@/data/games'
 import { env } from '@/env'
-import { games } from '@/lib/igdb/games'
 
 export type GameDetails = {
   summary?: string

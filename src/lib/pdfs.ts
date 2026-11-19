@@ -1,4 +1,5 @@
-import { fileLabel, pathKey, root } from '@/lib/directories'
+import { root } from '@/data/directories'
+import { fileLabel, pathKey } from '@/lib/directories'
 import type {
   FileNode,
   FolderNode,

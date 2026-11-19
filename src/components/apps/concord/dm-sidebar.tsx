@@ -1,5 +1,5 @@
+import { dms } from '@/data/concord/dms'
 import useLocalize from '@/hooks/useLocalize'
-import { dms } from '@/lib/concord/dms'
 import { getUser } from '@/lib/concord/helpers'
 import { cn } from '@/lib/utils'
 import { PresenceAvatar } from './status-dot'

@@ -1,7 +1,7 @@
 import { format, isToday } from 'date-fns'
 import { Avatar } from '@/components/ui/avatar'
+import type { Mail } from '@/data/mails'
 import useLocalize from '@/hooks/useLocalize'
-import type { Mail } from '@/lib/mails'
 import { cn } from '@/lib/utils'
 import { datefnsLocales, useThemeStore } from '@/stores/theme.store'
 

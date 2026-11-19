@@ -1,4 +1,5 @@
-import { getFolder, root } from '@/lib/directories'
+import { root } from '@/data/directories'
+import { getFolder } from '@/lib/directories'
 import type {
   FileNode,
   FolderNode,

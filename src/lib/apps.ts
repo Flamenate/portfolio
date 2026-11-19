@@ -1,8 +1,8 @@
 import { lazy } from 'react'
 import type { ComponentType, LazyExoticComponent } from 'react'
+import type { TranslationKey } from '@/lib/localize'
 import { defaultCoordinates } from '@/models/application'
 import type { AppRecord } from '@/models/application'
-import type { TranslationKey } from '@/utils/localize'
 
 type AppDefinition = {
   iconSrc: string

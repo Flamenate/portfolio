@@ -1,6 +1,6 @@
 import { create } from 'zustand/react'
+import { me } from '@/data/concord/users'
 import type { Message } from '@/lib/concord/types'
-import { me } from '@/lib/concord/users'
 
 type ConcordStore = {
   /** Messages sent by the visitor, by conversation key. */

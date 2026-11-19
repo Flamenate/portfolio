@@ -1,5 +1,5 @@
 import { create } from 'zustand/react'
-import type { TranslationSuffix } from '@/utils/localize'
+import type { TranslationSuffix } from '@/lib/localize'
 
 interface LogAction {
   when: Date
@@ -23,3 +23,6 @@ export const useLogStore = create<LogStore>((set) => ({
     }))
   },
 }))
+
+export const logAction: LogStore['logAction'] = (title, target) =>
+  useLogStore.getState().logAction(title, target)

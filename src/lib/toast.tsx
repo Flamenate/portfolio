@@ -1,9 +1,9 @@
 import { DismissRegular } from '@fluentui/react-icons/headless/svg/dismiss'
 import { DismissSquareMultipleRegular } from '@fluentui/react-icons/headless/svg/dismiss-square-multiple'
 import { toast as sonnerToast } from 'sonner'
+import localize from '@/lib/localize'
 import type { Notification } from '@/stores/notification.store'
 import useThemeStore from '@/stores/theme.store'
-import localize from '@/utils/localize'
 
 export const toast = (notification: Omit<Notification, 'id' | 'timestamp'>) => {
   const locale = useThemeStore.getState().locale

@@ -15,12 +15,12 @@ import { useShallow } from 'zustand/react/shallow'
 import useLocalize from '@/hooks/useLocalize'
 import { useResizable } from '@/hooks/useResizable'
 import type { ResizeDirection } from '@/hooks/useResizable'
+import { localizeOrKeep } from '@/lib/localize'
 import { cn } from '@/lib/utils'
 import { MinimumSize } from '@/models/application'
 import type { AppRecord } from '@/models/application'
 import { useAppStore } from '@/stores/app.store'
 import { useThemeStore } from '@/stores/theme.store'
-import { localizeOrKeep } from '@/utils/localize'
 import { Tooltip, TooltipContent, TooltipTrigger } from './tooltip'
 
 function WindowButton(props: React.ComponentProps<'button'>) {

@@ -1,9 +1,9 @@
 import { createHmac, timingSafeEqual } from 'node:crypto'
 import { createServerFn } from '@tanstack/react-start'
 import { getCookie, setCookie } from '@tanstack/react-start/server'
+import { resume } from '@/data/personal'
 import { env } from '@/env'
 import { mailSchema } from '@/lib/mail-schema'
-import { resume } from '@/lib/personal'
 
 export const MAIL_LIMIT = 5
 const COOKIE_NAME = 'mail_count'

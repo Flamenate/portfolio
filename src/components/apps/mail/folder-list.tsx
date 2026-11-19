@@ -7,9 +7,9 @@ import { SendRegular } from '@fluentui/react-icons/headless/svg/send'
 import { ShieldErrorRegular } from '@fluentui/react-icons/headless/svg/shield-error'
 import { Button } from '@/components/ui/button'
 import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs'
+import { mailFolders } from '@/data/mails'
+import type { MailFolder } from '@/data/mails'
 import useLocalize from '@/hooks/useLocalize'
-import { mailFolders } from '@/lib/mails'
-import type { MailFolder } from '@/lib/mails'
 
 const folderIcons: Record<MailFolder, FluentIcon> = {
   inbox: MailInboxRegular,

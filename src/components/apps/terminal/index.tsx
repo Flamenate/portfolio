@@ -1,96 +1,66 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
+import type { ReactNode } from 'react'
 import { Input } from '@/components/ui/input'
-import useLocalize from '@/hooks/useLocalize'
-import type { CommandSnapshot } from '@/lib/terminal-commands'
+import localize from '@/lib/localize'
 import { findCommand } from '@/lib/terminal-commands'
 import useThemeStore from '@/stores/theme.store'
+import type { Locale } from '@/stores/theme.store'
 
-interface CommandExecution {
+interface HistoryEntry {
   id: number
   rawInput: string
-  commandName: string
-  args: string[]
-  snapshot: CommandSnapshot
+  output: ReactNode
 }
 
-function CommandOutput({
-  execution,
-  clearHistory,
-}: {
-  execution: CommandExecution
-  clearHistory: () => void
-}) {
-  const CommandComponent = findCommand(execution.commandName)?.component
-  const localize = useLocalize()
-  if (!CommandComponent) {
-    return (
-      <code>
-        C:\Users\Flamenate&gt; {execution.rawInput}
-        <br />
-        <p
-          dangerouslySetInnerHTML={{
-            __html: localize(
-              'terminal_unknown_command',
-              execution.commandName
-                .replaceAll(/</g, '&lt;')
-                .replaceAll(/>/g, '&gt;'),
-            ),
-          }}
-        />
-      </code>
-    )
-  }
-
+function unknownCommandOutput(commandName: string, locale: Locale) {
   return (
-    <code>
-      C:\Users\Flamenate&gt; {execution.rawInput}
-      <br />
-      <CommandComponent
-        args={execution.args}
-        snapshot={execution.snapshot}
-        clearHistory={clearHistory}
-      />
-    </code>
+    <p
+      dangerouslySetInnerHTML={{
+        __html: localize(
+          'terminal_unknown_command',
+          locale,
+          commandName.replaceAll(/</g, '&lt;').replaceAll(/>/g, '&gt;'),
+        ),
+      }}
+    />
   )
 }
 
 export function Terminal() {
-  const localize = useLocalize()
+  const locale = useThemeStore((state) => state.locale)
   const inputRef = useRef<HTMLInputElement>(null)
 
   useEffect(() => {
     inputRef.current?.focus()
   }, [])
 
-  const [history, setHistory] = useState<CommandExecution[]>([])
+  const [history, setHistory] = useState<HistoryEntry[]>([])
 
-  const clearHistory = useCallback(() => {
-    setHistory([])
-  }, [])
+  const executeCommand = useCallback(
+    (rawInput: string) => {
+      const trimmed = rawInput.trim()
+      if (!trimmed) return
 
-  const executeCommand = useCallback((rawInput: string) => {
-    const trimmed = rawInput.trim()
-    if (!trimmed) return
+      const [commandName, ...args] = trimmed.split(' ')
+      const command = findCommand(commandName)
 
-    const [commandName, ...args] = trimmed.split(' ')
+      // `clear` empties the history instead of adding its own entry.
+      const execution = { cleared: false }
+      const output = command
+        ? command.run({
+            args,
+            locale,
+            clearHistory: () => {
+              execution.cleared = true
+            },
+          })
+        : unknownCommandOutput(commandName, locale)
 
-    const themeStore = useThemeStore.getState()
-    const snapshot: CommandSnapshot = {
-      locale: themeStore.locale,
-      random: Math.random(),
-      volume: themeStore.volume,
-    }
-
-    const execution: CommandExecution = {
-      id: Date.now(),
-      rawInput: trimmed,
-      commandName,
-      args,
-      snapshot,
-    }
-
-    setHistory((prev) => [...prev, execution])
-  }, [])
+      const entry: HistoryEntry = { id: Date.now(), rawInput: trimmed, output }
+      setHistory((prev) => (execution.cleared ? [] : [...prev, entry]))
+    },
+    [locale],
+  )
 
   const handleKeyDown = useCallback(
     (e: React.KeyboardEvent<HTMLInputElement>) => {
@@ -117,16 +87,16 @@ export function Terminal() {
       }}
     >
       <code>Haythem Frikha - [Version 0.1.019011.25]</code>
-      <code>(?) {localize('terminal_disclaimer')}</code>
-      <code>{localize('terminal_help')}</code>
+      <code>(?) {localize('terminal_disclaimer', locale)}</code>
+      <code>{localize('terminal_help', locale)}</code>
       <br />
 
-      {history.map((execution) => (
-        <CommandOutput
-          key={execution.id}
-          execution={execution}
-          clearHistory={clearHistory}
-        />
+      {history.map((entry) => (
+        <code key={entry.id}>
+          C:\Users\Flamenate&gt; {entry.rawInput}
+          <br />
+          {entry.output}
+        </code>
       ))}
 
       <code className="flex! flex-nowrap items-baseline justify-baseline gap-1">

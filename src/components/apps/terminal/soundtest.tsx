@@ -1,19 +1,14 @@
-import { useEffect } from 'react'
-import { useAudio } from '@/hooks/useAudio'
 import type { Command } from '@/lib/terminal-commands'
+import useThemeStore from '@/stores/theme.store'
 
-export const Soundtest: Command = ({ args, snapshot }) => {
+export const soundtestCommand: Command = ({ args }) => {
   const parsedVolume = parseInt(args[0] ?? '', 10)
   const volume =
     isNaN(parsedVolume) || parsedVolume < 0 || parsedVolume > 100
-      ? snapshot.volume
+      ? useThemeStore.getState().volume
       : parsedVolume
-  const { play } = useAudio('/audio/audiocheck.wav')
-  useEffect(() => {
-    play({
-      forceVolume: volume,
-    })
-    // oxlint-disable-next-line react/exhaustive-deps
-  }, [])
+  const audio = new Audio('/audio/audiocheck.wav')
+  audio.volume = volume / 100
+  void audio.play()
   return <p>Soundtest played at {volume}% volume.</p>
 }

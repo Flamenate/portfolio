@@ -5,8 +5,8 @@ import {
   CollapsibleContent,
   CollapsibleTrigger,
 } from '@/components/ui/collapsible'
-import { games } from '@/lib/igdb/games'
-import type { OwnedGame } from '@/lib/igdb/games'
+import { games } from '@/data/games'
+import type { OwnedGame } from '@/data/games'
 import { cn } from '@/lib/utils'
 import { useGameDetails } from '../../../lib/igdb/details'
 

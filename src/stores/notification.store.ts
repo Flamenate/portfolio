@@ -1,9 +1,9 @@
 import type { FluentIcon } from '@fluentui/react-icons/headless'
 import { LaptopSettingsRegular } from '@fluentui/react-icons/headless/svg/laptop-settings'
 import { create } from 'zustand/react'
+import type { TranslationKey, TranslationSuffix } from '@/lib/localize'
 import { toast } from '@/lib/toast'
-import type { TranslationKey, TranslationSuffix } from '@/utils/localize'
-import { useLogStore } from './log.store'
+import { logAction } from './log.store'
 
 export type Notification = {
   id: number
@@ -50,31 +50,27 @@ export const useNotificationStore = create<NotificationStore>()((set, get) => ({
     })
   },
   clearNotifications: () => {
-    useLogStore.getState().logAction('clear_notifications')
     set({ notifications: [] })
+    logAction('clear_notifications')
   },
   clearNotificationsBySource: (sourceLabel: string) => {
-    useLogStore
-      .getState()
-      .logAction('clear_notifications_by_source', sourceLabel)
     set((state) => ({
       notifications: state.notifications.filter(
         (n) => n.source.label !== sourceLabel,
       ),
     }))
+    logAction('clear_notifications_by_source', sourceLabel)
   },
   removeNotification: (id: number) => {
-    useLogStore.getState().logAction('remove_notification')
     set((state) => ({
       notifications: state.notifications.filter((n) => n.id !== id),
     }))
+    logAction('remove_notification')
   },
   doNotDisturb: false,
   toggleDoNotDisturb: () => {
-    useLogStore
-      .getState()
-      .logAction(get().doNotDisturb ? 'disable_dnd' : 'enable_dnd')
     set((state) => ({ doNotDisturb: !state.doNotDisturb }))
+    logAction(get().doNotDisturb ? 'enable_dnd' : 'disable_dnd')
   },
 }))
 

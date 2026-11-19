@@ -1,4 +1,5 @@
-import { getFolder, pathKey, root } from '@/lib/directories'
+import { root } from '@/data/directories'
+import { getFolder, pathKey } from '@/lib/directories'
 import { useExplorerStore } from '@/stores/explorer.store'
 import { FolderTree } from './folder-tree'
 import { FolderView } from './folder-view'

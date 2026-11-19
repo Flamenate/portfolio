@@ -2,7 +2,7 @@ import {
   FolderTree as FolderTreeList,
   folderTreeFrom,
 } from '@/components/ui/folder-tree'
-import { root } from '@/lib/directories'
+import { root } from '@/data/directories'
 import type { FolderPath } from '@/lib/directories'
 import { useExplorerStore } from '@/stores/explorer.store'
 

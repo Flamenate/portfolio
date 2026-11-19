@@ -1,6 +1,6 @@
 import type { Command } from '@/lib/terminal-commands'
 
-export const Contact: Command = () => {
+export const contactCommand: Command = () => {
   return (
     <p className="[&>a]:underline">
       &gt; Full Name: Haythem Frikha
