@@ -19,12 +19,10 @@ export const useBattery = () => {
   )
 
   useEffect(() => {
-    const getBattery = (
-      navigator as Navigator & {
-        getBattery?: () => Promise<BatteryManager>
-      }
-    ).getBattery
-    if (!getBattery) return
+    const nav = navigator as Navigator & {
+      getBattery?: () => Promise<BatteryManager>
+    }
+    if (!nav.getBattery) return
 
     let active = true
     let battery: BatteryManager | undefined
@@ -68,7 +66,7 @@ export const useBattery = () => {
     }
 
     const interval = window.setInterval(publish, 15000)
-    getBattery().then((next) => {
+    nav.getBattery().then((next) => {
       if (!active) return
       battery = next
       publish()
