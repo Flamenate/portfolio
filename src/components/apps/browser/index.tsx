@@ -1,8 +1,8 @@
 import { ArrowClockwiseRegular } from '@fluentui/react-icons/headless/svg/arrow-clockwise'
 import { ArrowLeftRegular } from '@fluentui/react-icons/headless/svg/arrow-left'
 import { ArrowRightRegular } from '@fluentui/react-icons/headless/svg/arrow-right'
-import { HomeRegular } from '@fluentui/react-icons/headless/svg/home'
 import { InfoRegular } from '@fluentui/react-icons/headless/svg/info'
+import { OpenRegular } from '@fluentui/react-icons/headless/svg/open'
 import { getRouteApi } from '@tanstack/react-router'
 import { useEffect, useEffectEvent, useRef, useState } from 'react'
 import {
@@ -21,7 +21,7 @@ import useLocalize from '@/hooks/useLocalize'
 import { cn } from '@/lib/utils'
 import { useThemeStore } from '@/stores/theme.store'
 
-const HOME_URL = 'https://github.com/Flamenate'
+const START_URL = 'https://github.com/Flamenate'
 const SEARCH_URL = 'https://www.bing.com/search?q='
 const PROXY_ORIGIN = new URL(env.VITE_PROXY_ORIGIN).origin
 
@@ -72,7 +72,7 @@ export function Browser() {
   const { browse } = homeRoute.useSearch()
   const navigateRoute = homeRoute.useNavigate()
   const [initialUrl] = useState(() =>
-    browse ? toNavigableUrl(browse) : HOME_URL,
+    browse ? toNavigableUrl(browse) : START_URL,
   )
   const iframeRef = useRef<HTMLIFrameElement>(null)
   const inputRef = useRef<HTMLInputElement>(null)
@@ -81,6 +81,8 @@ export function Browser() {
   const pendingUrlRef = useRef<string>(null)
   const [status, setStatus] = useState<'loading' | 'ready' | 'error'>('loading')
   const [address, setAddress] = useState(initialUrl)
+  // The page's real URL, unlike `address`, which may hold unsubmitted typing.
+  const [pageUrl, setPageUrl] = useState(initialUrl)
   const [history, setHistory] = useState<History>({ entries: [], index: -1 })
 
   const isReady = status === 'ready'
@@ -110,6 +112,7 @@ export function Browser() {
     const shell = iframe
 
     function showUrl(url: string) {
+      setPageUrl(url)
       if (document.activeElement !== inputRef.current) setAddress(url)
     }
 
@@ -222,16 +225,10 @@ export function Browser() {
           />
         </NavButton>
         <NavButton
-          label={localize('home')}
-          disabled={!isReady}
-          onClick={() => navigate(HOME_URL)}
+          label={localize('browser_open_in_own_browser')}
+          onClick={() => window.open(pageUrl, '_blank', 'noopener,noreferrer')}
         >
-          <HomeRegular
-            className={cn(
-              'size-4',
-              isReady && 'text-foreground dark:text-(--white)',
-            )}
-          />
+          <OpenRegular className="size-4 text-foreground dark:text-(--white)" />
         </NavButton>
         <form onSubmit={handleSubmit} className="flex min-w-0 grow">
           <Input

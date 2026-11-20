@@ -110,7 +110,7 @@ const commands = {
   skills: {
     run: skillsCommand,
     description: 'Display my skills',
-    usage: 'skills; skills [type: frontend|backend|database]',
+    usage: 'skills; skills [type: frontend|backend|database|soft]',
   },
   projects: {
     run: projectsCommand,

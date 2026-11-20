@@ -37,7 +37,7 @@ export const experienceCommand: Command = ({ args, locale }) => {
         {filteredExperience.map((exp) => (
           <tr key={exp.role} className="align-top">
             <td className="px-2 py-2">{formatPeriod(exp.period, locale)}</td>
-            <td className="px-2 py-2">{exp.role}</td>
+            <td className="px-2 py-2">{localize(exp.role, locale)}</td>
             <td className="px-2 py-2">{joinTechStack(exp.tech)}</td>
           </tr>
         ))}

@@ -140,6 +140,22 @@ describe('Window lifecycle', () => {
       })
       expect(store().focusedAppLabel).toBe('notepad')
     })
+
+    it('closes every Window, minimized or maximized, when all are closed', () => {
+      store().openApp('notepad')
+      store().openApp('terminal')
+      store().minimizeApp('terminal')
+      store().openApp('mail')
+      store().toggleMaximizeApp('mail')
+
+      store().closeAllApps()
+
+      expect(store().openAppLabels).toEqual([])
+      expect(store().focusedAppLabel).toBeNull()
+      for (const label of ['notepad', 'terminal', 'mail'] as const) {
+        expect(store().apps[label].state).toBe('closed')
+      }
+    })
   })
 
   describe('activating from the taskbar', () => {

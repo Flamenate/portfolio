@@ -32,7 +32,7 @@ export type Period = {
 }
 
 export type WorkExperience = {
-  role: string
+  role: TranslationKey
   company: string
   location: string
   period: Period
@@ -41,7 +41,7 @@ export type WorkExperience = {
 }
 
 export type Project = {
-  title: string
+  title: TranslationKey
   period: Period
   summary: string
   tech: TechnologyStack
@@ -58,7 +58,7 @@ export type Certificate = {
 }
 
 export type Extracurricular = {
-  role: string
+  role: TranslationKey
   organization: string
   start: Date
   end: Date | null
@@ -67,7 +67,7 @@ export type Extracurricular = {
 
 export type Resume = {
   name: string
-  headline: string
+  headline: TranslationKey
   focusAreas: string[]
   summary: string
   contact: ContactInfo
@@ -80,7 +80,7 @@ export type Resume = {
 
 export const resume: Resume = {
   name: 'Haythem Frikha',
-  headline: 'Full-stack Developer',
+  headline: 'software_engineer',
   focusAreas: ['Node.js', 'React / Next.js', 'Vue / Nuxt'],
   summary: 'resume_summary',
   contact: {
@@ -129,7 +129,7 @@ export const resume: Resume = {
   ],
   experience: [
     {
-      role: 'Lead Software Engineer',
+      role: 'software_engineer',
       company: 'Dink USA',
       location: 'Remote',
       period: {
@@ -151,21 +151,15 @@ export const resume: Resume = {
   ],
   projects: [
     {
-      title: 'Portfolio Website',
+      title: 'portfolio_website',
       period: {
         start: new Date('2024-06-01'),
         end: null,
       },
       summary: 'resume_project_portfolio_summary',
       tech: {
-        frontend: [
-          'Tanstack Start',
-          'React',
-          'TailwindCSS',
-          'Tanstack Router',
-          'Zustand',
-        ],
-        backend: [],
+        frontend: ['React', 'Tanstack Start', 'Tanstack Router', 'Zustand'],
+        backend: ['Tanstack Start', 'Node.js'],
         databases: [],
       },
       details: [
@@ -181,7 +175,7 @@ export const resume: Resume = {
       ],
     },
     {
-      title: 'Event Pitch Website',
+      title: 'event_pitch_website',
       period: {
         start: new Date('2024-10-01'),
         end: new Date('2024-10-31'),
@@ -196,7 +190,7 @@ export const resume: Resume = {
       status: 'completed',
     },
     {
-      title: 'Stock Management Dashboard',
+      title: 'stock_management_dashboard',
       period: {
         start: new Date('2023-10-01'),
         end: new Date('2023-10-31'),
@@ -211,7 +205,7 @@ export const resume: Resume = {
       status: 'completed',
     },
     {
-      title: 'Sento Kaishi Application',
+      title: 'sento_kaishi_application',
       period: {
         start: new Date('2023-01-01'),
         end: new Date('2023-12-31'),
@@ -230,7 +224,7 @@ export const resume: Resume = {
       status: 'completed',
     },
     {
-      title: 'Economy Bot',
+      title: 'economy_bot',
       period: {
         start: new Date('2022-01-01'),
         end: new Date('2022-12-31'),
@@ -249,7 +243,7 @@ export const resume: Resume = {
       status: 'completed',
     },
     {
-      title: 'Matchmaking Bot',
+      title: 'matchmaking_bot',
       period: {
         start: new Date('2022-01-01'),
         end: new Date('2022-12-31'),
@@ -267,7 +261,7 @@ export const resume: Resume = {
       status: 'completed',
     },
     {
-      title: 'Meeting Manager',
+      title: 'meeting_manager',
       period: {
         start: new Date('2020-01-01'),
         end: new Date('2020-12-31'),
@@ -288,12 +282,22 @@ export const resume: Resume = {
   ],
   certificates: [
     {
-      name: 'Microsoft Certified: Azure AI Fundamentals (AI-900)',
+      name: 'Cisco Networking: DevNet Associate',
+      issuer: 'Cisco',
+      date: new Date('2026-09-01'),
+    },
+    {
+      name: 'Cisco Networking: C Advanced',
+      issuer: 'Cisco',
+      date: new Date('2026-03-01'),
+    },
+    {
+      name: 'Azure AI Fundamentals (AI-900)',
       issuer: 'Microsoft',
       date: new Date('2024-10-01'),
     },
     {
-      name: 'EF SET English Certificate',
+      name: 'C2 English Certificate',
       issuer: 'EF SET',
       date: new Date('2022-08-01'),
       details: 'resume_certificate_efset_details',
@@ -334,18 +338,43 @@ export const resume: Resume = {
 }
 
 export const projects: Project[] = resume.projects
-export const skills = [...projects, ...resume.experience].reduce<{
-  frontend: Set<string>
-  backend: Set<string>
-  databases: Set<string>
-}>(
-  (acc, entry) => {
-    for (const category of ['frontend', 'backend', 'databases'] as const) {
-      for (const tech of entry.tech[category]) {
-        acc[category].add(tech)
-      }
-    }
-    return acc
-  },
-  { frontend: new Set(), backend: new Set(), databases: new Set() },
-)
+
+export type Skills = {
+  frontend: string[]
+  backend: string[]
+  databases: string[]
+  soft: TranslationKey[]
+}
+
+// Curated by hand: not every tool used in a project counts as a skill.
+export const skills: Skills = {
+  frontend: [
+    'React',
+    'Tanstack Start',
+    'Tanstack Router',
+    'Angular',
+    'Vue.js',
+    'Nuxt.js',
+  ],
+  backend: [
+    'Tanstack Start',
+    'Node.js',
+    'Nest.js',
+    'Python',
+    'tRPC',
+    'Shopify',
+    'GraphQL',
+    'Express',
+    'Prisma',
+  ],
+  databases: ['MongoDB', 'PostgreSQL'],
+  soft: [
+    'soft_skill_analytical_thinking',
+    'soft_skill_attention_to_detail',
+    'soft_skill_adaptability',
+    'soft_skill_fast_learning',
+    'soft_skill_communication',
+    'soft_skill_autonomy',
+    'soft_skill_problem_solving',
+  ],
+}

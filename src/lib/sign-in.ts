@@ -15,3 +15,7 @@ export const isSignedIn = createIsomorphicFn()
 export function markSignedIn() {
   document.cookie = `${COOKIE_NAME}=${COOKIE_VALUE}; Path=/; Max-Age=${MAX_AGE_SECONDS}; SameSite=Lax`
 }
+
+export function clearSignedIn() {
+  document.cookie = `${COOKIE_NAME}=; Path=/; Max-Age=0; SameSite=Lax`
+}

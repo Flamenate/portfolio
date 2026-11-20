@@ -29,5 +29,6 @@ export function joinTechStack({
   backend,
   databases,
 }: TechnologyStack) {
-  return [...frontend, ...backend, ...databases].join(', ')
+  // A tool can belong to several categories (e.g. a full-stack framework).
+  return [...new Set([...frontend, ...backend, ...databases])].join(', ')
 }

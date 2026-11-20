@@ -454,11 +454,6 @@
     "fr": "Actualiser",
     "es": "Recargar"
   },
-  "home": {
-    "eng": "Home",
-    "fr": "Accueil",
-    "es": "Inicio"
-  },
   "search_or_enter_address": {
     "eng": "Search or enter address",
     "fr": "Rechercher ou saisir une adresse",
@@ -650,9 +645,9 @@
     "es": "Alias: {0}"
   },
   "terminal_invalid_skilltype": {
-    "eng": "Unrecognized skill type. Please use one of 'frontend', 'backend', or 'database'.",
-    "fr": "Type de compétence non reconnu. Veuillez utiliser l'un des termes 'frontend', 'backend' ou 'database'.",
-    "es": "Tipo de habilidad no reconocido. Por favor, use uno de 'frontend', 'backend' o 'database'."
+    "eng": "Unrecognized skill type. Please use one of 'frontend', 'backend', 'database', or 'soft'.",
+    "fr": "Type de compétence non reconnu. Veuillez utiliser l'un des termes 'frontend', 'backend', 'database' ou 'soft'.",
+    "es": "Tipo de habilidad no reconocido. Por favor, use uno de 'frontend', 'backend', 'database' o 'soft'."
   },
   "terminal_no_experience_found": {
     "eng": "No experience found for the specified year.",
@@ -1403,5 +1398,245 @@
     "eng": "No friends to hang out with...",
     "fr": "Pas d'amis avec qui traîner...",
     "es": "No hay amigos con quien pasar el rato..."
+  },
+  "start_menu_now": {
+    "eng": "Now",
+    "fr": "En ce moment",
+    "es": "Ahora"
+  },
+  "france": {
+    "eng": "France",
+    "fr": "France",
+    "es": "Francia"
+  },
+  "tunisia": {
+    "eng": "Tunisia",
+    "fr": "Tunisie",
+    "es": "Túnez"
+  },
+  "start_menu_projects": {
+    "eng": "Projects",
+    "fr": "Projets",
+    "es": "Proyectos"
+  },
+  "start_menu_frontend": {
+    "eng": "Frontend",
+    "fr": "Frontend",
+    "es": "Frontend"
+  },
+  "start_menu_backend": {
+    "eng": "Backend",
+    "fr": "Backend",
+    "es": "Backend"
+  },
+  "start_menu_databases": {
+    "eng": "Databases",
+    "fr": "Bases de données",
+    "es": "Bases de datos"
+  },
+  "start_menu_quick_actions": {
+    "eng": "Quick actions",
+    "fr": "Actions rapides",
+    "es": "Acciones rápidas"
+  },
+  "start_menu_view_resume": {
+    "eng": "View résumé",
+    "fr": "Voir le CV",
+    "es": "Ver currículum"
+  },
+  "start_menu_download_resume": {
+    "eng": "Download résumé",
+    "fr": "Télécharger le CV",
+    "es": "Descargar currículum"
+  },
+  "start_menu_contact_me": {
+    "eng": "Contact me",
+    "fr": "Me contacter",
+    "es": "Contáctame"
+  },
+  "start_menu_copy_email": {
+    "eng": "Copy email",
+    "fr": "Copier l'e-mail",
+    "es": "Copiar correo"
+  },
+  "start_menu_recommended": {
+    "eng": "Recommended",
+    "fr": "Recommandé",
+    "es": "Recomendado"
+  },
+  "start_menu_recommended_empty": {
+    "eng": "Apps and files you open will show up here.",
+    "fr": "Les applications et fichiers que vous ouvrez apparaîtront ici.",
+    "es": "Las aplicaciones y archivos que abras aparecerán aquí."
+  },
+  "start_menu_running": {
+    "eng": "Running",
+    "fr": "En cours d'exécution",
+    "es": "En ejecución"
+  },
+  "start_menu_recently_used": {
+    "eng": "Recently used",
+    "fr": "Utilisé récemment",
+    "es": "Usado recientemente"
+  },
+  "power": {
+    "eng": "Power",
+    "fr": "Marche/Arrêt",
+    "es": "Inicio/Apagado"
+  },
+  "lock": {
+    "eng": "Lock",
+    "fr": "Verrouiller",
+    "es": "Bloquear"
+  },
+  "shut_down": {
+    "eng": "Shut down",
+    "fr": "Arrêter",
+    "es": "Apagar"
+  },
+  "notifications_email_copied": {
+    "eng": "Email copied",
+    "fr": "E-mail copié",
+    "es": "Correo copiado"
+  },
+  "notifications_email_copied_description": {
+    "eng": "Paste it anywhere to reach me.",
+    "fr": "Collez-le où vous voulez pour me joindre.",
+    "es": "Pégalo donde quieras para escribirme."
+  },
+  "notifications_shut_down_refused": {
+    "eng": "Nice try.",
+    "fr": "Bien essayé.",
+    "es": "Buen intento."
+  },
+  "notifications_shut_down_refused_description": {
+    "eng": "You can't leave yet, there's still so much to see.",
+    "fr": "Vous ne pouvez pas partir maintenant, il reste tant à voir.",
+    "es": "Todavía no puedes irte, aún queda mucho por ver."
+  },
+  "software_engineer": {
+    "eng": "Software Engineer",
+    "fr": "Ingénieur logiciel",
+    "es": "Ingeniero de software"
+  },
+  "portfolio_website": {
+    "eng": "Portfolio Website",
+    "fr": "Site portfolio",
+    "es": "Sitio web de portafolio"
+  },
+  "event_pitch_website": {
+    "eng": "Event Pitch Website",
+    "fr": "Site de présentation d'événement",
+    "es": "Sitio web de presentación de evento"
+  },
+  "stock_management_dashboard": {
+    "eng": "Stock Management Dashboard",
+    "fr": "Tableau de bord de gestion des stocks",
+    "es": "Panel de gestión de inventario"
+  },
+  "sento_kaishi_application": {
+    "eng": "Sento Kaishi Application",
+    "fr": "Application Sento Kaishi",
+    "es": "Aplicación Sento Kaishi"
+  },
+  "economy_bot": {
+    "eng": "Economy Bot",
+    "fr": "Bot d'économie",
+    "es": "Bot de economía"
+  },
+  "matchmaking_bot": {
+    "eng": "Matchmaking Bot",
+    "fr": "Bot de matchmaking",
+    "es": "Bot de emparejamiento"
+  },
+  "meeting_manager": {
+    "eng": "Meeting Manager",
+    "fr": "Gestionnaire de réunions",
+    "es": "Gestor de reuniones"
+  },
+  "start_menu_at_a_glance": {
+    "eng": "At a Glance",
+    "fr": "En bref",
+    "es": "De un vistazo"
+  },
+  "start_menu_bio": {
+    "eng": "Engineering student @ ENIS · double degree at ENIB (Brest) · Proactively looking for an internship",
+    "fr": "Élève ingénieur @ ENIS · double diplôme à l'ENIB (Brest) · À la recherche active d'un stage",
+    "es": "Estudiante de ingeniería @ ENIS · doble titulación en ENIB (Brest) · Buscando activamente unas prácticas"
+  },
+  "start_menu_certificates": {
+    "eng": "Certificates",
+    "fr": "Certifications",
+    "es": "Certificados"
+  },
+  "start_menu_associations": {
+    "eng": "Associations",
+    "fr": "Associations",
+    "es": "Asociaciones"
+  },
+  "start_menu_favorite_team": {
+    "eng": "Favorite team",
+    "fr": "Équipe préférée",
+    "es": "Equipo favorito"
+  },
+  "start_menu_show_next": {
+    "eng": "Show next",
+    "fr": "Afficher le suivant",
+    "es": "Mostrar siguiente"
+  },
+  "soft_skill_analytical_thinking": {
+    "eng": "Analytical Thinking",
+    "fr": "Esprit d'analyse",
+    "es": "Pensamiento analítico"
+  },
+  "soft_skill_attention_to_detail": {
+    "eng": "Attention to Detail",
+    "fr": "Souci du détail",
+    "es": "Atención al detalle"
+  },
+  "soft_skill_adaptability": {
+    "eng": "Adaptability",
+    "fr": "Adaptabilité",
+    "es": "Adaptabilidad"
+  },
+  "soft_skill_fast_learning": {
+    "eng": "Fast Learning",
+    "fr": "Apprentissage rapide",
+    "es": "Aprendizaje rápido"
+  },
+  "soft_skill_communication": {
+    "eng": "Communication",
+    "fr": "Communication",
+    "es": "Comunicación"
+  },
+  "soft_skill_autonomy": {
+    "eng": "Autonomy",
+    "fr": "Autonomie",
+    "es": "Autonomía"
+  },
+  "soft_skill_problem_solving": {
+    "eng": "Problem Solving",
+    "fr": "Résolution de problèmes",
+    "es": "Resolución de problemas"
+  },
+  "start_menu_soft": {
+    "eng": "Soft skills",
+    "fr": "Savoir-être",
+    "es": "Habilidades blandas"
+  },
+  "start_menu_skills": {
+    "eng": "Skills",
+    "fr": "Compétences",
+    "es": "Habilidades"
+  },
+  "browser_open_in_own_browser": {
+    "eng": "Open in your own browser",
+    "fr": "Ouvrir dans votre navigateur",
+    "es": "Abrir en tu propio navegador"
+  },
+  "download": {
+    "eng": "Download",
+    "fr": "Télécharger",
+    "es": "Descargar"
   }
 }

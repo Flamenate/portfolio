@@ -42,6 +42,7 @@ interface AppStore {
   // The taskbar toggle; reports what it did so the shortcut can animate.
   activateApp: (label: AppLabel) => Activation
   closeApp: (label: AppLabel) => void
+  closeAllApps: () => void
   minimizeApp: (label: AppLabel) => void
   // Only visible Windows can take focus.
   focusApp: (label: AppLabel) => void
@@ -212,6 +213,10 @@ export const useAppStore = create<AppStore>()((set, get) => ({
       ),
     })
     logAction('close_app', label)
+  },
+  closeAllApps: () => {
+    const state = get()
+    for (const label of state.openAppLabels) state.closeApp(label)
   },
   minimizeApp: (label) => {
     const state = get()

@@ -40,7 +40,7 @@ export const projectsCommand: Command = ({ args, locale }) => {
             <td className="px-2 py-2">
               {formatPeriod(project.period, locale)}
             </td>
-            <td className="px-2 py-2">{project.title}</td>
+            <td className="px-2 py-2">{localize(project.title, locale)}</td>
             <td className="px-2 py-2">{joinTechStack(project.tech)}</td>
             <td className="px-2 py-2">
               {project.links?.[0].url ?? localize('private', locale)}

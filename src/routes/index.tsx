@@ -4,6 +4,14 @@ import { useState } from 'react'
 import { WindowLoading } from '@/components/ui/window-loading'
 import useLocalize from '@/hooks/useLocalize'
 import { isSignedIn, markSignedIn } from '@/lib/sign-in'
+import useThemeStore from '@/stores/theme.store'
+
+// A detached element keeps playing after this route unmounts.
+function playStartupSound() {
+  const audio = new Audio('/audio/startup.wav')
+  audio.volume = useThemeStore.getState().volume / 100
+  audio.play().catch(() => {})
+}
 
 export const Route = createFileRoute('/')({
   loader: () => ({ signedIn: isSignedIn() }),
@@ -46,6 +54,7 @@ function Welcome() {
               draggable="false"
               onClick={() => {
                 setLoading(true)
+                if (!signedIn) playStartupSound()
                 markSignedIn()
               }}
             >

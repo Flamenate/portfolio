@@ -41,3 +41,13 @@ The Desktop shortcuts currently highlighted, which open together.
 **Sign-in**:
 The click on the welcome screen that lets a visitor onto the Desktop; remembered for a week.
 _Avoid_: Login, auth
+
+**Start menu**:
+The taskbar panel that introduces Haythem at a glance and launches Apps, files, and power actions.
+
+**Lock**:
+Going back to the welcome screen while keeping the Sign-in and every Window as it was.
+
+**Restart**:
+Closing every Window and forgetting the Sign-in, so the welcome screen greets a first visit again.
+_Avoid_: Sign out, reboot

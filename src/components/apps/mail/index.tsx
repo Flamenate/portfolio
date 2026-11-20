@@ -1,6 +1,6 @@
 import { ArrowLeftRegular } from '@fluentui/react-icons/headless/svg/arrow-left'
 import { MailReadRegular } from '@fluentui/react-icons/headless/svg/mail-read'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { NavButton } from '@/components/ui/nav-button'
 import { getMails, mailFolders } from '@/data/mails'
 import type { MailFolder } from '@/data/mails'
@@ -20,8 +20,20 @@ type View =
 export function Mail() {
   const localize = useLocalize()
   const sent = useMailStore((state) => state.sent)
+  const composeRequest = useMailStore((state) => state.composeRequest)
+  const clearComposeRequest = useMailStore((state) => state.clearComposeRequest)
   const [folder, setFolder] = useState<MailFolder>('inbox')
   const [view, setView] = useState<View>({ type: 'empty' })
+
+  // A request from outside (e.g. the start menu) opens a draft once, on arrival.
+  const [shownRequest, setShownRequest] = useState<number | null>(null)
+  if (composeRequest !== null && composeRequest !== shownRequest) {
+    setShownRequest(composeRequest)
+    setView({ type: 'compose' })
+  }
+  useEffect(() => {
+    if (composeRequest !== null) clearComposeRequest()
+  }, [composeRequest, clearComposeRequest])
 
   const folderMails = getMails(folder, sent)
   const counts = Object.fromEntries(
