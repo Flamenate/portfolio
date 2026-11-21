@@ -237,6 +237,9 @@ export function NotificationMenu() {
       notificationCount: state.notifications.length,
     })),
   )
+  const formatDatetime = (pattern: string) =>
+    datetime ? format(datetime, pattern, { locale: datefnsLocales[locale] }) : ''
+
   return (
     <Popover>
       <Tooltip>
@@ -252,25 +255,18 @@ export function NotificationMenu() {
               ) : notificationCount > 0 ? (
                 <AlertFilled className="size-4.5" />
               ) : null}
-              <div
-                className="flex flex-col items-end justify-center px-2 py-1 text-sm"
-                suppressHydrationWarning
-              >
-                <span suppressHydrationWarning>
-                  {format(datetime, 'p', { locale: datefnsLocales[locale] })}
-                </span>
-                <span suppressHydrationWarning>
-                  {format(datetime, 'P', { locale: datefnsLocales[locale] })}
-                </span>
+              <div className="flex flex-col items-end justify-center px-2 py-1 text-sm">
+                <span>{formatDatetime('p')}</span>
+                <span>{formatDatetime('P')}</span>
               </div>
             </button>
           </TooltipTrigger>
         </PopoverTrigger>
         <TooltipContent>
           <p>
-            {format(datetime, 'PPPP', { locale: datefnsLocales[locale] })}
+            {formatDatetime('PPPP')}
             <br />
-            {format(datetime, 'p', { locale: datefnsLocales[locale] })} (
+            {formatDatetime('p')} (
             {localize('local_time')})
           </p>
         </TooltipContent>
@@ -293,9 +289,7 @@ export function NotificationMenu() {
 
           <div className="flex min-h-min flex-col rounded-md border bg-popover/70">
             <div className="flex items-center justify-between border-b bg-popover py-4 pr-3 pl-5 text-sm">
-              <p>
-                {format(datetime, 'PPPP', { locale: datefnsLocales[locale] })}
-              </p>
+              <p>{formatDatetime('PPPP')}</p>
               <button
                 type="button"
                 aria-expanded={showCalendar}
@@ -321,7 +315,7 @@ export function NotificationMenu() {
                   <Calendar
                     mode="single"
                     className="w-full"
-                    selected={datetime}
+                    selected={datetime ?? undefined}
                     locale={datefnsLocales[locale]}
                     weekStartsOn={1}
                   />

@@ -26,7 +26,7 @@ function subscribe(key: string, listener: () => void) {
   }
   window.addEventListener('storage', onStorage)
   return () => {
-    bucket?.delete(listener)
+    bucket.delete(listener)
     window.removeEventListener('storage', onStorage)
   }
 }
