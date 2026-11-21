@@ -1,7 +1,6 @@
 import { ArrowDownloadRegular } from '@fluentui/react-icons/headless/svg/arrow-download'
 import { ArrowLeftRegular } from '@fluentui/react-icons/headless/svg/arrow-left'
 import { ClockRegular } from '@fluentui/react-icons/headless/svg/clock'
-import { format, parseISO } from 'date-fns'
 import type { ReactNode } from 'react'
 import { NavButton } from '@/components/ui/nav-button'
 import {
@@ -115,9 +114,7 @@ function StatRow({
           (details?.releaseYear ?? 'Unknown')
         )}
       </Stat>
-      <Stat label="Last played">
-        {format(parseISO(game.lastPlayed), 'MMM d, yyyy')}
-      </Stat>
+      <Stat label="Last played">{game.yearLastPlayed}</Stat>
       <Stat
         label="Play time"
         icon={<ClockRegular className="size-7 text-[#8b929a]" />}
