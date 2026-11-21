@@ -20,18 +20,9 @@ export const appDefinitions = {
       })),
     ),
   },
-  browser: {
-    iconSrc: '/images/icons/browser.webp',
-    pinned: true,
-    content: lazy(() =>
-      import('@/components/apps/browser').then((module) => ({
-        default: module.Browser,
-      })),
-    ),
-  },
   vscope: {
     iconSrc: '/images/icons/vscope.webp',
-    pinned: true,
+    pinned: false,
     content: lazy(() =>
       import('@/components/apps/vscope').then((module) => ({
         default: module.VSCope,
@@ -40,7 +31,7 @@ export const appDefinitions = {
   },
   terminal: {
     iconSrc: '/images/icons/terminal.png',
-    pinned: false,
+    pinned: true,
     content: lazy(() =>
       import('@/components/apps/terminal').then((module) => ({
         default: module.Terminal,
@@ -103,7 +94,7 @@ export const appDefinitions = {
   },
   vapor: {
     iconSrc: '/images/icons/vapor.webp',
-    pinned: false,
+    pinned: true,
     content: lazy(() =>
       import('@/components/apps/vapor').then((module) => ({
         default: module.Vapor,
@@ -116,6 +107,15 @@ export const appDefinitions = {
     content: lazy(() =>
       import('@/components/apps/concord').then((module) => ({
         default: module.Concord,
+      })),
+    ),
+  },
+  browser: {
+    iconSrc: '/images/icons/browser.webp',
+    pinned: true,
+    content: lazy(() =>
+      import('@/components/apps/browser').then((module) => ({
+        default: module.Browser,
       })),
     ),
   },
