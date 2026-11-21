@@ -83,15 +83,15 @@ export const appDefinitions = {
       })),
     ),
   },
-  spotiwhy: {
-    iconSrc: '/media/icons/spotiwhy.webp',
-    pinned: false,
-    content: lazy(() =>
-      import('@/components/apps/notepad').then((module) => ({
-        default: module.Notepad,
-      })),
-    ),
-  },
+  // spotiwhy: {
+  //   iconSrc: '/media/icons/spotiwhy.webp',
+  //   pinned: false,
+  //   content: lazy(() =>
+  //     import('@/components/apps/notepad').then((module) => ({
+  //       default: module.Notepad,
+  //     })),
+  //   ),
+  // },
   vapor: {
     iconSrc: '/media/icons/vapor.webp',
     pinned: true,
