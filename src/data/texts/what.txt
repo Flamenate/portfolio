@@ -1,0 +1,16 @@
+What are these?
+
+screenshot_computer_vision_first_time
+My first emotion detection project. One of the first iterations would pick up random stuff in my room and label them... it was creepy.
+
+screenshot_lighthouse_optimized
+The Lighthouse results after weeks of work on one of my old job's apps.
+
+screenshot_nuxt_debugging
+From when I was working on fixing an upstream Vuetify bug, back when I worked for Dink.
+
+screenshot_portfolio_early_version
+An earlier version of one of the system tray menus in this website... I've come a long way.
+
+screenshot_rocket_league_gc_first_time
+My first time reaching Grand Champion, the penultimate rank in Rocket League!

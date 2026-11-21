@@ -1,0 +1,10 @@
+Portfolio v1 ideas (rejected)
+
+- A single page with my name in Comic Sans. Bold, but no.
+- A résumé you could only read by beating a platformer level.
+- Dark mode only. Light mode users would get a polite error.
+- A loading screen that lasts 10 seconds "for the vibe".
+- Writing it in jQuery, for nostalgia.
+- Just a link to my LinkedIn.
+
+Ended up building an entire operating system instead. Reasonable.

@@ -3,7 +3,7 @@ import { ArrowLeftRegular } from '@fluentui/react-icons/headless/svg/arrow-left'
 import { ArrowUploadRegular } from '@fluentui/react-icons/headless/svg/arrow-upload'
 import { DocumentPdfRegular } from '@fluentui/react-icons/headless/svg/document-pdf'
 import { format, parseISO } from 'date-fns'
-import { useEffect, useRef, useState } from 'react'
+import { useRef, useState } from 'react'
 import type { ChangeEvent } from 'react'
 import { Button } from '@/components/ui/button'
 import { NavButton } from '@/components/ui/nav-button'
@@ -15,9 +15,10 @@ import {
 } from '@/components/ui/tooltip'
 import { root } from '@/data/directories'
 import useLocalize from '@/hooks/useLocalize'
-import { fileLabel, getFolder, pathKey } from '@/lib/directories'
+import { useAppRequest } from '@/lib/app-request'
+import { fileId, fileLabel, getFolder, pathKey } from '@/lib/directories'
 import type { FolderPath } from '@/lib/directories'
-import { pdfEntry, pdfFolders, pdfId, pdfsIn } from '@/lib/pdfs'
+import { pdfEntry, pdfFolders, pdfsIn } from '@/lib/pdfs'
 import { cn } from '@/lib/utils'
 import { usePdfStore } from '@/stores/pdf.store'
 import type { PdfEntry } from '@/stores/pdf.store'
@@ -88,7 +89,7 @@ function entriesIn(path: FolderPath, recent: PdfEntry[]): PdfEntry[] {
   const folder = getFolder(path)
   if (!folder) return []
   return pdfsIn(folder, path).map((file) => {
-    const id = pdfId(file)
+    const id = fileId(file)
     return recent.find((item) => item.id === id) ?? pdfEntry(file)
   })
 }
@@ -99,8 +100,6 @@ export function Gymnast() {
   const recent = usePdfStore((state) => state.recent)
   const recordOpen = usePdfStore((state) => state.recordOpen)
   const addUpload = usePdfStore((state) => state.addUpload)
-  const requested = usePdfStore((state) => state.requested)
-  const clearRequest = usePdfStore((state) => state.clearRequest)
   const inputRef = useRef<HTMLInputElement>(null)
   const [path, setPath] = useState<FolderPath | null>(null)
   const [browsing, setBrowsing] = useState(false)
@@ -110,17 +109,11 @@ export function Gymnast() {
   const rows = path === null ? recent : entriesIn(path, recent)
   const tab = path === null ? 'recent' : pathKey(path)
 
-  // A request from outside (e.g. the start menu) is shown once, on arrival.
-  const [shownRequest, setShownRequest] = useState<PdfEntry | null>(null)
-  if (requested && requested !== shownRequest) {
-    setShownRequest(requested)
+  useAppRequest(usePdfStore, (requested) => {
     setPath(null)
     setViewing(requested)
     setBrowsing(true)
-  }
-  useEffect(() => {
-    if (requested) clearRequest()
-  }, [requested, clearRequest])
+  })
 
   const selectRecent = () => {
     setPath(null)

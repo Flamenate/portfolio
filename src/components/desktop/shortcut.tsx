@@ -1,12 +1,12 @@
 import { Image } from '@unpic/react'
 import { m } from 'motion/react'
 import { useMemo } from 'react'
-import type { MouseEvent, ReactNode } from 'react'
+import type { MouseEvent } from 'react'
 import { root } from '@/data/directories'
 import useLocalize from '@/hooks/useLocalize'
 import type { AppLabel } from '@/lib/apps'
-import { getFolder } from '@/lib/directories'
-import type { FolderPath } from '@/lib/directories'
+import { fileIconSrc, fileLabel, getFolder } from '@/lib/directories'
+import type { FolderPath, LocatedFile } from '@/lib/directories'
 import { cn } from '@/lib/utils'
 import useAppStore from '@/stores/app.store'
 import {
@@ -21,12 +21,12 @@ type ContainerRef = React.RefObject<HTMLDivElement | null>
 export function DesktopShortcutButton({
   shortcut,
   label,
-  icon,
+  iconSrc,
   containerRef,
 }: {
   shortcut: DesktopShortcut
   label: string
-  icon: ReactNode
+  iconSrc: string
   containerRef: ContainerRef
 }) {
   const isSelected = useIsSelected(shortcut)
@@ -56,7 +56,14 @@ export function DesktopShortcutButton({
         onContextMenu={() => contextClick(shortcut)}
         onKeyUp={(e) => e.preventDefault()}
       >
-        {icon}
+        <Image
+          src={iconSrc}
+          alt=""
+          width={48}
+          height={48}
+          draggable={false}
+          className="aspect-square object-contain"
+        />
         <span className="text-center text-sm text-(--white) mix-blend-hard-light text-shadow-lg/55">
           {label}
         </span>
@@ -82,16 +89,8 @@ export function AppShortcut({
     <DesktopShortcutButton
       shortcut={shortcut}
       label={localize(appLabel)}
-      icon={
-        <Image
-          src={iconSrc}
-          alt=""
-          width={48}
-          height={48}
-          draggable={false}
-          className="aspect-square object-contain"
-        />
-      }
+      iconSrc={iconSrc}
+
       containerRef={containerRef}
     />
   )
@@ -114,16 +113,30 @@ export function FolderShortcut({
     <DesktopShortcutButton
       shortcut={shortcut}
       label={localize(name)}
-      icon={
-        <Image
-          src={getFolder(path)?.iconSrc ?? '/media/icons/folder.webp'}
-          alt=""
-          width={48}
-          height={48}
-          draggable={false}
-          className="aspect-square object-contain"
-        />
-      }
+      iconSrc={getFolder(path)?.iconSrc ?? '/media/icons/folder.webp'}
+
+      containerRef={containerRef}
+    />
+  )
+}
+
+export function FileShortcut({
+  file,
+  containerRef,
+}: {
+  file: LocatedFile
+  containerRef: ContainerRef
+}) {
+  const shortcut = useMemo<DesktopShortcut>(
+    () => ({ kind: 'file', file }),
+    [file],
+  )
+  return (
+    <DesktopShortcutButton
+      shortcut={shortcut}
+      label={fileLabel(file)}
+      iconSrc={fileIconSrc(file)}
+
       containerRef={containerRef}
     />
   )

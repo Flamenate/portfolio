@@ -1,0 +1,3 @@
+Design choices
+
+Coming soon. I promise every decision here was deliberate... I just haven't written them down yet.

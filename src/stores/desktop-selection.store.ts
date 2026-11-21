@@ -1,13 +1,15 @@
 import { create } from 'zustand/react'
 import type { AppLabel } from '@/lib/apps'
-import { isSamePath } from '@/lib/directories'
-import type { FolderPath } from '@/lib/directories'
+import { fileId, pathKey } from '@/lib/directories'
+import type { FolderPath, LocatedFile } from '@/lib/directories'
+import { openFile } from '@/lib/open-file'
 import { useAppStore } from './app.store'
 import { useExplorerStore } from './explorer.store'
 
 export type DesktopShortcut =
   | { kind: 'app'; label: AppLabel }
   | { kind: 'folder'; path: FolderPath }
+  | { kind: 'file'; file: LocatedFile }
 
 interface DesktopSelectionStore {
   selected: DesktopShortcut[]
@@ -19,21 +21,22 @@ interface DesktopSelectionStore {
   openSelected: () => void
 }
 
-function isSameShortcut(a: DesktopShortcut, b: DesktopShortcut) {
-  if (a.kind === 'app' && b.kind === 'app') return a.label === b.label
-  if (a.kind === 'folder' && b.kind === 'folder')
-    return isSamePath(a.path, b.path)
-  return false
+function shortcutId(shortcut: DesktopShortcut) {
+  if (shortcut.kind === 'app') return `app:${shortcut.label}`
+  if (shortcut.kind === 'folder') return pathKey(shortcut.path)
+  return fileId(shortcut.file)
 }
 
 const includesShortcut = (
   selected: DesktopShortcut[],
   shortcut: DesktopShortcut,
-) => selected.some((other) => isSameShortcut(other, shortcut))
+) => selected.some((other) => shortcutId(other) === shortcutId(shortcut))
 
 function open(shortcut: DesktopShortcut) {
   if (shortcut.kind === 'app') useAppStore.getState().openApp(shortcut.label)
-  else useExplorerStore.getState().openFolder(shortcut.path)
+  else if (shortcut.kind === 'folder')
+    useExplorerStore.getState().openFolder(shortcut.path)
+  else openFile(shortcut.file)
 }
 
 export const useDesktopSelectionStore = create<DesktopSelectionStore>()(
@@ -48,7 +51,9 @@ export const useDesktopSelectionStore = create<DesktopSelectionStore>()(
             : { selected: [shortcut] }
         return {
           selected: isSelected
-            ? state.selected.filter((other) => !isSameShortcut(other, shortcut))
+            ? state.selected.filter(
+                (other) => shortcutId(other) !== shortcutId(shortcut),
+              )
             : [...state.selected, shortcut],
         }
       }),

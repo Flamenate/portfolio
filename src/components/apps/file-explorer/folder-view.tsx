@@ -1,14 +1,10 @@
 import { useState } from 'react'
 import useLocalize from '@/hooks/useLocalize'
-import { appForExtension, fileIconSrc, fileLabel } from '@/lib/directories'
+import { fileIconSrc, fileLabel } from '@/lib/directories'
 import type { FolderNode, FolderPath, FsNode } from '@/lib/directories'
-import { pdfEntry } from '@/lib/pdfs'
-import { photoFromFile } from '@/lib/photos'
+import { openFile } from '@/lib/open-file'
 import { cn } from '@/lib/utils'
-import useAppStore from '@/stores/app.store'
 import { useExplorerStore } from '@/stores/explorer.store'
-import { usePdfStore } from '@/stores/pdf.store'
-import { usePhotosStore } from '@/stores/photos.store'
 
 function nodeKey(node: FsNode) {
   return node.type === 'folder'
@@ -42,9 +38,6 @@ export function FolderView({
 }) {
   const localize = useLocalize()
   const navigate = useExplorerStore((state) => state.navigate)
-  const openApp = useAppStore((state) => state.openApp)
-  const openPhoto = usePhotosStore((state) => state.openPhoto)
-  const openPdf = usePdfStore((state) => state.openPdf)
   const [selected, setSelected] = useState<number | null>(null)
 
   if (folder.children.length === 0) {
@@ -58,10 +51,7 @@ export function FolderView({
       navigate([...path, node.name])
       return
     }
-    const label = appForExtension(node.extension)
-    if (label === 'photos') openPhoto(photoFromFile(node, path))
-    else if (label === 'gymnast_pdf') openPdf(pdfEntry({ ...node, path }))
-    else if (label) openApp(label, { title: fileLabel(node) })
+    openFile({ ...node, path })
   }
 
   return (

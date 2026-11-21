@@ -27,8 +27,11 @@ The rules that move a Window between Window states and decide which Window is fo
 A directory in the simulated file system, browsed with the file explorer App.
 _Avoid_: Directory (in user-facing language)
 
+**File**:
+A document in a Folder, opened by the App registered for its extension.
+
 **Desktop shortcut**:
-An icon on the desktop that opens an App or a Folder.
+An icon on the desktop that opens an App, a Folder, or a File.
 _Avoid_: Icon, shortcut (when the kind is ambiguous)
 
 **Taskbar shortcut**:

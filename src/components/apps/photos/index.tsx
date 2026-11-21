@@ -4,13 +4,13 @@ import { FolderOpenRegular } from '@fluentui/react-icons/headless/svg/folder-ope
 import { ImageMultipleRegular } from '@fluentui/react-icons/headless/svg/image-multiple'
 import { format, parseISO } from 'date-fns'
 import { useEffect, useState } from 'react'
-import { useShallow } from 'zustand/react/shallow'
 import { FolderTree } from '@/components/ui/folder-tree'
 import type { FolderTreeNode } from '@/components/ui/folder-tree'
 import { NavButton } from '@/components/ui/nav-button'
 import { root } from '@/data/directories'
 import useLocalize from '@/hooks/useLocalize'
-import { fileLabel, getFolder, pathKey } from '@/lib/directories'
+import { useAppRequest } from '@/lib/app-request'
+import { fileId, fileLabel, getFolder } from '@/lib/directories'
 import type { FolderPath } from '@/lib/directories'
 import { photoFolders, photosByMonth, photosUnder } from '@/lib/photos'
 import type { Photo, PhotoFolder } from '@/lib/photos'
@@ -18,10 +18,6 @@ import { cn } from '@/lib/utils'
 import { useAppStore } from '@/stores/app.store'
 import { usePhotosStore } from '@/stores/photos.store'
 import { datefnsLocales, useThemeStore } from '@/stores/theme.store'
-
-function photoKey(photo: Photo) {
-  return `${pathKey(photo.path)}/${fileLabel(photo)}`
-}
 
 function selectedLabel(path: FolderPath | null) {
   if (path === null) return 'all_photos'
@@ -51,7 +47,7 @@ function PhotoMasonry({
   return (
     <ul className="columns-2 gap-2 p-2 @3xl:columns-3 @5xl:columns-4">
       {photos.map((item) => (
-        <li key={photoKey(item)} className="mb-2 break-inside-avoid">
+        <li key={fileId(item)} className="mb-2 break-inside-avoid">
           <button
             type="button"
             aria-label={fileLabel(item)}
@@ -103,25 +99,13 @@ export function Photos() {
   const [path, setPath] = useState<FolderPath | null>(null)
   const [browsing, setBrowsing] = useState(false)
   const [photo, setPhoto] = useState<Photo | null>(null)
-  const { requested, clearRequest } = usePhotosStore(
-    useShallow((state) => ({
-      requested: state.requested,
-      clearRequest: state.clearRequest,
-    })),
-  )
   const setAppTitle = useAppStore((state) => state.setAppTitle)
 
-  // A request from outside (e.g. the file explorer) is shown once, on arrival.
-  const [shownRequest, setShownRequest] = useState<Photo | null>(null)
-  if (requested && requested !== shownRequest) {
-    setShownRequest(requested)
+  useAppRequest(usePhotosStore, (requested) => {
     setPath(requested.path)
     setBrowsing(true)
     setPhoto(requested)
-  }
-  useEffect(() => {
-    if (requested) clearRequest()
-  }, [requested, clearRequest])
+  })
 
   const photoTitle = photo ? fileLabel(photo) : null
   useEffect(() => {

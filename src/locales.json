@@ -84,6 +84,11 @@
     "fr": "Memes",
     "es": "Memes"
   },
+  "screenshots": {
+    "eng": "Screenshots",
+    "fr": "Captures d'écran",
+    "es": "Capturas de pantalla"
+  },
   "notepad": {
     "eng": "Notepad",
     "fr": "Bloc-Notes",

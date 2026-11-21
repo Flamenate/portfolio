@@ -2,7 +2,13 @@ import { DocumentPdfRegular } from '@fluentui/react-icons/headless/svg/document-
 import { formatDistanceToNow, parseISO } from 'date-fns'
 import { useShallow } from 'zustand/react/shallow'
 import useLocalize from '@/hooks/useLocalize'
-import { fileLabel } from '@/lib/directories'
+import {
+  fileIconSrc,
+  fileId,
+  fileLabel,
+  recommendedFiles,
+} from '@/lib/directories'
+import { openFile } from '@/lib/open-file'
 import { useAppStore } from '@/stores/app.store'
 import { usePdfStore } from '@/stores/pdf.store'
 import useThemeStore, { datefnsLocales } from '@/stores/theme.store'
@@ -19,7 +25,7 @@ function RecommendedItem({
 }: {
   icon: React.ReactNode
   title: string
-  subtitle: string
+  subtitle?: string
   onOpen: () => void
 }) {
   return (
@@ -32,9 +38,11 @@ function RecommendedItem({
         <span className="grid size-8 shrink-0 place-items-center">{icon}</span>
         <span className="min-w-0">
           <span className="block truncate text-sm">{title}</span>
-          <span className="block truncate text-xs text-muted-foreground">
-            {subtitle}
-          </span>
+          {subtitle && (
+            <span className="block truncate text-xs text-muted-foreground">
+              {subtitle}
+            </span>
+          )}
         </span>
       </button>
     </li>
@@ -55,19 +63,43 @@ export function Recommended({ onAction }: { onAction: () => void }) {
     useShallow((state) => ({ recent: state.recent, openPdf: state.openPdf })),
   )
 
+  const featured = recommendedFiles.slice(0, MAX_FILES)
+  const featuredIds = new Set(featured.map((file) => fileId(file)))
   const files = recent
-    .filter((entry) => entry.openedAt !== null)
-    .slice(0, MAX_FILES)
-  const recentApps = focusHistory.slice(0, MAX_ITEMS - files.length)
+    .filter((entry) => entry.openedAt !== null && !featuredIds.has(entry.id))
+    .slice(0, MAX_FILES - featured.length)
+  const recentApps = focusHistory.slice(
+    0,
+    MAX_ITEMS - featured.length - files.length,
+  )
 
   return (
     <StartMenuSection title={localize('start_menu_recommended')}>
-      {files.length + recentApps.length === 0 ? (
+      {featured.length + files.length + recentApps.length === 0 ? (
         <p className="px-1 text-sm text-muted-foreground">
           {localize('start_menu_recommended_empty')}
         </p>
       ) : (
         <ul className="grid grid-cols-2 gap-1">
+          {featured.map((file) => (
+            <RecommendedItem
+              key={fileId(file)}
+              icon={
+                <img
+                  src={fileIconSrc(file)}
+                  alt=""
+                  width={28}
+                  height={28}
+                  className="size-7 object-contain"
+                />
+              }
+              title={fileLabel(file)}
+              onOpen={() => {
+                openFile(file)
+                onAction()
+              }}
+            />
+          ))}
           {files.map((entry) => (
             <RecommendedItem
               key={entry.id}

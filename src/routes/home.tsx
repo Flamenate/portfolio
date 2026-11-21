@@ -2,13 +2,22 @@ import { createFileRoute, redirect } from '@tanstack/react-router'
 import { AnimatePresence } from 'motion/react'
 import { Activity, Suspense, useEffect, useRef } from 'react'
 import { useShallow } from 'zustand/react/shallow'
-import { AppShortcut, FolderShortcut } from '@/components/desktop/shortcut'
+import {
+  AppShortcut,
+  FileShortcut,
+  FolderShortcut,
+} from '@/components/desktop/shortcut'
 import Taskbar from '@/components/taskbar'
 import { Toaster } from '@/components/ui/sonner'
 import { AppWindow } from '@/components/ui/window'
 import { WindowLoading } from '@/components/ui/window-loading'
 import { appDefinitions } from '@/lib/apps'
-import { desktopFolderPaths, pathKey } from '@/lib/directories'
+import {
+  desktopFiles,
+  desktopFolderPaths,
+  fileId,
+  pathKey,
+} from '@/lib/directories'
 import { isSignedIn } from '@/lib/sign-in'
 import useAppStore from '@/stores/app.store'
 import { useDesktopSelectionStore } from '@/stores/desktop-selection.store'
@@ -103,6 +112,13 @@ function Home() {
           <FolderShortcut
             key={pathKey(path)}
             path={path}
+            containerRef={desktopShortcutContainer}
+          />
+        ))}
+        {desktopFiles.map((file) => (
+          <FileShortcut
+            key={fileId(file)}
+            file={file}
             containerRef={desktopShortcutContainer}
           />
         ))}

@@ -17,6 +17,14 @@ export const root: FolderNode = {
       children: [
         {
           type: 'file',
+          name: 'Readme',
+          extension: 'txt',
+          src: 'Readme.txt',
+          recommended: true,
+          desktopShortcut: true,
+        },
+        {
+          type: 'file',
           name: 'Haythem_FRIKHA_ENG',
           extension: 'pdf',
           src: '/documents/Haythem_FRIKHA_ENG.pdf',
@@ -26,6 +34,12 @@ export const root: FolderNode = {
           name: 'Haythem_FRIKHA_FR',
           extension: 'pdf',
           src: '/documents/Haythem_FRIKHA_FR.pdf',
+        },
+        {
+          type: 'file',
+          name: 'design-choices',
+          extension: 'txt',
+          src: 'design-choices.txt',
         },
         {
           type: 'file',
@@ -50,6 +64,18 @@ export const root: FolderNode = {
           name: 'Lettre de Motivation',
           extension: 'pdf',
           src: '/documents/Lettre de Motivation_Redacted.pdf',
+        },
+        {
+          type: 'file',
+          name: 'todo',
+          extension: 'txt',
+          src: 'todo.txt',
+        },
+        {
+          type: 'file',
+          name: 'credits',
+          extension: 'txt',
+          src: 'credits.txt',
         },
       ],
     },
@@ -126,6 +152,12 @@ export const root: FolderNode = {
           children: [
             {
               type: 'file',
+              name: 'match',
+              extension: 'txt',
+              src: 'match.txt',
+            },
+            {
+              type: 'file',
               name: 'rades_crowd',
               extension: 'webp',
               src: '/media/pictures/rades/rades_crowd.webp',
@@ -165,6 +197,12 @@ export const root: FolderNode = {
           type: 'folder',
           name: 'memes',
           children: [
+            {
+              type: 'file',
+              name: 'explanations',
+              extension: 'txt',
+              src: 'explanations.txt',
+            },
             {
               type: 'file',
               name: 'meme_baby',
@@ -295,6 +333,53 @@ export const root: FolderNode = {
         },
         {
           type: 'folder',
+          name: 'screenshots',
+          children: [
+            {
+              type: 'file',
+              name: 'what',
+              extension: 'txt',
+              src: 'what.txt',
+            },
+            {
+              type: 'file',
+              name: 'screenshot_computer_vision_first_time',
+              extension: 'webp',
+              src: '/media/pictures/screenshots/screenshot_computer_vision_first_time.webp',
+              date: '2023-04-01',
+            },
+            {
+              type: 'file',
+              name: 'screenshot_lighthouse_optimized',
+              extension: 'webp',
+              src: '/media/pictures/screenshots/screenshot_lighthouse_optimized.webp',
+              date: '2024-12-01',
+            },
+            {
+              type: 'file',
+              name: 'screenshot_nuxt_debugging',
+              extension: 'webp',
+              src: '/media/pictures/screenshots/screenshot_nuxt_debugging.webp',
+              date: '2025-06-01',
+            },
+            {
+              type: 'file',
+              name: 'screenshot_portfolio_early_version',
+              extension: 'webp',
+              src: '/media/pictures/screenshots/screenshot_portfolio_early_version.webp',
+              date: '2026-01-01',
+            },
+            {
+              type: 'file',
+              name: 'screenshot_rocket_league_gc_first_time',
+              extension: 'webp',
+              src: '/media/pictures/screenshots/screenshot_rocket_league_gc_first_time.webp',
+              date: '2024-07-01',
+            },
+          ],
+        },
+        {
+          type: 'folder',
           name: 'system',
           children: [
             {
@@ -340,14 +425,34 @@ export const root: FolderNode = {
       type: 'folder',
       name: 'music',
       iconSrc: '/media/icons/music.webp',
-      children: [],
+      children: [
+        {
+          type: 'file',
+          name: 'music',
+          extension: 'txt',
+          src: 'music.txt',
+        },
+      ],
     },
     {
       type: 'folder',
       name: 'recycle_bin',
       desktopShortcut: true,
       iconSrc: '/media/icons/recycle_bin_full.webp',
-      children: [],
+      children: [
+        {
+          type: 'file',
+          name: 'portfolio_v1_ideas',
+          extension: 'txt',
+          src: 'portfolio_v1_ideas.txt',
+        },
+        {
+          type: 'file',
+          name: 'cover_letter_final_final_v3',
+          extension: 'txt',
+          src: 'cover_letter_final_final_v3.txt',
+        },
+      ],
     },
     {
       type: 'folder',

@@ -33,7 +33,7 @@ describe('opening a photo from the file explorer', () => {
 
   it('shows the requested photo in its folder and titles the window', () => {
     act(() =>
-      usePhotosStore.getState().openPhoto({
+      usePhotosStore.getState().request({
         name: 'paris_shiba_inu',
         extension: 'webp',
         src: '/media/pictures/paris/paris_shiba_inu.webp',

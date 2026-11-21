@@ -1,0 +1,24 @@
+Credits
+
+This website stands on the shoulders of:
+
+- React
+- TanStack Start, Router, Query, and Form
+- Zustand
+- Tailwind CSS
+- shadcn/ui and Radix UI
+- Motion
+- Fluent UI System Icons, by Microsoft
+- Noto Sans Font, by Google
+- date-fns
+- Sonner
+- Zod
+- Scramjet and Wisp, by Mercury Workshop (the Browser app)
+- IGDB (game data in Vapor)
+- Vite, Vitest, Oxlint, and Oxfmt
+
+With HEAVY inspiration from the Windows 11 operating system by Microsoft, for which I hold absolutely no rights. The icons of the apps and files are mere imitations of existing ones, some of them with slight changes by me (for humor purposes), but I don't own the respective logos or trademarks.
+
+
+
+

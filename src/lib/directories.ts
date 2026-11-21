@@ -6,8 +6,12 @@ export type FileNode = {
   type: 'file'
   name: string
   extension: string
+  // A public URL, or for text Files a file name in src/data/texts/.
   src: string
   date?: string
+  // Featured in the start menu's Recommended section.
+  recommended?: boolean
+  desktopShortcut?: boolean
 }
 
 export function fileLabel(file: Pick<FileNode, 'name' | 'extension'>) {
@@ -25,6 +29,7 @@ export const fileApps: Partial<Record<string, AppLabel>> = {
     [...imageExtensions].map((extension) => [extension, 'photos' as const]),
   ),
   pdf: 'gymnast_pdf',
+  txt: 'notepad',
 }
 
 export function appForExtension(extension: string) {
@@ -76,6 +81,12 @@ export function pathKey(path: FolderPath) {
   return `folder:${path.join('/')}`
 }
 
+export type LocatedFile = FileNode & { path: FolderPath }
+
+export function fileId(file: Pick<LocatedFile, 'name' | 'extension' | 'path'>) {
+  return `${pathKey(file.path)}/${fileLabel(file)}`
+}
+
 function collectDesktopFolders(
   folder: FolderNode,
   path: FolderPath,
@@ -90,3 +101,27 @@ function collectDesktopFolders(
 }
 
 export const desktopFolderPaths = collectDesktopFolders(root, [])
+
+function collectFiles(
+  folder: FolderNode,
+  path: FolderPath,
+  matches: (file: FileNode) => boolean,
+): LocatedFile[] {
+  const files: LocatedFile[] = []
+  for (const child of folder.children) {
+    if (child.type === 'folder') {
+      files.push(...collectFiles(child, [...path, child.name], matches))
+    } else if (matches(child)) {
+      files.push({ ...child, path })
+    }
+  }
+  return files
+}
+
+export function findFiles(matches: (file: FileNode) => boolean) {
+  return collectFiles(root, [], matches)
+}
+
+export const recommendedFiles = findFiles((file) => !!file.recommended)
+
+export const desktopFiles = findFiles((file) => !!file.desktopShortcut)

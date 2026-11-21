@@ -1,0 +1,10 @@
+TODO
+
+[x] Get into engineering school (ENIS)
+[x] Land a double degree at ENIB, in Brest
+[x] Build a portfolio that pretends to be an operating system
+[ ] Find an internship (you're reading this, so... maybe?)
+[ ] Build Spotiwhy so music.txt finally makes sense
+[ ] Write design-choices.txt
+[ ] Empty the Recycle Bin
+[ ] Learn to center a div without googling it

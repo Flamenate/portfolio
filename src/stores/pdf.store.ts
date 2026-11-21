@@ -1,7 +1,8 @@
 import { create } from 'zustand/react'
+import { appRequestSlice } from '@/lib/app-request'
+import type { AppRequest } from '@/lib/app-request'
 import type { FolderPath } from '@/lib/directories'
 import { pdfEntry } from '@/lib/pdfs'
-import { useAppStore } from './app.store'
 
 export type PdfEntry = {
   id: string
@@ -13,17 +14,15 @@ export type PdfEntry = {
   size: number | null
 }
 
-type PdfStore = {
+type PdfStore = AppRequest<PdfEntry> & {
   recent: PdfEntry[]
-  // A PDF asked for from outside Gymnast, shown once Gymnast picks it up.
-  requested: PdfEntry | null
   recordOpen: (entry: PdfEntry) => void
   openPdf: (entry: PdfEntry) => void
-  clearRequest: () => void
   addUpload: (file: File) => void
 }
 
 export const usePdfStore = create<PdfStore>()((set, get) => ({
+  ...appRequestSlice<PdfEntry>('gymnast_pdf')(set),
   recent: [
     pdfEntry({
       name: 'Haythem_FRIKHA_ENG',
@@ -38,7 +37,6 @@ export const usePdfStore = create<PdfStore>()((set, get) => ({
       path: ['documents'],
     }),
   ],
-  requested: null,
   recordOpen: (entry) =>
     set((state) => {
       const existing = state.recent.find((item) => item.id === entry.id)
@@ -53,11 +51,8 @@ export const usePdfStore = create<PdfStore>()((set, get) => ({
     }),
   openPdf: (entry) => {
     get().recordOpen(entry)
-    // recordOpen puts a fresh object first, so each request is distinct.
-    set((state) => ({ requested: state.recent[0] }))
-    useAppStore.getState().openApp('gymnast_pdf')
+    get().request(get().recent[0])
   },
-  clearRequest: () => set({ requested: null }),
   addUpload: (file) =>
     set((state) => {
       const dot = file.name.lastIndexOf('.')

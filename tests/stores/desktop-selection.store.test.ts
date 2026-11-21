@@ -1,9 +1,11 @@
 // @vitest-environment jsdom
 import { beforeEach, describe, expect, it } from 'vitest'
+import type { LocatedFile } from '@/lib/directories'
 import { useAppStore } from '@/stores/app.store'
 import { useDesktopSelectionStore } from '@/stores/desktop-selection.store'
 import type { DesktopShortcut } from '@/stores/desktop-selection.store'
 import { useExplorerStore } from '@/stores/explorer.store'
+import { useNotepadStore } from '@/stores/notepad.store'
 
 const selection = () => useDesktopSelectionStore.getState()
 const apps = () => useAppStore.getState().apps
@@ -11,6 +13,14 @@ const apps = () => useAppStore.getState().apps
 const notepad: DesktopShortcut = { kind: 'app', label: 'notepad' }
 const terminal: DesktopShortcut = { kind: 'app', label: 'terminal' }
 const documents: DesktopShortcut = { kind: 'folder', path: ['documents'] }
+const readmeFile: LocatedFile = {
+  type: 'file',
+  name: 'Readme',
+  extension: 'txt',
+  src: 'Readme.txt',
+  path: ['documents'],
+}
+const readme: DesktopShortcut = { kind: 'file', file: readmeFile }
 
 describe('Desktop selection', () => {
   beforeEach(() => {
@@ -19,7 +29,15 @@ describe('Desktop selection', () => {
       true,
     )
     useAppStore.setState(useAppStore.getInitialState(), true)
+    useNotepadStore.setState(useNotepadStore.getInitialState(), true)
     useExplorerStore.getState().reset()
+  })
+
+  it('opens a File Desktop shortcut in the App for its extension', () => {
+    selection().openShortcut(readme)
+
+    expect(apps().notepad.state).toBe('open')
+    expect(useNotepadStore.getState().requested).toEqual(readmeFile)
   })
 
   it('selects only the clicked Desktop shortcut', () => {
@@ -83,6 +101,24 @@ describe('Desktop selection', () => {
 
     expect(apps().terminal.state).toBe('open')
     expect(apps().notepad.state).toBe('closed')
+    expect(selection().selected).toEqual([])
+  })
+
+  it('toggles a File Desktop shortcut in the Selection and opens it with the rest', () => {
+    selection().click(terminal, { ctrl: false })
+    selection().click(readme, { ctrl: true })
+    selection().click(
+      { kind: 'file', file: { ...readmeFile, path: ['documents'] } },
+      { ctrl: true },
+    )
+    expect(selection().selected).toEqual([terminal])
+
+    selection().click(readme, { ctrl: true })
+    selection().openSelected()
+
+    expect(apps().terminal.state).toBe('open')
+    expect(apps().notepad.state).toBe('open')
+    expect(useNotepadStore.getState().requested).toEqual(readmeFile)
     expect(selection().selected).toEqual([])
   })
 

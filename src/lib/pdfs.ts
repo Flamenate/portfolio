@@ -1,5 +1,5 @@
 import { root } from '@/data/directories'
-import { fileLabel, pathKey } from '@/lib/directories'
+import { fileId } from '@/lib/directories'
 import type { FileNode, FolderNode, FolderPath } from '@/lib/directories'
 import type { PdfEntry } from '@/stores/pdf.store'
 
@@ -19,13 +19,9 @@ export function isPdfFile(file: FileNode) {
   return file.extension.toLowerCase() === 'pdf'
 }
 
-export function pdfId(file: Pick<PdfFile, 'path' | 'name' | 'extension'>) {
-  return `${pathKey(file.path)}/${fileLabel(file)}`
-}
-
 export function pdfEntry(file: PdfFile): PdfEntry {
   return {
-    id: pdfId(file),
+    id: fileId(file),
     name: file.name,
     extension: file.extension,
     src: file.src,
