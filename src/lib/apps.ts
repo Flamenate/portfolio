@@ -29,6 +29,15 @@ export const appDefinitions = {
       })),
     ),
   },
+  vscope: {
+    iconSrc: '/images/icons/vscope.webp',
+    pinned: true,
+    content: lazy(() =>
+      import('@/components/apps/vscope').then((module) => ({
+        default: module.VSCope,
+      })),
+    ),
+  },
   terminal: {
     iconSrc: '/images/icons/terminal.png',
     pinned: false,

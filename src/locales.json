@@ -1319,6 +1319,16 @@
     "fr": "Vapor n'a pas réussi à récupérer les détails du jeu, veuillez réessayer plus tard.",
     "es": "Vapor no ha podido recuperar los detalles del juego, por favor inténtalo de nuevo más tarde."
   },
+  "notifications_vscope_unavailable": {
+    "eng": "Projects unavailable",
+    "fr": "Projets indisponibles",
+    "es": "Proyectos no disponibles"
+  },
+  "notifications_vscope_unavailable_description": {
+    "eng": "VSCope failed to load the project list, please try again later.",
+    "fr": "VSCope n'a pas réussi à charger la liste des projets, veuillez réessayer plus tard.",
+    "es": "VSCope no ha podido cargar la lista de proyectos, por favor inténtalo de nuevo más tarde."
+  },
   "spotiwhy": {
     "eng": "Spotiwhy",
     "fr": "Spotiwhy",
@@ -1333,6 +1343,16 @@
     "eng": "Concord",
     "fr": "Concord",
     "es": "Concord"
+  },
+  "vscope": {
+    "eng": "VSCope",
+    "fr": "VSCope",
+    "es": "VSCope"
+  },
+  "vscope_select_project": {
+    "eng": "Select a project",
+    "fr": "Sélectionner un projet",
+    "es": "Seleccionar un proyecto"
   },
   "concord_direct_messages": {
     "eng": "Direct Messages",
