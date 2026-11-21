@@ -2,10 +2,11 @@ import { useState } from 'react'
 import useLocalize from '@/hooks/useLocalize'
 import { fileLabel } from '@/lib/directories'
 import type { FolderNode, FolderPath, FsNode } from '@/lib/directories'
-import { appForExtension, isImageFile } from '@/lib/photos'
+import { appForExtension, isImageFile, photoFromNode } from '@/lib/photos'
 import { cn } from '@/lib/utils'
 import useAppStore from '@/stores/app.store'
 import { useExplorerStore } from '@/stores/explorer.store'
+import { usePhotosStore } from '@/stores/photos.store'
 
 function nodeKey(node: FsNode) {
   return node.type === 'folder'
@@ -22,10 +23,10 @@ function ItemIcon({ node }: { node: FsNode }) {
   })
   const iconSrc =
     node.type === 'folder'
-      ? (node.iconSrc ?? '/images/icons/folder.webp')
+      ? (node.iconSrc ?? '/media/icons/folder.webp')
       : isImageFile(node)
         ? node.src
-        : (appIcon ?? '/images/icons/placeholder.webp')
+        : (appIcon ?? '/media/icons/placeholder.webp')
   return (
     <img
       src={iconSrc}
@@ -48,6 +49,7 @@ export function FolderView({
   const localize = useLocalize()
   const navigate = useExplorerStore((state) => state.navigate)
   const openApp = useAppStore((state) => state.openApp)
+  const openPhoto = usePhotosStore((state) => state.openPhoto)
   const [selected, setSelected] = useState<number | null>(null)
 
   if (folder.children.length === 0) {
@@ -59,6 +61,11 @@ export function FolderView({
   const open = (node: FsNode) => {
     if (node.type === 'folder') {
       navigate([...path, node.name])
+      return
+    }
+    const photo = photoFromNode(node, path)
+    if (photo) {
+      openPhoto(photo)
       return
     }
     const label = appForExtension(node.extension)

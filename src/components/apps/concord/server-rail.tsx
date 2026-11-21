@@ -77,7 +77,7 @@ export function ServerRail({
         className="h-14 items-center after:absolute after:bottom-0 after:left-1/2 after:h-px after:w-8 after:-translate-x-1/2 after:bg-muted-foreground/30"
       >
         <img
-          src="/images/icons/concord.webp"
+          src="/media/icons/concord.webp"
           alt=""
           draggable={false}
           className="size-full object-cover"

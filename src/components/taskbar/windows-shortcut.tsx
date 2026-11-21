@@ -15,7 +15,7 @@ export function WindowsShortcut({
       )}
     >
       <img
-        src="/images/icons/flame_os.webp"
+        src="/media/icons/flame_os.webp"
         alt=""
         className="mt-0.5 object-cover transition-[filter,scale] group-active:scale-80 group-active:contrast-150 group-active:saturate-200"
         draggable="false"

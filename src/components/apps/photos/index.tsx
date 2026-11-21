@@ -3,7 +3,8 @@ import { FolderRegular } from '@fluentui/react-icons/headless/svg/folder'
 import { FolderOpenRegular } from '@fluentui/react-icons/headless/svg/folder-open'
 import { ImageMultipleRegular } from '@fluentui/react-icons/headless/svg/image-multiple'
 import { format, parseISO } from 'date-fns'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
+import { useShallow } from 'zustand/react/shallow'
 import { FolderTree } from '@/components/ui/folder-tree'
 import type { FolderTreeNode } from '@/components/ui/folder-tree'
 import { NavButton } from '@/components/ui/nav-button'
@@ -14,6 +15,8 @@ import type { FolderPath } from '@/lib/directories'
 import { photoFolders, photosByMonth, photosUnder } from '@/lib/photos'
 import type { Photo, PhotoFolder } from '@/lib/photos'
 import { cn } from '@/lib/utils'
+import { useAppStore } from '@/stores/app.store'
+import { usePhotosStore } from '@/stores/photos.store'
 import { datefnsLocales, useThemeStore } from '@/stores/theme.store'
 
 function photoKey(photo: Photo) {
@@ -100,6 +103,31 @@ export function Photos() {
   const [path, setPath] = useState<FolderPath | null>(null)
   const [browsing, setBrowsing] = useState(false)
   const [photo, setPhoto] = useState<Photo | null>(null)
+  const { requested, clearRequest } = usePhotosStore(
+    useShallow((state) => ({
+      requested: state.requested,
+      clearRequest: state.clearRequest,
+    })),
+  )
+  const setAppTitle = useAppStore((state) => state.setAppTitle)
+
+  // A request from outside (e.g. the file explorer) is shown once, on arrival.
+  const [shownRequest, setShownRequest] = useState<Photo | null>(null)
+  if (requested && requested !== shownRequest) {
+    setShownRequest(requested)
+    setPath(requested.path)
+    setBrowsing(true)
+    setPhoto(requested)
+  }
+  useEffect(() => {
+    if (requested) clearRequest()
+  }, [requested, clearRequest])
+
+  const photoTitle = photo ? fileLabel(photo) : null
+  useEffect(() => {
+    setAppTitle('photos', photoTitle)
+  }, [photoTitle, setAppTitle])
+
   const tree = photoFolders(root)
   const photos = photosUnder(path)
   const title = selectedLabel(path)

@@ -69,6 +69,21 @@
     "fr": "Musique",
     "es": "Música"
   },
+  "paris": {
+    "eng": "Paris",
+    "fr": "Paris",
+    "es": "París"
+  },
+  "rades": {
+    "eng": "Rades",
+    "fr": "Radès",
+    "es": "Radès"
+  },
+  "memes": {
+    "eng": "Memes",
+    "fr": "Memes",
+    "es": "Memes"
+  },
   "notepad": {
     "eng": "Notepad",
     "fr": "Bloc-Notes",

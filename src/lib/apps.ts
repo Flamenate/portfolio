@@ -12,7 +12,7 @@ type AppDefinition = {
 
 export const appDefinitions = {
   haythem_frikha: {
-    iconSrc: '/images/icons/explorer.webp',
+    iconSrc: '/media/icons/explorer.webp',
     pinned: true,
     content: lazy(() =>
       import('@/components/apps/file-explorer').then((module) => ({
@@ -21,7 +21,7 @@ export const appDefinitions = {
     ),
   },
   vscope: {
-    iconSrc: '/images/icons/vscope.webp',
+    iconSrc: '/media/icons/vscope.webp',
     pinned: false,
     content: lazy(() =>
       import('@/components/apps/vscope').then((module) => ({
@@ -30,7 +30,7 @@ export const appDefinitions = {
     ),
   },
   terminal: {
-    iconSrc: '/images/icons/terminal.png',
+    iconSrc: '/media/icons/terminal.png',
     pinned: true,
     content: lazy(() =>
       import('@/components/apps/terminal').then((module) => ({
@@ -39,7 +39,7 @@ export const appDefinitions = {
     ),
   },
   mail: {
-    iconSrc: '/images/icons/mail.webp',
+    iconSrc: '/media/icons/mail.webp',
     pinned: false,
     content: lazy(() =>
       import('@/components/apps/mail').then((module) => ({
@@ -48,7 +48,7 @@ export const appDefinitions = {
     ),
   },
   calculator: {
-    iconSrc: '/images/icons/calculator.png',
+    iconSrc: '/media/icons/calculator.png',
     pinned: false,
     content: lazy(() =>
       import('@/components/apps/calculator').then((module) => ({
@@ -57,7 +57,7 @@ export const appDefinitions = {
     ),
   },
   notepad: {
-    iconSrc: '/images/icons/notepad.png',
+    iconSrc: '/media/icons/notepad.png',
     pinned: false,
     content: lazy(() =>
       import('@/components/apps/notepad').then((module) => ({
@@ -66,7 +66,7 @@ export const appDefinitions = {
     ),
   },
   photos: {
-    iconSrc: '/images/icons/photos.webp',
+    iconSrc: '/media/icons/photos.webp',
     pinned: false,
     content: lazy(() =>
       import('@/components/apps/photos').then((module) => ({
@@ -75,7 +75,7 @@ export const appDefinitions = {
     ),
   },
   gymnast_pdf: {
-    iconSrc: '/images/icons/gymnast_pdf.webp',
+    iconSrc: '/media/icons/gymnast_pdf.webp',
     pinned: false,
     content: lazy(() =>
       import('@/components/apps/gymnast').then((module) => ({
@@ -84,7 +84,7 @@ export const appDefinitions = {
     ),
   },
   spotiwhy: {
-    iconSrc: '/images/icons/spotiwhy.webp',
+    iconSrc: '/media/icons/spotiwhy.webp',
     pinned: false,
     content: lazy(() =>
       import('@/components/apps/notepad').then((module) => ({
@@ -93,7 +93,7 @@ export const appDefinitions = {
     ),
   },
   vapor: {
-    iconSrc: '/images/icons/vapor.webp',
+    iconSrc: '/media/icons/vapor.webp',
     pinned: true,
     content: lazy(() =>
       import('@/components/apps/vapor').then((module) => ({
@@ -102,7 +102,7 @@ export const appDefinitions = {
     ),
   },
   concord: {
-    iconSrc: '/images/icons/concord.webp',
+    iconSrc: '/media/icons/concord.webp',
     pinned: false,
     content: lazy(() =>
       import('@/components/apps/concord').then((module) => ({
@@ -111,7 +111,7 @@ export const appDefinitions = {
     ),
   },
   browser: {
-    iconSrc: '/images/icons/browser.webp',
+    iconSrc: '/media/icons/browser.webp',
     pinned: true,
     content: lazy(() =>
       import('@/components/apps/browser').then((module) => ({

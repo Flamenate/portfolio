@@ -100,7 +100,7 @@ export function StartMenuFooter({ onAction }: { onAction: () => void }) {
         type="button"
       >
         <Image
-          src="/images/pictures/ena.jpg"
+          src="/media/pictures/system/ena.jpg"
           width={40}
           height={40}
           className="rounded-full"

@@ -16,7 +16,7 @@ export const gameDetailsQuery = queryOptions({
     } catch (error) {
       console.error('[vapor] failed to load game details:', error)
       useNotificationStore.getState().addNotification({
-        source: { label: 'vapor', iconSrc: '/images/icons/vapor.webp' },
+        source: { label: 'vapor', iconSrc: '/media/icons/vapor.webp' },
         content: 'vapor_unavailable',
         subcontent: 'vapor_unavailable_description',
       })

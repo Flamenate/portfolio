@@ -170,6 +170,12 @@ export const games: OwnedGame[] = [
     category: 'favorite',
   },
   {
+    name: 'Blue Prince',
+    playtimeMinutes: 20.4 * 60,
+    lastPlayed: '2025',
+    category: 'completed',
+  },
+  {
     name: 'Dark Souls II: Scholar of the First Sin',
     playtimeMinutes: 3558,
     lastPlayed: '2026',

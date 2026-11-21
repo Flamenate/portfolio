@@ -41,17 +41,25 @@ export function appForExtension(extension: string) {
   return imageExtensions.has(extension.toLowerCase()) ? 'photos' : undefined
 }
 
+function toPhoto(node: FileNode & { src: string }, path: FolderPath): Photo {
+  return {
+    name: node.name,
+    extension: node.extension,
+    src: node.src,
+    path,
+    date: node.date,
+  }
+}
+
+export function photoFromNode(node: FsNode, path: FolderPath): Photo | null {
+  return isImageFile(node) ? toPhoto(node, path) : null
+}
+
 function collectPhotos(folder: FolderNode, path: FolderPath): Photo[] {
   const photos: Photo[] = []
   for (const child of folder.children) {
     if (isImageFile(child)) {
-      photos.push({
-        name: child.name,
-        extension: child.extension,
-        src: child.src,
-        path,
-        date: child.date,
-      })
+      photos.push(toPhoto(child, path))
     } else if (child.type === 'folder') {
       photos.push(...collectPhotos(child, [...path, child.name]))
     }

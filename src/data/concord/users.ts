@@ -7,7 +7,7 @@ export const users: User[] = [
     id: 'flamenate',
     displayName: 'Flame',
     username: 'flamenate',
-    avatar: '/images/pictures/ena.jpg',
+    avatar: '/media/pictures/system/ena.jpg',
     banner: '#c2410c',
     bio: 'Building things on the web.',
     status: 'online',

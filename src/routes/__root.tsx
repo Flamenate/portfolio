@@ -36,7 +36,7 @@ export const Route = createRootRouteWithContext<{
       },
       {
         property: 'og:image',
-        content: '/images/pictures/ena.jpg',
+        content: '/media/pictures/system/ena.jpg',
       },
       {
         property: 'og:url',
@@ -53,7 +53,7 @@ export const Route = createRootRouteWithContext<{
       },
       {
         name: 'twitter:image',
-        content: '/images/pictures/ena.jpg',
+        content: '/media/pictures/system/ena.jpg',
       },
       {
         name: 'twitter:url',
@@ -67,7 +67,7 @@ export const Route = createRootRouteWithContext<{
       },
       {
         rel: 'icon',
-        href: '/images/icons/flame_os.webp',
+        href: '/media/icons/flame_os.webp',
         type: 'image/png',
       },
     ],
@@ -145,7 +145,7 @@ function RootDocument({ children }: { children: React.ReactNode }) {
       </head>
       <body>
         <TooltipProvider>
-          <main className='h-screen w-screen overscroll-none bg-[url("/images/pictures/desktop_bg.webp")] bg-cover bg-center bg-no-repeat dark:bg-[url("/images/pictures/desktop_dark_bg.webp")]'>
+          <main className='h-screen w-screen overscroll-none bg-[url("/media/pictures/system/desktop_bg.webp")] bg-cover bg-center bg-no-repeat dark:bg-[url("/media/pictures/system/desktop_dark_bg.webp")]'>
             {children}
           </main>
         </TooltipProvider>

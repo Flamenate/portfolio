@@ -124,6 +124,14 @@ export function GameList({
           onSelect={onSelect}
         />
         <GameSection
+          title="Multiplayer / Endless"
+          items={visible.filter(
+            (game) => game.category === 'multiplayer / endless',
+          )}
+          selected={selected}
+          onSelect={onSelect}
+        />
+        <GameSection
           title="Completed"
           items={visible.filter((game) => game.category === 'completed')}
           selected={selected}

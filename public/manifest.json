@@ -3,17 +3,17 @@
   "name": "Haythem Frikha's Portfolio",
   "icons": [
     {
-      "src": "/images/icons/flame_os.webp",
+      "src": "/media/icons/flame_os.webp",
       "sizes": "64x64 32x32 24x24 16x16",
       "type": "image/png"
     },
     {
-      "src": "/images/pictures/ena.jpg",
+      "src": "/media/pictures/system/ena.jpg",
       "type": "image/jpeg",
       "sizes": "192x192"
     },
     {
-      "src": "/images/pictures/desktop_bg.webp",
+      "src": "/media/pictures/system/desktop_bg.webp",
       "type": "image/webp",
       "sizes": "512x512"
     }

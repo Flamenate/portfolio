@@ -96,6 +96,10 @@ export const resume: Resume = {
         label: 'LinkedIn',
         url: 'https://www.linkedin.com/in/haythem-frikha',
       },
+      {
+        label: 'Upwork',
+        url: 'https://www.upwork.com/freelancers/~01c4aad17b43b37ea7',
+      },
     ],
   },
   education: [

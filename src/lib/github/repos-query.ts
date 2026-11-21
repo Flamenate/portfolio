@@ -14,7 +14,7 @@ export const reposQuery = queryOptions({
     } catch (error) {
       console.error('[vscope] failed to load repos:', error)
       useNotificationStore.getState().addNotification({
-        source: { label: 'vscope', iconSrc: '/images/icons/vscope.webp' },
+        source: { label: 'vscope', iconSrc: '/media/icons/vscope.webp' },
         content: 'vscope_unavailable',
         subcontent: 'vscope_unavailable_description',
       })

@@ -55,7 +55,7 @@ export const servers: Server[] = [
                 authorId: 'alice',
                 date: new Date('2026-11-17T20:16:00'),
                 content: 'Check this out',
-                attachments: [{ src: '/images/icons/concord.webp' }],
+                attachments: [{ src: '/media/icons/concord.webp' }],
               },
               {
                 id: 'main-3',

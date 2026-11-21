@@ -128,7 +128,7 @@ export function Concord() {
       ) : (
         <section className={cn(paneClassName, 'items-center justify-center')}>
           <img
-            src="/images/icons/concord.webp"
+            src="/media/icons/concord.webp"
             alt=""
             draggable={false}
             className="size-24 opacity-30 grayscale"
