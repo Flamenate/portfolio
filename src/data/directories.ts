@@ -27,6 +27,30 @@ export const root: FolderNode = {
           extension: 'pdf',
           src: '/documents/Haythem_FRIKHA_FR.pdf',
         },
+        {
+          type: 'file',
+          name: 'Cisco C Advanced Certificate',
+          extension: 'pdf',
+          src: '/documents/Cisco C Advanced Certificate.pdf',
+        },
+        {
+          type: 'file',
+          name: 'Microsoft AI-900 Certificate',
+          extension: 'pdf',
+          src: '/documents/Microsoft AI-900 Certificate.pdf',
+        },
+        {
+          type: 'file',
+          name: 'EF SET Certificate',
+          extension: 'pdf',
+          src: '/documents/EF SET Certificate.pdf',
+        },
+        {
+          type: 'file',
+          name: 'Lettre de Motivation',
+          extension: 'pdf',
+          src: '/documents/Lettre de Motivation_Redacted.pdf',
+        },
       ],
     },
     {

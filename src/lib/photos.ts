@@ -1,13 +1,6 @@
 import { root } from '@/data/directories'
-import { getFolder } from '@/lib/directories'
-import type {
-  FileNode,
-  FolderNode,
-  FolderPath,
-  FsNode,
-} from '@/lib/directories'
-
-const imageExtensions = new Set(['jpg', 'jpeg', 'png', 'webp'])
+import { getFolder, isImageFile } from '@/lib/directories'
+import type { FileNode, FolderNode, FolderPath } from '@/lib/directories'
 
 export type Photo = {
   name: string
@@ -29,39 +22,23 @@ export type PhotoFolder = {
   children: PhotoFolder[]
 }
 
-export function isImageFile(node: FsNode): node is FileNode & { src: string } {
-  return (
-    node.type === 'file' &&
-    node.src !== undefined &&
-    imageExtensions.has(node.extension.toLowerCase())
-  )
-}
-
-export function appForExtension(extension: string) {
-  return imageExtensions.has(extension.toLowerCase()) ? 'photos' : undefined
-}
-
-function toPhoto(node: FileNode & { src: string }, path: FolderPath): Photo {
+export function photoFromFile(file: FileNode, path: FolderPath): Photo {
   return {
-    name: node.name,
-    extension: node.extension,
-    src: node.src,
+    name: file.name,
+    extension: file.extension,
+    src: file.src,
     path,
-    date: node.date,
+    date: file.date,
   }
-}
-
-export function photoFromNode(node: FsNode, path: FolderPath): Photo | null {
-  return isImageFile(node) ? toPhoto(node, path) : null
 }
 
 function collectPhotos(folder: FolderNode, path: FolderPath): Photo[] {
   const photos: Photo[] = []
   for (const child of folder.children) {
-    if (isImageFile(child)) {
-      photos.push(toPhoto(child, path))
-    } else if (child.type === 'folder') {
+    if (child.type === 'folder') {
       photos.push(...collectPhotos(child, [...path, child.name]))
+    } else if (isImageFile(child)) {
+      photos.push(photoFromFile(child, path))
     }
   }
   return photos
@@ -115,11 +92,10 @@ export function photoFolders(
   const children: PhotoFolder[] = []
   let images = false
   for (const child of folder.children) {
-    if (isImageFile(child)) images = true
-    else if (child.type === 'folder') {
+    if (child.type === 'folder') {
       const next = photoFolders(child, [...path, child.name])
       if (next) children.push(next)
-    }
+    } else if (isImageFile(child)) images = true
   }
   if (!images && children.length === 0) return null
   return { folder, path, children }

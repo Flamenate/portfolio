@@ -1,10 +1,11 @@
 // @vitest-environment jsdom
-import { act, cleanup, render } from '@testing-library/react'
+import { act, cleanup, fireEvent, render, screen } from '@testing-library/react'
 import { afterEach, beforeEach, describe, expect, it } from 'vitest'
 import { FileExplorer } from '@/components/apps/file-explorer'
 import { TooltipProvider } from '@/components/ui/tooltip'
 import { useAppStore } from '@/stores/app.store'
 import { EXPLORER_APP_LABEL, useExplorerStore } from '@/stores/explorer.store'
+import { usePdfStore } from '@/stores/pdf.store'
 
 const explorer = () => useExplorerStore.getState()
 const windowTitle = () => useAppStore.getState().apps[EXPLORER_APP_LABEL].title
@@ -38,5 +39,27 @@ describe('FileExplorer window', () => {
 
     expect(explorer().location.path).toEqual(['documents'])
     expect(windowTitle()).toBe('documents')
+  })
+})
+
+describe('opening a PDF from the file explorer', () => {
+  beforeEach(() => {
+    useAppStore.setState(useAppStore.getInitialState(), true)
+    usePdfStore.setState(usePdfStore.getInitialState(), true)
+    explorer().reset()
+  })
+  afterEach(cleanup)
+
+  it('opens Gymnast on the PDF and records it as most recent', () => {
+    act(() => explorer().navigate(['documents']))
+    render(<FileExplorer />, { wrapper: TooltipProvider })
+
+    fireEvent.doubleClick(screen.getByText('EF SET Certificate.pdf'))
+
+    expect(useAppStore.getState().apps.gymnast_pdf.state).toBe('open')
+    expect(usePdfStore.getState().recent[0]).toMatchObject({
+      src: '/documents/EF SET Certificate.pdf',
+      path: ['documents'],
+    })
   })
 })

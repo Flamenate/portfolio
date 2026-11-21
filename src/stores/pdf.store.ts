@@ -1,7 +1,6 @@
 import { create } from 'zustand/react'
-import { getFolder } from '@/lib/directories'
 import type { FolderPath } from '@/lib/directories'
-import { pdfId, pdfsIn } from '@/lib/pdfs'
+import { pdfEntry } from '@/lib/pdfs'
 import { useAppStore } from './app.store'
 
 export type PdfEntry = {
@@ -12,20 +11,6 @@ export type PdfEntry = {
   path: FolderPath | null
   openedAt: string | null
   size: number | null
-}
-
-function seedRecent(): PdfEntry[] {
-  const documents = getFolder(['documents'])
-  if (!documents) return []
-  return pdfsIn(documents, ['documents']).map((file) => ({
-    id: pdfId(file),
-    name: file.name,
-    extension: file.extension,
-    src: file.src,
-    path: file.path,
-    openedAt: null,
-    size: null,
-  }))
 }
 
 type PdfStore = {
@@ -39,7 +24,20 @@ type PdfStore = {
 }
 
 export const usePdfStore = create<PdfStore>()((set, get) => ({
-  recent: seedRecent(),
+  recent: [
+    pdfEntry({
+      name: 'Haythem_FRIKHA_ENG',
+      extension: 'pdf',
+      src: '/documents/Haythem_FRIKHA_ENG.pdf',
+      path: ['documents'],
+    }),
+    pdfEntry({
+      name: 'Haythem_FRIKHA_FR',
+      extension: 'pdf',
+      src: '/documents/Haythem_FRIKHA_FR.pdf',
+      path: ['documents'],
+    }),
+  ],
   requested: null,
   recordOpen: (entry) =>
     set((state) => {

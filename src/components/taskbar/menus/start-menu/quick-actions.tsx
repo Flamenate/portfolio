@@ -11,7 +11,7 @@ import { resume } from '@/data/personal'
 import useLocalize from '@/hooks/useLocalize'
 import { fileLabel, getFolder } from '@/lib/directories'
 import type { FolderPath } from '@/lib/directories'
-import { pdfId, pdfsIn } from '@/lib/pdfs'
+import { pdfEntry, pdfsIn } from '@/lib/pdfs'
 import { cn } from '@/lib/utils'
 import { useMailStore } from '@/stores/mail.store'
 import { useNotificationStore } from '@/stores/notification.store'
@@ -40,12 +40,7 @@ export function QuickActions({ onAction }: { onAction: () => void }) {
 
   const viewResume = () => {
     if (!file) return
-    usePdfStore.getState().openPdf({
-      ...file,
-      id: pdfId(file),
-      openedAt: null,
-      size: null,
-    })
+    usePdfStore.getState().openPdf(pdfEntry(file))
     onAction()
   }
   const contact = () => {

@@ -17,7 +17,7 @@ import { root } from '@/data/directories'
 import useLocalize from '@/hooks/useLocalize'
 import { fileLabel, getFolder, pathKey } from '@/lib/directories'
 import type { FolderPath } from '@/lib/directories'
-import { pdfFolders, pdfId, pdfsIn } from '@/lib/pdfs'
+import { pdfEntry, pdfFolders, pdfId, pdfsIn } from '@/lib/pdfs'
 import { cn } from '@/lib/utils'
 import { usePdfStore } from '@/stores/pdf.store'
 import type { PdfEntry } from '@/stores/pdf.store'
@@ -89,18 +89,7 @@ function entriesIn(path: FolderPath, recent: PdfEntry[]): PdfEntry[] {
   if (!folder) return []
   return pdfsIn(folder, path).map((file) => {
     const id = pdfId(file)
-    const known = recent.find((item) => item.id === id)
-    return (
-      known ?? {
-        id,
-        name: file.name,
-        extension: file.extension,
-        src: file.src,
-        path: file.path,
-        openedAt: null,
-        size: null,
-      }
-    )
+    return recent.find((item) => item.id === id) ?? pdfEntry(file)
   })
 }
 

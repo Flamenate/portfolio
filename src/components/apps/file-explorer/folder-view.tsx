@@ -1,11 +1,13 @@
 import { useState } from 'react'
 import useLocalize from '@/hooks/useLocalize'
-import { fileLabel } from '@/lib/directories'
+import { appForExtension, fileIconSrc, fileLabel } from '@/lib/directories'
 import type { FolderNode, FolderPath, FsNode } from '@/lib/directories'
-import { appForExtension, isImageFile, photoFromNode } from '@/lib/photos'
+import { pdfEntry } from '@/lib/pdfs'
+import { photoFromFile } from '@/lib/photos'
 import { cn } from '@/lib/utils'
 import useAppStore from '@/stores/app.store'
 import { useExplorerStore } from '@/stores/explorer.store'
+import { usePdfStore } from '@/stores/pdf.store'
 import { usePhotosStore } from '@/stores/photos.store'
 
 function nodeKey(node: FsNode) {
@@ -15,18 +17,10 @@ function nodeKey(node: FsNode) {
 }
 
 function ItemIcon({ node }: { node: FsNode }) {
-  const extension = node.type === 'file' ? node.extension : null
-  const appIcon = useAppStore((state) => {
-    if (!extension) return undefined
-    const label = appForExtension(extension)
-    return label ? state.apps[label].iconSrc : undefined
-  })
   const iconSrc =
     node.type === 'folder'
       ? (node.iconSrc ?? '/media/icons/folder.webp')
-      : isImageFile(node)
-        ? node.src
-        : (appIcon ?? '/media/icons/placeholder.webp')
+      : fileIconSrc(node)
   return (
     <img
       src={iconSrc}
@@ -50,6 +44,7 @@ export function FolderView({
   const navigate = useExplorerStore((state) => state.navigate)
   const openApp = useAppStore((state) => state.openApp)
   const openPhoto = usePhotosStore((state) => state.openPhoto)
+  const openPdf = usePdfStore((state) => state.openPdf)
   const [selected, setSelected] = useState<number | null>(null)
 
   if (folder.children.length === 0) {
@@ -63,14 +58,10 @@ export function FolderView({
       navigate([...path, node.name])
       return
     }
-    const photo = photoFromNode(node, path)
-    if (photo) {
-      openPhoto(photo)
-      return
-    }
     const label = appForExtension(node.extension)
-    if (!label) return
-    openApp(label, { title: fileLabel(node) })
+    if (label === 'photos') openPhoto(photoFromFile(node, path))
+    else if (label === 'gymnast_pdf') openPdf(pdfEntry({ ...node, path }))
+    else if (label) openApp(label, { title: fileLabel(node) })
   }
 
   return (
