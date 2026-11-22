@@ -8,7 +8,7 @@ if (!proxyOrigin || !portfolioOrigin) {
   throw new Error('VITE_PROXY_ORIGIN and VITE_DOMAIN must be set')
 }
 
-const { handleRequest, handleUpgrade } = await createProxyRouter({
+const { handleRequest, handleUpgrade } = createProxyRouter({
   proxyOrigin,
   portfolioOrigin,
 })

@@ -24,16 +24,21 @@ function post(message) {
   parent.postMessage(message, portfolioOrigin)
 }
 
-function loadBootstrapScript() {
-  if ('initBootstrap' in window) return Promise.resolve()
+function loadScript(src) {
   return new Promise((resolve, reject) => {
     const script = document.createElement('script')
-    script.src = '/bootstrap-init.js'
+    script.src = src
     script.onload = () => resolve()
-    script.onerror = () =>
-      reject(new Error('Failed to load /bootstrap-init.js'))
+    script.onerror = () => reject(new Error(`Failed to load ${src}`))
     document.head.append(script)
   })
+}
+
+async function registerServiceWorker() {
+  await navigator.serviceWorker.register('/sw.js', { updateViaCache: 'none' })
+  const { active } = await navigator.serviceWorker.ready
+  if (!active) throw new Error('No active service worker')
+  return active
 }
 
 let controllerPromise
@@ -46,9 +51,22 @@ function getController() {
   return controllerPromise
 }
 
+// Paths are served by proxy/server.js.
 async function initController() {
-  await loadBootstrapScript()
-  const controller = await window.initBootstrap()
+  const serviceworker = await registerServiceWorker()
+  // scramjet-utils reads the globals the scramjet and controller bundles define.
+  await loadScript('/scram/scramjet.js')
+  await loadScript('/controller/controller.api.js')
+  await loadScript('/scram/scramjet-utils.js')
+  await loadScript('/clients/libcurl-client.js')
+  const { Controller, config } = globalThis.$scramjetController
+  config.scramjetPath = '/scram/scramjet.js'
+  config.wasmPath = '/scram/scramjet.wasm'
+  config.injectPath = '/controller/controller.inject.js'
+  const transport = new globalThis.LibcurlTransport.LibcurlClient({
+    wisp: `${location.protocol === 'https:' ? 'wss:' : 'ws:'}//${location.host}/wisp/`,
+  })
+  const controller = new Controller({ serviceworker, transport })
   await controller.wait()
   // The service worker only keeps its frame registry in memory, so the request
   // that wakes it after an idle shutdown bypasses the proxy and 404s.
@@ -232,7 +250,6 @@ async function start(url) {
   const controller = await getController()
   frame = await controller.createFrame(view, {
     plugins: [
-      new globalThis.$scramjetUtils.HttpCachePlugin(),
       new globalThis.$scramjetUtils.UrlWatcherPlugin((next) => {
         post({ type: 'url', url: String(next) })
       }),

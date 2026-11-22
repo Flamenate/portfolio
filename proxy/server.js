@@ -1,10 +1,55 @@
 import { readFileSync } from 'node:fs'
 import { dirname, join } from 'node:path'
 import { fileURLToPath } from 'node:url'
-import { bootstrap } from '@mercuryworkshop/proxy-bootstrap'
 import { server as wisp } from '@mercuryworkshop/wisp-js/server'
 
 const directory = dirname(fileURLToPath(import.meta.url))
+
+// Every package entry point lives in its dist folder, next to the browser bundles.
+function distFile(specifier, file) {
+  return join(dirname(fileURLToPath(import.meta.resolve(specifier))), file)
+}
+
+// Served from node_modules so the versions pinned in package.json are the ones
+// that run. Keep the paths in sync with shell.js.
+const assetFiles = {
+  '/scram/scramjet.js': [
+    distFile('@mercuryworkshop/scramjet', 'scramjet.js'),
+    'application/javascript; charset=utf-8',
+  ],
+  '/scram/scramjet.wasm': [
+    distFile('@mercuryworkshop/scramjet', 'scramjet.wasm'),
+    'application/wasm',
+  ],
+  '/scram/scramjet-utils.js': [
+    distFile('@mercuryworkshop/scramjet-utils', 'scramjet-utils.js'),
+    'application/javascript; charset=utf-8',
+  ],
+  '/controller/controller.api.js': [
+    distFile('@mercuryworkshop/scramjet-controller', 'controller.api.js'),
+    'application/javascript; charset=utf-8',
+  ],
+  '/controller/controller.inject.js': [
+    distFile('@mercuryworkshop/scramjet-controller', 'controller.inject.js'),
+    'application/javascript; charset=utf-8',
+  ],
+  '/controller/controller.sw.js': [
+    distFile('@mercuryworkshop/scramjet-controller', 'controller.sw.js'),
+    'application/javascript; charset=utf-8',
+  ],
+  '/clients/libcurl-client.js': [
+    distFile('@mercuryworkshop/libcurl-transport', 'index.js'),
+    'application/javascript; charset=utf-8',
+  ],
+}
+
+const serviceWorker = `importScripts('/controller/controller.sw.js')
+addEventListener('fetch', (event) => {
+  if ($scramjetController.shouldRoute(event)) {
+    event.respondWith($scramjetController.route(event))
+  }
+})
+`
 
 // Replaces a Scramjet worker left on the portfolio origin by older builds.
 const killSwitch = `self.addEventListener('install', (event) => {
@@ -16,19 +61,6 @@ self.addEventListener('activate', (event) => {
   )
 })
 `
-
-function assertSharedWisp() {
-  const fromApp = import.meta.resolve('@mercuryworkshop/wisp-js/server')
-  const fromBootstrap = import.meta.resolve(
-    '@mercuryworkshop/wisp-js/server',
-    import.meta.resolve('@mercuryworkshop/proxy-bootstrap'),
-  )
-  if (fromApp !== fromBootstrap) {
-    throw new Error(
-      `wisp-js is loaded twice, so the port and UDP limits would not apply.\nApp: ${fromApp}\nBootstrap: ${fromBootstrap}`,
-    )
-  }
-}
 
 function originOf(value, label) {
   try {
@@ -62,8 +94,7 @@ function sameOrigin(header, origin) {
   }
 }
 
-export async function createProxyRouter({ proxyOrigin, portfolioOrigin }) {
-  assertSharedWisp()
+export function createProxyRouter({ proxyOrigin, portfolioOrigin }) {
   const proxy = originOf(proxyOrigin, 'VITE_PROXY_ORIGIN')
   const portfolio = originOf(portfolioOrigin, 'portfolio origin')
   if (proxy === portfolio) {
@@ -76,7 +107,12 @@ export async function createProxyRouter({ proxyOrigin, portfolioOrigin }) {
   wisp.options.allow_udp_streams = false
   wisp.options.port_whitelist = [80, 443]
 
-  const { routeRequest, routeUpgrade } = await bootstrap()
+  const assets = new Map(
+    Object.entries(assetFiles).map(([path, [file, type]]) => [
+      path,
+      { body: readFileSync(file), type },
+    ]),
+  )
 
   function isProxyHost(req) {
     const host = req.headers.host
@@ -118,7 +154,22 @@ export async function createProxyRouter({ proxyOrigin, portfolioOrigin }) {
       return true
     }
 
-    if (routeRequest(req, res)) return true
+    if (path === '/sw.js') {
+      res.writeHead(200, {
+        'Content-Type': 'application/javascript; charset=utf-8',
+        'Cache-Control': 'no-cache',
+      })
+      res.end(serviceWorker)
+      return true
+    }
+
+    const asset = assets.get(path)
+    if (asset) {
+      res.writeHead(200, { 'Content-Type': asset.type })
+      res.end(asset.body)
+      return true
+    }
+
     res.writeHead(404, { 'Content-Type': 'text/plain; charset=utf-8' })
     res.end('Not found')
     return true
@@ -128,7 +179,8 @@ export async function createProxyRouter({ proxyOrigin, portfolioOrigin }) {
     if (!isProxyHost(req)) return false
     const path = pathnameOf(req.url)
     if (path === '/wisp/' && sameOrigin(req.headers.origin, proxy)) {
-      return routeUpgrade(req, socket, head)
+      wisp.routeRequest(req, socket, head)
+      return true
     }
     socket.destroy()
     return true

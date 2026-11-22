@@ -11,13 +11,13 @@ function scramjetProxy(): Plugin {
   return {
     name: 'scramjet-proxy',
     apply: 'serve',
-    async configureServer(server) {
+    configureServer(server) {
       const env = loadEnv(server.config.mode, process.cwd(), '')
       const proxyOrigin = env.VITE_PROXY_ORIGIN
       if (!proxyOrigin) throw new Error('VITE_PROXY_ORIGIN must be set')
       // VITE_DOMAIN is the public site URL. The dev server is opened on localhost.
       const port = server.config.server.port
-      const { handleRequest, handleUpgrade } = await createProxyRouter({
+      const { handleRequest, handleUpgrade } = createProxyRouter({
         proxyOrigin,
         portfolioOrigin: `http://localhost:${port}`,
       })
