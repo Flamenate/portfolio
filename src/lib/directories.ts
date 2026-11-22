@@ -1,6 +1,6 @@
 import { root } from '@/data/directories'
 import type { AppLabel } from '@/lib/apps'
-import type { TranslationKey } from '@/lib/localize'
+import type { TranslationKey } from '@/lib/locale'
 
 export type FileNode = {
   type: 'file'

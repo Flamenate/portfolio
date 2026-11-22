@@ -9,7 +9,7 @@ import {
   SelectValue,
 } from '@/components/ui/select'
 import { WindowLoading } from '@/components/ui/window-loading'
-import useLocalize from '@/hooks/useLocalize'
+import useLocale from '@/hooks/useLocale'
 import useLocalStorage from '@/hooks/useLocalStorage'
 import { GITHUB_USER } from '@/lib/github/repos'
 import type { Repo } from '@/lib/github/repos'
@@ -26,7 +26,7 @@ function pickRepo(repos: Repo[], saved: string) {
 }
 
 export function VSCope() {
-  const localize = useLocalize()
+  const locale = useLocale()
   const setAppTitle = useAppStore((state) => state.setAppTitle)
   const { data: repos, isError } = useQuery(reposQuery)
   const [savedRepo, setSavedRepo] = useLocalStorage('vscopeRepo', DEFAULT_REPO)
@@ -37,7 +37,7 @@ export function VSCope() {
   else if (isError) repo = DEFAULT_REPO
 
   const options = repos ?? [{ name: repo, fork: false }]
-  const title = localize('vscope')
+  const title = locale.text('vscope')
 
   useLayoutEffect(() => {
     setAppTitle('vscope', `${repo} - ${title}`)
@@ -54,7 +54,7 @@ export function VSCope() {
         <Select value={repo} onValueChange={selectRepo} disabled={!repos}>
           <SelectTrigger
             size="sm"
-            aria-label={localize('vscope_select_project')}
+            aria-label={locale.text('vscope_select_project')}
             className="min-w-48"
           >
             <SelectValue />

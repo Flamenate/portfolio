@@ -1,5 +1,5 @@
 import { dms } from '@/data/concord/dms'
-import useLocalize from '@/hooks/useLocalize'
+import useLocale from '@/hooks/useLocale'
 import { getUser } from '@/lib/concord/helpers'
 import { cn } from '@/lib/utils'
 import { PresenceAvatar } from './status-dot'
@@ -13,12 +13,14 @@ export function DmSidebar({
   onSelect: (userId: string) => void
   className?: string
 }) {
-  const localize = useLocalize()
+  const locale = useLocale()
 
   return (
     <div className={cn('flex flex-col', className)}>
       <h2 className="flex h-14 shrink-0 items-center border-b border-muted-foreground/30 px-4 font-semibold">
-        <span className="truncate">{localize('concord_direct_messages')}</span>
+        <span className="truncate">
+          {locale.text('concord_direct_messages')}
+        </span>
       </h2>
       <ul className="flex min-h-0 grow flex-col gap-0.5 overflow-y-auto p-2">
         {dms.map((dm) => {

@@ -1,5 +1,5 @@
 import { create } from 'zustand/react'
-import type { TranslationSuffix } from '@/lib/localize'
+import type { TranslationSuffix } from '@/lib/locale'
 
 interface LogAction {
   when: Date

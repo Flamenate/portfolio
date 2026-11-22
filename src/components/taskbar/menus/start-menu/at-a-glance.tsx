@@ -5,22 +5,22 @@ import {
   TooltipTrigger,
 } from '@/components/ui/tooltip'
 import { resume } from '@/data/personal'
-import useLocalize from '@/hooks/useLocalize'
+import useLocale from '@/hooks/useLocale'
 
 const currentYear = new Date().getFullYear()
 
 function Timeline() {
-  const localize = useLocalize()
+  const locale = useLocale()
   const milestones = [
     ...resume.education.map((entry) => ({
       start: entry.start,
       title: entry.institution.split(' - ')[0],
-      detail: `${entry.institution} · ${localize(entry.degree)}`,
+      detail: `${entry.institution} · ${locale.text(entry.degree)}`,
     })),
     ...resume.experience.map((entry) => ({
       start: entry.period.start,
       title: entry.company,
-      detail: `${localize(entry.role)} · ${entry.company}`,
+      detail: `${locale.text(entry.role)} · ${entry.company}`,
     })),
   ].toSorted((a, b) => a.start.getTime() - b.start.getTime())
 
@@ -58,7 +58,7 @@ function Timeline() {
           <span className="relative inline-flex size-full rounded-full bg-accent" />
         </span>
         <span className="text-xs font-semibold">
-          {localize('start_menu_now')}
+          {locale.text('start_menu_now')}
         </span>
       </li>
     </ol>
@@ -66,16 +66,16 @@ function Timeline() {
 }
 
 export function AtAGlance() {
-  const localize = useLocalize()
+  const locale = useLocale()
   return (
     <article className="flex flex-col gap-1.5 rounded-md border bg-popover/40 px-4 py-3">
       <h2 className="text-xs font-semibold tracking-wider text-muted-foreground uppercase">
-        {localize('start_menu_at_a_glance')}
+        {locale.text('start_menu_at_a_glance')}
       </h2>
-      <p className="text-sm leading-relaxed">{localize('start_menu_bio')}</p>
+      <p className="text-sm leading-relaxed">{locale.text('start_menu_bio')}</p>
       <p className="mb-1.5 flex items-center gap-1 text-xs text-muted-foreground">
         <LocationRegular className="size-3.5" />
-        {localize('tunisia')} → {localize('france')}
+        {locale.text('tunisia')} → {locale.text('france')}
       </p>
       <Timeline />
     </article>

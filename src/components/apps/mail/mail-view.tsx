@@ -1,10 +1,9 @@
-import { format } from 'date-fns'
 import { Avatar } from '@/components/ui/avatar'
 import type { Mail } from '@/data/mails'
-import { datefnsLocales, useThemeStore } from '@/stores/theme.store'
+import useLocale from '@/hooks/useLocale'
 
 export function MailView({ mail }: { mail: Mail }) {
-  const locale = useThemeStore((state) => state.locale)
+  const locale = useLocale()
 
   return (
     <article className="flex min-h-0 grow flex-col overflow-y-auto p-4 select-text">
@@ -19,7 +18,7 @@ export function MailView({ mail }: { mail: Mail }) {
             </span>
           </p>
           <p className="text-xs opacity-60" suppressHydrationWarning>
-            {format(mail.date, 'PPPP p', { locale: datefnsLocales[locale] })}
+            {locale.date(mail.date, 'PPPP p')}
           </p>
         </div>
       </header>

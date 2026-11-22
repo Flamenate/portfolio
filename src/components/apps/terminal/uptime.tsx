@@ -1,6 +1,5 @@
 import { formatDuration } from 'date-fns'
 import type { Command } from '@/lib/terminal-commands'
-import { datefnsLocales } from '@/stores/theme.store'
 
 export const uptimeCommand: Command = ({ locale }) => {
   const uptime = performance.now()
@@ -17,7 +16,7 @@ export const uptimeCommand: Command = ({ locale }) => {
   return (
     <p>
       {formatDuration(duration, {
-        locale: datefnsLocales[locale],
+        locale: locale.dateFns,
       })}
     </p>
   )

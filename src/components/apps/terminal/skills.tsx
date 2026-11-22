@@ -1,5 +1,4 @@
 import { skills } from '@/data/personal'
-import localize from '@/lib/localize'
 import type { Command } from '@/lib/terminal-commands'
 
 const columns = [
@@ -13,14 +12,14 @@ export const skillsCommand: Command = ({ args, locale }) => {
   const skillType = args[0]?.toLowerCase()
   const list = (key: (typeof columns)[number]['key']) =>
     key === 'soft'
-      ? skills.soft.map((skill) => localize(skill, locale))
+      ? skills.soft.map((skill) => locale.text(skill))
       : skills[key]
 
   const selected = skillType
     ? columns.filter((column) => column.arg === skillType)
     : columns
   if (selected.length === 0) {
-    return <p>{localize('terminal_invalid_skilltype', locale)}</p>
+    return <p>{locale.text('terminal_invalid_skilltype')}</p>
   }
 
   const lists = selected.map((column) => list(column.key))

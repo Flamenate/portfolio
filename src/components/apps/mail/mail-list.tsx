@@ -1,9 +1,8 @@
-import { format, isToday } from 'date-fns'
+import { isToday } from 'date-fns'
 import { Avatar } from '@/components/ui/avatar'
 import type { Mail } from '@/data/mails'
-import useLocalize from '@/hooks/useLocalize'
+import useLocale from '@/hooks/useLocale'
 import { cn } from '@/lib/utils'
-import { datefnsLocales, useThemeStore } from '@/stores/theme.store'
 
 export function MailList({
   mails,
@@ -14,13 +13,12 @@ export function MailList({
   selectedId: string | null
   onSelect: (id: string) => void
 }) {
-  const localize = useLocalize()
-  const locale = useThemeStore((state) => state.locale)
+  const locale = useLocale()
 
   if (mails.length === 0) {
     return (
       <p className="mt-6 text-center opacity-60">
-        {localize('mail_empty_folder')}
+        {locale.text('mail_empty_folder')}
       </p>
     )
   }
@@ -48,9 +46,7 @@ export function MailList({
                   className="shrink-0 text-xs opacity-60"
                   suppressHydrationWarning
                 >
-                  {format(mail.date, isToday(mail.date) ? 'p' : 'P', {
-                    locale: datefnsLocales[locale],
-                  })}
+                  {locale.date(mail.date, isToday(mail.date) ? 'p' : 'P')}
                 </span>
               </div>
               <p className="truncate">{mail.subject}</p>

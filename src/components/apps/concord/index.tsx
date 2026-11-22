@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { dms } from '@/data/concord/dms'
 import { servers } from '@/data/concord/servers'
-import useLocalize from '@/hooks/useLocalize'
+import useLocale from '@/hooks/useLocale'
 import {
   conversationKey,
   firstTextChannel,
@@ -56,7 +56,7 @@ function resolveTarget(conversation: Conversation | null): ChatTarget | null {
 }
 
 export function Concord() {
-  const localize = useLocalize()
+  const locale = useLocale()
   const [selection, setSelection] = useState(() => selectionFor(servers.at(0)))
   const [chatOpen, setChatOpen] = useState(false)
   const [showMembers, setShowMembers] = useState(true)
@@ -83,7 +83,7 @@ export function Concord() {
   return (
     <div className="flex h-full bg-popover/50 text-sm text-popover-foreground">
       <nav
-        aria-label={localize('concord')}
+        aria-label={locale.text('concord')}
         className={cn(
           'flex min-h-0 min-w-0 grow flex-col @md:shrink-0 @md:grow-0',
           chatOpen && 'hidden @md:flex',

@@ -1,4 +1,4 @@
-import type { TranslationKey } from '@/lib/localize'
+import type { TranslationKey } from '@/lib/locale'
 
 export type Link = {
   label: string
@@ -43,7 +43,7 @@ export type WorkExperience = {
 export type Project = {
   title: TranslationKey
   period: Period
-  summary: string
+  summary: TranslationKey
   tech: TechnologyStack
   details?: string[]
   status?: 'ongoing' | 'completed'

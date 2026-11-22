@@ -3,7 +3,7 @@ import { NumberSymbolRegular } from '@fluentui/react-icons/headless/svg/number-s
 import { PeopleRegular } from '@fluentui/react-icons/headless/svg/people'
 import { useRef } from 'react'
 import { NavButton } from '@/components/ui/nav-button'
-import useLocalize from '@/hooks/useLocalize'
+import useLocale from '@/hooks/useLocale'
 import type {
   Message,
   NonEmpty,
@@ -30,10 +30,10 @@ function MembersToggle({
   pressed: boolean
   onClick: () => void
 }) {
-  const localize = useLocalize()
+  const locale = useLocale()
   return (
     <NavButton
-      label={localize('concord_members')}
+      label={locale.text('concord_members')}
       aria-pressed={pressed}
       onClick={onClick}
     >
@@ -66,7 +66,7 @@ export function Chat({
   onBack: () => void
   className?: string
 }) {
-  const localize = useLocalize()
+  const locale = useLocale()
   const sent = useConcordStore((state) => state.sent[target.key])
   const send = useConcordStore((state) => state.send)
   const scrollRef = useRef<HTMLDivElement>(null)
@@ -86,7 +86,7 @@ export function Chat({
     >
       <header className="flex h-14 shrink-0 items-center gap-2 border-b border-muted-foreground/30 px-1">
         <div className="shrink-0 @md:hidden">
-          <NavButton label={localize('back')} onClick={onBack}>
+          <NavButton label={locale.text('back')} onClick={onBack}>
             <ArrowLeftRegular className="size-4 text-foreground dark:text-(--white)" />
           </NavButton>
         </div>
@@ -149,11 +149,11 @@ export function Chat({
           </div>
           {target.type === 'channel' && target.channel.restricted ? (
             <p className="mx-4 mb-2 flex min-h-14 shrink-0 items-center rounded-md border border-muted-foreground/15 bg-muted-foreground/15 px-4 text-muted-foreground">
-              {localize('concord_restricted')}
+              {locale.text('concord_restricted')}
             </p>
           ) : (
             <Composer
-              placeholder={localize('concord_message_placeholder', title)}
+              placeholder={locale.text('concord_message_placeholder', title)}
               onSend={(content) => {
                 send(target.key, content)
                 scrollRef.current?.scrollTo({ top: 0 })

@@ -1,7 +1,7 @@
 import { lazy } from 'react'
 import type { ComponentType, LazyExoticComponent } from 'react'
 import { DEFAULT_WINDOW_COORDINATES } from '@/lib/constants'
-import type { TranslationKey } from '@/lib/localize'
+import type { TranslationKey } from '@/lib/locale'
 import type { AppRecord } from '@/stores/app.store'
 
 type AppDefinition = {

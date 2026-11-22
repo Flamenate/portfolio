@@ -8,7 +8,7 @@ import {
   TooltipTrigger,
 } from '@/components/ui/tooltip'
 import { resume } from '@/data/personal'
-import useLocalize from '@/hooks/useLocalize'
+import useLocale from '@/hooks/useLocale'
 import { fileLabel, getFolder } from '@/lib/directories'
 import type { FolderPath } from '@/lib/directories'
 import { pdfEntry, pdfsIn } from '@/lib/pdfs'
@@ -16,7 +16,6 @@ import { cn } from '@/lib/utils'
 import { useMailStore } from '@/stores/mail.store'
 import { useNotificationStore } from '@/stores/notification.store'
 import { usePdfStore } from '@/stores/pdf.store'
-import useThemeStore from '@/stores/theme.store'
 import type { Locale } from '@/stores/theme.store'
 import { StartMenuSection } from './section'
 
@@ -34,9 +33,8 @@ const actionClassName =
   'flex items-center gap-2 rounded-sm border bg-popover/40 hover-shade px-3 py-2 text-sm'
 
 export function QuickActions({ onAction }: { onAction: () => void }) {
-  const localize = useLocalize()
-  const locale = useThemeStore((state) => state.locale)
-  const file = resumeFile(locale)
+  const locale = useLocale()
+  const file = resumeFile(locale.code)
 
   const viewResume = () => {
     if (!file) return
@@ -64,7 +62,7 @@ export function QuickActions({ onAction }: { onAction: () => void }) {
   }
 
   return (
-    <StartMenuSection title={localize('start_menu_quick_actions')}>
+    <StartMenuSection title={locale.text('start_menu_quick_actions')}>
       <div className="flex flex-wrap gap-2">
         {file && (
           <div className="flex">
@@ -74,32 +72,32 @@ export function QuickActions({ onAction }: { onAction: () => void }) {
               onClick={viewResume}
             >
               <DocumentPdfRegular className="size-4.5" />
-              {localize('start_menu_view_resume')}
+              {locale.text('start_menu_view_resume')}
             </button>
             <Tooltip delayDuration={300}>
               <TooltipTrigger asChild>
                 <a
                   href={file.src}
                   download={fileLabel(file)}
-                  aria-label={localize('start_menu_download_resume')}
+                  aria-label={locale.text('start_menu_download_resume')}
                   className={cn(actionClassName, 'rounded-l-none border-l-0')}
                 >
                   <ArrowDownloadRegular className="size-4.5" />
                 </a>
               </TooltipTrigger>
               <TooltipContent>
-                {localize('start_menu_download_resume')}
+                {locale.text('start_menu_download_resume')}
               </TooltipContent>
             </Tooltip>
           </div>
         )}
         <button type="button" className={actionClassName} onClick={contact}>
           <MailEditRegular className="size-4.5" />
-          {localize('start_menu_contact_me')}
+          {locale.text('start_menu_contact_me')}
         </button>
         <button type="button" className={actionClassName} onClick={copyEmail}>
           <CopyRegular className="size-4.5" />
-          {localize('start_menu_copy_email')}
+          {locale.text('start_menu_copy_email')}
         </button>
       </div>
     </StartMenuSection>

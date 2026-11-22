@@ -1,8 +1,5 @@
-import { format } from 'date-fns'
 import { resume } from '@/data/personal'
-import localize from '@/lib/localize'
 import type { Command } from '@/lib/terminal-commands'
-import { datefnsLocales } from '@/stores/theme.store'
 
 export const educationCommand: Command = ({ locale }) => {
   const education = resume.education
@@ -10,15 +7,15 @@ export const educationCommand: Command = ({ locale }) => {
     <table>
       <caption className="mt-1 caption-bottom">
         <span className="border p-1">
-          {localize('terminal_education_caption', locale)}
+          {locale.text('terminal_education_caption')}
         </span>
       </caption>
       <thead>
         <tr className="[&>th]:px-2">
-          <th>{localize('terminal_education_institution', locale)}</th>
-          <th>{localize('terminal_project_date', locale)}</th>
-          <th>{localize('terminal_education_notes', locale)}</th>
-          <th>{localize('terminal_education_degree', locale)}</th>
+          <th>{locale.text('terminal_education_institution')}</th>
+          <th>{locale.text('terminal_project_date')}</th>
+          <th>{locale.text('terminal_education_notes')}</th>
+          <th>{locale.text('terminal_education_degree')}</th>
         </tr>
       </thead>
       <tbody>
@@ -29,16 +26,11 @@ export const educationCommand: Command = ({ locale }) => {
           >
             <td>{entry.institution}</td>
             <td>
-              {format(entry.start, 'MMM yyyy', {
-                locale: datefnsLocales[locale],
-              })}{' '}
-              -{' '}
-              {format(entry.end, 'MMM yyyy', {
-                locale: datefnsLocales[locale],
-              })}
+              {locale.date(entry.start, 'MMM yyyy')} -{' '}
+              {locale.date(entry.end, 'MMM yyyy')}
             </td>
-            <td>{entry.notes && localize(entry.notes, locale)}</td>
-            <td>{localize(entry.degree, locale)}</td>
+            <td>{entry.notes && locale.text(entry.notes)}</td>
+            <td>{locale.text(entry.degree)}</td>
           </tr>
         ))}
       </tbody>

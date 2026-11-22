@@ -10,7 +10,7 @@ import {
   AlertDialogFooter,
   AlertDialogTitle,
 } from '@/components/ui/alert-dialog'
-import useLocalize from '@/hooks/useLocalize'
+import useLocale from '@/hooks/useLocale'
 import { fileLabel } from '@/lib/directories'
 import type { FileNode } from '@/lib/directories'
 
@@ -21,7 +21,7 @@ export function UnsupportedFileDialog({
   file: FileNode | null
   onClose: () => void
 }) {
-  const localize = useLocalize()
+  const locale = useLocale()
   const okRef = useRef<HTMLButtonElement>(null)
   const returnFocusRef = useRef<HTMLElement | null>(null)
   // Keeps the title during the close animation, after file is cleared.
@@ -57,7 +57,7 @@ export function UnsupportedFileDialog({
           <AlertDialogCancel
             variant="ghost"
             className="h-full rounded-none border-0 px-3 shadow-none hover:bg-destructive has-[>svg]:px-3"
-            aria-label={localize('close')}
+            aria-label={locale.text('close')}
           >
             <DismissRegular className="size-4" />
           </AlertDialogCancel>
@@ -65,12 +65,12 @@ export function UnsupportedFileDialog({
         <div className="flex items-center gap-3 px-4 py-5">
           <WarningFilled className="size-8 shrink-0 text-amber-500" />
           <AlertDialogDescription className="text-popover-foreground">
-            {localize('unsupported_file_format')}
+            {locale.text('unsupported_file_format')}
           </AlertDialogDescription>
         </div>
         <AlertDialogFooter className="mx-0 mb-0 flex-row justify-end rounded-none bg-black/5 px-4 py-3 dark:bg-black/20">
           <AlertDialogAction ref={okRef} className="min-w-20">
-            {localize('ok')}
+            {locale.text('ok')}
           </AlertDialogAction>
         </AlertDialogFooter>
       </AlertDialogContent>

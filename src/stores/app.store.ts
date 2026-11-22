@@ -21,6 +21,7 @@ export type WindowCoordinates = {
 export type AppRecord = {
   label: AppLabel
   iconSrc: string
+  // Literal text (e.g. an open File's label) shown instead of the App's label.
   title: string | null
   state: WindowState
   coordinates: WindowCoordinates

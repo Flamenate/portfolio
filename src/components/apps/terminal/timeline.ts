@@ -1,8 +1,4 @@
-import { format } from 'date-fns'
 import type { Period, TechnologyStack } from '@/data/personal'
-import localize from '@/lib/localize'
-import { datefnsLocales } from '@/stores/theme.store'
-import type { Locale } from '@/stores/theme.store'
 
 const FIRST_YEAR = 2020
 
@@ -16,12 +12,6 @@ export function parseYearArg(arg: string | undefined): number | null {
 
 export function overlapsYear({ start, end }: Period, year: number) {
   return start.getFullYear() <= year && (!end || end.getFullYear() >= year)
-}
-
-export function formatPeriod({ start, end }: Period, locale: Locale) {
-  const formatMonth = (date: Date) =>
-    format(date, 'MMM yyyy', { locale: datefnsLocales[locale] })
-  return `${formatMonth(start)} - ${end ? formatMonth(end) : localize('present', locale)}`
 }
 
 export function joinTechStack({

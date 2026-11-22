@@ -1,4 +1,3 @@
-import localize from '@/lib/localize'
 import type { Command } from '@/lib/terminal-commands'
 import useThemeStore, { paletteDescriptions } from '@/stores/theme.store'
 import type { Palette } from '@/stores/theme.store'
@@ -15,20 +14,16 @@ export const themeCommand: Command = ({ args, locale }) => {
   if (!isModifying) {
     return (
       <p>
-        {localize('terminal_current_theme', locale)}:{' '}
-        <strong>{localize(themeStore.palette, locale)}</strong>
+        {locale.text('terminal_current_theme')}:{' '}
+        <strong>{locale.text(themeStore.palette)}</strong>
       </p>
     )
   }
 
   if (!isPalette(newPalette)) {
-    return <p>{localize('terminal_invalid_theme', locale)}</p>
+    return <p>{locale.text('terminal_invalid_theme')}</p>
   }
 
   themeStore.setPalette(newPalette)
-  return (
-    <p>
-      {localize('terminal_theme_set', locale, localize(newPalette, locale))}
-    </p>
-  )
+  return <p>{locale.text('terminal_theme_set', locale.text(newPalette))}</p>
 }

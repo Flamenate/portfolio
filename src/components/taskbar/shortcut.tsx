@@ -8,7 +8,7 @@ import {
 } from 'motion/react'
 import { useState } from 'react'
 import { useShallow } from 'zustand/react/shallow'
-import useLocalize from '@/hooks/useLocalize'
+import useLocale from '@/hooks/useLocale'
 import type { AppLabel } from '@/lib/apps'
 import { cn } from '@/lib/utils'
 import { useAppStore } from '@/stores/app.store'
@@ -61,7 +61,7 @@ export function TaskbarShortcut({
     )
   }
 
-  const localize = useLocalize()
+  const locale = useLocale()
   // whileDrag does not work well with Reorder.Item, so we use useSpring instead
   const scale = useSpring(1, { duration: 500 })
   return (
@@ -129,7 +129,7 @@ export function TaskbarShortcut({
           </Reorder.Item>
         </ShortcutContextMenu>
       </TooltipTrigger>
-      <TooltipContent className="z-115">{localize(appLabel)}</TooltipContent>
+      <TooltipContent className="z-115">{locale.text(appLabel)}</TooltipContent>
     </Tooltip>
   )
 }

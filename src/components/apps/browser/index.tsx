@@ -17,7 +17,7 @@ import { Input } from '@/components/ui/input'
 import { NavButton } from '@/components/ui/nav-button'
 import { WindowLoading } from '@/components/ui/window-loading'
 import { env } from '@/env'
-import useLocalize from '@/hooks/useLocalize'
+import useLocale from '@/hooks/useLocale'
 import { cn } from '@/lib/utils'
 import { useThemeStore } from '@/stores/theme.store'
 import { BrowseConfirmDialog } from './browse-confirm-dialog'
@@ -72,9 +72,8 @@ function readShellMessage(data: unknown): ShellMessage | null {
 const homeRoute = getRouteApi('/home')
 
 export function Browser() {
-  const localize = useLocalize()
+  const locale = useLocale()
   const palette = useThemeStore((state) => state.palette)
-  const locale = useThemeStore((state) => state.locale)
   const { browse } = homeRoute.useSearch()
   const navigateRoute = homeRoute.useNavigate()
   const [browseUrl] = useState(() => (browse ? toNavigableUrl(browse) : null))
@@ -110,10 +109,10 @@ export function Browser() {
         type: 'init',
         url: startUrl,
         ui: {
-          title: localize('browser_unsupported_title'),
-          description: localize('browser_unsupported_description', '{0}'),
-          openInNewTab: localize('browser_open_in_new_tab'),
-          lang: locale === 'eng' ? 'en' : locale,
+          title: locale.text('browser_unsupported_title'),
+          description: locale.text('browser_unsupported_description', '{0}'),
+          openInNewTab: locale.text('browser_open_in_new_tab'),
+          lang: locale.code === 'eng' ? 'en' : locale.code,
           colorScheme: colorSchemes[palette],
         },
       },
@@ -204,7 +203,7 @@ export function Browser() {
     <section className="flex h-full flex-col">
       <header className="flex h-14 shrink-0 items-center border-b border-muted-foreground/50 p-1">
         <NavButton
-          label={localize('back')}
+          label={locale.text('back')}
           disabled={!canGoBack}
           onClick={() => goToEntry(history.index - 1)}
         >
@@ -216,7 +215,7 @@ export function Browser() {
           />
         </NavButton>
         <NavButton
-          label={localize('forward')}
+          label={locale.text('forward')}
           disabled={!canGoForward}
           onClick={() => goToEntry(history.index + 1)}
         >
@@ -228,7 +227,7 @@ export function Browser() {
           />
         </NavButton>
         <NavButton
-          label={localize('reload')}
+          label={locale.text('reload')}
           disabled={!isReady}
           onClick={() => post({ type: 'reload' })}
         >
@@ -240,7 +239,7 @@ export function Browser() {
           />
         </NavButton>
         <NavButton
-          label={localize('browser_open_in_own_browser')}
+          label={locale.text('browser_open_in_own_browser')}
           onClick={() => {
             if (!isHttpUrl(pageUrl.current)) return
             window.open(pageUrl.current, '_blank', 'noopener,noreferrer')
@@ -255,8 +254,8 @@ export function Browser() {
             inputMode="url"
             spellCheck={false}
             autoComplete="off"
-            aria-label={localize('search_or_enter_address')}
-            placeholder={localize('search_or_enter_address')}
+            aria-label={locale.text('search_or_enter_address')}
+            placeholder={locale.text('search_or_enter_address')}
             disabled={!isReady}
             value={address}
             onChange={(event) => setAddress(event.target.value)}
@@ -269,15 +268,15 @@ export function Browser() {
         </form>
         <Dialog>
           <DialogTrigger asChild>
-            <NavButton label={localize('browser_info')}>
+            <NavButton label={locale.text('browser_info')}>
               <InfoRegular className="size-4 text-foreground dark:text-(--white)" />
             </NavButton>
           </DialogTrigger>
           <DialogContent>
             <DialogHeader>
-              <DialogTitle>{localize('browser_info_title')}</DialogTitle>
+              <DialogTitle>{locale.text('browser_info_title')}</DialogTitle>
               <DialogDescription>
-                {localize('browser_info_description')}
+                {locale.text('browser_info_description')}
               </DialogDescription>
             </DialogHeader>
           </DialogContent>
@@ -288,7 +287,7 @@ export function Browser() {
           ref={iframeRef}
           src={`${PROXY_ORIGIN}/`}
           className="h-full w-full border-0 bg-white"
-          title={localize('browser')}
+          title={locale.text('browser')}
           // react-doctor-disable-next-line react-doctor/iframe-missing-sandbox
           sandbox="allow-scripts allow-same-origin allow-forms allow-popups allow-popups-to-escape-sandbox"
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
@@ -303,7 +302,7 @@ export function Browser() {
             role="alert"
             className="absolute inset-0 flex items-center justify-center bg-background p-4 text-center"
           >
-            {localize('browser_failed_to_start')}
+            {locale.text('browser_failed_to_start')}
           </p>
         )}
       </div>

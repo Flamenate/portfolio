@@ -12,7 +12,7 @@ import {
   ContextMenuSeparator,
   ContextMenuTrigger,
 } from '@/components/ui/context-menu'
-import useLocalize from '@/hooks/useLocalize'
+import useLocale from '@/hooks/useLocale'
 import { useAppStore } from '@/stores/app.store'
 import { useDesktopSelectionStore } from '@/stores/desktop-selection.store'
 import type { DesktopShortcut } from '@/stores/desktop-selection.store'
@@ -32,7 +32,7 @@ export function DesktopShortcutContextMenu({
       unpinApp: state.unpinApp,
     })),
   )
-  const localize = useLocalize()
+  const locale = useLocale()
 
   return (
     <ContextMenu modal={false}>
@@ -52,11 +52,11 @@ export function DesktopShortcutContextMenu({
           }
         >
           <OpenRegular />
-          {localize('open')}
+          {locale.text('open')}
         </ContextMenuItem>
         <ContextMenuItem disabled>
           <ShieldRegular />
-          {localize('run_as_administrator')}
+          {locale.text('run_as_administrator')}
         </ContextMenuItem>
         {appLabel && (
           <>
@@ -64,12 +64,12 @@ export function DesktopShortcutContextMenu({
             {pinned ? (
               <ContextMenuItem onSelect={() => unpinApp(appLabel)}>
                 <PinOffRegular />
-                {localize('unpin_from_taskbar')}
+                {locale.text('unpin_from_taskbar')}
               </ContextMenuItem>
             ) : (
               <ContextMenuItem onSelect={() => pinApp(appLabel)}>
                 <PinRegular />
-                {localize('pin_to_taskbar')}
+                {locale.text('pin_to_taskbar')}
               </ContextMenuItem>
             )}
           </>
@@ -77,12 +77,12 @@ export function DesktopShortcutContextMenu({
         <ContextMenuSeparator />
         <ContextMenuItem disabled>
           <DeleteRegular />
-          {localize('delete')}
+          {locale.text('delete')}
         </ContextMenuItem>
         <ContextMenuSeparator />
         <ContextMenuItem>
           <WrenchRegular />
-          {localize('properties')}
+          {locale.text('properties')}
         </ContextMenuItem>
       </ContextMenuContent>
     </ContextMenu>

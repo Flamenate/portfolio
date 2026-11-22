@@ -1,13 +1,6 @@
-import { enUS, es, fr } from 'date-fns/locale'
 import { persist } from 'zustand/middleware'
 import { create } from 'zustand/react'
 import { logAction } from './log.store'
-
-export const datefnsLocales = {
-  eng: enUS,
-  es,
-  fr,
-} as const
 
 export const locales = {
   eng: 'English (United States)',

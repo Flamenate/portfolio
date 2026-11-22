@@ -1,12 +1,12 @@
 import { DismissRegular } from '@fluentui/react-icons/headless/svg/dismiss'
 import { DismissSquareMultipleRegular } from '@fluentui/react-icons/headless/svg/dismiss-square-multiple'
 import { toast as sonnerToast } from 'sonner'
-import localize from '@/lib/localize'
+import { createLocale } from '@/lib/locale'
 import type { Notification } from '@/stores/notification.store'
 import useThemeStore from '@/stores/theme.store'
 
 export const toast = (notification: Omit<Notification, 'id' | 'timestamp'>) => {
-  const locale = useThemeStore.getState().locale
+  const locale = createLocale(useThemeStore.getState().locale) //this is a design choice, we don't want this to be reactive.
   sonnerToast.custom(
     (id) => {
       return (
@@ -14,7 +14,7 @@ export const toast = (notification: Omit<Notification, 'id' | 'timestamp'>) => {
           <div className="absolute top-1 right-2 flex flex-row-reverse gap-1">
             <button
               type="button"
-              aria-label={localize('close', locale)}
+              aria-label={locale.text('close')}
               className="cursor-pointer rounded-sm p-2 text-xs tracking-widest text-muted-foreground dark:text-(--white)"
               onClick={() => sonnerToast.dismiss(id)}
             >
@@ -22,7 +22,7 @@ export const toast = (notification: Omit<Notification, 'id' | 'timestamp'>) => {
             </button>
             <button
               type="button"
-              aria-label={localize('clear_all', locale)}
+              aria-label={locale.text('clear_all')}
               className="cursor-pointer rounded-sm p-2 text-xs tracking-widest text-muted-foreground dark:text-(--white)"
               onClick={() => sonnerToast.dismiss()}
             >
@@ -42,14 +42,14 @@ export const toast = (notification: Omit<Notification, 'id' | 'timestamp'>) => {
             ) : (
               <notification.source.iconSrc className="size-4" />
             )}
-            {localize(notification.source.label, locale)}
+            {locale.text(notification.source.label)}
           </header>
           <p className="font-medium dark:text-(--white)">
-            {localize(`notifications_${notification.content}`, locale)}
+            {locale.text(`notifications_${notification.content}`)}
           </p>
           {notification.subcontent && (
             <p className="text-muted-foreground dark:text-muted-foreground">
-              {localize(`notifications_${notification.subcontent}`, locale)}
+              {locale.text(`notifications_${notification.subcontent}`)}
             </p>
           )}
         </div>

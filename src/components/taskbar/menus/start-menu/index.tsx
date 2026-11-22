@@ -9,7 +9,7 @@ import {
   TooltipContent,
   TooltipTrigger,
 } from '@/components/ui/tooltip'
-import useLocalize from '@/hooks/useLocalize'
+import useLocale from '@/hooks/useLocale'
 import WindowsShortcut from '../../windows-shortcut'
 import { AtAGlance } from './at-a-glance'
 import { StartMenuFooter } from './footer'
@@ -18,7 +18,7 @@ import { QuickActions } from './quick-actions'
 import { Recommended } from './recommended'
 
 export function StartMenu() {
-  const localize = useLocalize()
+  const locale = useLocale()
   const [open, setOpen] = useState(false)
   const close = () => setOpen(false)
   return (
@@ -26,10 +26,10 @@ export function StartMenu() {
       <Tooltip>
         <PopoverTrigger asChild>
           <TooltipTrigger asChild>
-            <WindowsShortcut aria-label={localize('start')} />
+            <WindowsShortcut aria-label={locale.text('start')} />
           </TooltipTrigger>
         </PopoverTrigger>
-        <TooltipContent>{localize('start')}</TooltipContent>
+        <TooltipContent>{locale.text('start')}</TooltipContent>
       </Tooltip>
       <PopoverContent>
         {/* 80px keeps the menu clear of the taskbar and the screen's top edge. */}

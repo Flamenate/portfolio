@@ -4,7 +4,7 @@ import { useMemo } from 'react'
 import type { MouseEvent } from 'react'
 import { useShallow } from 'zustand/react/shallow'
 import { root } from '@/data/directories'
-import useLocalize from '@/hooks/useLocalize'
+import useLocale from '@/hooks/useLocale'
 import type { AppLabel } from '@/lib/apps'
 import { fileIconSrc, fileLabel, getFolder } from '@/lib/directories'
 import type { FolderPath, LocatedFile } from '@/lib/directories'
@@ -100,7 +100,7 @@ export function AppShortcut({
   containerRef: ContainerRef
 }) {
   const iconSrc = useAppStore((state) => state.apps[appLabel].iconSrc)
-  const localize = useLocalize()
+  const locale = useLocale()
   const shortcut = useMemo<DesktopShortcut>(
     () => ({ kind: 'app', label: appLabel }),
     [appLabel],
@@ -108,7 +108,7 @@ export function AppShortcut({
   return (
     <DesktopShortcutButton
       shortcut={shortcut}
-      label={localize(appLabel)}
+      label={locale.text(appLabel)}
       iconSrc={iconSrc}
 
       containerRef={containerRef}
@@ -123,7 +123,7 @@ export function FolderShortcut({
   path: FolderPath
   containerRef: ContainerRef
 }) {
-  const localize = useLocalize()
+  const locale = useLocale()
   const shortcut = useMemo<DesktopShortcut>(
     () => ({ kind: 'folder', path }),
     [path],
@@ -132,7 +132,7 @@ export function FolderShortcut({
   return (
     <DesktopShortcutButton
       shortcut={shortcut}
-      label={localize(name)}
+      label={locale.text(name)}
       iconSrc={getFolder(path)?.iconSrc ?? '/media/icons/folder.webp'}
 
       containerRef={containerRef}

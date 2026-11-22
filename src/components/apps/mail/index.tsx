@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react'
 import { NavButton } from '@/components/ui/nav-button'
 import { getMails, mailFolders } from '@/data/mails'
 import type { MailFolder } from '@/data/mails'
-import useLocalize from '@/hooks/useLocalize'
+import useLocale from '@/hooks/useLocale'
 import { cn } from '@/lib/utils'
 import { useMailStore } from '@/stores/mail.store'
 import { Compose } from './compose'
@@ -18,7 +18,7 @@ type View =
   | { type: 'compose' }
 
 export function Mail() {
-  const localize = useLocalize()
+  const locale = useLocale()
   const sent = useMailStore((state) => state.sent)
   const composeRequest = useMailStore((state) => state.composeRequest)
   const clearComposeRequest = useMailStore((state) => state.clearComposeRequest)
@@ -59,7 +59,7 @@ export function Mail() {
       />
 
       <section
-        aria-label={localize(folder)}
+        aria-label={locale.text(folder)}
         className={cn(
           'min-h-0 grow overflow-y-auto border-muted-foreground/50 @md:block @md:w-72 @md:shrink-0 @md:grow-0 @md:border-r',
           isOpen && 'hidden',
@@ -80,7 +80,7 @@ export function Mail() {
       >
         {isOpen && (
           <div className="shrink-0 border-b border-muted-foreground/50 p-1 @md:hidden">
-            <NavButton label={localize('back')} onClick={close}>
+            <NavButton label={locale.text('back')} onClick={close}>
               <ArrowLeftRegular className="size-4 text-foreground dark:text-(--white)" />
             </NavButton>
           </div>
@@ -92,7 +92,7 @@ export function Mail() {
         ) : (
           <div className="flex grow flex-col items-center justify-center gap-2 opacity-60">
             <MailReadRegular className="size-12" />
-            <p>{localize('mail_select_item')}</p>
+            <p>{locale.text('mail_select_item')}</p>
           </div>
         )}
       </section>

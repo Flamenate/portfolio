@@ -1,7 +1,7 @@
 import type { FluentIcon } from '@fluentui/react-icons/headless'
 import { LaptopSettingsRegular } from '@fluentui/react-icons/headless/svg/laptop-settings'
 import { create } from 'zustand/react'
-import type { TranslationKey, TranslationSuffix } from '@/lib/localize'
+import type { TranslationKey, TranslationSuffix } from '@/lib/locale'
 import { toast } from '@/lib/toast'
 import { logAction } from './log.store'
 

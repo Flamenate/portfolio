@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { Textarea } from '@/components/ui/textarea'
-import useLocalize from '@/hooks/useLocalize'
+import useLocale from '@/hooks/useLocale'
 import { useAppRequest } from '@/lib/app-request'
 import { fileLabel } from '@/lib/directories'
 import type { FileNode } from '@/lib/directories'
@@ -9,7 +9,7 @@ import { useAppStore } from '@/stores/app.store'
 import { useNotepadStore } from '@/stores/notepad.store'
 
 export function Notepad() {
-  const localize = useLocalize()
+  const locale = useLocale()
   const [file, setFile] = useState<FileNode | null>(null)
   // Bumped on every open so even the same file starts over from its content.
   const [opens, setOpens] = useState(0)
@@ -22,7 +22,7 @@ export function Notepad() {
     setOpens(opens + 1)
   })
 
-  const title = file ? `${fileLabel(file)} - ${localize('notepad')}` : null
+  const title = file ? `${fileLabel(file)} - ${locale.text('notepad')}` : null
   useEffect(() => {
     setAppTitle('notepad', title)
   }, [title, setAppTitle])

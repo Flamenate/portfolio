@@ -6,7 +6,7 @@ import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Textarea } from '@/components/ui/textarea'
 import { resume } from '@/data/personal'
-import useLocalize from '@/hooks/useLocalize'
+import useLocale from '@/hooks/useLocale'
 import { mailSchema } from '@/lib/mail-schema'
 import { sendMail } from '@/lib/send-mail'
 import { useMailStore } from '@/stores/mail.store'
@@ -46,7 +46,7 @@ function FieldRow({
 }
 
 export function Compose({ onDone }: { onDone: () => void }) {
-  const localize = useLocalize()
+  const locale = useLocale()
   const addSent = useMailStore((state) => state.addSent)
   const form = useForm({
     defaultValues: {
@@ -118,17 +118,17 @@ export function Compose({ onDone }: { onDone: () => void }) {
               className="cursor-pointer rounded-xs"
             >
               <SendRegular />
-              {localize(isSubmitting ? 'mail_sending' : 'mail_send')}
+              {locale.text(isSubmitting ? 'mail_sending' : 'mail_send')}
             </Button>
             <p className="min-w-0 grow truncate text-sm opacity-70">
-              {localize('mail_to')}: {resume.contact.email}
+              {locale.text('mail_to')}: {resume.contact.email}
             </p>
             <Button
               type="button"
               variant="ghost"
               size="icon"
-              aria-label={localize('mail_discard')}
-              title={localize('mail_discard')}
+              aria-label={locale.text('mail_discard')}
+              title={locale.text('mail_discard')}
               disabled={isSubmitting}
               onClick={onDone}
             >
@@ -139,7 +139,7 @@ export function Compose({ onDone }: { onDone: () => void }) {
       </form.Subscribe>
       <form.Field name="name">
         {(field) => (
-          <FieldRow label={localize('mail_name')} htmlFor="mail-name">
+          <FieldRow label={locale.text('mail_name')} htmlFor="mail-name">
             <Input
               id="mail-name"
               name={field.name}
@@ -154,7 +154,7 @@ export function Compose({ onDone }: { onDone: () => void }) {
       </form.Field>
       <form.Field name="email">
         {(field) => (
-          <FieldRow label={localize('mail_from')} htmlFor="mail-email">
+          <FieldRow label={locale.text('mail_from')} htmlFor="mail-email">
             <Input
               id="mail-email"
               name={field.name}
@@ -175,8 +175,8 @@ export function Compose({ onDone }: { onDone: () => void }) {
               name={field.name}
               value={field.state.value}
               maxLength={200}
-              placeholder={localize('mail_subject')}
-              aria-label={localize('mail_subject')}
+              placeholder={locale.text('mail_subject')}
+              aria-label={locale.text('mail_subject')}
               onChange={(event) => field.handleChange(event.target.value)}
               className={inputClassName}
             />
@@ -203,8 +203,8 @@ export function Compose({ onDone }: { onDone: () => void }) {
             name={field.name}
             value={field.state.value}
             maxLength={5000}
-            aria-label={localize('mail_content')}
-            placeholder={localize('mail_content')}
+            aria-label={locale.text('mail_content')}
+            placeholder={locale.text('mail_content')}
             onChange={(event) => field.handleChange(event.target.value)}
             className="min-h-32 grow resize-none rounded-none border-0 bg-transparent px-3 py-2 shadow-none ring-0 select-text focus-visible:ring-0 dark:bg-transparent"
           />

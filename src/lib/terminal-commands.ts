@@ -21,8 +21,7 @@ import { themeCommand } from '@/components/apps/terminal/theme'
 import { unpinCommand } from '@/components/apps/terminal/unpin'
 import { uptimeCommand } from '@/components/apps/terminal/uptime'
 import { whoamiCommand } from '@/components/apps/terminal/whoami'
-import type { TranslationKey } from '@/lib/localize'
-import type { Locale } from '@/stores/theme.store'
+import type { Localizer, TranslationKey } from '@/lib/locale'
 
 interface CommandDefinition {
   run: Command
@@ -33,7 +32,7 @@ interface CommandDefinition {
 
 export interface CommandContext {
   args: string[]
-  locale: Locale
+  locale: Localizer
   clearHistory: () => void
 }
 

@@ -13,7 +13,7 @@ import React, {
 import type { PointerEvent } from 'react'
 import { useShallow } from 'zustand/react/shallow'
 import useIsCompact from '@/hooks/useIsCompact'
-import useLocalize from '@/hooks/useLocalize'
+import useLocale from '@/hooks/useLocale'
 import { useResizable } from '@/hooks/useResizable'
 import type { ResizeDirection } from '@/hooks/useResizable'
 import type { AppLabel } from '@/lib/apps'
@@ -22,10 +22,8 @@ import {
   RESTORE_ORIGIN_GAP,
   TASKBAR_HEIGHT,
 } from '@/lib/constants'
-import { localizeOrKeep } from '@/lib/localize'
 import { cn } from '@/lib/utils'
 import { useAppStore } from '@/stores/app.store'
-import { useThemeStore } from '@/stores/theme.store'
 import { Tooltip, TooltipContent, TooltipTrigger } from './tooltip'
 
 function WindowButton(props: React.ComponentProps<'button'>) {
@@ -104,8 +102,7 @@ export function AppWindow({
   children: React.ReactNode
   appLabel: AppLabel
 }) {
-  const localize = useLocalize()
-  const language = useThemeStore((state) => state.locale)
+  const locale = useLocale()
   const windowRef = useRef<HTMLDivElement>(null)
   const gesturing = useRef(false)
   const isCompact = useIsCompact()
@@ -313,9 +310,7 @@ export function AppWindow({
               draggable={false}
             />
             <span className="truncate font-light">
-              {app.title
-                ? localizeOrKeep(app.title, language)
-                : localize(appLabel)}
+              {app.title ?? locale.text(appLabel)}
             </span>
           </div>
           <div className="flex h-full shrink-0 flex-row-reverse items-stretch @xl:col-start-3 @xl:justify-self-end">
@@ -324,13 +319,13 @@ export function AppWindow({
                 <WindowButton
                   onClick={() => closeApp(appLabel)}
                   className="hover:bg-red-600/75"
-                  aria-label={localize('close')}
+                  aria-label={locale.text('close')}
                 >
                   <DismissRegular className="size-3.5" />
                 </WindowButton>
               </TooltipTrigger>
               <TooltipContent sideOffset={4}>
-                {localize('close')}
+                {locale.text('close')}
               </TooltipContent>
             </Tooltip>
 
@@ -339,14 +334,14 @@ export function AppWindow({
                 <TooltipTrigger asChild>
                   <WindowButton
                     onClick={() => toggleMaximizeApp(appLabel)}
-                    aria-label={localize('unmaximize')}
+                    aria-label={locale.text('unmaximize')}
                     className="hover-shade"
                   >
                     <SquareMultipleRegular className="size-3.5" />
                   </WindowButton>
                 </TooltipTrigger>
                 <TooltipContent sideOffset={4}>
-                  {localize('unmaximize')}
+                  {locale.text('unmaximize')}
                 </TooltipContent>
               </Tooltip>
             ) : (
@@ -354,14 +349,14 @@ export function AppWindow({
                 <TooltipTrigger asChild>
                   <WindowButton
                     onClick={() => toggleMaximizeApp(appLabel)}
-                    aria-label={localize('maximize')}
+                    aria-label={locale.text('maximize')}
                     className="hover-shade"
                   >
                     <MaximizeRegular className="size-3.5" />
                   </WindowButton>
                 </TooltipTrigger>
                 <TooltipContent sideOffset={4}>
-                  {localize('maximize')}
+                  {locale.text('maximize')}
                 </TooltipContent>
               </Tooltip>
             )}
@@ -370,14 +365,14 @@ export function AppWindow({
               <TooltipTrigger asChild>
                 <WindowButton
                   onClick={() => minimizeApp(appLabel)}
-                  aria-label={localize('minimize')}
+                  aria-label={locale.text('minimize')}
                   className="hover-shade"
                 >
                   <SubtractRegular className="size-3.5" />
                 </WindowButton>
               </TooltipTrigger>
               <TooltipContent sideOffset={4}>
-                {localize('minimize')}
+                {locale.text('minimize')}
               </TooltipContent>
             </Tooltip>
           </div>

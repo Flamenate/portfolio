@@ -9,7 +9,7 @@ import {
   ContextMenuSeparator,
   ContextMenuTrigger,
 } from '@/components/ui/context-menu'
-import useLocalize from '@/hooks/useLocalize'
+import useLocale from '@/hooks/useLocale'
 import type { AppLabel } from '@/lib/apps'
 import { useAppStore } from '@/stores/app.store'
 
@@ -41,7 +41,7 @@ export function ShortcutContextMenu({
       closeApp: state.closeApp,
     })),
   )
-  const localize = useLocalize()
+  const locale = useLocale()
 
   return (
     <ContextMenu modal={false}>
@@ -70,24 +70,24 @@ export function ShortcutContextMenu({
             className="size-4 object-contain"
             draggable="false"
           />
-          {localize(appLabel)}
+          {locale.text(appLabel)}
         </ContextMenuItem>
         <ContextMenuSeparator />
         {app.pinned ? (
           <ContextMenuItem onSelect={() => unpinApp(appLabel)}>
             <PinOffRegular />
-            {localize('unpin_from_taskbar')}
+            {locale.text('unpin_from_taskbar')}
           </ContextMenuItem>
         ) : (
           <ContextMenuItem onSelect={() => pinApp(appLabel)}>
             <PinRegular />
-            {localize('pin_to_taskbar')}
+            {locale.text('pin_to_taskbar')}
           </ContextMenuItem>
         )}
         {app.state !== 'closed' && (
           <ContextMenuItem onSelect={() => closeApp(appLabel)}>
             <DismissRegular />
-            {localize('close_app')}
+            {locale.text('close_app')}
           </ContextMenuItem>
         )}
       </ContextMenuContent>

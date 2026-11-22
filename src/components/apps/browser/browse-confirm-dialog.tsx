@@ -10,7 +10,7 @@ import {
   AlertDialogFooter,
   AlertDialogTitle,
 } from '@/components/ui/alert-dialog'
-import useLocalize from '@/hooks/useLocalize'
+import useLocale from '@/hooks/useLocale'
 
 export function BrowseConfirmDialog({
   url,
@@ -21,7 +21,7 @@ export function BrowseConfirmDialog({
   onOpen: (url: string) => void
   onCancel: () => void
 }) {
-  const localize = useLocalize()
+  const locale = useLocale()
   const cancelRef = useRef<HTMLButtonElement>(null)
   // Keeps the URL during the close animation, after url is cleared.
   const [shownUrl, setShownUrl] = useState(url)
@@ -45,12 +45,12 @@ export function BrowseConfirmDialog({
       >
         <header className="flex h-10 items-center border-b bg-linear-to-r from-background/15 via-background/25 to-background/15 dark:text-(--white)">
           <AlertDialogTitle className="min-w-0 flex-1 truncate pl-3 text-sm font-light">
-            {localize('browser_confirm_title')}
+            {locale.text('browser_confirm_title')}
           </AlertDialogTitle>
           <AlertDialogCancel
             variant="ghost"
             className="h-full rounded-none border-0 px-3 shadow-none hover:bg-destructive has-[>svg]:px-3"
-            aria-label={localize('close')}
+            aria-label={locale.text('close')}
           >
             <DismissRegular className="size-4" />
           </AlertDialogCancel>
@@ -59,7 +59,7 @@ export function BrowseConfirmDialog({
           <WarningFilled className="size-8 shrink-0 text-amber-500" />
           <div className="flex min-w-0 flex-col gap-2">
             <AlertDialogDescription className="text-popover-foreground">
-              {localize('browser_confirm_description', host)}
+              {locale.text('browser_confirm_description', host)}
             </AlertDialogDescription>
             <p className="text-xs break-all text-muted-foreground">
               {shownUrl}
@@ -68,7 +68,7 @@ export function BrowseConfirmDialog({
         </div>
         <AlertDialogFooter className="mx-0 mb-0 flex-row justify-end gap-2 rounded-none bg-black/5 px-4 py-3 dark:bg-black/20">
           <AlertDialogCancel ref={cancelRef} className="min-w-20">
-            {localize('cancel')}
+            {locale.text('cancel')}
           </AlertDialogCancel>
           <AlertDialogAction
             className="min-w-20"
@@ -79,7 +79,7 @@ export function BrowseConfirmDialog({
               if (url) onOpen(url)
             }}
           >
-            {localize('open')}
+            {locale.text('open')}
           </AlertDialogAction>
         </AlertDialogFooter>
       </AlertDialogContent>

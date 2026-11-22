@@ -6,7 +6,7 @@ import {
   TooltipTrigger,
 } from '@/components/ui/tooltip'
 import { servers } from '@/data/concord/servers'
-import useLocalize from '@/hooks/useLocalize'
+import useLocale from '@/hooks/useLocale'
 import { cn } from '@/lib/utils'
 
 function RailItem({
@@ -66,12 +66,12 @@ export function ServerRail({
   current: string | null
   onSelect: (serverId: string | null) => void
 }) {
-  const localize = useLocalize()
+  const locale = useLocale()
 
   return (
     <ul className="flex w-16 shrink-0 flex-col items-center gap-2 overflow-y-auto pb-2">
       <RailItem
-        label={localize('concord_direct_messages')}
+        label={locale.text('concord_direct_messages')}
         active={current === null}
         onClick={() => onSelect(null)}
         className="h-14 items-center after:absolute after:bottom-0 after:left-1/2 after:h-px after:w-8 after:-translate-x-1/2 after:bg-muted-foreground/30"

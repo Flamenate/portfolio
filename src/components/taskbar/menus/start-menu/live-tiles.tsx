@@ -7,10 +7,8 @@ import { SportSoccerRegular } from '@fluentui/react-icons/headless/svg/sport-soc
 import { AnimatePresence, motion, useReducedMotion } from 'motion/react'
 import { useEffect, useState } from 'react'
 import { projects, resume, skills } from '@/data/personal'
-import useLocalize from '@/hooks/useLocalize'
-import { localizeOrKeep } from '@/lib/localize'
+import useLocale from '@/hooks/useLocale'
 import { cn } from '@/lib/utils'
-import useThemeStore from '@/stores/theme.store'
 
 // Advances through `length` faces every `intervalMs`, unless paused.
 // Manual advances restart the countdown because the timeout depends on `index`.
@@ -48,7 +46,7 @@ function Tile({
   onAdvance?: () => void
   children: React.ReactNode
 }) {
-  const localize = useLocalize()
+  const locale = useLocale()
   return (
     <article
       className={cn(
@@ -88,7 +86,7 @@ function Tile({
         <button
           type="button"
           className="absolute inset-0 z-10 rounded-md outline-none focus-visible:ring-2 focus-visible:ring-(--white) focus-visible:ring-inset"
-          aria-label={`${title}: ${localize('start_menu_show_next')}`}
+          aria-label={`${title}: ${locale.text('start_menu_show_next')}`}
           onClick={onAdvance}
         />
       )}
@@ -112,8 +110,7 @@ function Chips({ items }: { items: string[] }) {
 }
 
 function ProjectsTile() {
-  const localize = useLocalize()
-  const locale = useThemeStore((state) => state.locale)
+  const locale = useLocale()
   const [hovered, setHovered] = useState(false)
   const [index, advance] = useCycle(projects.length, 5000, hovered)
   const project = projects[index]
@@ -126,7 +123,7 @@ function ProjectsTile() {
   ].slice(0, 4)
   return (
     <Tile
-      title={localize('start_menu_projects')}
+      title={locale.text('start_menu_projects')}
       icon={<BriefcaseRegular className="size-3.5" />}
       className="from-sky-600/85 to-indigo-700/85"
       faceKey={project.title}
@@ -137,14 +134,14 @@ function ProjectsTile() {
       <div className="flex h-full flex-col gap-1">
         <p className="flex items-baseline justify-between gap-2">
           <span className="truncate font-semibold">
-            {localize(project.title)}
+            {locale.text(project.title)}
           </span>
           <span className="shrink-0 text-xs opacity-80">
             {project.period.start.getFullYear()}
           </span>
         </p>
         <p className="line-clamp-2 text-xs opacity-90">
-          {localizeOrKeep(project.summary, locale)}
+          {locale.text(project.summary)}
         </p>
         <div className="mt-auto">
           <Chips items={tech} />
@@ -157,17 +154,17 @@ function ProjectsTile() {
 const skillCategories = ['frontend', 'backend', 'databases', 'soft'] as const
 
 function SkillsTile() {
-  const localize = useLocalize()
+  const locale = useLocale()
   const [hovered, setHovered] = useState(false)
   const [index, advance] = useCycle(skillCategories.length, 6500, hovered)
   const category = skillCategories[index]
   const items =
     category === 'soft'
-      ? skills.soft.map((key) => localize(key))
+      ? skills.soft.map((key) => locale.text(key))
       : skills[category]
   return (
     <Tile
-      title={localize('start_menu_skills')}
+      title={locale.text('start_menu_skills')}
       icon={<CodeRegular className="size-3.5" />}
       className="from-slate-500/85 to-slate-700/85"
       faceKey={category}
@@ -177,7 +174,7 @@ function SkillsTile() {
     >
       <div className="flex h-full flex-col gap-1">
         <p className="text-[11px] font-semibold tracking-wider uppercase opacity-80">
-          {localize(`start_menu_${category}`)}
+          {locale.text(`start_menu_${category}`)}
         </p>
         <Chips items={items} />
       </div>
@@ -186,13 +183,13 @@ function SkillsTile() {
 }
 
 function CertificatesTile() {
-  const localize = useLocalize()
+  const locale = useLocale()
   const [hovered, setHovered] = useState(false)
   const [index, advance] = useCycle(resume.certificates.length, 5500, hovered)
   const certificate = resume.certificates[index]
   return (
     <Tile
-      title={localize('start_menu_certificates')}
+      title={locale.text('start_menu_certificates')}
       icon={<CertificateRegular className="size-3.5" />}
       className="from-emerald-600/85 to-teal-700/85 p-2"
       faceKey={certificate.name}
@@ -213,7 +210,7 @@ function CertificatesTile() {
 }
 
 function AssociationsTile() {
-  const localize = useLocalize()
+  const locale = useLocale()
   const [hovered, setHovered] = useState(false)
   const [index, advance] = useCycle(
     resume.extracurricular.length,
@@ -223,7 +220,7 @@ function AssociationsTile() {
   const association = resume.extracurricular[index]
   return (
     <Tile
-      title={localize('start_menu_associations')}
+      title={locale.text('start_menu_associations')}
       icon={<PeopleCommunityRegular className="size-3.5" />}
       className="from-cyan-600/85 to-blue-700/85 p-2"
       faceKey={association.organization}
@@ -235,17 +232,17 @@ function AssociationsTile() {
         {association.organization}
       </p>
       <p className="truncate text-[11px] leading-tight opacity-80">
-        {localize(association.role)}
+        {locale.text(association.role)}
       </p>
     </Tile>
   )
 }
 
 function FavoriteTeamTile() {
-  const localize = useLocalize()
+  const locale = useLocale()
   return (
     <Tile
-      title={localize('start_menu_favorite_team')}
+      title={locale.text('start_menu_favorite_team')}
       icon={<SportSoccerRegular className="size-3.5" />}
       className="from-[#004d98] to-[#a50044] p-2"
     >

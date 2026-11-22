@@ -62,3 +62,7 @@ Going back to the welcome screen while keeping the Sign-in and every Window as i
 **Restart**:
 Closing every Window and forgetting the Sign-in, so the welcome screen greets a first visit again.
 _Avoid_: Sign out, reboot
+
+**Locale**:
+The language the Desktop speaks, chosen from the theme menu or the terminal; it decides every translated text and date format.
+_Avoid_: Language, i18n

@@ -6,8 +6,6 @@ import { AlertOffRegular } from '@fluentui/react-icons/headless/svg/alert-off'
 import { ChevronDownRegular } from '@fluentui/react-icons/headless/svg/chevron-down'
 import { ChevronUpRegular } from '@fluentui/react-icons/headless/svg/chevron-up'
 import { DismissRegular } from '@fluentui/react-icons/headless/svg/dismiss'
-import { format, formatDistanceToNow } from 'date-fns'
-import type { Locale } from 'date-fns'
 import { AnimatePresence, motion } from 'motion/react'
 import { useState } from 'react'
 import { useShallow } from 'zustand/react/shallow'
@@ -23,24 +21,21 @@ import {
   TooltipTrigger,
 } from '@/components/ui/tooltip'
 import useDatetime from '@/hooks/useDatetime'
-import useLocalize from '@/hooks/useLocalize'
+import useLocale from '@/hooks/useLocale'
 import { cn } from '@/lib/utils'
 import type { Notification as Notif } from '@/stores/notification.store'
 import { useNotificationStore } from '@/stores/notification.store'
-import useThemeStore, { datefnsLocales } from '@/stores/theme.store'
 
 function Notification({
   notification,
-  locale,
   removeNotification,
   ref,
 }: {
   notification: Notif
-  locale: Locale
   removeNotification: (id: number) => void
   ref?: React.Ref<HTMLElement>
 }) {
-  const localize = useLocalize()
+  const locale = useLocale()
   return (
     <motion.article
       layout
@@ -61,7 +56,7 @@ function Notification({
     >
       <button
         type="button"
-        aria-label={localize('close')}
+        aria-label={locale.text('close')}
         className="absolute top-0 right-1 hidden cursor-pointer rounded-sm px-2 py-1 text-primary group-hover:inline-block dark:text-muted-foreground"
         onClick={() => removeNotification(notification.id)}
       >
@@ -69,10 +64,7 @@ function Notification({
         <DismissRegular className="size-3.5" />
       </button>
       <p className="mb-2 text-xs text-muted-foreground">
-        {formatDistanceToNow(notification.timestamp, {
-          addSuffix: true,
-          locale,
-        })}
+        {locale.since(notification.timestamp)}
       </p>
       <div className="flex items-center gap-3">
         <div className="flex aspect-square size-11 items-center justify-center rounded-full border bg-accent/25 p-1 dark:bg-accent-foreground">
@@ -91,11 +83,11 @@ function Notification({
 
         <div>
           <p className="text-sm font-medium">
-            {localize(`notifications_${notification.content}`)}
+            {locale.text(`notifications_${notification.content}`)}
           </p>
           {notification.subcontent && (
             <p className="text-sm text-muted-foreground">
-              {localize(`notifications_${notification.subcontent}`)}
+              {locale.text(`notifications_${notification.subcontent}`)}
             </p>
           )}
         </div>
@@ -104,13 +96,8 @@ function Notification({
   )
 }
 
-const NotificationPanelContent = ({
-  locale,
-  localize,
-}: {
-  locale: keyof typeof datefnsLocales
-  localize: ReturnType<typeof useLocalize>
-}) => {
+const NotificationPanelContent = () => {
+  const locale = useLocale()
   const notificationStore = useNotificationStore()
   const notificationsBySource = Map.groupBy(
     notificationStore.notifications,
@@ -119,11 +106,11 @@ const NotificationPanelContent = ({
   return (
     <>
       <header className="flex justify-between">
-        <span>{localize('notifications')}</span>
+        <span>{locale.text('notifications')}</span>
         <div className="inline-flex gap-2">
           <button
             type="button"
-            aria-label={localize('dnd')}
+            aria-label={locale.text('dnd')}
             className={cn(
               'rounded-sm border bg-(--white) hover-shade px-2 py-1 text-xs dark:bg-accent-foreground/30',
               notificationStore.doNotDisturb
@@ -139,7 +126,7 @@ const NotificationPanelContent = ({
               className="rounded-sm border bg-(--white) hover-shade px-2 py-1 text-xs dark:bg-accent-foreground/30"
               onClick={notificationStore.clearNotifications}
             >
-              {localize('clear_all')}
+              {locale.text('clear_all')}
             </button>
           )}
         </div>
@@ -154,9 +141,9 @@ const NotificationPanelContent = ({
           >
             <AlertOffRegular className="size-5 min-w-5 grow" />
             <div className="shrink grow-0 text-sm">
-              <p className="font-bold">{localize('dnd_enabled')}</p>
+              <p className="font-bold">{locale.text('dnd_enabled')}</p>
               <p className="text-xs text-muted-foreground">
-                {localize('dnd_description')}
+                {locale.text('dnd_description')}
               </p>
             </div>
           </motion.div>
@@ -196,11 +183,11 @@ const NotificationPanelContent = ({
                 </div>
 
                 <h2 className="pb-1 text-sm font-medium">
-                  {localize(sourceLabel)}
+                  {locale.text(sourceLabel)}
                 </h2>
                 <button
                   type="button"
-                  aria-label={localize('close')}
+                  aria-label={locale.text('close')}
                   className="absolute top-0 right-1 hidden cursor-pointer rounded-sm text-primary group-hover:inline-block dark:text-muted-foreground"
                   onClick={() =>
                     notificationStore.clearNotificationsBySource(sourceLabel)
@@ -216,7 +203,6 @@ const NotificationPanelContent = ({
                   <Notification
                     key={notification.id}
                     notification={notification}
-                    locale={datefnsLocales[locale]}
                     removeNotification={notificationStore.removeNotification}
                   />
                 ))}
@@ -230,10 +216,9 @@ const NotificationPanelContent = ({
 }
 
 export function NotificationMenu() {
-  const localize = useLocalize()
+  const locale = useLocale()
   const [showCalendar, setShowCalendar] = useState(true)
   const datetime = useDatetime()
-  const locale = useThemeStore((state) => state.locale)
   const { doNotDisturb, notificationCount } = useNotificationStore(
     useShallow((state) => ({
       doNotDisturb: state.doNotDisturb,
@@ -241,7 +226,7 @@ export function NotificationMenu() {
     })),
   )
   const formatDatetime = (pattern: string) =>
-    datetime ? format(datetime, pattern, { locale: datefnsLocales[locale] }) : ''
+    datetime ? locale.date(datetime, pattern) : ''
 
   return (
     <Popover>
@@ -251,7 +236,7 @@ export function NotificationMenu() {
             <button
               type="button"
               className="flex flex-row-reverse items-center compact:px-2"
-              aria-label={localize('notifications')}
+              aria-label={locale.text('notifications')}
             >
               {doNotDisturb ? (
                 <AlertOffRegular className="size-4.5" />
@@ -272,8 +257,7 @@ export function NotificationMenu() {
           <p>
             {formatDatetime('PPPP')}
             <br />
-            {formatDatetime('p')} (
-            {localize('local_time')})
+            {formatDatetime('p')} ({locale.text('local_time')})
           </p>
         </TooltipContent>
       </Tooltip>
@@ -290,7 +274,7 @@ export function NotificationMenu() {
           className="flex max-h-[calc(100dvh-80px)] origin-bottom flex-col gap-3"
         >
           <div className="flex min-h-40 grow flex-col gap-4 overflow-hidden rounded-md border bg-popover/70 px-3 py-2">
-            <NotificationPanelContent locale={locale} localize={localize} />
+            <NotificationPanelContent />
           </div>
 
           <div className="flex min-h-min flex-col rounded-md border bg-popover/70">
@@ -299,7 +283,7 @@ export function NotificationMenu() {
               <button
                 type="button"
                 aria-expanded={showCalendar}
-                aria-label={localize('notifications')}
+                aria-label={locale.text('notifications')}
                 className="inline-flex items-center justify-center rounded-sm border bg-accent/20 hover-shade p-1"
                 onClick={() => setShowCalendar((prev) => !prev)}
               >
@@ -322,7 +306,7 @@ export function NotificationMenu() {
                     mode="single"
                     className="w-full"
                     selected={datetime ?? undefined}
-                    locale={datefnsLocales[locale]}
+                    locale={locale.dateFns}
                     weekStartsOn={1}
                   />
                 </motion.div>

@@ -2,7 +2,7 @@ import { Link, createFileRoute } from '@tanstack/react-router'
 import { Image } from '@unpic/react'
 import { useState } from 'react'
 import { WindowLoading } from '@/components/ui/window-loading'
-import useLocalize from '@/hooks/useLocalize'
+import useLocale from '@/hooks/useLocale'
 import { isSignedIn, markSignedIn } from '@/lib/sign-in'
 import useThemeStore from '@/stores/theme.store'
 
@@ -21,7 +21,7 @@ export const Route = createFileRoute('/')({
 function Welcome() {
   const [loading, setLoading] = useState<boolean>(false)
   const { signedIn } = Route.useLoaderData()
-  const localize = useLocalize()
+  const locale = useLocale()
   return (
     <main className="relative grid h-dvh grid-rows-[1fr_auto_2fr] place-items-center overflow-hidden">
       <div
@@ -29,7 +29,7 @@ function Welcome() {
         className="absolute -inset-8 bg-slate-950 bg-[url('/media/pictures/system/login_bg.webp')] bg-cover bg-center blur-lg"
       />
       <h1 className="relative z-10 text-3xl font-bold text-gray-200 drop-shadow-sm drop-shadow-black md:text-5xl">
-        {localize(signedIn ? 'welcome_back' : 'welcome')}
+        {locale.text(signedIn ? 'welcome_back' : 'welcome')}
       </h1>
       <div className="relative z-10 flex flex-col items-center justify-center gap-10 [@media(max-height:30rem)]:gap-4">
         <div className="flex flex-col items-center gap-5 [@media(max-height:30rem)]:gap-2">
@@ -58,7 +58,7 @@ function Welcome() {
                 markSignedIn()
               }}
             >
-              {localize('sign_in')}
+              {locale.text('sign_in')}
             </button>
           </Link>
         ) : (

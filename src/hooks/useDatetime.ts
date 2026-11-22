@@ -1,3 +1,4 @@
+// oxlint-disable react/set-state-in-effect
 import { useEffect, useEffectEvent, useState } from 'react'
 
 export default function useDatetime() {
@@ -5,7 +6,6 @@ export default function useDatetime() {
 
   const tick = useEffectEvent(() => setDatetime(new Date()))
   useEffect(() => {
-    // oxlint-disable-next-line react/set-state-in-effect
     // react-doctor-disable-next-line react-hooks-js/set-state-in-effect
     tick()
     const interval = setInterval(tick, 10_000)

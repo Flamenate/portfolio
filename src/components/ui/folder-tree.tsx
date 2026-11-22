@@ -1,7 +1,7 @@
 import { FolderFilled } from '@fluentui/react-icons/headless/svg/folder'
 import { FolderOpenFilled } from '@fluentui/react-icons/headless/svg/folder-open'
 import type { ReactNode } from 'react'
-import useLocalize from '@/hooks/useLocalize'
+import useLocale from '@/hooks/useLocale'
 import { isSamePath, pathKey } from '@/lib/directories'
 import type { FolderNode, FolderPath } from '@/lib/directories'
 import { cn } from '@/lib/utils'
@@ -70,7 +70,7 @@ function FolderTreeRow({
   rowClassName: string
   indentBase: number
 }) {
-  const localize = useLocalize()
+  const locale = useLocale()
   const isCurrent = currentPath !== null && isSamePath(node.path, currentPath)
   return (
     <li>
@@ -90,7 +90,7 @@ function FolderTreeRow({
         ) : (
           <DefaultFolderIcon node={node} isCurrent={isCurrent} />
         )}
-        <span className="truncate">{localize(node.name)}</span>
+        <span className="truncate">{locale.text(node.name)}</span>
       </button>
       {node.children.length > 0 && (
         <ul>

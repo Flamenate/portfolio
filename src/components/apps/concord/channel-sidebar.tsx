@@ -13,7 +13,7 @@ import {
   TooltipContent,
   TooltipTrigger,
 } from '@/components/ui/tooltip'
-import useLocalize from '@/hooks/useLocalize'
+import useLocale from '@/hooks/useLocale'
 import type { Channel, Server } from '@/lib/concord/types'
 import { cn } from '@/lib/utils'
 
@@ -71,7 +71,7 @@ function ChannelList({
   current: string | null
   onSelect: (channelId: string) => void
 }) {
-  const localize = useLocalize()
+  const locale = useLocale()
 
   return (
     <ul className="flex flex-col gap-0.5">
@@ -89,7 +89,7 @@ function ChannelList({
               <Tooltip>
                 <TooltipTrigger asChild>{button}</TooltipTrigger>
                 <TooltipContent side="right" sideOffset={8}>
-                  {localize('concord_voice_unavailable')}
+                  {locale.text('concord_voice_unavailable')}
                 </TooltipContent>
               </Tooltip>
             ) : (

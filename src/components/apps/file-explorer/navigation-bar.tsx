@@ -5,13 +5,13 @@ import { Fragment } from 'react'
 import { useShallow } from 'zustand/react/shallow'
 import { NavButton } from '@/components/ui/nav-button'
 import { root } from '@/data/directories'
-import useLocalize from '@/hooks/useLocalize'
+import useLocale from '@/hooks/useLocale'
 import type { FolderPath } from '@/lib/directories'
 import { cn } from '@/lib/utils'
 import { useExplorerStore } from '@/stores/explorer.store'
 
 export function NavigationBar({ path }: { path: FolderPath }) {
-  const localize = useLocalize()
+  const locale = useLocale()
   const { canGoBack, canGoForward, back, forward, navigate } = useExplorerStore(
     useShallow((state) => ({
       canGoBack: state.canGoBack,
@@ -26,7 +26,11 @@ export function NavigationBar({ path }: { path: FolderPath }) {
 
   return (
     <header className="flex h-14 shrink-0 items-center gap-1 border-b border-muted-foreground/50 p-1">
-      <NavButton label={localize('back')} disabled={!canGoBack} onClick={back}>
+      <NavButton
+        label={locale.text('back')}
+        disabled={!canGoBack}
+        onClick={back}
+      >
         <ArrowLeftRegular
           className={cn(
             'size-4',
@@ -35,7 +39,7 @@ export function NavigationBar({ path }: { path: FolderPath }) {
         />
       </NavButton>
       <NavButton
-        label={localize('forward')}
+        label={locale.text('forward')}
         disabled={!canGoForward}
         onClick={forward}
       >
@@ -67,7 +71,7 @@ export function NavigationBar({ path }: { path: FolderPath }) {
                   !isLast && 'cursor-pointer hover-shade',
                 )}
               >
-                {localize(name)}
+                {locale.text(name)}
               </button>
             </Fragment>
           )

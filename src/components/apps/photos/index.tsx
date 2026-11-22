@@ -2,13 +2,13 @@ import { ArrowLeftRegular } from '@fluentui/react-icons/headless/svg/arrow-left'
 import { FolderRegular } from '@fluentui/react-icons/headless/svg/folder'
 import { FolderOpenRegular } from '@fluentui/react-icons/headless/svg/folder-open'
 import { ImageMultipleRegular } from '@fluentui/react-icons/headless/svg/image-multiple'
-import { format, parseISO } from 'date-fns'
+import { parseISO } from 'date-fns'
 import { useEffect, useState } from 'react'
 import { FolderTree } from '@/components/ui/folder-tree'
 import type { FolderTreeNode } from '@/components/ui/folder-tree'
 import { NavButton } from '@/components/ui/nav-button'
 import { root } from '@/data/directories'
-import useLocalize from '@/hooks/useLocalize'
+import useLocale from '@/hooks/useLocale'
 import { useAppRequest } from '@/lib/app-request'
 import { fileId, fileLabel, getFolder } from '@/lib/directories'
 import type { FolderPath } from '@/lib/directories'
@@ -17,7 +17,6 @@ import type { Photo, PhotoFolder } from '@/lib/photos'
 import { cn } from '@/lib/utils'
 import { useAppStore } from '@/stores/app.store'
 import { usePhotosStore } from '@/stores/photos.store'
-import { datefnsLocales, useThemeStore } from '@/stores/theme.store'
 
 function selectedLabel(path: FolderPath | null) {
   if (path === null) return 'all_photos'
@@ -75,16 +74,14 @@ function PhotoMonths({
   photos: Photo[]
   onOpen: (photo: Photo) => void
 }) {
-  const locale = useThemeStore((state) => state.locale)
+  const locale = useLocale()
   return (
     <>
       {photosByMonth(photos).map((group) => (
         <div key={group.key}>
           {group.date && (
             <h2 className="px-2 pt-2">
-              {format(parseISO(group.date), 'MMMM yyyy', {
-                locale: datefnsLocales[locale],
-              })}
+              {locale.date(parseISO(group.date), 'MMMM yyyy')}
             </h2>
           )}
           <PhotoMasonry photos={group.photos} onOpen={onOpen} />
@@ -95,7 +92,7 @@ function PhotoMonths({
 }
 
 export function Photos() {
-  const localize = useLocalize()
+  const locale = useLocale()
   const [path, setPath] = useState<FolderPath | null>(null)
   const [browsing, setBrowsing] = useState(false)
   const [photo, setPhoto] = useState<Photo | null>(null)
@@ -130,7 +127,7 @@ export function Photos() {
     return (
       <div className="flex h-full flex-col bg-popover/50 text-popover-foreground">
         <div className="shrink-0 border-b border-muted-foreground/50 p-1">
-          <NavButton label={localize('back')} onClick={() => setPhoto(null)}>
+          <NavButton label={locale.text('back')} onClick={() => setPhoto(null)}>
             <ArrowLeftRegular className="size-4 text-foreground dark:text-(--white)" />
           </NavButton>
         </div>
@@ -148,7 +145,7 @@ export function Photos() {
   return (
     <div className="flex h-full flex-col bg-popover/50 text-sm text-popover-foreground @md:flex-row">
       <aside
-        aria-label={localize('photos')}
+        aria-label={locale.text('photos')}
         className={cn(
           'min-h-0 shrink-0 overflow-y-auto p-1 @md:w-48',
           browsing && 'hidden @md:block',
@@ -173,14 +170,14 @@ export function Photos() {
               onClick={() => selectFolder(null)}
             >
               <ImageMultipleRegular className="size-5 shrink-0" />
-              <span className="truncate">{localize('all_photos')}</span>
+              <span className="truncate">{locale.text('all_photos')}</span>
             </button>
           </li>
         </FolderTree>
       </aside>
 
       <section
-        aria-label={localize(title)}
+        aria-label={locale.text(title)}
         className={cn(
           'm-1 min-h-0 min-w-0 grow flex-col overflow-y-auto rounded-md bg-popover dark:bg-background',
           browsing ? 'flex' : 'hidden @md:flex',
@@ -188,7 +185,7 @@ export function Photos() {
       >
         <div className="shrink-0 p-1 @md:hidden">
           <NavButton
-            label={localize('back')}
+            label={locale.text('back')}
             onClick={() => setBrowsing(false)}
           >
             <ArrowLeftRegular className="size-4 text-foreground dark:text-(--white)" />
@@ -197,12 +194,12 @@ export function Photos() {
         <div className="mb-5 px-3 pt-3">
           <div className="flex items-center gap-2">
             <HeaderIcon className="size-8 shrink-0" />
-            <h1 className="truncate text-lg">{localize(title)}</h1>
+            <h1 className="truncate text-lg">{locale.text(title)}</h1>
           </div>
           <p className="text-muted-foreground">
             {photos.length === 1
-              ? localize('photo_count_one')
-              : localize('photo_count', photos.length)}
+              ? locale.text('photo_count_one')
+              : locale.text('photo_count', photos.length)}
           </p>
         </div>
         <PhotoMonths photos={photos} onOpen={setPhoto} />

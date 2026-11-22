@@ -6,7 +6,7 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from '@/components/ui/popover'
-import { useLocalize } from '@/hooks/useLocalize'
+import useLocale from '@/hooks/useLocale'
 import type { CalculatorAction, HistoryEntry, Operator } from '@/lib/calculator'
 import {
   calculatorReducer,
@@ -186,7 +186,7 @@ export function Calculator() {
   )
   const [historyOpen, setHistoryOpen] = useState(false)
   const rootRef = useRef<HTMLDivElement>(null)
-  const localize = useLocalize()
+  const locale = useLocale()
   useEffect(() => {
     const root = rootRef.current
     if (!root) return
@@ -233,7 +233,7 @@ export function Calculator() {
       <section className="flex h-full w-full min-w-0 flex-col text-popover-foreground">
         <header className="flex items-center justify-between px-4 pt-3 pb-1 container-short:pt-1 container-short:pb-0">
           <h1 className="truncate text-lg font-semibold container-short:text-base">
-            {localize(title)}
+            {locale.text(title)}
           </h1>
           <Popover open={historyOpen} onOpenChange={setHistoryOpen}>
             <PopoverTrigger asChild>

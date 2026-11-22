@@ -13,13 +13,13 @@ import {
   TooltipContent,
   TooltipTrigger,
 } from '@/components/ui/tooltip'
-import useLocalize from '@/hooks/useLocalize'
+import useLocale from '@/hooks/useLocale'
 import { clearSignedIn } from '@/lib/sign-in'
 import { useAppStore } from '@/stores/app.store'
 import { useNotificationStore } from '@/stores/notification.store'
 
 export function PowerMenu({ onAction }: { onAction: () => void }) {
-  const localize = useLocalize()
+  const locale = useLocale()
   const navigate = useNavigate()
   const [open, setOpen] = useState(false)
 
@@ -50,14 +50,14 @@ export function PowerMenu({ onAction }: { onAction: () => void }) {
           <TooltipTrigger asChild>
             <button
               type="button"
-              aria-label={localize('power')}
+              aria-label={locale.text('power')}
               className="rounded-sm hover-shade p-3"
             >
               <PowerRegular className="size-6" />
             </button>
           </TooltipTrigger>
         </PopoverTrigger>
-        <TooltipContent>{localize('power')}</TooltipContent>
+        <TooltipContent>{locale.text('power')}</TooltipContent>
       </Tooltip>
       <PopoverContent side="top" align="end" className="w-44 p-1">
         <ul className="flex flex-col">
@@ -73,7 +73,7 @@ export function PowerMenu({ onAction }: { onAction: () => void }) {
                 }}
               >
                 <Icon className="size-4.5" />
-                {localize(key)}
+                {locale.text(key)}
               </button>
             </li>
           ))}

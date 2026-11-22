@@ -26,7 +26,7 @@ import { useAudio } from '@/hooks/useAudio'
 import { useBattery } from '@/hooks/useBattery'
 import { useConnectionType } from '@/hooks/useConnectionType'
 import { useIsFullscreen } from '@/hooks/useIsFullscreen'
-import useLocalize from '@/hooks/useLocalize'
+import useLocale from '@/hooks/useLocale'
 import { cn } from '@/lib/utils'
 import { useNotificationStore } from '@/stores/notification.store'
 import useThemeStore from '@/stores/theme.store'
@@ -135,7 +135,7 @@ export function UtilityMenu() {
   }
 
   const connectionType = useConnectionType()
-  const localize = useLocalize()
+  const locale = useLocale()
   const clientFlags = useSyncExternalStore(
     subscribeClientFlags,
     readClientFlags,
@@ -156,7 +156,7 @@ export function UtilityMenu() {
             <button
               type="button"
               className="flex flex-row-reverse items-center gap-1.5 px-2"
-              aria-label={`${localize('battery_status')}: ${battery.level}%. ${localize('volume')}: ${volume}%`}
+              aria-label={`${locale.text('battery_status')}: ${battery.level}%. ${locale.text('volume')}: ${volume}%`}
             >
               <span className="grid size-6 place-items-center compact:hidden">
                 <Battery
@@ -174,9 +174,10 @@ export function UtilityMenu() {
           </TooltipTrigger>
         </PopoverTrigger>
         <TooltipContent>
-          {localize('battery_status')}: {battery.level}% {localize('remaining')}
+          {locale.text('battery_status')}: {battery.level}%{' '}
+          {locale.text('remaining')}
           <br />
-          {localize('volume')}: {volume}%
+          {locale.text('volume')}: {volume}%
           <br />
           {connectionType?.toUpperCase() || '4G'}
         </TooltipContent>
@@ -198,20 +199,20 @@ export function UtilityMenu() {
             />
             <UtilityPill
               icon={<ProhibitedRegular className="size-4.5" />}
-              label={localize('dnd')}
+              label={locale.text('dnd')}
               activated={doNotDisturb}
               onClick={toggleDoNotDisturb}
             />
 
             <UtilityPill
               icon={<Chromium />}
-              label={localize('using_chromium')}
+              label={locale.text('using_chromium')}
               activated={clientFlags.isChromium}
               disabled
             />
             <UtilityPill
               icon={<ShareRegular className="size-4.5" />}
-              label={localize('share')}
+              label={locale.text('share')}
               disabled={!clientFlags.canShare}
               onClick={() => {
                 navigator.share({
@@ -223,7 +224,7 @@ export function UtilityMenu() {
             />
             <UtilityPill
               icon={<FullScreenMaximizeRegular className="size-4.5" />}
-              label={localize('fullscreen')}
+              label={locale.text('fullscreen')}
               activated={isFullscreen}
               onClick={toggleFullScreen}
               disabled={!clientFlags.canFullscreen}
@@ -235,7 +236,7 @@ export function UtilityMenu() {
                 className="mr-1 flex items-center justify-center rounded-sm p-2"
                 type="button"
                 disabled
-                aria-label={localize('theme')}
+                aria-label={locale.text('theme')}
               >
                 <WeatherSunnyRegular className="size-5" />
               </button>
@@ -244,7 +245,7 @@ export function UtilityMenu() {
             <div className="flex justify-start">
               <button
                 className="mr-1 flex items-center justify-center rounded-sm hover-shade p-2"
-                aria-label={localize(volume === 0 ? 'volume' : 'mute')}
+                aria-label={locale.text(volume === 0 ? 'volume' : 'mute')}
                 onClick={() => {
                   if (volume === 0) {
                     unmuteVolume()
@@ -280,7 +281,7 @@ export function UtilityMenu() {
               />
               <span>
                 {battery.level}%{' '}
-                {battery.isCharging ? `(${localize('charging')})` : ''}
+                {battery.isCharging ? `(${locale.text('charging')})` : ''}
               </span>
             </div>
           </div>

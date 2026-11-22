@@ -5,7 +5,7 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from '@/components/ui/popover'
-import useLocalize from '@/hooks/useLocalize'
+import useLocale from '@/hooks/useLocale'
 import { memberRoles } from '@/lib/concord/helpers'
 import type { Server, User } from '@/lib/concord/types'
 import { StatusDot } from './status-dot'
@@ -26,7 +26,7 @@ export function ProfilePopover({
   align?: ComponentProps<typeof PopoverContent>['align']
   children: ReactNode
 }) {
-  const localize = useLocalize()
+  const locale = useLocale()
   const roles = server ? memberRoles(server, user.id) : []
 
   return (
@@ -63,7 +63,7 @@ export function ProfilePopover({
           {user.bio && (
             <section>
               <h3 className={sectionTitleClassName}>
-                {localize('concord_about_me')}
+                {locale.text('concord_about_me')}
               </h3>
               <p className="whitespace-pre-wrap">{user.bio}</p>
             </section>
@@ -71,7 +71,7 @@ export function ProfilePopover({
           {roles.length > 0 && (
             <section>
               <h3 className={sectionTitleClassName}>
-                {localize('concord_roles')}
+                {locale.text('concord_roles')}
               </h3>
               <ul className="flex flex-wrap gap-1">
                 {roles.map((role) => (

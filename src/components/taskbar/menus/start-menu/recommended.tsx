@@ -1,7 +1,7 @@
 import { DocumentPdfRegular } from '@fluentui/react-icons/headless/svg/document-pdf'
-import { formatDistanceToNow, parseISO } from 'date-fns'
+import { parseISO } from 'date-fns'
 import { useShallow } from 'zustand/react/shallow'
-import useLocalize from '@/hooks/useLocalize'
+import useLocale from '@/hooks/useLocale'
 import {
   fileIconSrc,
   fileId,
@@ -11,7 +11,6 @@ import {
 import { openFile } from '@/lib/open-file'
 import { useAppStore } from '@/stores/app.store'
 import { usePdfStore } from '@/stores/pdf.store'
-import useThemeStore, { datefnsLocales } from '@/stores/theme.store'
 import { StartMenuSection } from './section'
 
 const MAX_ITEMS = 6
@@ -50,8 +49,7 @@ function RecommendedItem({
 }
 
 export function Recommended({ onAction }: { onAction: () => void }) {
-  const localize = useLocalize()
-  const locale = useThemeStore((state) => state.locale)
+  const locale = useLocale()
   const { apps, focusHistory, openApp } = useAppStore(
     useShallow((state) => ({
       apps: state.apps,
@@ -74,10 +72,10 @@ export function Recommended({ onAction }: { onAction: () => void }) {
   )
 
   return (
-    <StartMenuSection title={localize('start_menu_recommended')}>
+    <StartMenuSection title={locale.text('start_menu_recommended')}>
       {featured.length + files.length + recentApps.length === 0 ? (
         <p className="px-1 text-sm text-muted-foreground">
-          {localize('start_menu_recommended_empty')}
+          {locale.text('start_menu_recommended_empty')}
         </p>
       ) : (
         <ul className="grid grid-cols-2 gap-1">
@@ -105,10 +103,7 @@ export function Recommended({ onAction }: { onAction: () => void }) {
               key={entry.id}
               icon={<DocumentPdfRegular className="size-7 text-red-500" />}
               title={fileLabel(entry)}
-              subtitle={formatDistanceToNow(parseISO(entry.openedAt ?? ''), {
-                addSuffix: true,
-                locale: datefnsLocales[locale],
-              })}
+              subtitle={locale.since(parseISO(entry.openedAt ?? ''))}
               onOpen={() => {
                 openPdf(entry)
                 onAction()
@@ -127,8 +122,8 @@ export function Recommended({ onAction }: { onAction: () => void }) {
                   className="size-7 object-contain"
                 />
               }
-              title={localize(label)}
-              subtitle={localize(
+              title={locale.text(label)}
+              subtitle={locale.text(
                 apps[label].state === 'closed'
                   ? 'start_menu_recently_used'
                   : 'start_menu_running',

@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { useAudio } from '@/hooks/useAudio'
-import useLocalize from '@/hooks/useLocalize'
+import useLocale from '@/hooks/useLocale'
 import { fileIconSrc, fileLabel } from '@/lib/directories'
 import type {
   FileNode,
@@ -44,7 +44,7 @@ export function FolderView({
   folder: FolderNode
   path: FolderPath
 }) {
-  const localize = useLocalize()
+  const locale = useLocale()
   const navigate = useExplorerStore((state) => state.navigate)
   const errorAudio = useAudio('/audio/error.wav')
   const [selected, setSelected] = useState<number | null>(null)
@@ -52,7 +52,9 @@ export function FolderView({
 
   if (folder.children.length === 0) {
     return (
-      <p className="mt-6 text-center opacity-60">{localize('folder_empty')}</p>
+      <p className="mt-6 text-center opacity-60">
+        {locale.text('folder_empty')}
+      </p>
     )
   }
 
@@ -90,7 +92,9 @@ export function FolderView({
             >
               <ItemIcon node={node} />
               <span className="w-full text-center wrap-break-word">
-                {node.type === 'folder' ? localize(node.name) : fileLabel(node)}
+                {node.type === 'folder'
+                  ? locale.text(node.name)
+                  : fileLabel(node)}
               </span>
             </button>
           </li>

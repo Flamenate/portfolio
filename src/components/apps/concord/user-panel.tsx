@@ -1,5 +1,5 @@
 import { me } from '@/data/concord/users'
-import useLocalize from '@/hooks/useLocalize'
+import useLocale from '@/hooks/useLocale'
 import { getUser } from '@/lib/concord/helpers'
 import type { Server } from '@/lib/concord/types'
 import { ProfilePopover } from './profile-popover'
@@ -7,7 +7,7 @@ import { PresenceAvatar } from './status-dot'
 
 /** Spans the rail and sidebar. Same height and bottom offset as the composer so both line up. */
 export function UserPanel({ server }: { server?: Server }) {
-  const localize = useLocalize()
+  const locale = useLocale()
   const user = getUser(me)
 
   return (
@@ -22,7 +22,7 @@ export function UserPanel({ server }: { server?: Server }) {
             {user.displayName}
           </span>
           <span className="block truncate text-xs text-muted-foreground">
-            {localize(`concord_${user.status}`)}
+            {locale.text(`concord_${user.status}`)}
           </span>
         </span>
       </button>

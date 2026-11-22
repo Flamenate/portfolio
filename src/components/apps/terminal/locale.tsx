@@ -1,4 +1,4 @@
-import localize from '@/lib/localize'
+import { createLocale } from '@/lib/locale'
 import type { Command } from '@/lib/terminal-commands'
 import useThemeStore, { locales } from '@/stores/theme.store'
 import type { Locale } from '@/stores/theme.store'
@@ -14,16 +14,20 @@ export const localeCommand: Command = ({ args, locale }) => {
   if (!isModifying) {
     return (
       <p>
-        {localize('terminal_current_locale', locale)}:{' '}
-        <strong>{locales[locale]}</strong>
+        {locale.text('terminal_current_locale')}:{' '}
+        <strong>{locales[locale.code]}</strong>
       </p>
     )
   }
 
   if (!isLocale(newLocale)) {
-    return <p>{localize('terminal_invalid_locale', locale)}</p>
+    return <p>{locale.text('terminal_invalid_locale')}</p>
   }
 
   useThemeStore.getState().setLocale(newLocale)
-  return <p>{localize('terminal_locale_set', newLocale, locales[newLocale])}</p>
+  return (
+    <p>
+      {createLocale(newLocale).text('terminal_locale_set', locales[newLocale])}
+    </p>
+  )
 }

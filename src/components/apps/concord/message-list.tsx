@@ -1,12 +1,11 @@
-import { format } from 'date-fns'
-import type { Locale as DateLocale } from 'date-fns'
 import { useState } from 'react'
 import { Avatar } from '@/components/ui/avatar'
+import useLocale from '@/hooks/useLocale'
 import { getUser, messageBlocks, nameColor } from '@/lib/concord/helpers'
 import type { MessageGroup } from '@/lib/concord/helpers'
 import type { Message, Reaction, Server } from '@/lib/concord/types'
+import type { Localizer } from '@/lib/locale'
 import { cn } from '@/lib/utils'
-import { datefnsLocales, useThemeStore } from '@/stores/theme.store'
 import { ProfilePopover } from './profile-popover'
 
 function MessageBody({ message }: { message: Message }) {
@@ -75,11 +74,11 @@ function Reactions({ initialReactions }: { initialReactions: Reaction[] }) {
 function MessageGroupItem({
   group,
   server,
-  dateLocale,
+  locale,
 }: {
   group: MessageGroup
   server?: Server
-  dateLocale: DateLocale
+  locale: Localizer
 }) {
   const author = getUser(group.authorId)
   const [first, ...rest] = group.messages
@@ -116,7 +115,7 @@ function MessageGroupItem({
               className="shrink-0 text-xs text-muted-foreground"
               suppressHydrationWarning
             >
-              {format(first.date, 'P p', { locale: dateLocale })}
+              {locale.date(first.date, 'P p')}
             </time>
           </div>
           <MessageBody message={first} />
@@ -132,7 +131,7 @@ function MessageGroupItem({
             className="w-10 shrink-0 pt-0.5 text-right text-[0.625rem] whitespace-nowrap text-muted-foreground opacity-0 group-hover:opacity-100"
             suppressHydrationWarning
           >
-            {format(message.date, 'p', { locale: dateLocale })}
+            {locale.date(message.date, 'p')}
           </time>
           <div className="min-w-0 grow">
             <MessageBody message={message} />
@@ -150,8 +149,7 @@ export function MessageList({
   messages: Message[]
   server?: Server
 }) {
-  const locale = useThemeStore((state) => state.locale)
-  const dateLocale = datefnsLocales[locale]
+  const locale = useLocale()
 
   return (
     <div className="pb-4">
@@ -163,7 +161,7 @@ export function MessageList({
           >
             <span aria-hidden className="h-px grow bg-muted-foreground/30" />
             <span suppressHydrationWarning>
-              {format(block.date, 'PPP', { locale: dateLocale })}
+              {locale.date(block.date, 'PPP')}
             </span>
             <span aria-hidden className="h-px grow bg-muted-foreground/30" />
           </div>
@@ -172,7 +170,7 @@ export function MessageList({
             key={block.id}
             group={block}
             server={server}
-            dateLocale={dateLocale}
+            locale={locale}
           />
         ),
       )}

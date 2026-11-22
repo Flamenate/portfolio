@@ -3,7 +3,7 @@ import { ArrowLeftRegular } from '@fluentui/react-icons/headless/svg/arrow-left'
 import { ArrowUploadRegular } from '@fluentui/react-icons/headless/svg/arrow-upload'
 import { DocumentPdfRegular } from '@fluentui/react-icons/headless/svg/document-pdf'
 import { OpenRegular } from '@fluentui/react-icons/headless/svg/open'
-import { format, parseISO } from 'date-fns'
+import { parseISO } from 'date-fns'
 import { useRef, useState } from 'react'
 import type { ChangeEvent } from 'react'
 import { Button } from '@/components/ui/button'
@@ -15,16 +15,15 @@ import {
   TooltipTrigger,
 } from '@/components/ui/tooltip'
 import { root } from '@/data/directories'
-import useLocalize from '@/hooks/useLocalize'
+import useLocale from '@/hooks/useLocale'
 import { useAppRequest } from '@/lib/app-request'
 import { fileId, fileLabel, getFolder, pathKey } from '@/lib/directories'
 import type { FolderPath } from '@/lib/directories'
+import type { Localizer } from '@/lib/locale'
 import { pdfEntry, pdfFolders, pdfsIn } from '@/lib/pdfs'
 import { cn } from '@/lib/utils'
 import { usePdfStore } from '@/stores/pdf.store'
 import type { PdfEntry } from '@/stores/pdf.store'
-import { datefnsLocales, useThemeStore } from '@/stores/theme.store'
-import type { Locale } from '@/stores/theme.store'
 
 const cloudItems = [
   'your_files',
@@ -51,9 +50,9 @@ function formatSize(bytes: number) {
   return `${compact(kb / 1024)} MB`
 }
 
-function openedLabel(openedAt: string | null, locale: Locale) {
+function openedLabel(openedAt: string | null, locale: Localizer) {
   if (!openedAt) return ''
-  return format(parseISO(openedAt), 'PPp', { locale: datefnsLocales[locale] })
+  return locale.date(parseISO(openedAt), 'PPp')
 }
 
 // Uploads have no path: they are the visitor's own files, not ours to offer.
@@ -97,8 +96,7 @@ function entriesIn(path: FolderPath, recent: PdfEntry[]): PdfEntry[] {
 }
 
 export function Gymnast() {
-  const localize = useLocalize()
-  const locale = useThemeStore((state) => state.locale)
+  const locale = useLocale()
   const recent = usePdfStore((state) => state.recent)
   const recordOpen = usePdfStore((state) => state.recordOpen)
   const addUpload = usePdfStore((state) => state.addUpload)
@@ -165,7 +163,7 @@ export function Gymnast() {
         onChange={onUpload}
       />
       <aside
-        aria-label={localize('gymnast_pdf')}
+        aria-label={locale.text('gymnast_pdf')}
         className={cn(
           'min-h-0 shrink-0 flex-col gap-2 overflow-y-auto p-1 @md:w-56',
           browsing ? 'hidden @md:flex' : 'flex',
@@ -177,7 +175,7 @@ export function Gymnast() {
           onClick={() => inputRef.current?.click()}
         >
           <ArrowUploadRegular />
-          {localize('upload')}
+          {locale.text('upload')}
         </Button>
         <Tabs
           orientation="vertical"
@@ -188,29 +186,34 @@ export function Gymnast() {
           onValueChange={onTab}
           className="flex-col gap-0"
         >
-          <TabsList aria-label={localize('recent')} className="w-full">
+          <TabsList aria-label={locale.text('recent')} className="w-full">
             <TabsTrigger
               value="recent"
               className="py-1.5"
               onClick={() => onTab('recent')}
             >
               <span className="grow truncate text-left">
-                {localize('recent')}
+                {locale.text('recent')}
               </span>
             </TabsTrigger>
           </TabsList>
-          <h2 className={sectionTitleClassName}>{localize('cloud_storage')}</h2>
-          <TabsList aria-label={localize('cloud_storage')} className="w-full">
+          <h2 className={sectionTitleClassName}>
+            {locale.text('cloud_storage')}
+          </h2>
+          <TabsList
+            aria-label={locale.text('cloud_storage')}
+            className="w-full"
+          >
             {cloudItems.map((item) => (
               <TabsTrigger key={item} value={item} disabled className="py-1.5">
                 <span className="grow truncate text-left">
-                  {localize(item)}
+                  {locale.text(item)}
                 </span>
               </TabsTrigger>
             ))}
           </TabsList>
-          <h2 className={sectionTitleClassName}>{localize('this_pc')}</h2>
-          <TabsList aria-label={localize('this_pc')} className="w-full">
+          <h2 className={sectionTitleClassName}>{locale.text('this_pc')}</h2>
+          <TabsList aria-label={locale.text('this_pc')} className="w-full">
             {folders.map((node) => (
               <TabsTrigger
                 key={pathKey(node.path)}
@@ -219,7 +222,7 @@ export function Gymnast() {
                 onClick={() => onTab(pathKey(node.path))}
               >
                 <span className="grow truncate text-left">
-                  {localize(node.folder.name)}
+                  {locale.text(node.folder.name)}
                 </span>
               </TabsTrigger>
             ))}
@@ -228,7 +231,7 @@ export function Gymnast() {
       </aside>
 
       <section
-        aria-label={viewing ? fileLabel(viewing) : localize(title)}
+        aria-label={viewing ? fileLabel(viewing) : locale.text(title)}
         className={cn(
           '@container/files m-1 min-h-0 min-w-0 grow flex-col rounded-md bg-popover dark:bg-background',
           browsing ? 'flex' : 'hidden @md:flex',
@@ -239,12 +242,12 @@ export function Gymnast() {
           <>
             <div className="flex shrink-0 border-b border-muted-foreground/50 p-1">
               <NavButton
-                label={localize('back')}
+                label={locale.text('back')}
                 onClick={() => setViewing(null)}
               >
                 <ArrowLeftRegular className="size-4 text-foreground dark:text-(--white)" />
               </NavButton>
-              <DownloadLink entry={viewing} label={localize('download')} />
+              <DownloadLink entry={viewing} label={locale.text('download')} />
               <Tooltip>
                 <TooltipTrigger asChild>
                   {/* Mobile browsers often can't render a PDF in an iframe. */}
@@ -252,14 +255,14 @@ export function Gymnast() {
                     href={viewing.src}
                     target="_blank"
                     rel="noopener noreferrer"
-                    aria-label={localize('open_in_new_tab')}
+                    aria-label={locale.text('open_in_new_tab')}
                     className="flex size-10.5 shrink-0 items-center justify-center rounded-sm hover-shade"
                   >
                     <OpenRegular className="size-4 text-foreground dark:text-(--white)" />
                   </a>
                 </TooltipTrigger>
                 <TooltipContent sideOffset={4}>
-                  {localize('open_in_new_tab')}
+                  {locale.text('open_in_new_tab')}
                 </TooltipContent>
               </Tooltip>
             </div>
@@ -277,13 +280,13 @@ export function Gymnast() {
           <>
             <div className="shrink-0 p-1 @md:hidden">
               <NavButton
-                label={localize('back')}
+                label={locale.text('back')}
                 onClick={() => setBrowsing(false)}
               >
                 <ArrowLeftRegular className="size-4 text-foreground dark:text-(--white)" />
               </NavButton>
             </div>
-            <h1 className="px-3 pt-3 pb-2 text-lg">{localize(title)}</h1>
+            <h1 className="px-3 pt-3 pb-2 text-lg">{locale.text(title)}</h1>
             {/* The spacer matches the download slot in front of each row. */}
             <div className="flex pl-1">
               <span aria-hidden className="w-10.5 shrink-0" />
@@ -293,11 +296,11 @@ export function Gymnast() {
                   'grow py-2 text-xs tracking-wide text-muted-foreground uppercase',
                 )}
               >
-                <span>{localize('name')}</span>
+                <span>{locale.text('name')}</span>
                 <span className="hidden @lg/files:block">
-                  {localize('opened')}
+                  {locale.text('opened')}
                 </span>
-                <span className="text-right">{localize('size')}</span>
+                <span className="text-right">{locale.text('size')}</span>
               </div>
             </div>
             <ul>
@@ -308,7 +311,7 @@ export function Gymnast() {
                 >
                   <DownloadLink
                     entry={entry}
-                    label={localize('download')}
+                    label={locale.text('download')}
                     className="h-13 rounded-none"
                   />
                   <button
@@ -324,7 +327,7 @@ export function Gymnast() {
                       <span className="min-w-0">
                         <span className="block truncate">{entry.name}</span>
                         <span className="block truncate text-xs text-muted-foreground">
-                          {localize(entry.path?.at(-1) ?? 'uploaded')}
+                          {locale.text(entry.path?.at(-1) ?? 'uploaded')}
                         </span>
                       </span>
                     </span>

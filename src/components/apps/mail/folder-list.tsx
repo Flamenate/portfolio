@@ -9,7 +9,7 @@ import { Button } from '@/components/ui/button'
 import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { mailFolders } from '@/data/mails'
 import type { MailFolder } from '@/data/mails'
-import useLocalize from '@/hooks/useLocalize'
+import useLocale from '@/hooks/useLocale'
 
 const folderIcons: Record<MailFolder, FluentIcon> = {
   inbox: MailInboxRegular,
@@ -32,7 +32,7 @@ export function FolderList({
   onSelect,
   onCompose,
 }: FolderListProps) {
-  const localize = useLocalize()
+  const locale = useLocale()
   const onValueChange = (value: string) => onSelect(value as MailFolder)
 
   return (
@@ -40,8 +40,8 @@ export function FolderList({
       <div className="flex shrink-0 items-center gap-1 border-b border-muted-foreground/50 p-1 @md:hidden">
         <Button
           size="icon-sm"
-          aria-label={localize('mail_new')}
-          title={localize('mail_new')}
+          aria-label={locale.text('mail_new')}
+          title={locale.text('mail_new')}
           onClick={onCompose}
         >
           <ComposeRegular />
@@ -52,12 +52,12 @@ export function FolderList({
           className="min-w-0 grow"
         >
           <TabsList
-            aria-label={localize('mail')}
+            aria-label={locale.text('mail')}
             className="w-full scroll-fade-x justify-start overflow-x-auto"
           >
             {mailFolders.map((folder) => (
               <TabsTrigger key={folder} value={folder} className="px-2.5">
-                {localize(folder)}
+                {locale.text(folder)}
               </TabsTrigger>
             ))}
           </TabsList>
@@ -71,21 +71,21 @@ export function FolderList({
           onClick={onCompose}
         >
           <ComposeRegular />
-          {localize('mail_new')}
+          {locale.text('mail_new')}
         </Button>
         <Tabs
           orientation="vertical"
           value={current}
           onValueChange={onValueChange}
         >
-          <TabsList aria-label={localize('mail')} className="w-full">
+          <TabsList aria-label={locale.text('mail')} className="w-full">
             {mailFolders.map((folder) => {
               const Icon = folderIcons[folder]
               return (
                 <TabsTrigger key={folder} value={folder} className="py-1.5">
                   <Icon />
                   <span className="grow truncate text-left">
-                    {localize(folder)}
+                    {locale.text(folder)}
                   </span>
                   {counts[folder] > 0 && (
                     <span className="text-xs opacity-60">{counts[folder]}</span>

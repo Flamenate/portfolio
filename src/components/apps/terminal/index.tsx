@@ -1,10 +1,9 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
 import type { ReactNode } from 'react'
 import { Input } from '@/components/ui/input'
-import localize from '@/lib/localize'
+import useLocale from '@/hooks/useLocale'
+import type { Localizer } from '@/lib/locale'
 import { findCommand } from '@/lib/terminal-commands'
-import useThemeStore from '@/stores/theme.store'
-import type { Locale } from '@/stores/theme.store'
 
 interface HistoryEntry {
   id: number
@@ -12,13 +11,12 @@ interface HistoryEntry {
   output: ReactNode
 }
 
-function unknownCommandOutput(commandName: string, locale: Locale) {
+function unknownCommandOutput(commandName: string, locale: Localizer) {
   return (
     <p
       dangerouslySetInnerHTML={{
-        __html: localize(
+        __html: locale.text(
           'terminal_unknown_command',
-          locale,
           commandName.replaceAll(/</g, '&lt;').replaceAll(/>/g, '&gt;'),
         ),
       }}
@@ -27,7 +25,7 @@ function unknownCommandOutput(commandName: string, locale: Locale) {
 }
 
 export function Terminal() {
-  const locale = useThemeStore((state) => state.locale)
+  const locale = useLocale()
   const inputRef = useRef<HTMLInputElement>(null)
 
   useEffect(() => {
@@ -87,8 +85,8 @@ export function Terminal() {
       }}
     >
       <code>Haythem Frikha - [Version 0.1.019011.25]</code>
-      <code>(?) {localize('terminal_disclaimer', locale)}</code>
-      <code>{localize('terminal_help', locale)}</code>
+      <code>(?) {locale.text('terminal_disclaimer')}</code>
+      <code>{locale.text('terminal_help')}</code>
       <br />
 
       {history.map((entry) => (

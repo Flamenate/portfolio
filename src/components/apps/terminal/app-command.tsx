@@ -1,7 +1,6 @@
 import { isAppLabel } from '@/lib/apps'
 import type { AppLabel } from '@/lib/apps'
-import localize from '@/lib/localize'
-import type { TranslationKey } from '@/lib/localize'
+import type { TranslationKey } from '@/lib/locale'
 import type { Command } from '@/lib/terminal-commands'
 import useAppStore from '@/stores/app.store'
 
@@ -26,15 +25,15 @@ export function appCommand({
 }): Command {
   return ({ args, locale }) => {
     const label = parseAppLabel(args[0])
-    if (!label) return <p>{localize('terminal_invalid_app', locale)}</p>
+    if (!label) return <p>{locale.text('terminal_invalid_app')}</p>
 
     const state = useAppStore.getState()
     if (isApplied(state, label)) {
-      return <p>{localize(messages.alreadyApplied, locale, label)}</p>
+      return <p>{locale.text(messages.alreadyApplied, label)}</p>
     }
 
     apply(state, label)
     const name = showExe ? `${label}.exe` : label
-    return <p>{localize(messages.applied, locale, name)}</p>
+    return <p>{locale.text(messages.applied, name)}</p>
   }
 }

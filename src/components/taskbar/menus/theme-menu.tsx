@@ -12,7 +12,7 @@ import {
   TooltipContent,
   TooltipTrigger,
 } from '@/components/ui/tooltip'
-import useLocalize from '@/hooks/useLocalize'
+import useLocale from '@/hooks/useLocale'
 import { cn } from '@/lib/utils'
 import useThemeStore, {
   paletteDescriptions,
@@ -75,7 +75,7 @@ function PalettePill({
   selected: boolean
   onClick: () => void
 }) {
-  const localize = useLocalize()
+  const locale = useLocale()
   return (
     <button
       className={cn(
@@ -92,7 +92,7 @@ function PalettePill({
         <PaletteIcon palette={palette} size={20} />
       </span>
       <p>
-        <span className="text-xs">{localize(palette)}</span>
+        <span className="text-xs">{locale.text(palette)}</span>
         <br />
         <span className="text-xs text-nowrap text-muted-foreground">
           {paletteDescriptions[palette]}
@@ -103,15 +103,10 @@ function PalettePill({
 }
 
 export function ThemeMenu() {
-  const [locale, palette, setLocale, setPalette] = useThemeStore(
-    useShallow((state) => [
-      state.locale,
-      state.palette,
-      state.setLocale,
-      state.setPalette,
-    ]),
+  const [palette, setLocale, setPalette] = useThemeStore(
+    useShallow((state) => [state.palette, state.setLocale, state.setPalette]),
   )
-  const localize = useLocalize()
+  const locale = useLocale()
   return (
     <Popover>
       <Tooltip>
@@ -120,39 +115,39 @@ export function ThemeMenu() {
             <button
               type="button"
               className="flex flex-col items-center justify-center gap-1.5 px-3.5 py-1 uppercase"
-              aria-label={`${localize('locale')}: ${locales[locale]}. ${localize('theme')}: ${localize(palette)}`}
+              aria-label={`${locale.text('locale')}: ${locales[locale.code]}. ${locale.text('theme')}: ${locale.text(palette)}`}
             >
-              <span className="text-xs">{locale}</span>
+              <span className="text-xs">{locale.code}</span>
               <PaletteIcon palette={palette} size={18} />
             </button>
           </TooltipTrigger>
         </PopoverTrigger>
         <TooltipContent>
           <p>
-            <span className="font-bold">{localize('locale')}:</span>
-            <span> {locales[locale]}</span>
+            <span className="font-bold">{locale.text('locale')}:</span>
+            <span> {locales[locale.code]}</span>
             <br />
-            <span className="font-bold">{localize('theme')}:</span>
-            <span className="capitalize"> {localize(palette)}</span>
+            <span className="font-bold">{locale.text('theme')}:</span>
+            <span className="capitalize"> {locale.text(palette)}</span>
           </p>
         </TooltipContent>
       </Tooltip>
       <PopoverContent sideOffset={12} className="w-90 border-none">
         <div className="mb-1 rounded-sm border border-border p-1.5 text-sm">
-          <p className="px-1.5 py-2 font-medium">{localize('locale')}</p>
+          <p className="px-1.5 py-2 font-medium">{locale.text('locale')}</p>
           <div className="flex flex-col gap-1">
             {(Object.keys(locales) as Locale[]).map((loc) => (
               <LocaleItem
                 key={loc}
                 locale={loc}
-                selected={loc === locale}
+                selected={loc === locale.code}
                 onClick={() => setLocale(loc)}
               />
             ))}
           </div>
         </div>
         <div className="rounded-sm border border-border p-1.5 text-sm">
-          <p className="px-1.5 py-2 font-medium">{localize('theme')}</p>
+          <p className="px-1.5 py-2 font-medium">{locale.text('theme')}</p>
           <div className="flex flex-col gap-1">
             {(Object.keys(paletteDescriptions) as Palette[]).map((pal) => (
               <PalettePill

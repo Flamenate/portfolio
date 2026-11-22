@@ -1,4 +1,4 @@
-import useLocalize from '@/hooks/useLocalize'
+import useLocale from '@/hooks/useLocale'
 import { memberGroups, nameColor } from '@/lib/concord/helpers'
 import type { MemberGroup } from '@/lib/concord/helpers'
 import type { Server } from '@/lib/concord/types'
@@ -17,11 +17,11 @@ export function MemberList({
   server: Server
   className?: string
 }) {
-  const localize = useLocalize()
+  const locale = useLocale()
 
   return (
     <aside
-      aria-label={localize('concord_members')}
+      aria-label={locale.text('concord_members')}
       className={cn('w-60 shrink-0 flex-col overflow-y-auto p-2', className)}
     >
       {memberGroups(server).map((group) => (
@@ -29,7 +29,7 @@ export function MemberList({
           <h3 className="truncate px-2 pb-1 text-xs font-semibold text-muted-foreground">
             {group.kind === 'role'
               ? group.role.name
-              : localize(`concord_${group.kind}`)}{' '}
+              : locale.text(`concord_${group.kind}`)}{' '}
             — {group.members.length}
           </h3>
           <ul>

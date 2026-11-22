@@ -1,4 +1,4 @@
-import type { TranslationKey } from '@/lib/localize'
+import type { TranslationKey } from '@/lib/locale'
 
 export const specialValues: Partial<Record<number, TranslationKey>> = {
   2026: 'calculator_year_france',
