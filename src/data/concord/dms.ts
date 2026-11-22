@@ -2,6 +2,92 @@ import type { Dm } from '@/lib/concord/types'
 
 export const dms: Dm[] = [
   {
+    userId: 'mehdiABD',
+    messages: [
+      {
+        id: 'dm-mehdiABD-1',
+        authorId: 'mehdiABD',
+        date: new Date('2026-06-12T10:05:00'),
+        content:
+          "Bonjour Haythem,\nComme je l'ai annoncé en dernière séance, je recueille les retours des étudiants sur le module de génie logiciel et développement web. N'hésitez pas à être franc, ça m'aide à améliorer le cours pour la prochaine promotion.\nBonne fin de semestre.",
+      },
+      {
+        id: 'dm-mehdiABD-2',
+        authorId: 'flamenate',
+        date: new Date('2026-06-12T18:42:00'),
+        content:
+          "Bonsoir Monsieur,\nMerci pour le cours et pour l'occasion de donner un retour.\n\nCe qui a très bien marché :\n- le mini-projet fil rouge, on voyait vraiment l'intérêt de chaque séance (architecture, tests, déploiement)\n- les revues de code en séance, c'est ce qui m'a le plus appris\n- les TP sur Git en équipe, beaucoup de camarades l'utilisaient pour la première fois sérieusement\n\nCe qui pourrait être amélioré :\n- les premières séances sur UML étaient un peu longues par rapport au reste, on aurait pu passer plus vite à la pratique\n- un peu plus de temps sur les tests automatisés et la CI, ça reste flou pour beaucoup\n- publier les énoncés des TP une semaine à l'avance aiderait ceux qui veulent préparer\n\nEn tout cas c'était un des modules les plus utiles du semestre pour moi.",
+      },
+      {
+        id: 'dm-mehdiABD-3',
+        authorId: 'mehdiABD',
+        date: new Date('2026-06-13T09:15:00'),
+        content:
+          "Merci Haythem pour ce retour détaillé et constructif.\nJe prends note pour UML et pour les tests/CI, je vais réorganiser les séances l'année prochaine. Bonne continuation pour la suite, et bon courage pour Brest.",
+      },
+      {
+        id: 'dm-mehdiABD-4',
+        authorId: 'flamenate',
+        date: new Date('2026-06-13T09:32:00'),
+        content: 'Merci beaucoup Monsieur, bonne journée !',
+      },
+    ],
+  },
+  {
+    userId: 'tarekfr',
+    messages: [
+      {
+        id: 'dm-tarekfr-1',
+        authorId: 'flamenate',
+        date: new Date('2026-04-21T16:10:00'),
+        content:
+          "Bonjour Monsieur,\nJ'ai reçu la réponse de l'ENIB pour le double diplôme : je suis accepté. Mais j'hésite encore, et j'aimerais avoir votre avis avant de confirmer.\nAuriez-vous un moment cette semaine ?",
+      },
+      {
+        id: 'dm-tarekfr-2',
+        authorId: 'tarekfr',
+        date: new Date('2026-04-21T17:45:00'),
+        content:
+          "Bonjour Haythem,\nFélicitations, c'est mérité. Je suis disponible jeudi à 11h au département. Si tu préfères, tu peux déjà m'écrire ici ce qui te fait hésiter.",
+      },
+      {
+        id: 'dm-tarekfr-3',
+        authorId: 'flamenate',
+        date: new Date('2026-04-21T21:03:00'),
+        content:
+          "Merci Monsieur.\nD'un côté, l'expérience internationale et le diplôme français m'intéressent beaucoup.\nDe l'autre, je suis bien installé ici : les projets, les clubs, l'équipe… Et je me demande si je ne perdrais pas en continuité en partant en plein cursus.",
+      },
+      {
+        id: 'dm-tarekfr-4',
+        authorId: 'tarekfr',
+        date: new Date('2026-04-22T08:30:00'),
+        content:
+          "Ce sont deux bonnes raisons, et il n'y a pas de mauvais choix.\nRester, c'est finir le cursus dans un environnement que tu connais, avec un PFE où tu peux t'appuyer sur ton réseau ici.\nPartir, c'est une adaptation au début, mais aussi une ouverture, un second diplôme et des stages en Europe.\nLe plus important est de choisir en fonction de ce que tu veux faire dans 3 ou 4 ans. On en parle jeudi.",
+      },
+      {
+        id: 'dm-tarekfr-5',
+        authorId: 'flamenate',
+        date: new Date('2026-04-23T12:20:00'),
+        content:
+          "Merci pour l'échange de ce matin, Monsieur. Ça m'a beaucoup aidé à y voir clair.\nJe vais confirmer l'ENIB.",
+        reactions: [{ emoji: '👏', count: 1 }],
+      },
+      {
+        id: 'dm-tarekfr-6',
+        authorId: 'tarekfr',
+        date: new Date('2026-04-23T13:05:00'),
+        content:
+          "Très bonne décision. Pense à déposer le dossier auprès de la scolarité avant la fin du mois pour la convention.\nEt garde contact avec le département, tu restes un étudiant de l'ENIS.",
+      },
+      {
+        id: 'dm-tarekfr-7',
+        authorId: 'flamenate',
+        date: new Date('2026-04-23T13:09:00'),
+        content: 'Avec plaisir, merci encore pour tout Monsieur 🙏',
+      },
+    ],
+  },
+  {
     userId: 'bushmaster',
     messages: [
       {
@@ -88,7 +174,7 @@ export const dms: Dm[] = [
         authorId: 'kaiser',
         date: new Date('2026-11-08T21:15:00'),
         content:
-          'Flame, el board wafa9 3al Casino 🎰\nn7ebou nlanciw el annonce 9bal akher el chhar, el event nhar 19 décembre',
+          'Flame, el board wafa9 3al Casino 🎰\nn7ebou nlanciw el annonce 9bal akher el chhar, el event nhar 20 décembre',
       },
       {
         id: 'dm-kaiser-2',
@@ -227,88 +313,93 @@ export const dms: Dm[] = [
     ],
   },
   {
-    userId: 'mehdiABD',
+    userId: 'iphylox',
     messages: [
       {
-        id: 'dm-mehdiABD-1',
-        authorId: 'mehdiABD',
-        date: new Date('2026-06-12T10:05:00'),
+        id: 'dm-iphylox-1',
+        authorId: 'iphylox',
+        date: new Date('2026-11-20T21:14:00'),
         content:
-          "Bonjour Haythem,\nComme je l'ai annoncé en dernière séance, je recueille les retours des étudiants sur le module de génie logiciel et développement web. N'hésitez pas à être franc, ça m'aide à améliorer le cours pour la prochaine promotion.\nBonne fin de semestre.",
+          'Flame 3awedt Skyrim mel louel. playthrough numéro 9 ama hedhi el mara b 400 mod\nel game wallet ajmal men jeux 2026 😂',
       },
       {
-        id: 'dm-mehdiABD-2',
+        id: 'dm-iphylox-2',
         authorId: 'flamenate',
-        date: new Date('2026-06-12T18:42:00'),
+        date: new Date('2026-11-20T21:30:00'),
         content:
-          "Bonsoir Monsieur,\nMerci pour le cours et pour l'occasion de donner un retour.\n\nCe qui a très bien marché :\n- le mini-projet fil rouge, on voyait vraiment l'intérêt de chaque séance (architecture, tests, déploiement)\n- les revues de code en séance, c'est ce qui m'a le plus appris\n- les TP sur Git en équipe, beaucoup de camarades l'utilisaient pour la première fois sérieusement\n\nCe qui pourrait être amélioré :\n- les premières séances sur UML étaient un peu longues par rapport au reste, on aurait pu passer plus vite à la pratique\n- un peu plus de temps sur les tests automatisés et la CI, ça reste flou pour beaucoup\n- publier les énoncés des TP une semaine à l'avance aiderait ceux qui veulent préparer\n\nEn tout cas c'était un des modules les plus utiles du semestre pour moi.",
+          '400 mod w ma crashech? 3jeb\nena kol mara nebda Skyrim nwalli nhabet 12 sa3a fel load order w ba3d nemchi nal3eb Elden Ring 😭',
       },
       {
-        id: 'dm-mehdiABD-3',
-        authorId: 'mehdiABD',
-        date: new Date('2026-06-13T09:15:00'),
+        id: 'dm-iphylox-3',
+        authorId: 'iphylox',
+        date: new Date('2026-11-20T21:33:00'),
         content:
-          "Merci Haythem pour ce retour détaillé et constructif.\nJe prends note pour UML et pour les tests/CI, je vais réorganiser les séances l'année prochaine. Bonne continuation pour la suite, et bon courage pour Brest.",
+          'crash kol sa3a 7a9 rabi, ama Whiterun wallet tchabah l mdina 7a9i9iya\nw el dragons ywalliw kiff el bosses mta3 Elden Ring, ma3adech yemoutou b zouz fléchet',
       },
       {
-        id: 'dm-mehdiABD-4',
+        id: 'dm-iphylox-4',
         authorId: 'flamenate',
-        date: new Date('2026-06-13T09:32:00'),
-        content: 'Merci beaucoup Monsieur, bonne journée !',
+        date: new Date('2026-11-20T21:36:00'),
+        content:
+          'hahaha Skyrim b 400 mod = Elden Ring b stamina bar mta3 Skyrim\nama sincèrement, el exploration mta3 Elden Ring hiya el héritière mta3 Skyrim. tod5el kahf sghir tal9a boss w loot, kif kif',
       },
-    ],
-  },
-  {
-    userId: 'tarekfr',
-    messages: [
       {
-        id: 'dm-tarekfr-1',
+        id: 'dm-iphylox-5',
+        authorId: 'iphylox',
+        date: new Date('2026-11-20T21:41:00'),
+        content:
+          "behi ama Skyrim ya3tik t3ich fel monde. tchri dar, tetzawej, tsir thane...\nElden Ring ya3tik ken l'humiliation mta3 Malenia",
+        reactions: [{ emoji: '😂', count: 1, me: true }],
+      },
+      {
+        id: 'dm-iphylox-6',
         authorId: 'flamenate',
-        date: new Date('2026-04-21T16:10:00'),
+        date: new Date('2026-11-20T21:44:00'),
         content:
-          "Bonjour Monsieur,\nJ'ai reçu la réponse de l'ENIB pour le double diplôme : je suis accepté. Mais j'hésite encore, et j'aimerais avoir votre avis avant de confirmer.\nAuriez-vous un moment cette semaine ?",
+          'l\'humiliation hiya el lore 🗿\nw ma tensech Skyrim tzawej m3a Lydia w hiya tgoul "I am sworn to carry your burdens" w ba3d to93od 9odem el bab 3 snin',
       },
       {
-        id: 'dm-tarekfr-2',
-        authorId: 'tarekfr',
-        date: new Date('2026-04-21T17:45:00'),
+        id: 'dm-iphylox-7',
+        authorId: 'iphylox',
+        date: new Date('2026-11-22T13:05:00'),
         content:
-          "Bonjour Haythem,\nFélicitations, c'est mérité. Je suis disponible jeudi à 11h au département. Si tu préfères, tu peux déjà m'écrire ici ce qui te fait hésiter.",
+          'bdel sujet: chfet el episode jdid mta3 FROM?\nDonna. DONNA. el mra hedhi hiya el seule adulte fel mdina hedhika',
       },
       {
-        id: 'dm-tarekfr-3',
+        id: 'dm-iphylox-8',
         authorId: 'flamenate',
-        date: new Date('2026-04-21T21:03:00'),
+        date: new Date('2026-11-22T13:21:00'),
         content:
-          "Merci Monsieur.\nD'un côté, l'expérience internationale et le diplôme français m'intéressent beaucoup.\nDe l'autre, je suis bien installé ici : les projets, les clubs, l'équipe… Et je me demande si je ne perdrais pas en continuité en partant en plein cursus.",
+          'chfetha el bera7. Donna 9wiya ok, ama el best character houwa Jim w ma fama 7atta débat\nel rajel ywalli ingénieur fi wost cauchemar, ya3mel radio men chay w y7eb yfhem el mdina b logique',
       },
       {
-        id: 'dm-tarekfr-4',
-        authorId: 'tarekfr',
-        date: new Date('2026-04-22T08:30:00'),
+        id: 'dm-iphylox-9',
+        authorId: 'iphylox',
+        date: new Date('2026-11-22T13:24:00'),
         content:
-          "Ce sont deux bonnes raisons, et il n'y a pas de mauvais choix.\nRester, c'est finir le cursus dans un environnement que tu connais, avec un PFE où tu peux t'appuyer sur ton réseau ici.\nPartir, c'est une adaptation au début, mais aussi une ouverture, un second diplôme et des stages en Europe.\nLe plus important est de choisir en fonction de ce que tu veux faire dans 3 ou 4 ans. On en parle jeudi.",
+          'Jim?? Jim kol episode y9oul "I think I can figure this out" w ba3d ma yfigure-outi chay 😂\nDonna tsayyer Colony House, t5alli el 3bed vivants, w tgoul el 7a9 fi weja kol 7ad',
       },
       {
-        id: 'dm-tarekfr-5',
+        id: 'dm-iphylox-10',
         authorId: 'flamenate',
-        date: new Date('2026-04-23T12:20:00'),
+        date: new Date('2026-11-22T13:30:00'),
         content:
-          "Merci pour l'échange de ce matin, Monsieur. Ça m'a beaucoup aidé à y voir clair.\nJe vais confirmer l'ENIB.",
-        reactions: [{ emoji: '👏', count: 1 }],
+          'houwa el wa7id eli y7awel yfhem 3lech el mdina ta5dem haka. el ba9i yesta9blou el monstres kol lil w y9oulou "normal"\nJim howa el engineering student mta3 FROM, ena n7es bih 😤',
       },
       {
-        id: 'dm-tarekfr-6',
-        authorId: 'tarekfr',
-        date: new Date('2026-04-23T13:05:00'),
+        id: 'dm-iphylox-11',
+        authorId: 'iphylox',
+        date: new Date('2026-11-22T13:32:00'),
         content:
-          "Très bonne décision. Pense à déposer le dossier auprès de la scolarité avant la fin du mois pour la convention.\nEt garde contact avec le département, tu restes un étudiant de l'ENIS.",
+          'ey 3la5ater enti zeda t7eb t9oul "I can fix it" 9bal ma ta9ra el doc 😂\nDonna would have kicked you out of Colony House fi nhar',
       },
       {
-        id: 'dm-tarekfr-7',
+        id: 'dm-iphylox-12',
         authorId: 'flamenate',
-        date: new Date('2026-04-23T13:09:00'),
-        content: 'Avec plaisir, merci encore pour tout Monsieur 🙏',
+        date: new Date('2026-11-22T13:35:00'),
+        content:
+          'w Donna would have built el radio? la. 5ali tetfarrej 3la Jim w t3allem\nnkamlou el débat fel voice el lila, w zid jib el load order mta3ek nchoufou chkoun eli ycrashi',
+        reactions: [{ emoji: '🤝', count: 1 }],
       },
     ],
   },
