@@ -654,6 +654,131 @@
     "fr": "Cette commande n'est pas prise en charge par l'utilitaire d'aide.",
     "es": "Este comando no está soportado por la utilidad de ayuda."
   },
+  "terminal_permission_denied": {
+    "eng": "Permission denied.",
+    "fr": "Permission refusée.",
+    "es": "Permiso denegado."
+  },
+  "terminal_description_whoami": {
+    "eng": "Display current user information",
+    "fr": "Afficher les informations de l'utilisateur actuel",
+    "es": "Mostrar la información del usuario actual"
+  },
+  "terminal_description_contact": {
+    "eng": "Show contact information",
+    "fr": "Afficher les informations de contact",
+    "es": "Mostrar la información de contacto"
+  },
+  "terminal_description_uptime": {
+    "eng": "Show system uptime",
+    "fr": "Afficher la durée de fonctionnement du système",
+    "es": "Mostrar el tiempo de actividad del sistema"
+  },
+  "terminal_description_clear": {
+    "eng": "Clear the terminal screen",
+    "fr": "Effacer l'écran du terminal",
+    "es": "Limpiar la pantalla del terminal"
+  },
+  "terminal_description_exit": {
+    "eng": "Close the terminal",
+    "fr": "Fermer le terminal",
+    "es": "Cerrar el terminal"
+  },
+  "terminal_description_taskmanager": {
+    "eng": "List running processes",
+    "fr": "Lister les processus en cours d'exécution",
+    "es": "Listar los procesos en ejecución"
+  },
+  "terminal_description_open": {
+    "eng": "Open an application",
+    "fr": "Ouvrir une application",
+    "es": "Abrir una aplicación"
+  },
+  "terminal_description_close": {
+    "eng": "Close an application",
+    "fr": "Fermer une application",
+    "es": "Cerrar una aplicación"
+  },
+  "terminal_description_pin": {
+    "eng": "Pin an application to the taskbar",
+    "fr": "Épingler une application à la barre des tâches",
+    "es": "Anclar una aplicación a la barra de tareas"
+  },
+  "terminal_description_unpin": {
+    "eng": "Unpin an application from the taskbar",
+    "fr": "Désépingler une application de la barre des tâches",
+    "es": "Desanclar una aplicación de la barra de tareas"
+  },
+  "terminal_description_help": {
+    "eng": "Display help information about commands",
+    "fr": "Afficher l'aide sur les commandes",
+    "es": "Mostrar información de ayuda sobre los comandos"
+  },
+  "terminal_description_sysinfo": {
+    "eng": "Display system information",
+    "fr": "Afficher les informations système",
+    "es": "Mostrar la información del sistema"
+  },
+  "terminal_description_soundtest": {
+    "eng": "Play a sound test",
+    "fr": "Lancer un test sonore",
+    "es": "Reproducir una prueba de sonido"
+  },
+  "terminal_description_skills": {
+    "eng": "Display my skills",
+    "fr": "Afficher mes compétences",
+    "es": "Mostrar mis habilidades"
+  },
+  "terminal_description_projects": {
+    "eng": "List my projects",
+    "fr": "Lister mes projets",
+    "es": "Listar mis proyectos"
+  },
+  "terminal_description_education": {
+    "eng": "Show my educational background",
+    "fr": "Afficher mon parcours scolaire",
+    "es": "Mostrar mi formación académica"
+  },
+  "terminal_description_experience": {
+    "eng": "List my work experience",
+    "fr": "Lister mon expérience professionnelle",
+    "es": "Listar mi experiencia laboral"
+  },
+  "terminal_description_fortune": {
+    "eng": "Display a random fortune cookie message",
+    "fr": "Afficher un message de fortune cookie aléatoire",
+    "es": "Mostrar un mensaje aleatorio de galleta de la fortuna"
+  },
+  "terminal_description_logs": {
+    "eng": "Display your last 10 actions on the website",
+    "fr": "Afficher vos 10 dernières actions sur le site",
+    "es": "Mostrar tus últimas 10 acciones en el sitio web"
+  },
+  "terminal_description_theme": {
+    "eng": "Get or set the terminal theme",
+    "fr": "Afficher ou définir le thème du terminal",
+    "es": "Obtener o establecer el tema del terminal"
+  },
+  "terminal_description_locale": {
+    "eng": "Get or set the terminal locale",
+    "fr": "Afficher ou définir la langue du terminal",
+    "es": "Obtener o establecer el idioma del terminal"
+  },
+  "terminal_description_cd": {
+    "eng": "Change the current directory",
+    "fr": "Changer le répertoire courant",
+    "es": "Cambiar el directorio actual"
+  },
+  "terminal_description_rm": {
+    "eng": "Remove files or directories",
+    "fr": "Supprimer des fichiers ou des répertoires",
+    "es": "Eliminar archivos o directorios"
+  },
+  "terminal_description_ls": {
+    "eng": "List directory contents",
+    "fr": "Lister le contenu du répertoire",
+    "es": "Listar el contenido del directorio"
+  },
   "terminal_usage": {
     "eng": "Usage: {0}",
     "fr": "Utilisation : {0}",

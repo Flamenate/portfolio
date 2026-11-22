@@ -19,7 +19,7 @@ export const helpCommand: Command = ({ args, locale }) => {
   }
   return (
     <p>
-      {commandMeta.description}
+      {localize(commandMeta.description, locale)}
       <br />
       {commandMeta.aliases &&
         localize('terminal_aliases', locale, commandMeta.aliases.join(', '))}

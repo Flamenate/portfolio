@@ -10,6 +10,7 @@ import { helpCommand } from '@/components/apps/terminal/help'
 import { localeCommand } from '@/components/apps/terminal/locale'
 import { logsCommand } from '@/components/apps/terminal/logs'
 import { openCommand } from '@/components/apps/terminal/open'
+import { permissionDeniedCommand } from '@/components/apps/terminal/permission-denied'
 import { pinCommand } from '@/components/apps/terminal/pin'
 import { projectsCommand } from '@/components/apps/terminal/projects'
 import { skillsCommand } from '@/components/apps/terminal/skills'
@@ -20,13 +21,14 @@ import { themeCommand } from '@/components/apps/terminal/theme'
 import { unpinCommand } from '@/components/apps/terminal/unpin'
 import { uptimeCommand } from '@/components/apps/terminal/uptime'
 import { whoamiCommand } from '@/components/apps/terminal/whoami'
+import type { TranslationKey } from '@/lib/localize'
 import type { Locale } from '@/stores/theme.store'
 
 interface CommandDefinition {
   run: Command
   aliases?: string[]
   usage?: string
-  description: string
+  description: TranslationKey
 }
 
 export interface CommandContext {
@@ -43,106 +45,121 @@ export type Command = (context: CommandContext) => ReactNode
 const commands = {
   whoami: {
     run: whoamiCommand,
-    description: 'Display current user information',
+    description: 'terminal_description_whoami',
   },
   contact: {
     run: contactCommand,
     aliases: ['email', 'info', 'socials'],
-    description: 'Show contact information',
+    description: 'terminal_description_contact',
   },
   uptime: {
     run: uptimeCommand,
-    description: 'Show system uptime',
+    description: 'terminal_description_uptime',
   },
   clear: {
     run: clearCommand,
     aliases: ['cls'],
-    description: 'Clear the terminal screen',
+    description: 'terminal_description_clear',
   },
   exit: {
     run: exitCommand,
     aliases: ['logout'],
-    description: 'Close the terminal',
+    description: 'terminal_description_exit',
   },
   taskmanager: {
     run: taskmanagerCommand,
     aliases: ['ps', 'top'],
-    description: 'List running processes',
+    description: 'terminal_description_taskmanager',
   },
   open: {
     run: openCommand,
     aliases: ['start'],
-    description: 'Open an application',
+    description: 'terminal_description_open',
     usage: 'open [application]',
   },
   close: {
     run: closeCommand,
     aliases: ['kill'],
-    description: 'Close an application',
+    description: 'terminal_description_close',
     usage: 'close [application]',
   },
   pin: {
     run: pinCommand,
-    description: 'Pin an application to the taskbar',
+    description: 'terminal_description_pin',
     usage: 'pin [application]',
   },
   unpin: {
     run: unpinCommand,
-    description: 'Unpin an application from the taskbar',
+    description: 'terminal_description_unpin',
     usage: 'unpin [application]',
   },
   help: {
     run: helpCommand,
     aliases: ['?'],
-    description: 'Display help information about commands',
+    description: 'terminal_description_help',
     usage: 'help; help [command]',
   },
   sysinfo: {
     run: sysinfoCommand,
     aliases: ['systeminfo'],
-    description: 'Display system information',
+    description: 'terminal_description_sysinfo',
   },
   soundtest: {
     run: soundtestCommand,
-    description: 'Play a sound test',
+    description: 'terminal_description_soundtest',
     usage: 'soundtest [0<=volume<=100]',
   },
   skills: {
     run: skillsCommand,
-    description: 'Display my skills',
+    description: 'terminal_description_skills',
     usage: 'skills; skills [type: frontend|backend|database|soft]',
   },
   projects: {
     run: projectsCommand,
-    description: 'List my projects',
+    description: 'terminal_description_projects',
     usage: 'projects; projects [year>=2020]',
   },
   education: {
     run: educationCommand,
-    description: 'Show my educational background',
+    description: 'terminal_description_education',
   },
   experience: {
     run: experienceCommand,
-    description: 'List my work experience',
+    description: 'terminal_description_experience',
     usage: 'experience; experience [year>=2020]',
   },
   fortune: {
     run: fortuneCommand,
-    description: 'Display a random fortune cookie message',
+    description: 'terminal_description_fortune',
   },
   logs: {
     run: logsCommand,
-    description: 'Display your last 10 actions on the website',
+    description: 'terminal_description_logs',
   },
   theme: {
     run: themeCommand,
-    description: 'Get or set the terminal theme',
+    description: 'terminal_description_theme',
     usage: 'theme; theme set [light|dark|system]',
   },
   locale: {
     run: localeCommand,
-    description: 'Get or set the terminal locale',
+    description: 'terminal_description_locale',
     usage: 'locale; locale set [eng|fr|es]',
+  },
+  cd: {
+    run: permissionDeniedCommand,
+    description: 'terminal_description_cd',
+    usage: 'cd [directory]',
+  },
+  rm: {
+    run: permissionDeniedCommand,
+    description: 'terminal_description_rm',
+    usage: 'rm [file]',
+  },
+  ls: {
+    run: permissionDeniedCommand,
+    description: 'terminal_description_ls',
+    usage: 'ls [directory]',
   },
 } satisfies Record<string, CommandDefinition>
 
