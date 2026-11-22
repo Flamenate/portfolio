@@ -103,7 +103,7 @@ export function Terminal() {
         <span className="text-nowrap">C:\Users\Flamenate&gt; </span>
         <Input
           ref={inputRef}
-          className="inline-block h-fit max-w-full grow rounded-none border-0 bg-transparent! py-0 pl-1 caret-white outline-none focus-visible:ring-0"
+          className="inline-block h-fit max-w-full grow rounded-none border-0 bg-transparent! py-0 pl-1 caret-white outline-none focus-visible:ring-0 @5xl:text-base"
           onKeyDown={handleKeyDown}
           onKeyUp={(e) => {
             if (e.key !== 'Enter') return
