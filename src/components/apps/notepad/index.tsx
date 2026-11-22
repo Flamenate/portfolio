@@ -14,9 +14,11 @@ export function Notepad() {
   // Bumped on every open so even the same file starts over from its content.
   const [opens, setOpens] = useState(0)
   const setAppTitle = useAppStore((state) => state.setAppTitle)
+  const requested = useNotepadStore((state) => state.requested)
+  const clearRequest = useNotepadStore((state) => state.clearRequest)
 
-  useAppRequest(useNotepadStore, (requested) => {
-    setFile(requested)
+  useAppRequest(requested, clearRequest, (next) => {
+    setFile(next)
     setOpens(opens + 1)
   })
 

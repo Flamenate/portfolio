@@ -75,7 +75,7 @@ export function VSCope() {
           src={`https://github1s.com/${GITHUB_USER}/${repo}`}
           className="h-full w-full border-0"
           title={title}
-          sandbox="allow-scripts allow-same-origin allow-forms allow-popups allow-popups-to-escape-sandbox"
+          sandbox="allow-scripts allow-same-origin allow-forms allow-popups"
           allow="clipboard-read; clipboard-write"
           referrerPolicy="strict-origin-when-cross-origin"
           onLoad={() => setLoadedRepo(repo)}

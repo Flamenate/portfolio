@@ -499,6 +499,21 @@
     "fr": "Le navigateur n'a pas pu démarrer. Essayez de rouvrir l'application.",
     "es": "El navegador no pudo iniciarse. Intenta volver a abrir la aplicación."
   },
+  "browser_confirm_title": {
+    "eng": "Open this website?",
+    "fr": "Ouvrir ce site web ?",
+    "es": "¿Abrir este sitio web?"
+  },
+  "browser_confirm_description": {
+    "eng": "A link wants to open {0} in the browser. Only continue if you trust it.",
+    "fr": "Un lien veut ouvrir {0} dans le navigateur. Ne continuez que si vous lui faites confiance.",
+    "es": "Un enlace quiere abrir {0} en el navegador. Continúa solo si confías en él."
+  },
+  "cancel": {
+    "eng": "Cancel",
+    "fr": "Annuler",
+    "es": "Cancelar"
+  },
   "browser_info": {
     "eng": "Info",
     "fr": "Infos",

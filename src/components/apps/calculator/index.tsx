@@ -228,7 +228,7 @@ export function Calculator() {
       ref={rootRef}
       // Size containment lets the layout shrink with the Window's height, so
       // the keypad always fits without scrolling.
-      className="[container-type:size] flex h-full min-h-0 bg-popover/80 dark:bg-popover/50"
+      className="@container-size flex h-full min-h-0 bg-popover/80 dark:bg-popover/50"
     >
       <section className="flex h-full w-full min-w-0 flex-col text-popover-foreground">
         <header className="flex items-center justify-between px-4 pt-3 pb-1 container-short:pt-1 container-short:pb-0">

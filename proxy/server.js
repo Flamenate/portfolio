@@ -1,9 +1,18 @@
+import { createHmac, randomBytes, timingSafeEqual } from 'node:crypto'
 import { readFileSync } from 'node:fs'
 import { dirname, join } from 'node:path'
 import { fileURLToPath } from 'node:url'
 import { server as wisp } from '@mercuryworkshop/wisp-js/server'
 
 const directory = dirname(fileURLToPath(import.meta.url))
+
+// The wisp endpoint relays TCP to the public internet, so it is gated by a
+// ticket from the shell page and capped per client.
+const TICKET_LIFETIME_MS = 12 * 60 * 60 * 1000
+const CONNECTION_LIFETIME_MS = 30 * 60 * 1000
+const CONNECTIONS_PER_IP = 4
+const STREAMS_PER_CONNECTION = 64
+const STREAMS_PER_HOST = 16
 
 // Every package entry point lives in its dist folder, next to the browser bundles.
 function distFile(specifier, file) {
@@ -77,12 +86,24 @@ function jsonAttribute(value) {
     .replaceAll('<', '\\u003c')
 }
 
-function pathnameOf(url) {
+function parseRequestUrl(url) {
   try {
-    return new URL(url ?? '/', 'http://localhost').pathname
+    return new URL(url ?? '/', 'http://localhost')
   } catch {
-    return '/'
+    return new URL('http://localhost/')
   }
+}
+
+// IPv4 clients on a dual-stack socket show up as ::ffff:a.b.c.d.
+// Nothing is deployed behind a reverse proxy yet. Once it is, read the client
+// address from its forwarding header here, or every visitor shares one IP.
+function clientIp(req) {
+  const address = req.socket.remoteAddress ?? ''
+  return address.startsWith('::ffff:') ? address.slice(7) : address
+}
+
+function rejectUpgrade(socket, status) {
+  socket.end(`HTTP/1.1 ${status}\r\nConnection: close\r\n\r\n`)
 }
 
 function sameOrigin(header, origin) {
@@ -106,6 +127,37 @@ export function createProxyRouter({ proxyOrigin, portfolioOrigin }) {
 
   wisp.options.allow_udp_streams = false
   wisp.options.port_whitelist = [80, 443]
+  // Per wisp connection. A heavy page opens a few dozen streams at once.
+  wisp.options.stream_limit_total = STREAMS_PER_CONNECTION
+  wisp.options.stream_limit_per_host = STREAMS_PER_HOST
+
+  // Tickets only need to survive this process, so the key is never stored.
+  const ticketKey = randomBytes(32)
+  const connectionsByIp = new Map()
+
+  function sign(ip, expiry) {
+    return createHmac('sha256', ticketKey)
+      .update(`${ip}|${expiry}`)
+      .digest('base64url')
+  }
+
+  function issueTicket(ip) {
+    const expiry = Date.now() + TICKET_LIFETIME_MS
+    return `${expiry}.${sign(ip, expiry)}`
+  }
+
+  function isValidTicket(ticket, ip) {
+    const [expiryText, signature] = ticket?.split('.') ?? []
+    const expiry = Number(expiryText)
+    if (!signature || !Number.isSafeInteger(expiry) || expiry < Date.now()) {
+      return false
+    }
+    const expected = Buffer.from(sign(ip, expiry))
+    const actual = Buffer.from(signature)
+    return (
+      actual.length === expected.length && timingSafeEqual(actual, expected)
+    )
+  }
 
   const assets = new Map(
     Object.entries(assetFiles).map(([path, [file, type]]) => [
@@ -120,7 +172,7 @@ export function createProxyRouter({ proxyOrigin, portfolioOrigin }) {
   }
 
   function handleRequest(req, res) {
-    const path = pathnameOf(req.url)
+    const path = parseRequestUrl(req.url).pathname
     if (!isProxyHost(req)) {
       if (path !== '/sw.js') return false
       res.writeHead(200, {
@@ -132,10 +184,9 @@ export function createProxyRouter({ proxyOrigin, portfolioOrigin }) {
     }
 
     if (path === '/') {
-      const html = readFileSync(join(directory, 'shell.html'), 'utf8').replace(
-        '__PORTFOLIO_ORIGIN__',
-        jsonAttribute(portfolio),
-      )
+      const html = readFileSync(join(directory, 'shell.html'), 'utf8')
+        .replace('__PORTFOLIO_ORIGIN__', jsonAttribute(portfolio))
+        .replace('__WISP_TICKET__', jsonAttribute(issueTicket(clientIp(req))))
       res.writeHead(200, {
         'Content-Type': 'text/html; charset=utf-8',
         'Content-Security-Policy': `frame-ancestors ${portfolio}`,
@@ -177,12 +228,37 @@ export function createProxyRouter({ proxyOrigin, portfolioOrigin }) {
 
   function handleUpgrade(req, socket, head) {
     if (!isProxyHost(req)) return false
-    const path = pathnameOf(req.url)
-    if (path === '/wisp/' && sameOrigin(req.headers.origin, proxy)) {
-      wisp.routeRequest(req, socket, head)
+    const url = parseRequestUrl(req.url)
+    const ip = clientIp(req)
+    // libcurl only accepts wisp URLs ending in a slash, so the ticket is a
+    // path segment: /wisp/<ticket>/
+    const ticket = /^\/wisp\/([^/]+)\/$/.exec(url.pathname)?.[1]
+    if (
+      !ticket ||
+      !sameOrigin(req.headers.origin, proxy) ||
+      !isValidTicket(ticket, ip)
+    ) {
+      rejectUpgrade(socket, '403 Forbidden')
       return true
     }
-    socket.destroy()
+
+    const open = connectionsByIp.get(ip) ?? 0
+    if (open >= CONNECTIONS_PER_IP) {
+      rejectUpgrade(socket, '429 Too Many Requests')
+      return true
+    }
+    connectionsByIp.set(ip, open + 1)
+    const lifetime = setTimeout(() => socket.destroy(), CONNECTION_LIFETIME_MS)
+    socket.once('close', () => {
+      clearTimeout(lifetime)
+      const remaining = (connectionsByIp.get(ip) ?? 1) - 1
+      if (remaining > 0) connectionsByIp.set(ip, remaining)
+      else connectionsByIp.delete(ip)
+    })
+
+    // wisp-js reads the path, and the ticket shouldn't end up in its logs.
+    req.url = '/wisp/'
+    wisp.routeRequest(req, socket, head)
     return true
   }
 

@@ -20,6 +20,7 @@ import { env } from '@/env'
 import useLocalize from '@/hooks/useLocalize'
 import { cn } from '@/lib/utils'
 import { useThemeStore } from '@/stores/theme.store'
+import { BrowseConfirmDialog } from './browse-confirm-dialog'
 
 const START_URL = 'https://github.com/Flamenate'
 const SEARCH_URL = 'https://www.bing.com/search?q='
@@ -36,6 +37,11 @@ function toNavigableUrl(input: string) {
   if (/^https?:\/\//i.test(value)) return value
   if (!/\s/.test(value) && value.includes('.')) return `https://${value}`
   return SEARCH_URL + encodeURIComponent(value)
+}
+
+function isHttpUrl(value: string) {
+  const protocol = URL.parse(value)?.protocol
+  return protocol === 'http:' || protocol === 'https:'
 }
 
 type History = { entries: string[]; index: number }
@@ -71,29 +77,38 @@ export function Browser() {
   const locale = useThemeStore((state) => state.locale)
   const { browse } = homeRoute.useSearch()
   const navigateRoute = homeRoute.useNavigate()
-  const [initialUrl] = useState(() =>
-    browse ? toNavigableUrl(browse) : START_URL,
-  )
+  const [browseUrl] = useState(() => (browse ? toNavigableUrl(browse) : null))
+  // Anyone can link to /home?browse=, so the visitor confirms before it loads.
+  const [startUrl, setStartUrl] = useState(browseUrl ? null : START_URL)
   const iframeRef = useRef<HTMLIFrameElement>(null)
   const inputRef = useRef<HTMLInputElement>(null)
   // The iframe shares session history with the desktop, so back/forward replay
   // our own entries instead of calling history.back() on the frame.
   const pendingUrlRef = useRef<string>(null)
   const [status, setStatus] = useState<'loading' | 'ready' | 'error'>('loading')
-  const [address, setAddress] = useState(initialUrl)
+  const [address, setAddress] = useState(browseUrl ?? START_URL)
   // The page's real URL, unlike `address`, which may hold unsubmitted typing.
-  const [pageUrl, setPageUrl] = useState(initialUrl)
+  const pageUrl = useRef(browseUrl ?? START_URL)
   const [history, setHistory] = useState<History>({ entries: [], index: -1 })
 
   const isReady = status === 'ready'
   const canGoBack = isReady && history.index > 0
   const canGoForward = isReady && history.index < history.entries.length - 1
 
+  function chooseStartUrl(url: string) {
+    setStartUrl(url)
+    setAddress(url)
+    pageUrl.current = url
+  }
+
+  // The shell repeats its hello until it gets an init, so holding the init
+  // back is enough to keep the page from loading until the visitor chooses.
   const sendShellInit = useEffectEvent((shell: HTMLIFrameElement) => {
+    if (!startUrl) return
     shell.contentWindow?.postMessage(
       {
         type: 'init',
-        url: initialUrl,
+        url: startUrl,
         ui: {
           title: localize('browser_unsupported_title'),
           description: localize('browser_unsupported_description', '{0}'),
@@ -112,7 +127,7 @@ export function Browser() {
     const shell = iframe
 
     function showUrl(url: string) {
-      setPageUrl(url)
+      pageUrl.current = url
       if (document.activeElement !== inputRef.current) setAddress(url)
     }
 
@@ -226,7 +241,10 @@ export function Browser() {
         </NavButton>
         <NavButton
           label={localize('browser_open_in_own_browser')}
-          onClick={() => window.open(pageUrl, '_blank', 'noopener,noreferrer')}
+          onClick={() => {
+            if (!isHttpUrl(pageUrl.current)) return
+            window.open(pageUrl.current, '_blank', 'noopener,noreferrer')
+          }}
         >
           <OpenRegular className="size-4 text-foreground dark:text-(--white)" />
         </NavButton>
@@ -289,6 +307,11 @@ export function Browser() {
           </p>
         )}
       </div>
+      <BrowseConfirmDialog
+        url={startUrl ? null : browseUrl}
+        onOpen={chooseStartUrl}
+        onCancel={() => chooseStartUrl(START_URL)}
+      />
     </section>
   )
 }

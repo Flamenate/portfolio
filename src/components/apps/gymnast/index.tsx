@@ -102,6 +102,8 @@ export function Gymnast() {
   const recent = usePdfStore((state) => state.recent)
   const recordOpen = usePdfStore((state) => state.recordOpen)
   const addUpload = usePdfStore((state) => state.addUpload)
+  const requested = usePdfStore((state) => state.requested)
+  const clearRequest = usePdfStore((state) => state.clearRequest)
   const inputRef = useRef<HTMLInputElement>(null)
   const [path, setPath] = useState<FolderPath | null>(null)
   const [browsing, setBrowsing] = useState(false)
@@ -111,9 +113,9 @@ export function Gymnast() {
   const rows = path === null ? recent : entriesIn(path, recent)
   const tab = path === null ? 'recent' : pathKey(path)
 
-  useAppRequest(usePdfStore, (requested) => {
+  useAppRequest(requested, clearRequest, (entry) => {
     setPath(null)
-    setViewing(requested)
+    setViewing(entry)
     setBrowsing(true)
   })
 

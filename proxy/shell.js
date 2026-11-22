@@ -18,6 +18,7 @@ const INTERNAL_PARAMS = [
 const portfolioOrigin = JSON.parse(
   document.body.dataset.portfolioOrigin ?? '""',
 )
+const wispTicket = JSON.parse(document.body.dataset.wispTicket ?? '""')
 
 function post(message) {
   if (parent === window) return
@@ -63,8 +64,13 @@ async function initController() {
   config.scramjetPath = '/scram/scramjet.js'
   config.wasmPath = '/scram/scramjet.wasm'
   config.injectPath = '/controller/controller.inject.js'
+  const wisp = new URL(
+    `/wisp/${encodeURIComponent(wispTicket)}/`,
+    location.href,
+  )
+  wisp.protocol = location.protocol === 'https:' ? 'wss:' : 'ws:'
   const transport = new globalThis.LibcurlTransport.LibcurlClient({
-    wisp: `${location.protocol === 'https:' ? 'wss:' : 'ws:'}//${location.host}/wisp/`,
+    wisp: wisp.href,
   })
   const controller = new Controller({ serviceworker, transport })
   await controller.wait()

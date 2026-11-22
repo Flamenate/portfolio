@@ -1,6 +1,4 @@
 import { useEffect, useState } from 'react'
-import type { StoreApi } from 'zustand'
-import { useStore } from 'zustand/react'
 import type { AppLabel } from '@/lib/apps'
 import { useAppStore } from '@/stores/app.store'
 
@@ -25,26 +23,19 @@ export function appRequestSlice<T extends object>(label: AppLabel) {
   })
 }
 
-type RequestState = Pick<AppRequest<unknown>, 'requested' | 'clearRequest'>
-
-// Read-only, so a store of any item type fits.
-type RequestStore<S> = Pick<
-  StoreApi<S>,
-  'getState' | 'getInitialState' | 'subscribe'
->
-
 // Hands each request to the App once, on arrival, then clears it.
-export function useAppRequest<S extends RequestState>(
-  store: RequestStore<S>,
-  onRequest: (item: NonNullable<S['requested']>) => void,
+// Takes the store's values rather than the store Hook itself, so Hooks stay static.
+export function useAppRequest<T>(
+  requested: T | null,
+  clearRequest: () => void,
+  onRequest: (item: T) => void,
 ) {
-  const requested = useStore(store, (state) => state.requested)
-  const [shown, setShown] = useState<S['requested']>(null)
+  const [shown, setShown] = useState<T | null>(null)
   if (requested && requested !== shown) {
     setShown(requested)
     onRequest(requested)
   }
   useEffect(() => {
-    if (requested) store.getState().clearRequest()
-  }, [requested, store])
+    if (requested) clearRequest()
+  }, [requested, clearRequest])
 }

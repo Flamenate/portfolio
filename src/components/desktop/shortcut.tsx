@@ -2,6 +2,7 @@ import { Image } from '@unpic/react'
 import { m, useDragControls } from 'motion/react'
 import { useMemo } from 'react'
 import type { MouseEvent } from 'react'
+import { useShallow } from 'zustand/react/shallow'
 import { root } from '@/data/directories'
 import useLocalize from '@/hooks/useLocalize'
 import type { AppLabel } from '@/lib/apps'
@@ -31,8 +32,13 @@ export function DesktopShortcutButton({
   containerRef: ContainerRef
 }) {
   const isSelected = useIsSelected(shortcut)
-  const { click, contextClick, openShortcut } =
-    useDesktopSelectionStore.getState()
+  const { click, contextClick, openShortcut } = useDesktopSelectionStore(
+    useShallow((state) => ({
+      click: state.click,
+      contextClick: state.contextClick,
+      openShortcut: state.openShortcut,
+    })),
+  )
   const dragControls = useDragControls()
   return (
     <DesktopShortcutContextMenu shortcut={shortcut}>

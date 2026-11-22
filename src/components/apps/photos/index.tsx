@@ -100,11 +100,13 @@ export function Photos() {
   const [browsing, setBrowsing] = useState(false)
   const [photo, setPhoto] = useState<Photo | null>(null)
   const setAppTitle = useAppStore((state) => state.setAppTitle)
+  const requested = usePhotosStore((state) => state.requested)
+  const clearRequest = usePhotosStore((state) => state.clearRequest)
 
-  useAppRequest(usePhotosStore, (requested) => {
-    setPath(requested.path)
+  useAppRequest(requested, clearRequest, (next) => {
+    setPath(next.path)
     setBrowsing(true)
-    setPhoto(requested)
+    setPhoto(next)
   })
 
   const photoTitle = photo ? fileLabel(photo) : null
