@@ -4,6 +4,10 @@
 @import 'shadcn/tailwind.css';
 
 @custom-variant dark (&:is(.dark *));
+/* Keep in sync with COMPACT_MEDIA_QUERY in src/lib/constants.ts. */
+@custom-variant compact (@media (width <= 56rem));
+/* Only matches inside a container with container-type: size. */
+@custom-variant container-short (@container (max-height: 26rem));
 
 /* latin */
 @font-face {
@@ -64,7 +68,7 @@
 }
 
 body {
-  @apply relative m-0 box-border h-screen overflow-hidden scroll-smooth;
+  @apply relative m-0 box-border h-dvh overflow-hidden scroll-smooth;
   font-family: 'Noto Sans', sans-serif;
   font-synthesis: none;
   text-rendering: optimizeLegibility;
@@ -340,13 +344,69 @@ code {
   --hover-shade: transparent;
   background-image: linear-gradient(var(--hover-shade), var(--hover-shade));
   transition: --hover-shade 150ms ease;
-  &:hover {
-    --hover-shade: rgb(0 0 0 / 10%);
+  /* Gated like Tailwind's hover: variant, so a tap doesn't leave it stuck. */
+  @media (hover: hover) {
+    &:hover {
+      --hover-shade: rgb(0 0 0 / 10%);
+    }
   }
   @variant dark {
-    &:hover {
-      --hover-shade: rgb(255 255 255 / 10%);
+    @media (hover: hover) {
+      &:hover {
+        --hover-shade: rgb(255 255 255 / 10%);
+      }
     }
+  }
+}
+
+/* iOS zooms into fields under 16px on focus. Unlayered so it beats utilities. */
+@media (pointer: coarse) {
+  input,
+  textarea,
+  select {
+    font-size: 16px;
+  }
+}
+
+/* Fades whichever horizontal edge still has content to scroll to. Without
+   overflow (or scroll-driven animation support) there is no fade. */
+@property --scroll-fade-start {
+  syntax: '<length>';
+  inherits: false;
+  initial-value: 0px;
+}
+@property --scroll-fade-end {
+  syntax: '<length>';
+  inherits: false;
+  initial-value: 0px;
+}
+@keyframes scroll-fade-x {
+  0% {
+    --scroll-fade-start: 0px;
+    --scroll-fade-end: 1.5rem;
+  }
+  10%,
+  90% {
+    --scroll-fade-start: 1.5rem;
+    --scroll-fade-end: 1.5rem;
+  }
+  100% {
+    --scroll-fade-start: 1.5rem;
+    --scroll-fade-end: 0px;
+  }
+}
+@utility scroll-fade-x {
+  mask-image: linear-gradient(
+    to right,
+    transparent,
+    black var(--scroll-fade-start),
+    black calc(100% - var(--scroll-fade-end)),
+    transparent
+  );
+  /* Without support, the zero-duration animation would stick at its end. */
+  @supports (animation-timeline: scroll()) {
+    animation: scroll-fade-x linear both;
+    animation-timeline: scroll(self inline);
   }
 }
 

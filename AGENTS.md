@@ -1,6 +1,7 @@
 ## Repo-wide Instructions
 
-NEVER commit unless explicitly instructed by the user.
+- NEVER commit unless explicitly instructed by the user.
+- This repo uses pnpm as its package manager. Never run npm. Replace `npx` with `pnpm dlx`.
 
 ## Agent skills
 

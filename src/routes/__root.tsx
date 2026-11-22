@@ -20,7 +20,7 @@ export const Route = createRootRouteWithContext<{
       },
       {
         name: 'viewport',
-        content: 'width=device-width, initial-scale=1',
+        content: 'width=device-width, initial-scale=1, viewport-fit=cover',
       },
       {
         title: 'Haythem Frikha',
@@ -78,7 +78,7 @@ export const Route = createRootRouteWithContext<{
   errorComponent: ({ error }) => {
     console.error(error)
     return (
-      <div className="flex h-screen w-screen flex-col items-center justify-center bg-background text-foreground">
+      <div className="flex h-dvh w-screen flex-col items-center justify-center bg-background text-foreground">
         <h1 className="mb-4 text-2xl font-bold">An error occurred</h1>
         <pre className="text-center whitespace-pre-wrap">
           {error instanceof Error ? error.message : 'An error occurred'}
@@ -90,7 +90,7 @@ export const Route = createRootRouteWithContext<{
 
 function NotFound() {
   return (
-    <div className="flex h-screen w-screen items-center justify-center bg-background text-foreground">
+    <div className="flex h-dvh w-screen items-center justify-center bg-background text-foreground">
       <p>Not found</p>
     </div>
   )
@@ -145,7 +145,7 @@ function RootDocument({ children }: { children: React.ReactNode }) {
       </head>
       <body>
         <TooltipProvider>
-          <main className='h-screen w-screen overscroll-none bg-[url("/media/pictures/system/desktop_bg.webp")] bg-cover bg-center bg-no-repeat dark:bg-[url("/media/pictures/system/desktop_dark_bg.webp")]'>
+          <main className='h-dvh w-screen overscroll-none bg-[url("/media/pictures/system/desktop_bg.webp")] bg-cover bg-center bg-no-repeat dark:bg-[url("/media/pictures/system/desktop_dark_bg.webp")]'>
             {children}
           </main>
         </TooltipProvider>

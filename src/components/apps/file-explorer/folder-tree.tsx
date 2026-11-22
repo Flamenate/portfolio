@@ -9,7 +9,7 @@ import { useExplorerStore } from '@/stores/explorer.store'
 export function FolderTree({ currentPath }: { currentPath: FolderPath }) {
   const navigate = useExplorerStore((state) => state.navigate)
   return (
-    <aside className="hidden h-full w-48 shrink-0 overflow-x-hidden overflow-y-auto border-r border-muted-foreground/50 p-1 @sm:block">
+    <aside className="hidden h-full w-48 shrink-0 overflow-x-hidden overflow-y-auto border-r border-muted-foreground/50 p-1 @md:block">
       <FolderTreeList
         nodes={[folderTreeFrom(root)]}
         currentPath={currentPath}

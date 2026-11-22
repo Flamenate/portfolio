@@ -12,6 +12,7 @@ import React, {
 } from 'react'
 import type { PointerEvent } from 'react'
 import { useShallow } from 'zustand/react/shallow'
+import useIsCompact from '@/hooks/useIsCompact'
 import useLocalize from '@/hooks/useLocalize'
 import { useResizable } from '@/hooks/useResizable'
 import type { ResizeDirection } from '@/hooks/useResizable'
@@ -33,7 +34,7 @@ function WindowButton(props: React.ComponentProps<'button'>) {
       type="button"
       {...props}
       className={cn(
-        'flex h-full cursor-pointer items-center justify-center px-2 @md:px-3',
+        'flex h-full cursor-pointer items-center justify-center px-2 @md:px-3 compact:min-w-11',
         props.className,
       )}
       onPointerDown={(event) => {
@@ -107,7 +108,7 @@ export function AppWindow({
   const language = useThemeStore((state) => state.locale)
   const windowRef = useRef<HTMLDivElement>(null)
   const gesturing = useRef(false)
-  const [isCompact, setIsCompact] = useState(false)
+  const isCompact = useIsCompact()
   const [dragConstraints, setDragConstraints] = useState({
     right: 0,
     bottom: 0,
@@ -158,13 +159,9 @@ export function AppWindow({
   }, [])
 
   useEffect(() => {
-    const updateViewport = () => {
-      setIsCompact(window.matchMedia('(max-width: 1023px)').matches)
-      updateConstraints()
-    }
-    updateViewport()
-    window.addEventListener('resize', updateViewport)
-    return () => window.removeEventListener('resize', updateViewport)
+    updateConstraints()
+    window.addEventListener('resize', updateConstraints)
+    return () => window.removeEventListener('resize', updateConstraints)
   }, [updateConstraints])
 
   useLayoutEffect(() => {
@@ -246,10 +243,25 @@ export function AppWindow({
       }}
       style={
         isCompact
-          ? { zIndex: focused ? 100 : 90 }
+          ? {
+              // Every key the desktop style sets is overridden: Motion leaves
+              // stale inline values behind when a key disappears.
+              x: 0,
+              y: 0,
+              top: 0,
+              left: 'env(safe-area-inset-left)',
+              width:
+                'calc(100% - env(safe-area-inset-left) - env(safe-area-inset-right))',
+              height: `calc(100dvh - ${TASKBAR_HEIGHT}px - env(safe-area-inset-bottom))`,
+              minWidth: 0,
+              minHeight: 0,
+              zIndex: focused ? 100 : 90,
+            }
           : {
               x,
               y,
+              top: 0,
+              left: 0,
               width,
               height,
               minWidth: MINIMUM_WINDOW_SIZE.width,
@@ -267,7 +279,7 @@ export function AppWindow({
       onAnimationComplete={() => setRestoring(false)}
       className={cn(
         '@container absolute flex max-h-[calc(100dvh-4rem)] max-w-full flex-col rounded-sm border bg-popover/50 backdrop-blur-sm select-none',
-        isCompact && 'inset-0 h-[calc(100dvh-4rem)] max-h-none w-full',
+        isCompact && 'max-h-none',
       )}
       tabIndex={0}
       onPointerDown={() => focusApp(appLabel)}
@@ -277,7 +289,10 @@ export function AppWindow({
           can sit outside its edge. */}
       <div className="flex min-h-0 flex-1 flex-col overflow-hidden rounded-[inherit]">
         <header
-          className="relative flex h-10 w-full shrink-0 cursor-grab items-center justify-baseline border-b bg-linear-to-r from-background/15 via-background/25 to-background/15 text-center @xs:justify-center dark:text-(--white)"
+          className={cn(
+            'flex h-10 w-full shrink-0 items-center border-b bg-linear-to-r from-background/15 via-background/25 to-background/15 @xl:grid @xl:grid-cols-[1fr_minmax(0,auto)_1fr] dark:text-(--white)',
+            canDrag && 'cursor-grab',
+          )}
           onPointerDown={(event) => {
             if (!canDrag) return
             gesturing.current = true
@@ -288,20 +303,22 @@ export function AppWindow({
             if (!isCompact) toggleMaximizeApp(appLabel)
           }}
         >
-          <img
-            src={app.iconSrc}
-            alt=""
-            width={20}
-            height={20}
-            className="mr-0 ml-1 @xs:mr-2"
-            draggable={false}
-          />
-          <span className="ml-15 font-light @xs:ml-0">
-            {app.title
-              ? localizeOrKeep(app.title, language)
-              : localize(appLabel)}
-          </span>
-          <div className="absolute right-0 flex h-full flex-row-reverse items-stretch">
+          <div className="flex min-w-0 flex-1 items-center @xl:col-start-2">
+            <img
+              src={app.iconSrc}
+              alt=""
+              width={20}
+              height={20}
+              className="mx-2 shrink-0"
+              draggable={false}
+            />
+            <span className="truncate font-light">
+              {app.title
+                ? localizeOrKeep(app.title, language)
+                : localize(appLabel)}
+            </span>
+          </div>
+          <div className="flex h-full shrink-0 flex-row-reverse items-stretch @xl:col-start-3 @xl:justify-self-end">
             <Tooltip>
               <TooltipTrigger asChild>
                 <WindowButton
@@ -317,7 +334,7 @@ export function AppWindow({
               </TooltipContent>
             </Tooltip>
 
-            {appState === 'maximized' ? (
+            {isCompact ? null : appState === 'maximized' ? (
               <Tooltip>
                 <TooltipTrigger asChild>
                   <WindowButton
@@ -339,7 +356,6 @@ export function AppWindow({
                     onClick={() => toggleMaximizeApp(appLabel)}
                     aria-label={localize('maximize')}
                     className="hover-shade"
-                    disabled={isCompact}
                   >
                     <MaximizeRegular className="size-3.5" />
                   </WindowButton>

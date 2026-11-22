@@ -63,7 +63,7 @@ export function NavigationBar({ path }: { path: FolderPath }) {
                 aria-current={isLast ? 'page' : undefined}
                 onClick={() => navigate(path.slice(0, i))}
                 className={cn(
-                  'shrink-0 rounded-sm px-1.5 py-0.5 whitespace-nowrap',
+                  'shrink-0 rounded-sm px-1.5 py-0.5 whitespace-nowrap pointer-coarse:min-h-8',
                   !isLast && 'cursor-pointer hover-shade',
                 )}
               >

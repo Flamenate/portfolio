@@ -1,5 +1,5 @@
 import { Image } from '@unpic/react'
-import { m } from 'motion/react'
+import { m, useDragControls } from 'motion/react'
 import { useMemo } from 'react'
 import type { MouseEvent } from 'react'
 import { root } from '@/data/directories'
@@ -7,6 +7,7 @@ import useLocalize from '@/hooks/useLocalize'
 import type { AppLabel } from '@/lib/apps'
 import { fileIconSrc, fileLabel, getFolder } from '@/lib/directories'
 import type { FolderPath, LocatedFile } from '@/lib/directories'
+import { isTouchInput } from '@/lib/pointer'
 import { cn } from '@/lib/utils'
 import useAppStore from '@/stores/app.store'
 import {
@@ -32,10 +33,15 @@ export function DesktopShortcutButton({
   const isSelected = useIsSelected(shortcut)
   const { click, contextClick, openShortcut } =
     useDesktopSelectionStore.getState()
+  const dragControls = useDragControls()
   return (
     <DesktopShortcutContextMenu shortcut={shortcut}>
       <m.button
         drag
+        // Dragging starts by hand so touch input never drags, which also keeps
+        // Motion from setting touch-action: none and blocking the grid's scroll.
+        dragListener={false}
+        dragControls={dragControls}
         draggable={false}
         dragMomentum={false}
         dragConstraints={containerRef}
@@ -48,12 +54,20 @@ export function DesktopShortcutButton({
           'flex h-fit w-20 flex-col items-center justify-center gap-1 rounded-sm px-2 py-1 outline-accent-foreground hover:bg-white/25 focus-visible:bg-white/40 focus-visible:outline-1',
           isSelected && 'bg-white/40',
         )}
+        onPointerDown={(e) => {
+          if (e.pointerType !== 'touch') dragControls.start(e)
+        }}
         onClick={(e: MouseEvent) => {
           e.stopPropagation()
-          click(shortcut, { ctrl: e.ctrlKey })
+          if (isTouchInput()) openShortcut(shortcut)
+          else click(shortcut, { ctrl: e.ctrlKey })
         }}
-        onDoubleClick={() => openShortcut(shortcut)}
-        onContextMenu={() => contextClick(shortcut)}
+        onDoubleClick={() => {
+          if (!isTouchInput()) openShortcut(shortcut)
+        }}
+        onContextMenu={() => {
+          if (!isTouchInput()) contextClick(shortcut)
+        }}
         onKeyUp={(e) => e.preventDefault()}
       >
         <Image

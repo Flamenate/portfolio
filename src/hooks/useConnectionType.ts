@@ -31,12 +31,12 @@ export function useConnectionType() {
   const addSystemNotification = useNotificationStore(
     (state) => state.addSystemNotification,
   )
-  const isFirstRender = useRef(true)
+  const previousType = useRef(connectionType)
   useEffect(() => {
-    if (isFirstRender.current) {
-      isFirstRender.current = false
-      return
-    }
+    const previous = previousType.current
+    previousType.current = connectionType
+    // 'unknown' is the server snapshot; leaving it is hydration, not a change.
+    if (previous === connectionType || previous === 'unknown') return
     if (connectionType === null) {
       addSystemNotification({
         content: 'connection_lost',

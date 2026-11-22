@@ -12,6 +12,7 @@ import { Toaster } from '@/components/ui/sonner'
 import { AppWindow } from '@/components/ui/window'
 import { WindowLoading } from '@/components/ui/window-loading'
 import { appDefinitions } from '@/lib/apps'
+import { TASKBAR_HEIGHT } from '@/lib/constants'
 import {
   desktopFiles,
   desktopFolderPaths,
@@ -65,7 +66,7 @@ function Home() {
   return (
     // react-doctor-disable-next-line react-doctor/no-noninteractive-element-interactions
     <main
-      className="flex h-screen flex-col"
+      className="flex h-dvh flex-col"
       onClick={clear}
       onKeyUp={handleMultipleAppOpen}
       onKeyDown={(e) => {
@@ -79,7 +80,13 @@ function Home() {
         e.preventDefault()
       }}
     >
-      <Toaster offset={{ bottom: 80, right: 10 }} position="bottom-right" />
+      <Toaster
+        offset={{ bottom: 80, right: 10 }}
+        mobileOffset={{
+          bottom: `calc(${TASKBAR_HEIGHT + 8}px + env(safe-area-inset-bottom))`,
+        }}
+        position="bottom-right"
+      />
       <AnimatePresence>
         {openApps.map((app) => {
           const Content = appDefinitions[app.label].content
@@ -99,7 +106,7 @@ function Home() {
       </AnimatePresence>
       <div
         ref={desktopShortcutContainer}
-        className="grid grow grid-flow-col grid-cols-[repeat(auto-fill,minmax(100px,1fr))] grid-rows-[repeat(auto-fill,minmax(80px,1fr))] gap-5 p-2"
+        className="grid min-h-0 grow auto-cols-[minmax(100px,1fr)] grid-flow-col grid-cols-[repeat(auto-fill,minmax(100px,1fr))] grid-rows-[repeat(auto-fill,minmax(80px,1fr))] gap-5 overflow-x-auto overflow-y-hidden p-2 pr-[calc(0.5rem+env(safe-area-inset-right))] pl-[calc(0.5rem+env(safe-area-inset-left))] compact:grid-rows-[repeat(auto-fill,minmax(100px,1fr))]"
       >
         {Object.values(apps).map((app) => (
           <AppShortcut

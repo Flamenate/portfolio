@@ -3,6 +3,7 @@ import {
   Reorder,
   motion,
   useAnimate,
+  useDragControls,
   useSpring,
 } from 'motion/react'
 import { useState } from 'react'
@@ -30,6 +31,7 @@ export function TaskbarShortcut({
   )
 
   const [scope, animate] = useAnimate()
+  const dragControls = useDragControls()
   const [isBeingDragged, setIsBeingDragged] = useState(false)
   const handleAppTransition = async () => {
     if (isBeingDragged) return
@@ -68,6 +70,12 @@ export function TaskbarShortcut({
         <ShortcutContextMenu appLabel={appLabel}>
           <Reorder.Item
             value={appLabel}
+            // Touch input never reorders, so the compact taskbar can scroll.
+            dragListener={false}
+            dragControls={dragControls}
+            onPointerDown={(event) => {
+              if (event.pointerType !== 'touch') dragControls.start(event)
+            }}
             dragConstraints={shortcutTrackRef}
             dragElastic={0.005}
             onDragStart={() => {

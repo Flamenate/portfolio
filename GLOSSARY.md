@@ -23,6 +23,14 @@ _Avoid_: Active app
 **Window lifecycle**:
 The rules that move a Window between Window states and decide which Window is focused.
 
+**Compact mode**:
+The layout for viewports 896px (56rem) wide or narrower: every Window renders maximized without changing its Window state, and the taskbar's shortcuts scroll. Decided by width only.
+_Avoid_: Mobile mode, mobile view
+
+**Touch input**:
+A gesture started by a finger: a tap opens Desktop shortcuts and Files, nothing drags, and no context menu opens. Decided per gesture by pointer type, independent of Compact mode.
+_Avoid_: Mobile, touch device
+
 **Folder**:
 A directory in the simulated file system, browsed with the file explorer App.
 _Avoid_: Directory (in user-facing language)

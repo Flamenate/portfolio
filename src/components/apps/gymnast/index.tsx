@@ -2,6 +2,7 @@ import { ArrowDownloadRegular } from '@fluentui/react-icons/headless/svg/arrow-d
 import { ArrowLeftRegular } from '@fluentui/react-icons/headless/svg/arrow-left'
 import { ArrowUploadRegular } from '@fluentui/react-icons/headless/svg/arrow-upload'
 import { DocumentPdfRegular } from '@fluentui/react-icons/headless/svg/document-pdf'
+import { OpenRegular } from '@fluentui/react-icons/headless/svg/open'
 import { format, parseISO } from 'date-fns'
 import { useRef, useState } from 'react'
 import type { ChangeEvent } from 'react'
@@ -32,8 +33,9 @@ const cloudItems = [
   'shared_by_others',
 ] as const
 
-const columns = 'grid items-center gap-3 px-3'
-const columnStyle = { gridTemplateColumns: 'minmax(0, 1fr) 12rem 4.5rem' }
+// Sized by the file panel's own width, since the sidebar may share the Window.
+const columns =
+  'grid grid-cols-[minmax(0,1fr)_4.5rem] items-center gap-3 px-3 @lg/files:grid-cols-[minmax(0,1fr)_12rem_4.5rem]'
 const sectionTitleClassName =
   'px-2 pt-4 pb-1 text-xs text-muted-foreground dark:text-(--white)'
 
@@ -178,11 +180,18 @@ export function Gymnast() {
         <Tabs
           orientation="vertical"
           value={tab}
+          // Tabs only report changes; each trigger's onClick also handles
+          // re-selecting the current tab, which must reveal the file panel
+          // when the sidebar hides it.
           onValueChange={onTab}
           className="flex-col gap-0"
         >
           <TabsList aria-label={localize('recent')} className="w-full">
-            <TabsTrigger value="recent" className="py-1.5">
+            <TabsTrigger
+              value="recent"
+              className="py-1.5"
+              onClick={() => onTab('recent')}
+            >
               <span className="grow truncate text-left">
                 {localize('recent')}
               </span>
@@ -205,6 +214,7 @@ export function Gymnast() {
                 key={pathKey(node.path)}
                 value={pathKey(node.path)}
                 className="py-1.5"
+                onClick={() => onTab(pathKey(node.path))}
               >
                 <span className="grow truncate text-left">
                   {localize(node.folder.name)}
@@ -218,7 +228,7 @@ export function Gymnast() {
       <section
         aria-label={viewing ? fileLabel(viewing) : localize(title)}
         className={cn(
-          'm-1 min-h-0 min-w-0 grow flex-col rounded-md bg-popover dark:bg-background',
+          '@container/files m-1 min-h-0 min-w-0 grow flex-col rounded-md bg-popover dark:bg-background',
           browsing ? 'flex' : 'hidden @md:flex',
           viewing ? 'overflow-hidden' : 'overflow-auto',
         )}
@@ -233,6 +243,23 @@ export function Gymnast() {
                 <ArrowLeftRegular className="size-4 text-foreground dark:text-(--white)" />
               </NavButton>
               <DownloadLink entry={viewing} label={localize('download')} />
+              <Tooltip>
+                <TooltipTrigger asChild>
+                  {/* Mobile browsers often can't render a PDF in an iframe. */}
+                  <a
+                    href={viewing.src}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label={localize('open_in_new_tab')}
+                    className="flex size-10.5 shrink-0 items-center justify-center rounded-sm hover-shade"
+                  >
+                    <OpenRegular className="size-4 text-foreground dark:text-(--white)" />
+                  </a>
+                </TooltipTrigger>
+                <TooltipContent sideOffset={4}>
+                  {localize('open_in_new_tab')}
+                </TooltipContent>
+              </Tooltip>
             </div>
             <div className="relative min-h-0 grow">
               {/* react-doctor-disable-next-line react-doctor/iframe-missing-sandbox */}
@@ -263,10 +290,11 @@ export function Gymnast() {
                   columns,
                   'grow py-2 text-xs tracking-wide text-muted-foreground uppercase',
                 )}
-                style={columnStyle}
               >
                 <span>{localize('name')}</span>
-                <span>{localize('opened')}</span>
+                <span className="hidden @lg/files:block">
+                  {localize('opened')}
+                </span>
                 <span className="text-right">{localize('size')}</span>
               </div>
             </div>
@@ -287,7 +315,6 @@ export function Gymnast() {
                       columns,
                       'min-w-0 grow cursor-pointer py-2 text-left hover:bg-accent/20',
                     )}
-                    style={columnStyle}
                     onClick={() => openEntry(entry)}
                   >
                     <span className="flex min-w-0 items-center gap-3">
@@ -299,7 +326,7 @@ export function Gymnast() {
                         </span>
                       </span>
                     </span>
-                    <span className="truncate">
+                    <span className="hidden truncate @lg/files:block">
                       {openedLabel(entry.openedAt, locale)}
                     </span>
                     <span className="text-right">

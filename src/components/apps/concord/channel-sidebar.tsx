@@ -138,7 +138,7 @@ export function ChannelSidebar({
               defaultOpen
               className="group/category mt-4 first:mt-0"
             >
-              <CollapsibleTrigger className="flex w-full cursor-pointer items-center gap-1 px-1 py-1 text-xs font-semibold text-muted-foreground hover:text-popover-foreground">
+              <CollapsibleTrigger className="flex w-full cursor-pointer items-center gap-1 px-1 py-1 text-xs font-semibold text-muted-foreground hover:text-popover-foreground pointer-coarse:min-h-8">
                 <ChevronDownRegular className="size-3 shrink-0 transition-transform group-data-[state=closed]/category:-rotate-90" />
                 <span className="truncate">{category.name}</span>
               </CollapsibleTrigger>

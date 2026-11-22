@@ -7,9 +7,10 @@ These are questions that I thought you might ask about the design choices in thi
 + Funnily enough, this project's first ever draft actually starting before Apple announced their frosty glass designs, so it's more like the other way around. Also, The effect in this website is pretty simple, it's just a blur and some transparency, not as fancy as Apple's.
 
 - AI content?
-+ I did use AI to help me fill the content of some apps (like Concord) for two reasons:
++ I did use AI to help me fill the content of some apps (like Concord) for three reasons:
 	1. I didn't want the apps to feel empty, and filling them by hand would have taken several days (as opposed to a few hours of prompting)
 	2. I didn't want to copy the real content from my accounts, because I respect the privacy of those who I interact with.
+	3. I think the stuff it comes up with is funny.
 
 - Who was first, you or PostHog?
 + The first draft of this website was before PostHog. Since they're a team and I'm only one person, they managed to get their idea done in about 6 months (source: them). I took a little longer than that, so I guess I'm second.

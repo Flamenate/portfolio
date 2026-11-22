@@ -100,7 +100,7 @@ function CalculatorKeypad({
   onPress: (action: CalculatorAction) => void
 }) {
   return (
-    <div className="grid min-h-0 flex-1 grid-cols-4 grid-rows-6 gap-1 p-1">
+    <div className="grid min-h-0 flex-1 grid-cols-4 grid-rows-6 gap-1 p-1 container-short:gap-0.5">
       {keypad.flat().map((key) => {
         const disabled = error && !enabledDuringError.has(key.action.type)
         return (
@@ -110,7 +110,7 @@ function CalculatorKeypad({
             aria-label={key.label}
             disabled={disabled}
             className={cn(
-              'inline-flex items-center justify-center rounded-md text-sm font-medium disabled:cursor-not-allowed disabled:opacity-50 @sm:text-base',
+              'inline-flex min-h-0 items-center justify-center rounded-md text-sm font-medium disabled:cursor-not-allowed disabled:opacity-50 @sm:text-base container-short:text-xs',
               key.accent
                 ? 'bg-accent text-foreground transition-colors duration-150 hover:bg-accent/85'
                 : key.action.type !== 'digit'
@@ -120,7 +120,7 @@ function CalculatorKeypad({
             onClick={() => onPress(key.action)}
           >
             {key.action.type === 'backspace' ? (
-              <BackspaceRegular className="size-5" />
+              <BackspaceRegular className="size-5 container-short:size-4" />
             ) : (
               key.label
             )}
@@ -226,16 +226,20 @@ export function Calculator() {
   return (
     <div
       ref={rootRef}
-      className="flex h-full min-h-0 bg-popover/80 dark:bg-popover/50"
+      // Size containment lets the layout shrink with the Window's height, so
+      // the keypad always fits without scrolling.
+      className="[container-type:size] flex h-full min-h-0 bg-popover/80 dark:bg-popover/50"
     >
       <section className="flex h-full w-full min-w-0 flex-col text-popover-foreground">
-        <header className="flex items-center justify-between px-4 pt-3 pb-1">
-          <h1 className="truncate text-lg font-semibold">{localize(title)}</h1>
+        <header className="flex items-center justify-between px-4 pt-3 pb-1 container-short:pt-1 container-short:pb-0">
+          <h1 className="truncate text-lg font-semibold container-short:text-base">
+            {localize(title)}
+          </h1>
           <Popover open={historyOpen} onOpenChange={setHistoryOpen}>
             <PopoverTrigger asChild>
               <button
                 type="button"
-                className="rounded-md p-2 hover:bg-popover-foreground/10 @xl:hidden"
+                className="rounded-md p-2 hover:bg-popover-foreground/10 @xl:hidden container-short:p-1"
                 aria-label="History"
               >
                 <HistoryRegular className="size-5" />
@@ -253,14 +257,14 @@ export function Calculator() {
             </PopoverContent>
           </Popover>
         </header>
-        <div className="px-4 pb-2 text-right">
-          <p className="min-h-5 truncate text-sm text-muted-foreground">
+        <div className="px-4 pb-2 text-right container-short:pb-1">
+          <p className="min-h-5 truncate text-sm text-muted-foreground container-short:min-h-4 container-short:text-xs">
             {state.expression}
           </p>
           <p
             className={cn(
               'truncate leading-tight font-semibold',
-              'text-4xl @sm:text-5xl',
+              'text-4xl @sm:text-5xl container-short:text-2xl',
             )}
           >
             {shown}

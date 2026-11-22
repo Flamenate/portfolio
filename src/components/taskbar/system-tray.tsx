@@ -4,7 +4,7 @@ import { UtilityMenu } from './menus/utility-menu'
 
 function SystemTray() {
   return (
-    <section className="absolute right-0 hidden h-full cursor-default items-stretch gap-2 rounded-xl px-3 py-0.5 align-middle text-primary-foreground select-none *:rounded-sm *:hover-taskbar-effect md:flex md:flex-row-reverse">
+    <section className="col-start-3 flex h-full shrink-0 cursor-default flex-row-reverse items-stretch gap-2 justify-self-end rounded-xl px-3 py-0.5 align-middle text-primary-foreground select-none *:rounded-sm *:hover-taskbar-effect compact:gap-0.5 compact:px-0">
       <NotificationMenu />
       <UtilityMenu />
       <ThemeMenu />

@@ -1,4 +1,7 @@
-import { AlertFilled } from '@fluentui/react-icons/headless/svg/alert'
+import {
+  AlertFilled,
+  AlertRegular,
+} from '@fluentui/react-icons/headless/svg/alert'
 import { AlertOffRegular } from '@fluentui/react-icons/headless/svg/alert-off'
 import { ChevronDownRegular } from '@fluentui/react-icons/headless/svg/chevron-down'
 import { ChevronUpRegular } from '@fluentui/react-icons/headless/svg/chevron-up'
@@ -247,15 +250,18 @@ export function NotificationMenu() {
           <TooltipTrigger asChild>
             <button
               type="button"
-              className="flex flex-row-reverse items-center"
+              className="flex flex-row-reverse items-center compact:px-2"
               aria-label={localize('notifications')}
             >
               {doNotDisturb ? (
                 <AlertOffRegular className="size-4.5" />
               ) : notificationCount > 0 ? (
                 <AlertFilled className="size-4.5" />
-              ) : null}
-              <div className="flex flex-col items-end justify-center px-2 py-1 text-sm">
+              ) : (
+                // Compact mode hides the clock, so the trigger needs an icon.
+                <AlertRegular className="hidden size-4.5 compact:block" />
+              )}
+              <div className="flex flex-col items-end justify-center px-2 py-1 text-sm compact:hidden">
                 <span>{formatDatetime('p')}</span>
                 <span>{formatDatetime('P')}</span>
               </div>

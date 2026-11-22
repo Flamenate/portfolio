@@ -53,7 +53,7 @@ export function FolderList({
         >
           <TabsList
             aria-label={localize('mail')}
-            className="w-full justify-start overflow-x-auto"
+            className="w-full scroll-fade-x justify-start overflow-x-auto"
           >
             {mailFolders.map((folder) => (
               <TabsTrigger key={folder} value={folder} className="px-2.5">

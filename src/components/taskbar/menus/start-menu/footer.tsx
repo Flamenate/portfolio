@@ -35,7 +35,7 @@ function SocialMediaButton({
           href={url}
           target="_blank"
           rel="noopener noreferrer"
-          className="rounded-sm hover-shade p-3"
+          className="rounded-sm hover-shade p-3 compact:p-2"
           onPointerEnter={changeName}
           onPointerLeave={() => setDisplayedName(DEFAULT_NAME)}
         >
@@ -91,11 +91,15 @@ export function StartMenuFooter({ onAction }: { onAction: () => void }) {
     }
   }
   return (
-    <footer className="flex h-15 shrink-0 items-center justify-between rounded-b-sm bg-popover/30 px-6 select-none">
+    <footer className="flex h-15 shrink-0 items-center justify-between gap-1 rounded-b-sm bg-popover/30 px-6 select-none compact:px-2">
       <button
-        className="flex w-56 items-center gap-3 rounded-sm hover-shade px-3 py-1.5"
-        onPointerEnter={toggleName}
-        onPointerLeave={() => setName(DEFAULT_NAME)}
+        className="flex max-w-56 min-w-0 flex-1 items-center gap-3 rounded-sm hover-shade px-3 py-1.5"
+        onPointerEnter={(event) => {
+          if (event.pointerType !== 'touch') toggleName()
+        }}
+        onPointerLeave={(event) => {
+          if (event.pointerType !== 'touch') setName(DEFAULT_NAME)
+        }}
         onClick={toggleName}
         type="button"
       >
@@ -103,13 +107,13 @@ export function StartMenuFooter({ onAction }: { onAction: () => void }) {
           src="/media/pictures/system/ena.jpg"
           width={40}
           height={40}
-          className="rounded-full"
+          className="shrink-0 rounded-full"
         />
         <AnimatePresence mode="popLayout" initial={false}>
           <motion.p
             layout
             key={displayedNameKey}
-            className="grow text-left text-sm break-all"
+            className="min-w-0 grow truncate text-left text-sm"
             initial={{ y: '-100%', opacity: 0, scale: 0.95, x: '2%' }}
             animate={{ y: '0%', opacity: 1, scale: 1, x: '0%' }}
             exit={{ y: '100%', opacity: 0, scale: 0.95, x: '2%' }}

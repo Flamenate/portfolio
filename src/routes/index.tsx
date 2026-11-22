@@ -23,7 +23,7 @@ function Welcome() {
   const { signedIn } = Route.useLoaderData()
   const localize = useLocalize()
   return (
-    <main className="relative grid h-screen grid-flow-row grid-rows-6 place-items-center overflow-hidden">
+    <main className="relative grid h-dvh grid-rows-[1fr_auto_2fr] place-items-center overflow-hidden">
       <div
         aria-hidden
         className="absolute -inset-8 bg-slate-950 bg-[url('/media/pictures/system/login_bg.webp')] bg-cover bg-center blur-lg"
@@ -31,10 +31,10 @@ function Welcome() {
       <h1 className="relative z-10 text-3xl font-bold text-gray-200 drop-shadow-sm drop-shadow-black md:text-5xl">
         {localize(signedIn ? 'welcome_back' : 'welcome')}
       </h1>
-      <div className="relative z-10 row-start-3 flex flex-col items-center justify-center gap-10">
-        <div className="flex flex-col items-center gap-5">
+      <div className="relative z-10 flex flex-col items-center justify-center gap-10 [@media(max-height:30rem)]:gap-4">
+        <div className="flex flex-col items-center gap-5 [@media(max-height:30rem)]:gap-2">
           <Image
-            className="aspect-square w-42 rounded-full border border-white/40 object-cover md:w-56"
+            className="aspect-square w-42 rounded-full border border-white/40 object-cover md:w-56 [@media(max-height:30rem)]:w-24"
             src="/media/pictures/system/ena.jpg"
             alt="Picture of Haythem Frikha"
             sizes="(max-width: 768px) 10.5rem, 14rem"

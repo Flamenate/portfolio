@@ -10,7 +10,7 @@ const tabs: Array<{ value: string; label: string; disabled?: boolean }> = [
 ]
 
 const triggerClassName = [
-  'h-auto flex-none rounded-none bg-none! px-0 py-1 text-sm font-semibold tracking-wider uppercase',
+  'h-auto flex-none rounded-none bg-none! px-0 py-1 text-sm font-semibold tracking-wider uppercase pointer-coarse:min-h-8',
   'text-[#dcdedf] hover:text-white dark:text-[#dcdedf] dark:hover:text-white disabled:text-[#8b929a]!',
   'data-[state=active]:bg-transparent data-[state=active]:text-[#1a9fff] dark:data-[state=active]:bg-transparent dark:data-[state=active]:text-[#1a9fff]',
   'focus-visible:border-transparent focus-visible:ring-[#1a9fff]/40 focus-visible:outline-[#1a9fff]',

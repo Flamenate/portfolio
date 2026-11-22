@@ -9,6 +9,7 @@ import type {
   FsNode,
 } from '@/lib/directories'
 import { openFile } from '@/lib/open-file'
+import { isTouchInput } from '@/lib/pointer'
 import { cn } from '@/lib/utils'
 import { useExplorerStore } from '@/stores/explorer.store'
 import { UnsupportedFileDialog } from './unsupported-file-dialog'
@@ -76,8 +77,13 @@ export function FolderView({
                 'flex w-full flex-col items-center gap-1 rounded-sm px-2 py-1 outline-accent-foreground hover:bg-accent/25 focus-visible:outline-1 dark:hover:bg-white/25',
                 selected === i && 'bg-accent/30 dark:bg-white/40',
               )}
-              onClick={() => setSelected(i)}
-              onDoubleClick={() => open(node)}
+              onClick={() => {
+                if (isTouchInput()) open(node)
+                else setSelected(i)
+              }}
+              onDoubleClick={() => {
+                if (!isTouchInput()) open(node)
+              }}
               onKeyDown={(e) => {
                 if (e.key === 'Enter') open(node)
               }}

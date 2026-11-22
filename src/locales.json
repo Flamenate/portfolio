@@ -1809,6 +1809,11 @@
     "fr": "Télécharger",
     "es": "Descargar"
   },
+  "open_in_new_tab": {
+    "eng": "Open in new tab",
+    "fr": "Ouvrir dans un nouvel onglet",
+    "es": "Abrir en una pestaña nueva"
+  },
   "unsupported_file_format": {
     "eng": "The requested file format is no longer supported.",
     "fr": "Le format de fichier demandé n'est plus pris en charge.",

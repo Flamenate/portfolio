@@ -35,26 +35,33 @@ export function Taskbar() {
 
   return (
     <footer
-      style={{ height: TASKBAR_HEIGHT }}
-      className="z-110 flex w-screen items-center justify-center border-t border-white/15 bg-linear-to-r from-transparent via-black/25 to-transparent p-1.5 backdrop-blur-xl"
+      style={{
+        height: `calc(${TASKBAR_HEIGHT}px + env(safe-area-inset-bottom))`,
+      }}
+      className="z-110 grid w-full grid-cols-[1fr_minmax(0,auto)_1fr] items-center border-t border-white/15 bg-linear-to-r from-transparent via-black/25 to-transparent p-1.5 pr-[calc(0.375rem+env(safe-area-inset-right))] pb-[calc(0.375rem+env(safe-area-inset-bottom))] pl-[calc(0.375rem+env(safe-area-inset-left))] backdrop-blur-xl compact:flex"
     >
-      <StartMenu />
-      <div ref={shortcutTrackRef} className="pr-10">
-        <Reorder.Group
-          as="ol"
-          axis="x"
-          values={orderedTaskbarAppLabels}
-          onReorder={setOrderedAppLabels}
-          className="flex h-full gap-1"
+      <div className="col-start-2 flex h-full min-w-0 items-center compact:flex-1">
+        <StartMenu />
+        <div
+          ref={shortcutTrackRef}
+          className="min-w-0 compact:[scrollbar-width:none] compact:overflow-x-auto compact:overflow-y-hidden compact:[&::-webkit-scrollbar]:hidden"
         >
-          {orderedTaskbarAppLabels.map((appLabel) => (
-            <TaskbarShortcut
-              key={appLabel}
-              appLabel={appLabel}
-              shortcutTrackRef={shortcutTrackRef}
-            />
-          ))}
-        </Reorder.Group>
+          <Reorder.Group
+            as="ol"
+            axis="x"
+            values={orderedTaskbarAppLabels}
+            onReorder={setOrderedAppLabels}
+            className="flex h-full w-max gap-1"
+          >
+            {orderedTaskbarAppLabels.map((appLabel) => (
+              <TaskbarShortcut
+                key={appLabel}
+                appLabel={appLabel}
+                shortcutTrackRef={shortcutTrackRef}
+              />
+            ))}
+          </Reorder.Group>
+        </div>
       </div>
       <SystemTray />
     </footer>

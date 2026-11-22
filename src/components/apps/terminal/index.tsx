@@ -104,6 +104,9 @@ export function Terminal() {
         <Input
           ref={inputRef}
           className="inline-block h-fit max-w-full grow rounded-none border-0 bg-transparent! py-0 pl-1 caret-white outline-none focus-visible:ring-0 @5xl:text-base"
+          autoCapitalize="off"
+          autoCorrect="off"
+          spellCheck={false}
           onKeyDown={handleKeyDown}
           onKeyUp={(e) => {
             if (e.key !== 'Enter') return

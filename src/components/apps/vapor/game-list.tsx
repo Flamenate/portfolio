@@ -57,7 +57,7 @@ function GameSection({
                   type="button"
                   aria-current={isSelected ? 'page' : undefined}
                   className={cn(
-                    'flex w-full cursor-pointer items-center gap-2 px-3 py-1 text-left text-[13px]',
+                    'flex w-full cursor-pointer items-center gap-2 px-3 py-1 text-left text-[13px] pointer-coarse:min-h-8',
                     isSelected
                       ? 'bg-linear-to-r from-[#3d4450] to-[#353b46] text-white'
                       : 'text-[#b8bcbf] hover:bg-[#2a2e36] hover:text-white',

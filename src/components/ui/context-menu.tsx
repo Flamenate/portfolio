@@ -2,12 +2,28 @@ import { CheckRegular } from '@fluentui/react-icons/headless/svg/check'
 import { ChevronRightRegular } from '@fluentui/react-icons/headless/svg/chevron-right'
 import { ContextMenu as ContextMenuPrimitive } from 'radix-ui'
 import * as React from 'react'
+import { isTouchInput } from '@/lib/pointer'
 import { cn } from '@/lib/utils'
 
 function ContextMenu({
+  onOpenChange,
   ...props
 }: React.ComponentProps<typeof ContextMenuPrimitive.Root>) {
-  return <ContextMenuPrimitive.Root data-slot="context-menu" {...props} />
+  const [open, setOpen] = React.useState(false)
+  return (
+    <ContextMenuPrimitive.Root
+      data-slot="context-menu"
+      {...props}
+      open={open}
+      onOpenChange={(next) => {
+        // Touch input has no context menus: the long-press would open one and
+        // the lifting finger's click would close it again.
+        if (next && isTouchInput()) return
+        setOpen(next)
+        onOpenChange?.(next)
+      }}
+    />
+  )
 }
 
 function ContextMenuTrigger({

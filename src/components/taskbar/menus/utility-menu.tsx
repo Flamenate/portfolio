@@ -158,13 +158,13 @@ export function UtilityMenu() {
               className="flex flex-row-reverse items-center gap-1.5 px-2"
               aria-label={`${localize('battery_status')}: ${battery.level}%. ${localize('volume')}: ${volume}%`}
             >
-              <span className="grid size-6 place-items-center">
+              <span className="grid size-6 place-items-center compact:hidden">
                 <Battery
                   batteryLevel={battery.level}
                   isCharging={battery.isCharging}
                 />
               </span>
-              <span className="grid size-6 place-items-center">
+              <span className="grid size-6 place-items-center compact:hidden">
                 <Volume volume={volume} />
               </span>
               <span className="grid size-6 place-items-center">

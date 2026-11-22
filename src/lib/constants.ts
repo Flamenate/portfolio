@@ -1,5 +1,9 @@
 export const TASKBAR_HEIGHT = 64
 
+// Compact mode: Windows render maximized and the taskbar scrolls. Keep in sync
+// with the `compact` custom variant in styles.css.
+export const COMPACT_MEDIA_QUERY = '(width <= 56rem)'
+
 export const MINIMUM_WINDOW_SIZE = { width: 250, height: 300 }
 
 export const DEFAULT_WINDOW_COORDINATES = {

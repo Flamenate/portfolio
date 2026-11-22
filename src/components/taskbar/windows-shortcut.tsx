@@ -10,7 +10,7 @@ export function WindowsShortcut({
       type="button"
       {...props}
       className={cn(
-        'group relative flex h-full w-12 items-center justify-center rounded-sm hover-taskbar-effect p-2 transition-colors duration-150 select-none',
+        'group relative flex h-full w-12 shrink-0 items-center justify-center rounded-sm hover-taskbar-effect p-2 transition-colors duration-150 select-none',
         className,
       )}
     >
