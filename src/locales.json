@@ -1678,5 +1678,15 @@
     "eng": "Download",
     "fr": "Télécharger",
     "es": "Descargar"
+  },
+  "unsupported_file_format": {
+    "eng": "The requested file format is no longer supported.",
+    "fr": "Le format de fichier demandé n'est plus pris en charge.",
+    "es": "El formato de archivo solicitado ya no es compatible."
+  },
+  "ok": {
+    "eng": "OK",
+    "fr": "OK",
+    "es": "Aceptar"
   }
 }

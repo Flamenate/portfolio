@@ -40,6 +40,7 @@ export const fileIcons: Partial<Record<string, string>> = {
   pdf: '/media/icons/pdf.webp',
   txt: '/media/icons/txt.webp',
   exe: '/media/icons/exe.webp',
+  zip: '/media/icons/zip.webp',
 }
 
 export function fileIconSrc(file: FileNode) {

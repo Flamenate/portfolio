@@ -7,13 +7,15 @@ import { useNotepadStore } from '@/stores/notepad.store'
 import { usePdfStore } from '@/stores/pdf.store'
 import { usePhotosStore } from '@/stores/photos.store'
 
-export function openFile(file: LocatedFile) {
+/** Returns whether an App handled the File. */
+export function openFile(file: LocatedFile): boolean {
   const label = appForExtension(file.extension)
+  if (!label) return false
   if (label === 'photos')
     usePhotosStore.getState().request(photoFromFile(file, file.path))
   else if (label === 'gymnast_pdf')
     usePdfStore.getState().openPdf(pdfEntry(file))
   else if (label === 'notepad') useNotepadStore.getState().request(file)
-  else if (label)
-    useAppStore.getState().openApp(label, { title: fileLabel(file) })
+  else useAppStore.getState().openApp(label, { title: fileLabel(file) })
+  return true
 }

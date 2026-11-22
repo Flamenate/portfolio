@@ -1,10 +1,17 @@
 import { useState } from 'react'
+import { useAudio } from '@/hooks/useAudio'
 import useLocalize from '@/hooks/useLocalize'
 import { fileIconSrc, fileLabel } from '@/lib/directories'
-import type { FolderNode, FolderPath, FsNode } from '@/lib/directories'
+import type {
+  FileNode,
+  FolderNode,
+  FolderPath,
+  FsNode,
+} from '@/lib/directories'
 import { openFile } from '@/lib/open-file'
 import { cn } from '@/lib/utils'
 import { useExplorerStore } from '@/stores/explorer.store'
+import { UnsupportedFileDialog } from './unsupported-file-dialog'
 
 function nodeKey(node: FsNode) {
   return node.type === 'folder'
@@ -38,7 +45,9 @@ export function FolderView({
 }) {
   const localize = useLocalize()
   const navigate = useExplorerStore((state) => state.navigate)
+  const errorAudio = useAudio('/audio/error.wav')
   const [selected, setSelected] = useState<number | null>(null)
+  const [unsupportedFile, setUnsupportedFile] = useState<FileNode | null>(null)
 
   if (folder.children.length === 0) {
     return (
@@ -51,32 +60,40 @@ export function FolderView({
       navigate([...path, node.name])
       return
     }
-    openFile({ ...node, path })
+    if (openFile({ ...node, path })) return
+    setUnsupportedFile(node)
+    errorAudio.play({ forceReplay: true })
   }
 
   return (
-    <ul className="grid grid-cols-[repeat(auto-fill,minmax(5.5rem,1fr))] gap-2">
-      {folder.children.map((node, i) => (
-        <li key={nodeKey(node)}>
-          <button
-            type="button"
-            className={cn(
-              'flex w-full flex-col items-center gap-1 rounded-sm px-2 py-1 outline-accent-foreground hover:bg-accent/25 focus-visible:outline-1 dark:hover:bg-white/25',
-              selected === i && 'bg-accent/30 dark:bg-white/40',
-            )}
-            onClick={() => setSelected(i)}
-            onDoubleClick={() => open(node)}
-            onKeyDown={(e) => {
-              if (e.key === 'Enter') open(node)
-            }}
-          >
-            <ItemIcon node={node} />
-            <span className="w-full text-center wrap-break-word">
-              {node.type === 'folder' ? localize(node.name) : fileLabel(node)}
-            </span>
-          </button>
-        </li>
-      ))}
-    </ul>
+    <>
+      <ul className="grid grid-cols-[repeat(auto-fill,minmax(5.5rem,1fr))] gap-2">
+        {folder.children.map((node, i) => (
+          <li key={nodeKey(node)}>
+            <button
+              type="button"
+              className={cn(
+                'flex w-full flex-col items-center gap-1 rounded-sm px-2 py-1 outline-accent-foreground hover:bg-accent/25 focus-visible:outline-1 dark:hover:bg-white/25',
+                selected === i && 'bg-accent/30 dark:bg-white/40',
+              )}
+              onClick={() => setSelected(i)}
+              onDoubleClick={() => open(node)}
+              onKeyDown={(e) => {
+                if (e.key === 'Enter') open(node)
+              }}
+            >
+              <ItemIcon node={node} />
+              <span className="w-full text-center wrap-break-word">
+                {node.type === 'folder' ? localize(node.name) : fileLabel(node)}
+              </span>
+            </button>
+          </li>
+        ))}
+      </ul>
+      <UnsupportedFileDialog
+        file={unsupportedFile}
+        onClose={() => setUnsupportedFile(null)}
+      />
+    </>
   )
 }
