@@ -1559,6 +1559,11 @@
     "fr": "Ne pas déranger",
     "es": "No molestar"
   },
+  "concord_restricted": {
+    "eng": "You do not have permission to send messages in this channel.",
+    "fr": "Vous n'avez pas la permission d'envoyer des messages dans ce salon.",
+    "es": "No tienes permiso para enviar mensajes en este canal."
+  },
   "concord_voice_unavailable": {
     "eng": "No friends to hang out with...",
     "fr": "Pas d'amis avec qui traîner...",

@@ -65,7 +65,7 @@ export function Concord() {
   const server = serverId === null ? undefined : getServer(serverId)
   const target = resolveTarget(conversation)
   const paneClassName = cn(
-    'min-h-0 min-w-0 grow overflow-hidden bg-popover dark:bg-background',
+    'min-h-0 min-w-0 grow basis-0 overflow-hidden bg-popover dark:bg-background',
     chatOpen ? 'flex' : 'hidden @md:flex',
   )
   const sidebarClassName = 'min-w-0 grow @md:w-60 @md:grow-0'
@@ -85,7 +85,7 @@ export function Concord() {
       <nav
         aria-label={localize('concord')}
         className={cn(
-          'flex min-h-0 min-w-0 grow flex-col @md:grow-0',
+          'flex min-h-0 min-w-0 grow flex-col @md:shrink-0 @md:grow-0',
           chatOpen && 'hidden @md:flex',
         )}
       >

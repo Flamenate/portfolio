@@ -133,7 +133,7 @@ export function Chat({
       </header>
 
       <div className="relative flex min-h-0 grow">
-        <div className="flex min-w-0 grow flex-col">
+        <div className="flex min-w-0 grow basis-0 flex-col">
           <div
             ref={scrollRef}
             className="flex min-h-0 grow flex-col-reverse overflow-y-auto"
@@ -147,13 +147,19 @@ export function Chat({
               <MessageList messages={messages} server={server} />
             </div>
           </div>
-          <Composer
-            placeholder={localize('concord_message_placeholder', title)}
-            onSend={(content) => {
-              send(target.key, content)
-              scrollRef.current?.scrollTo({ top: 0 })
-            }}
-          />
+          {target.type === 'channel' && target.channel.restricted ? (
+            <p className="mx-4 mb-2 flex min-h-14 shrink-0 items-center rounded-md border border-muted-foreground/15 bg-muted-foreground/15 px-4 text-muted-foreground">
+              {localize('concord_restricted')}
+            </p>
+          ) : (
+            <Composer
+              placeholder={localize('concord_message_placeholder', title)}
+              onSend={(content) => {
+                send(target.key, content)
+                scrollRef.current?.scrollTo({ top: 0 })
+              }}
+            />
+          )}
         </div>
         {server && (
           <MemberList

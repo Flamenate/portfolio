@@ -5,17 +5,12 @@
     {
       "src": "/media/icons/flame_os.webp",
       "sizes": "64x64 32x32 24x24 16x16",
-      "type": "image/png"
+      "type": "image/webp"
     },
     {
       "src": "/media/pictures/system/ena.jpg",
       "type": "image/jpeg",
       "sizes": "192x192"
-    },
-    {
-      "src": "/media/pictures/system/desktop_bg.webp",
-      "type": "image/webp",
-      "sizes": "512x512"
     }
   ],
   "start_url": ".",

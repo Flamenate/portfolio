@@ -52,6 +52,8 @@ export type TextChannel = {
   name: string
   topic?: string
   locked?: boolean
+  /** Readable, but the visitor can't send messages. */
+  restricted?: boolean
   messages: NonEmpty<Message>
 }
 
