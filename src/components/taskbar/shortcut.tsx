@@ -10,6 +10,7 @@ import { useState } from 'react'
 import { useShallow } from 'zustand/react/shallow'
 import useLocale from '@/hooks/useLocale'
 import type { AppLabel } from '@/lib/apps'
+import { TASKBAR_HEIGHT } from '@/lib/constants'
 import { cn } from '@/lib/utils'
 import { useAppStore } from '@/stores/app.store'
 import { Tooltip, TooltipContent, TooltipTrigger } from '../ui/tooltip'
@@ -87,25 +88,60 @@ export function TaskbarShortcut({
               scale.set(1)
             }}
             key={app.iconSrc}
-            className="group relative box-border flex h-12.5 w-12 items-center justify-center rounded-sm hover-taskbar-effect p-2 transition-colors duration-150 select-none"
+            className="group relative box-border flex h-12.5 w-12 items-center justify-center rounded-sm hover-taskbar-effect py-2 transition-colors duration-150 select-none"
             onMouseUp={(event) => {
               if (event.button === 0) handleAppTransition()
             }}
-            initial={{ opacity: 0, scale: 0.5 }}
-            animate={{ opacity: 1, scale: isBeingDragged ? 1.25 : 1 }}
+            // Growing/shrinking the real width (and cancelling the list's gap) lets neighbours,
+            // the Start button and the centred taskbar reflow smoothly on enter/exit.
+            initial={{ width: 0, marginLeft: -4 }}
+            animate={{
+              scale: isBeingDragged ? 1.25 : 1,
+              width: 48,
+              marginLeft: 0,
+            }}
+            exit={{
+              width: 0,
+              marginLeft: -4,
+              // Close the slot once the icon has mostly dropped out of view.
+              transition: {
+                type: 'spring',
+                bounce: 0,
+                duration: 0.3,
+                delay: 0.15,
+              },
+            }}
+            transition={{
+              width: { type: 'spring', bounce: 0, duration: 0.35 },
+              marginLeft: { type: 'spring', bounce: 0, duration: 0.35 },
+            }}
           >
-            <img
-              ref={scope}
-              src={app.iconSrc}
-              alt={app.label}
-              width="32"
-              height="32"
-              className={cn(
-                'mt-0.5 h-full max-h-8 object-contain transition-[scale]',
-                !isBeingDragged && 'group-active:scale-80',
-              )}
-              draggable="false"
-            />
+            {/* Reorder.Item owns its own `y` for dragging, so the icon rises/drops in a wrapper. */}
+            <motion.div
+              className="flex h-full items-center justify-center"
+              initial={{ y: TASKBAR_HEIGHT }}
+              animate={{
+                y: 0,
+                transition: { type: 'spring', bounce: 0.25, duration: 0.5 },
+              }}
+              exit={{
+                y: TASKBAR_HEIGHT,
+                transition: { ease: 'easeIn', duration: 0.2 },
+              }}
+            >
+              <img
+                ref={scope}
+                src={app.iconSrc}
+                alt={app.label}
+                width="32"
+                height="32"
+                className={cn(
+                  'mt-0.5 h-full max-h-8 object-contain transition-[scale]',
+                  !isBeingDragged && 'group-active:scale-80',
+                )}
+                draggable="false"
+              />
+            </motion.div>
             <AnimatePresence>
               {appState !== 'closed' && (
                 <motion.div

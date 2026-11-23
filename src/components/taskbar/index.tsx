@@ -1,5 +1,5 @@
-import { Reorder } from 'motion/react'
-import { useMemo, useRef, useState } from 'react'
+import { AnimatePresence, Reorder } from 'motion/react'
+import { useRef, useState } from 'react'
 import type { AppLabel } from '@/lib/apps'
 import { TASKBAR_HEIGHT } from '@/lib/constants'
 import useAppStore from '@/stores/app.store'
@@ -15,23 +15,23 @@ export function Taskbar() {
     .filter((app) => app.pinned || app.state !== 'closed')
     .map((app) => app.label)
 
-  const [orderedAppLabels, setOrderedAppLabels] = useState<AppLabel[]>([])
+  const [orderedAppLabels, setOrderedAppLabels] =
+    useState<AppLabel[]>(taskbarAppLabels)
 
-  const orderedTaskbarAppLabels = useMemo(() => {
-    const taskbarSet = new Set(taskbarAppLabels)
-    const seen = new Set<string>()
-    const orderedLabels = orderedAppLabels.filter((label) => {
-      if (!taskbarSet.has(label) || seen.has(label)) return false
-      seen.add(label)
-      return true
-    })
-    const newLabels = taskbarAppLabels.filter((label) => {
-      if (seen.has(label)) return false
-      seen.add(label)
-      return true
-    })
-    return [...orderedLabels, ...newLabels]
-  }, [taskbarAppLabels, orderedAppLabels])
+  // Labels that left the taskbar are forgotten and new ones are appended, so a
+  // reopened unpinned app always lands at the end.
+  const taskbarSet = new Set(taskbarAppLabels)
+  const orderedSet = new Set(orderedAppLabels)
+  const syncedAppLabels = [
+    ...orderedAppLabels.filter((label) => taskbarSet.has(label)),
+    ...taskbarAppLabels.filter((label) => !orderedSet.has(label)),
+  ]
+  if (
+    syncedAppLabels.length !== orderedAppLabels.length ||
+    syncedAppLabels.some((label, index) => label !== orderedAppLabels[index])
+  ) {
+    setOrderedAppLabels(syncedAppLabels)
+  }
 
   return (
     <footer
@@ -44,22 +44,24 @@ export function Taskbar() {
         <StartMenu />
         <div
           ref={shortcutTrackRef}
-          className="min-w-0 compact:[scrollbar-width:none] compact:overflow-x-auto compact:overflow-y-hidden compact:[&::-webkit-scrollbar]:hidden"
+          className="min-w-0 compact:scrollbar-none compact:overflow-x-auto compact:overflow-y-hidden compact:[&::-webkit-scrollbar]:hidden"
         >
           <Reorder.Group
             as="ol"
             axis="x"
-            values={orderedTaskbarAppLabels}
+            values={syncedAppLabels}
             onReorder={setOrderedAppLabels}
             className="flex h-full w-max gap-1"
           >
-            {orderedTaskbarAppLabels.map((appLabel) => (
-              <TaskbarShortcut
-                key={appLabel}
-                appLabel={appLabel}
-                shortcutTrackRef={shortcutTrackRef}
-              />
-            ))}
+            <AnimatePresence initial={false}>
+              {syncedAppLabels.map((appLabel) => (
+                <TaskbarShortcut
+                  key={appLabel}
+                  appLabel={appLabel}
+                  shortcutTrackRef={shortcutTrackRef}
+                />
+              ))}
+            </AnimatePresence>
           </Reorder.Group>
         </div>
       </div>
