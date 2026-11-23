@@ -578,7 +578,7 @@ export const users: User[] = [
     displayName: 'Reya',
     username: 'reya',
     banner: '#991b1b',
-    bio: 'karaoke queen 🎤',
+    bio: 'karaoke queen 🎤 CEO of anime',
     status: 'online',
   },
   {
@@ -623,7 +623,7 @@ export const users: User[] = [
     displayName: 'Sugarplum',
     username: 'sugarplum',
     banner: '#4d7c0f',
-    bio: 'shoujo enjoyer',
+    bio: 'professional singer',
     status: 'online',
   },
   {

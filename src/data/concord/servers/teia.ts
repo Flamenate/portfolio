@@ -19,20 +19,20 @@ export const teia: Server = {
     { userId: 'flamenate', roleIds: ['server-owner', 'board', 'event-team'] },
     { userId: 'kaiser', roleIds: ['board', 'event-team'] },
     { userId: 'exkuma', roleIds: ['admin'] },
-    { userId: 'veldora', roleIds: ['admin'] },
-    { userId: 'leila', roleIds: ['moderator'] },
+    { userId: 'veldora', roleIds: ['member'] },
+    { userId: 'leila', roleIds: ['event-team'] },
     { userId: 'amir', roleIds: ['moderator'] },
-    { userId: 'l.lawliet', roleIds: ['moderator'] },
+    { userId: 'l.lawliet', roleIds: ['karaoke-star'] },
     { userId: 'kawaii', roleIds: ['event-team', 'karaoke-star'] },
     { userId: 'bushmaster', roleIds: ['event-team'] },
     { userId: 'mako8481', roleIds: ['event-team'] },
     { userId: 'liza', roleIds: ['artist'] },
     { userId: 'sugarplum', roleIds: ['artist'] },
     { userId: 'nezukoChan', roleIds: ['artist'] },
-    { userId: 'reya', roleIds: ['karaoke-star'] },
+    { userId: 'reya', roleIds: ['moderator, karaoke-star'] },
     { userId: 'senpaiNoticeMe', roleIds: ['karaoke-star'] },
     { userId: 'kingdynamight', roleIds: ['member'] },
-    { userId: 'hunYan', roleIds: ['member'] },
+    { userId: 'hunYan', roleIds: ['bots'] },
     { userId: 'ennissay', roleIds: ['member'] },
     { userId: 'meliodasGuy11', roleIds: ['member'] },
     { userId: 'zoroLost', roleIds: ['member'] },
@@ -424,6 +424,13 @@ export const teia: Server = {
             },
             {
               id: 'art-room-3',
+              authorId: 'reya',
+              date: new Date('2018-03-02T17:39:00'),
+              content:
+                'I keep zooming in on the scarf. it looks soft enough to wear, Mikasa would approve',
+            },
+            {
+              id: 'art-room-4',
               authorId: 'liza',
               date: new Date('2020-05-11T16:00:00'),
               content:
@@ -431,20 +438,20 @@ export const teia: Server = {
               reactions: [{ emoji: '🎋', count: 19 }],
             },
             {
-              id: 'art-room-4',
+              id: 'art-room-5',
               authorId: 'nezukoChan',
               date: new Date('2020-05-11T16:08:00'),
               content:
                 "MY GIRL 😭 can I use it as my profile pic?? I'll credit you",
             },
             {
-              id: 'art-room-5',
+              id: 'art-room-6',
               authorId: 'liza',
               date: new Date('2020-05-11T16:10:00'),
               content: 'of course 💕',
             },
             {
-              id: 'art-room-6',
+              id: 'art-room-7',
               authorId: 'sugarplum',
               date: new Date('2020-08-25T23:12:00'),
               content:
@@ -452,7 +459,14 @@ export const teia: Server = {
               reactions: [{ emoji: '✨', count: 27, me: true }],
             },
             {
-              id: 'art-room-7',
+              id: 'art-room-8',
+              authorId: 'reya',
+              date: new Date('2020-08-25T23:20:00'),
+              content:
+                'golden butterflies everywhere is the correct way to enter a contest called Golden Experience. karaoke battle wants this as the poster',
+            },
+            {
+              id: 'art-room-9',
               authorId: 'nezukoChan',
               date: new Date('2022-11-12T20:45:00'),
               content:
@@ -460,7 +474,14 @@ export const teia: Server = {
               reactions: [{ emoji: '🐱', count: 15 }],
             },
             {
-              id: 'art-room-8',
+              id: 'art-room-10',
+              authorId: 'reya',
+              date: new Date('2022-11-12T20:53:00'),
+              content:
+                "Meowy's face. I would hang this above my desk immediately, Power can come too",
+            },
+            {
+              id: 'art-room-11',
               authorId: 'liza',
               date: new Date('2023-11-03T18:22:00'),
               content:
@@ -471,19 +492,33 @@ export const teia: Server = {
               ],
             },
             {
-              id: 'art-room-9',
+              id: 'art-room-12',
               authorId: 'kawaii',
               date: new Date('2023-11-03T18:30:00'),
               content:
                 'Liza this needs to be printed and framed. I would buy it right now',
             },
             {
-              id: 'art-room-10',
+              id: 'art-room-13',
+              authorId: 'reya',
+              date: new Date('2023-11-03T18:38:00'),
+              content:
+                'we sang Yuusha last week and the whole voice chat went quiet. this meteor shower is that exact feeling, Liza',
+            },
+            {
+              id: 'art-room-14',
               authorId: 'liza',
               date: new Date('2026-11-21T22:40:00'),
               content:
                 "started the artwork for The Casino prizes: chibi anime characters as casino dealers 🎰 first sketch is Kakegurui's Yumeko, obviously",
               reactions: [{ emoji: '🃏', count: 12, me: true }],
+            },
+            {
+              id: 'art-room-15',
+              authorId: 'reya',
+              date: new Date('2026-11-21T22:49:00'),
+              content:
+                'chibi Yumeko with that dealer smile is going to ruin people. the eyes are already dangerous and I mean that as a compliment',
             },
           ],
         },
