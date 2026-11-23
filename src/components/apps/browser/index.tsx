@@ -16,13 +16,14 @@ import {
 import { Input } from '@/components/ui/input'
 import { NavButton } from '@/components/ui/nav-button'
 import { WindowLoading } from '@/components/ui/window-loading'
+import { resume } from '@/data/personal'
 import { env } from '@/env'
 import useLocale from '@/hooks/useLocale'
 import { cn } from '@/lib/utils'
 import { useThemeStore } from '@/stores/theme.store'
 import { BrowseConfirmDialog } from './browse-confirm-dialog'
 
-const START_URL = 'https://github.com/Flamenate'
+const START_URL = resume.contact.links.github.url
 const SEARCH_URL = 'https://www.bing.com/search?q='
 const PROXY_ORIGIN = new URL(env.VITE_PROXY_ORIGIN).origin
 

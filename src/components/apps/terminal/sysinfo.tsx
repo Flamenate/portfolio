@@ -1,4 +1,5 @@
 import { format } from 'date-fns'
+import { resume } from '@/data/personal'
 import { env } from '@/env'
 import type { Command } from '@/lib/terminal-commands'
 
@@ -19,7 +20,7 @@ export const sysinfoCommand: Command = () => {
       </tr>
       <tr>
         <td>OS Manufacturer:</td>
-        <td>Haythem Frikha</td>
+        <td>{resume.name}</td>
       </tr>
       <tr>
         <td>Domain:</td>

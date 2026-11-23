@@ -8,9 +8,10 @@ import {
   TooltipContent,
   TooltipTrigger,
 } from '@/components/ui/tooltip'
+import { resume } from '@/data/personal'
 import { PowerMenu } from './power-menu'
 
-const DEFAULT_NAME = 'Haythem Frikha'
+const DEFAULT_NAME = resume.name
 
 function SocialMediaButton({
   platform,
@@ -50,9 +51,9 @@ function SocialMediaButton({
 
 const socialMedia = [
   {
-    platform: 'GitHub',
+    platform: resume.contact.links.github.label,
     icon: <GitHub />,
-    url: 'https://github.com/Flamenate',
+    url: resume.contact.links.github.url,
     username: '@flamenate',
   },
   {
@@ -62,15 +63,15 @@ const socialMedia = [
     username: '@0xflamenate',
   },
   {
-    platform: 'LinkedIn',
+    platform: resume.contact.links.linkedin.label,
     icon: <LinkedIn />,
-    url: 'https://linkedin.com/haythem-frikha',
+    url: resume.contact.links.linkedin.url,
   },
   {
     platform: 'Email',
     icon: <MailRegular className="size-6" />,
-    url: 'mailto:haythem.frikha@outlook.com',
-    username: 'haythem.frikha@outlook.com',
+    url: `mailto:${resume.contact.email}`,
+    username: resume.contact.email,
   },
 ]
 

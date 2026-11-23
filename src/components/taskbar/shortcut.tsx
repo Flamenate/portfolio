@@ -9,6 +9,7 @@ import {
 import { useState } from 'react'
 import { useShallow } from 'zustand/react/shallow'
 import useLocale from '@/hooks/useLocale'
+import { appTitle } from '@/lib/apps'
 import type { AppLabel } from '@/lib/apps'
 import { TASKBAR_HEIGHT } from '@/lib/constants'
 import { cn } from '@/lib/utils'
@@ -165,7 +166,9 @@ export function TaskbarShortcut({
           </Reorder.Item>
         </ShortcutContextMenu>
       </TooltipTrigger>
-      <TooltipContent className="z-115">{locale.text(appLabel)}</TooltipContent>
+      <TooltipContent className="z-115">
+        {appTitle(appLabel, locale)}
+      </TooltipContent>
     </Tooltip>
   )
 }

@@ -1,7 +1,8 @@
 import { lazy } from 'react'
 import type { ComponentType, LazyExoticComponent } from 'react'
+import { resume } from '@/data/personal'
 import { DEFAULT_WINDOW_COORDINATES } from '@/lib/constants'
-import type { TranslationKey } from '@/lib/locale'
+import type { Localizer, TranslationKey } from '@/lib/locale'
 import type { AppRecord } from '@/stores/app.store'
 
 type AppDefinition = {
@@ -122,6 +123,11 @@ export const appDefinitions = {
 } satisfies Partial<Record<TranslationKey, AppDefinition>>
 
 export type AppLabel = keyof typeof appDefinitions
+
+export function appTitle(label: AppLabel, locale: Localizer) {
+  if (label === 'haythem_frikha') return resume.name
+  return locale.text(label)
+}
 
 export const appLabels = Object.keys(appDefinitions) as AppLabel[]
 

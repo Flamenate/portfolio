@@ -16,6 +16,7 @@ import useIsCompact from '@/hooks/useIsCompact'
 import useLocale from '@/hooks/useLocale'
 import { useResizable } from '@/hooks/useResizable'
 import type { ResizeDirection } from '@/hooks/useResizable'
+import { appTitle } from '@/lib/apps'
 import type { AppLabel } from '@/lib/apps'
 import {
   MINIMUM_WINDOW_SIZE,
@@ -310,7 +311,7 @@ export function AppWindow({
               draggable={false}
             />
             <span className="truncate font-light">
-              {app.title ?? locale.text(appLabel)}
+              {app.title ?? appTitle(appLabel, locale)}
             </span>
           </div>
           <div className="flex h-full shrink-0 flex-row-reverse items-stretch @xl:col-start-3 @xl:justify-self-end">

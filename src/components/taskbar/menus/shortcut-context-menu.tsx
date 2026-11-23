@@ -10,6 +10,7 @@ import {
   ContextMenuTrigger,
 } from '@/components/ui/context-menu'
 import useLocale from '@/hooks/useLocale'
+import { appTitle } from '@/lib/apps'
 import type { AppLabel } from '@/lib/apps'
 import { useAppStore } from '@/stores/app.store'
 
@@ -70,7 +71,7 @@ export function ShortcutContextMenu({
             className="size-4 object-contain"
             draggable="false"
           />
-          {locale.text(appLabel)}
+          {appTitle(appLabel, locale)}
         </ContextMenuItem>
         <ContextMenuSeparator />
         {app.pinned ? (

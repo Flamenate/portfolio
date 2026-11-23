@@ -1,3 +1,10 @@
+import { resume } from '@/data/personal'
+
+const fromMe = {
+  sender: resume.name,
+  senderEmail: resume.contact.email,
+}
+
 export type MailFolder = 'inbox' | 'junk' | 'drafts' | 'sent_items' | 'archive'
 
 export const mailFolders: MailFolder[] = [
@@ -215,8 +222,7 @@ export const mails: Mail[] = [
   {
     id: 'drafts-center-div',
     folder: 'drafts',
-    sender: 'Haythem Frikha',
-    senderEmail: 'haythem.frikha@outlook.com',
+    ...fromMe,
     subject: 'Re: Can you center this div?',
     date: new Date('2026-11-14T23:58:00'),
     body: [
@@ -227,8 +233,7 @@ export const mails: Mail[] = [
   {
     id: 'drafts-blog',
     folder: 'drafts',
-    sender: 'Haythem Frikha',
-    senderEmail: 'haythem.frikha@outlook.com',
+    ...fromMe,
     subject: 'Blog post idea: building a fake OS in React',
     date: new Date('2026-11-08T17:42:00'),
     body: [
@@ -239,8 +244,7 @@ export const mails: Mail[] = [
   {
     id: 'drafts-thanks',
     folder: 'drafts',
-    sender: 'Haythem Frikha',
-    senderEmail: 'haythem.frikha@outlook.com',
+    ...fromMe,
     subject: 'Thank you',
     date: new Date('2026-10-30T12:00:00'),
     body: ['Dear'],
@@ -248,8 +252,7 @@ export const mails: Mail[] = [
   {
     id: 'drafts-cover-letter',
     folder: 'drafts',
-    sender: 'Haythem Frikha',
-    senderEmail: 'haythem.frikha@outlook.com',
+    ...fromMe,
     subject: 'Candidature : stage d’été 2027, développement web full-stack',
     date: new Date('2026-11-16T22:35:00'),
     body: [
@@ -262,8 +265,7 @@ export const mails: Mail[] = [
   {
     id: 'sent-recruiter',
     folder: 'sent_items',
-    sender: 'Haythem Frikha',
-    senderEmail: 'haythem.frikha@outlook.com',
+    ...fromMe,
     subject: 'Re: Full-stack role: loved your portfolio',
     date: new Date('2026-11-14T11:03:00'),
     body: [
@@ -275,8 +277,7 @@ export const mails: Mail[] = [
   {
     id: 'sent-youssef',
     folder: 'sent_items',
-    sender: 'Haythem Frikha',
-    senderEmail: 'haythem.frikha@outlook.com',
+    ...fromMe,
     subject: 'Re: The terminal app is wild',
     date: new Date('2026-11-13T09:15:00'),
     body: [
@@ -287,8 +288,7 @@ export const mails: Mail[] = [
   {
     id: 'sent-mtc',
     folder: 'sent_items',
-    sender: 'Haythem Frikha',
-    senderEmail: 'haythem.frikha@outlook.com',
+    ...fromMe,
     subject: 'Re: Alumni session for the December workshop series?',
     date: new Date('2026-11-10T18:22:00'),
     body: [
@@ -299,21 +299,19 @@ export const mails: Mail[] = [
   {
     id: 'sent-katy',
     folder: 'sent_items',
-    sender: 'Haythem Frikha',
-    senderEmail: 'haythem.frikha@outlook.com',
+    ...fromMe,
     subject: 'Re: Validation de votre VLS-TS',
     date: new Date('2026-09-24T17:10:00'),
     body: [
       'Bonjour Katy,',
       'Merci pour le rappel. La validation est faite, vous trouverez ci-joint l’attestation de validation de mon VLS-TS.',
-      'Bonne fin de journée,\nHaythem Frikha\nÉtudiant en double diplôme ENIS – ENIB',
+      `Bonne fin de journée,\n${resume.name}\nÉtudiant en double diplôme ENIS – ENIB`,
     ],
   },
   {
     id: 'sent-upwork',
     folder: 'sent_items',
-    sender: 'Haythem Frikha',
-    senderEmail: 'haythem.frikha@outlook.com',
+    ...fromMe,
     subject: 'Re: Invitation to interview: Nuxt 3 storefront on Shopify',
     date: new Date('2026-11-17T21:05:00'),
     body: [

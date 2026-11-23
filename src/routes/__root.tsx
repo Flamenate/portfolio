@@ -6,6 +6,7 @@ import {
 } from '@tanstack/react-router'
 import { useEffect, useEffectEvent } from 'react'
 import { TooltipProvider } from '@/components/ui/tooltip'
+import { resume } from '@/data/personal'
 import { useApplyTheme } from '@/hooks/useApplyTheme'
 import { useNotificationStore } from '@/stores/notification.store'
 import appCss from '../styles.css?url'
@@ -23,16 +24,15 @@ export const Route = createRootRouteWithContext<{
         content: 'width=device-width, initial-scale=1, viewport-fit=cover',
       },
       {
-        title: 'Haythem Frikha',
+        title: resume.name,
       },
       {
         property: 'og:title',
-        content: 'Haythem Frikha',
+        content: resume.name,
       },
       {
         property: 'og:description',
-        content:
-          'Haythem Frikha — Software Engineer portfolio showcasing responsive web apps, TypeScript/React projects, design case studies, and ways to connect.',
+        content: `${resume.name} — Software Engineer portfolio showcasing responsive web apps, TypeScript/React projects, design case studies, and ways to connect.`,
       },
       {
         property: 'og:image',
@@ -44,12 +44,11 @@ export const Route = createRootRouteWithContext<{
       },
       {
         name: 'twitter:title',
-        content: 'Haythem Frikha',
+        content: resume.name,
       },
       {
         name: 'twitter:description',
-        content:
-          'Haythem Frikha — Software Engineer portfolio showcasing career projects and ways to connect in a fun, engaging, and interactive way.',
+        content: `${resume.name} — Software Engineer portfolio showcasing career projects and ways to connect in a fun, engaging, and interactive way.`,
       },
       {
         name: 'twitter:image',

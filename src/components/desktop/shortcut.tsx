@@ -5,6 +5,7 @@ import type { MouseEvent } from 'react'
 import { useShallow } from 'zustand/react/shallow'
 import { root } from '@/data/directories'
 import useLocale from '@/hooks/useLocale'
+import { appTitle } from '@/lib/apps'
 import type { AppLabel } from '@/lib/apps'
 import { fileIconSrc, fileLabel, getFolder } from '@/lib/directories'
 import type { FolderPath, LocatedFile } from '@/lib/directories'
@@ -108,7 +109,7 @@ export function AppShortcut({
   return (
     <DesktopShortcutButton
       shortcut={shortcut}
-      label={locale.text(appLabel)}
+      label={appTitle(appLabel, locale)}
       iconSrc={iconSrc}
 
       containerRef={containerRef}

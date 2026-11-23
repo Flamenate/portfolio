@@ -2,6 +2,7 @@ import { Link, createFileRoute } from '@tanstack/react-router'
 import { Image } from '@unpic/react'
 import { useState } from 'react'
 import { WindowLoading } from '@/components/ui/window-loading'
+import { resume } from '@/data/personal'
 import useLocale from '@/hooks/useLocale'
 import { isSignedIn, markSignedIn } from '@/lib/sign-in'
 import useThemeStore from '@/stores/theme.store'
@@ -36,13 +37,13 @@ function Welcome() {
           <Image
             className="aspect-square w-42 rounded-full border border-white/40 object-cover md:w-56 [@media(max-height:30rem)]:w-24"
             src="/media/pictures/system/ena.jpg"
-            alt="Picture of Haythem Frikha"
+            alt={`Picture of ${resume.name}`}
             sizes="(max-width: 768px) 10.5rem, 14rem"
             width={224}
             height={224}
           />
           <h2 className="flex items-center gap-2 text-center text-2xl font-semibold text-gray-200 drop-shadow-sm drop-shadow-black md:text-3xl">
-            Haythem Frikha
+            {resume.name}
           </h2>
         </div>
 

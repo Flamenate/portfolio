@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
 import type { ReactNode } from 'react'
 import { Input } from '@/components/ui/input'
+import { resume } from '@/data/personal'
 import useLocale from '@/hooks/useLocale'
 import type { Localizer } from '@/lib/locale'
 import { findCommand } from '@/lib/terminal-commands'
@@ -84,7 +85,7 @@ export function Terminal() {
         inputRef.current?.focus()
       }}
     >
-      <code>Haythem Frikha - [Version 0.1.019011.25]</code>
+      <code>{resume.name} - [Version 0.1.019011.25]</code>
       <code>(?) {locale.text('terminal_disclaimer')}</code>
       <code>{locale.text('terminal_help')}</code>
       <br />

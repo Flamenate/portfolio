@@ -1,27 +1,26 @@
+import { resume } from '@/data/personal'
 import type { Command } from '@/lib/terminal-commands'
 
+function shortUrl(url: string) {
+  return url.replace(/^https?:\/\/(?:www\.)?/, '')
+}
+
 export const contactCommand: Command = () => {
+  const { name, contact } = resume
   return (
     <p className="[&>a]:underline">
-      &gt; Full Name: Haythem Frikha
+      &gt; Full Name: {name}
       <br />
-      &gt; Email:{' '}
-      <a href="mailto:haythem.frikha@outlook.com">haythem.frikha@outlook.com</a>
+      &gt; Email: <a href={`mailto:${contact.email}`}>{contact.email}</a>
       <br />
-      &gt; Phone/Whatsapp: <a href="tel:+21654502403">+21654502403</a>
+      &gt; Phone/Whatsapp: <a href={`tel:${contact.phone}`}>{contact.phone}</a>
       <br />
-      &gt; GitHub:{' '}
-      <a href="https://github.com/Flamenate">github.com/Flamenate</a>
-      <br />
-      &gt; Twitter/X: <a href="https://x.com/0xflamenate">x.com/0xflamenate</a>
-      <br />
-      &gt; LinkedIn:{' '}
-      <a href="https://linkedin.com/in/haythem-frikha">
-        linkedin.com/haythem-frikha
-      </a>
-      <br />
-      &gt; Discord:{' '}
-      <a href="https://discord.com/users/255792586403479562">@flamenate</a>
+      {Object.entries(contact.links).map(([key, link]) => (
+        <span key={key}>
+          &gt; {link.label}: <a href={link.url}>{shortUrl(link.url)}</a>
+          <br />
+        </span>
+      ))}
     </p>
   )
 }

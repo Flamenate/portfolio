@@ -9,7 +9,7 @@ export type ContactInfo = {
   location: string
   email: string
   phone: string
-  links: Link[]
+  links: Record<string, Link>
 }
 
 export type TechnologyStack = {
@@ -84,23 +84,27 @@ export const resume: Resume = {
   focusAreas: ['Node.js', 'React / Next.js', 'Vue / Nuxt'],
   summary: 'resume_summary',
   contact: {
-    location: 'Sfax, Tunisia',
+    location: 'Brest, France',
     email: 'haythem.frikha@outlook.com',
-    phone: '+21654502403',
-    links: [
-      {
+    phone: '+33758866522',
+    links: {
+      github: {
         label: 'GitHub',
         url: 'https://github.com/Flamenate',
       },
-      {
+      linkedin: {
         label: 'LinkedIn',
         url: 'https://www.linkedin.com/in/haythem-frikha',
       },
-      {
+      upwork: {
         label: 'Upwork',
         url: 'https://www.upwork.com/freelancers/~01c4aad17b43b37ea7',
       },
-    ],
+      discord: {
+        label: 'Discord',
+        url: 'https://discord.com/users/255792586403479562',
+      },
+    },
   },
   education: [
     {

@@ -2,6 +2,7 @@ import { DocumentPdfRegular } from '@fluentui/react-icons/headless/svg/document-
 import { parseISO } from 'date-fns'
 import { useShallow } from 'zustand/react/shallow'
 import useLocale from '@/hooks/useLocale'
+import { appTitle } from '@/lib/apps'
 import {
   fileIconSrc,
   fileId,
@@ -122,7 +123,7 @@ export function Recommended({ onAction }: { onAction: () => void }) {
                   className="size-7 object-contain"
                 />
               }
-              title={locale.text(label)}
+              title={appTitle(label, locale)}
               subtitle={locale.text(
                 apps[label].state === 'closed'
                   ? 'start_menu_recently_used'

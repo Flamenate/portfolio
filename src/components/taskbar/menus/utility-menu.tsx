@@ -21,6 +21,7 @@ import {
   TooltipContent,
   TooltipTrigger,
 } from '@/components/ui/tooltip'
+import { resume } from '@/data/personal'
 import { env } from '@/env'
 import { useAudio } from '@/hooks/useAudio'
 import { useBattery } from '@/hooks/useBattery'
@@ -216,8 +217,8 @@ export function UtilityMenu() {
               disabled={!clientFlags.canShare}
               onClick={() => {
                 navigator.share({
-                  title: 'Haythem Frikha',
-                  text: "Check out Haythem Frikha's portfolio!",
+                  title: resume.name,
+                  text: `Check out ${resume.name}'s portfolio!`,
                   url: env.VITE_DOMAIN,
                 })
               }}
