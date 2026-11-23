@@ -12,7 +12,13 @@ export function FileExplorer() {
   const setAppTitle = useAppStore((state) => state.setAppTitle)
 
   useLayoutEffect(() => {
-    setAppTitle(EXPLORER_APP_LABEL, folder.name)
+    setAppTitle(
+      EXPLORER_APP_LABEL,
+      folder.name
+        .split('_')
+        .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+        .join(' '),
+    )
   }, [folder, setAppTitle])
 
   return (
