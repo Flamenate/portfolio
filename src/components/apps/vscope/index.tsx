@@ -16,8 +16,7 @@ import type { Repo } from '@/lib/github/repos'
 import { reposQuery } from '@/lib/github/repos-query'
 import useAppStore from '@/stores/app.store'
 
-// TODO: switch to 'portfolio' once it's public
-const DEFAULT_REPO = 'loup-garou-bot'
+const DEFAULT_REPO = 'portfolio'
 
 function pickRepo(repos: Repo[], saved: string) {
   if (repos.some((repo) => repo.name === saved)) return saved
