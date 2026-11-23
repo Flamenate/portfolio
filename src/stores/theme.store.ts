@@ -32,7 +32,7 @@ export type ThemeData = {
 export const defaultTheme: ThemeData = {
   palette: 'system',
   locale: 'eng',
-  volume: 75,
+  volume: 40,
 }
 type ThemeActions = {
   [K in keyof ThemeData as `set${Capitalize<K & string>}`]: (
