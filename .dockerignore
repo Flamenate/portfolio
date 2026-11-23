@@ -1,0 +1,12 @@
+node_modules
+.output
+dist
+.tanstack
+.scratch
+.agents
+.claude
+.git
+.env
+.env.*
+!.env.example
+*.log

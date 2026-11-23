@@ -11,6 +11,8 @@ if (!proxyOrigin || !portfolioOrigin) {
 const { handleRequest, handleUpgrade } = createProxyRouter({
   proxyOrigin,
   portfolioOrigin,
+  // Only set this behind a reverse proxy that appends the client IP to X-Forwarded-For.
+  trustProxy: process.env.TRUST_PROXY === 'true',
 })
 
 const server = http.createServer((req, res) => {

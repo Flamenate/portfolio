@@ -94,11 +94,16 @@ function parseRequestUrl(url) {
   }
 }
 
+// Behind a trusted reverse proxy, the socket address is the proxy's, so the
+// client is the rightmost X-Forwarded-For entry: the one the proxy appended.
+// Entries to its left come from the client and can be spoofed.
 // IPv4 clients on a dual-stack socket show up as ::ffff:a.b.c.d.
-// Nothing is deployed behind a reverse proxy yet. Once it is, read the client
-// address from its forwarding header here, or every visitor shares one IP.
-function clientIp(req) {
-  const address = req.socket.remoteAddress ?? ''
+function clientIp(req, trustProxy) {
+  const forwarded = req.headers['x-forwarded-for']
+  const address =
+    trustProxy && typeof forwarded === 'string'
+      ? forwarded.split(',').at(-1).trim()
+      : (req.socket.remoteAddress ?? '')
   return address.startsWith('::ffff:') ? address.slice(7) : address
 }
 
@@ -115,7 +120,11 @@ function sameOrigin(header, origin) {
   }
 }
 
-export function createProxyRouter({ proxyOrigin, portfolioOrigin }) {
+export function createProxyRouter({
+  proxyOrigin,
+  portfolioOrigin,
+  trustProxy = false,
+}) {
   const proxy = originOf(proxyOrigin, 'VITE_PROXY_ORIGIN')
   const portfolio = originOf(portfolioOrigin, 'portfolio origin')
   if (proxy === portfolio) {
@@ -186,7 +195,10 @@ export function createProxyRouter({ proxyOrigin, portfolioOrigin }) {
     if (path === '/') {
       const html = readFileSync(join(directory, 'shell.html'), 'utf8')
         .replace('__PORTFOLIO_ORIGIN__', jsonAttribute(portfolio))
-        .replace('__WISP_TICKET__', jsonAttribute(issueTicket(clientIp(req))))
+        .replace(
+          '__WISP_TICKET__',
+          jsonAttribute(issueTicket(clientIp(req, trustProxy))),
+        )
       res.writeHead(200, {
         'Content-Type': 'text/html; charset=utf-8',
         'Content-Security-Policy': `frame-ancestors ${portfolio}`,
@@ -229,7 +241,7 @@ export function createProxyRouter({ proxyOrigin, portfolioOrigin }) {
   function handleUpgrade(req, socket, head) {
     if (!isProxyHost(req)) return false
     const url = parseRequestUrl(req.url)
-    const ip = clientIp(req)
+    const ip = clientIp(req, trustProxy)
     // libcurl only accepts wisp URLs ending in a slash, so the ticket is a
     // path segment: /wisp/<ticket>/
     const ticket = /^\/wisp\/([^/]+)\/$/.exec(url.pathname)?.[1]
